@@ -7,6 +7,7 @@ about: "Report something that's broken"
 <!-- Fill out the FULL versions with patch versions -->
 
 - Cashier Version: #.#.#
+- Cashier Driver & Version:
 - PHP Version: #.#.#
 - Laravel/Lumen Framework Version: #.#.#
 - Database Driver & Version:
