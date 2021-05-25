@@ -6,9 +6,7 @@
     "keywords": [
         "bank",
         "billing",
-        "cashier",
-        "sber",
-        "tinkoff"
+        "cashier"
     ],
     "authors": [
         {
@@ -22,8 +20,6 @@
     },
     "require": {
         "php": "^7.2.5|^8.0",
-        "andrey-helldar/cashier-sber": "dev-main",
-        "andrey-helldar/cashier-tinkoff": "dev-main",
         "andrey-helldar/support": "^3.18",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0",
@@ -31,7 +27,8 @@
         "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "mockery/mockery": "^1.0",
+        "andrey-helldar/cashier-sber": "dev-main",
+        "andrey-helldar/cashier-tinkoff": "dev-main",
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^4.0|^5.0"
@@ -47,8 +44,8 @@
         }
     },
     "suggest": {
-        "andrey-helldar/cashier-sber": "AAA",
-        "andrey-helldar/cashier-tinkoff": "BBB"
+        "andrey-helldar/cashier-sber": "Driver for working with API Sber",
+        "andrey-helldar/cashier-tinkoff": "Driver for working with API Tinkoff"
     },
     "config": {
         "preferred-install": "dist",
