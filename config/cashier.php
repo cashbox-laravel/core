@@ -1,7 +1,8 @@
 <?php
 
 use Helldar\Cashier\Constants\Statuses;
-use Helldar\Cashier\Contracts\Driver;
+use Helldar\CashierSber\Driver as DriverSber;
+use Helldar\CashierTinkoff\Driver as DriverTinkoff;
 
 return [
 
@@ -68,7 +69,7 @@ return [
 
     'banks' => [
         'sber' => [
-            'driver' => Driver::class,
+            'driver' => DriverSber::class,
 
             'client' => env('CASHIER_SBER_CLIENT_ID'),
 
@@ -76,7 +77,7 @@ return [
         ],
 
         'tinkoff' => [
-            'driver' => Driver::class,
+            'driver' => DriverTinkoff::class,
 
             'client' => env('CASHIER_TINKOFF_CLIENT_ID'),
 
