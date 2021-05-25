@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Constants;
 
-final class Statuses
+final class Status
 {
     public const NEW = 0;
 

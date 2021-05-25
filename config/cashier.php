@@ -1,8 +1,8 @@
 <?php
 
-use Helldar\Cashier\Constants\Statuses;
-use Helldar\CashierSber\Driver as DriverSber;
-use Helldar\CashierTinkoff\Driver as DriverTinkoff;
+use Helldar\Cashier\Constants\Status;
+use Helldar\CashierDriver\Sber\Driver as SberDriver;
+use Helldar\CashierDriver\Tinkoff\Driver as TinkoffDriver;
 
 return [
 
@@ -64,20 +64,20 @@ return [
     ],
 
     /*
-     * This setting defines the list of banks for the implementation of payments.
+     * This setting defines the list of drivers for the implementation of payments.
      */
 
-    'banks' => [
-        'sber' => [
-            'driver' => DriverSber::class,
+    'drivers' => [
+        SberDriver::NAME => [
+            'driver' => SberDriver::class,
 
             'client' => env('CASHIER_SBER_CLIENT_ID'),
 
             'secret' => env('CASHIER_SBER_CLIENT_SECRET'),
         ],
 
-        'tinkoff' => [
-            'driver' => DriverTinkoff::class,
+        TinkoffDriver::NAME => [
+            'driver' => TinkoffDriver::class,
 
             'client' => env('CASHIER_TINKOFF_CLIENT_ID'),
 
@@ -90,14 +90,14 @@ return [
      */
 
     'statuses' => [
-        Statuses::NEW => 0,
+        Status::NEW => 0,
 
-        Statuses::SUCCESS => 1,
+        Status::SUCCESS => 1,
 
-        Statuses::FAILED => 2,
+        Status::FAILED => 2,
 
-        Statuses::REFUND => 3,
+        Status::REFUND => 3,
 
-        Statuses::WAIT_REFUND => 4,
+        Status::WAIT_REFUND => 4,
     ],
 ];
