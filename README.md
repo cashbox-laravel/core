@@ -7,11 +7,6 @@ Cashier provides an expressive, fluent interface to manage billing services.
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-## Table of contents
-
-* [Installation](#installation)
-* [Using](#using)
-
 ## Installation
 
 To get the latest version of `Cashier`, simply require the project using [Composer](https://getcomposer.org):
