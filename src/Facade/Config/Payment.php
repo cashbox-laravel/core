@@ -6,12 +6,13 @@ use Helldar\Cashier\Helpers\Config\Payment as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string model()
- * @method static string attributeType()
+ * @method static array assignDrivers()
+ * @method static array statuses()
+ * @method static mixed status(string $status)
  * @method static string attributeStatus()
  * @method static string attributeSum()
- * @method static array statuses()
- * @method static array assignDrivers()
+ * @method static string attributeType()
+ * @method static string model()
  */
 final class Payment extends Facade
 {

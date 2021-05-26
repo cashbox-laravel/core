@@ -2,6 +2,8 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
+use Helldar\Support\Facades\Helpers\Arr;
+
 final class Payment extends Base
 {
     public function model(): string
@@ -27,6 +29,11 @@ final class Payment extends Base
     public function statuses(): array
     {
         return config('cashier.payments.statuses');
+    }
+
+    public function status(string $status)
+    {
+        return Arr::get($this->statuses(), $status);
     }
 
     public function assignDrivers(): array
