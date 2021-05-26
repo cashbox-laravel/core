@@ -9,6 +9,7 @@ final class ServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->bootPublishes();
+        $this->bootMigrations();
     }
 
     public function register(): void
@@ -21,6 +22,11 @@ final class ServiceProvider extends BaseServiceProvider
         $this->publishes([
             __DIR__ . '/../config/cashier.php' => $this->app->configPath('cashier.php'),
         ], 'config');
+    }
+
+    protected function bootMigrations(): void
+    {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     protected function registerConfig(): void
