@@ -3,11 +3,10 @@
 namespace Helldar\Cashier\Facade\Config;
 
 use Helldar\Cashier\Helpers\Config\Payment as Config;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static Model model()
+ * @method static string model()
  * @method static string attributeType()
  * @method static string attributeStatus()
  * @method static string attributeSum()

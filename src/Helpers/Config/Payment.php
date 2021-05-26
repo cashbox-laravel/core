@@ -2,15 +2,11 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
-use Illuminate\Database\Eloquent\Model;
-
 final class Payment extends Base
 {
-    public function model(): Model
+    public function model(): string
     {
-        $model = config('cashier.payments.model');
-
-        return new $model;
+        return config('cashier.payments.model');
     }
 
     public function attributeType(): string
