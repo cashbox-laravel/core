@@ -7,9 +7,9 @@ use RuntimeException;
 
 final class IncorrectDriverException extends RuntimeException
 {
-    public function __construct(string $driver)
+    public function __construct(string $class)
     {
-        $message = 'The ' . $driver . ' class must implement ' . Driver::class;
+        $message = 'The ' . $class . ' class must implement ' . Driver::class;
 
         parent::__construct($message);
     }

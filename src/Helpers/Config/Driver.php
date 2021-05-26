@@ -3,15 +3,15 @@
 namespace Helldar\Cashier\Helpers\Config;
 
 use Helldar\Cashier\Concerns\Resolvable;
+use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Driver as Contract;
-use Helldar\Cashier\Exceptions\IncorrectDriverException;
 use Helldar\Cashier\Facade\Config\Payment as PaymentFacade;
 use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Instance;
 
 final class Driver extends Base
 {
     use Resolvable;
+    use Validators;
 
     public function get(string $key): Contract
     {
@@ -39,7 +39,7 @@ final class Driver extends Base
     protected function resolveDriver(array $config): Contract
     {
         /**
-         * @var Contract $driver
+         * @var Contract|string $driver
          * @var string $client
          * @var string $secret
          */
@@ -48,15 +48,5 @@ final class Driver extends Base
         $this->validateDriver($driver);
 
         return $driver::make()->client($client)->secret($secret);
-    }
-
-    /**
-     * @param  \Helldar\Cashier\Contracts\Driver|string  $driver
-     */
-    protected function validateDriver(string $driver): void
-    {
-        if (! Instance::of($driver, Contract::class)) {
-            throw new IncorrectDriverException($driver);
-        }
     }
 }
