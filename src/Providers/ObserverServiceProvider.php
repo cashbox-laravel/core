@@ -2,8 +2,8 @@
 
 namespace Helldar\Cashier\Providers;
 
-use Helldar\Cashier\Models\PaymentRequest as Model;
-use Helldar\Cashier\Observers\PaymentRequest as Observer;
+use Helldar\Cashier\Models\CashierDetail as Model;
+use Helldar\Cashier\Observers\Details as Observer;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ObserverServiceProvider extends BaseServiceProvider

@@ -1,10 +1,40 @@
 <?php
 
 use Helldar\Cashier\Constants\Status;
-use Helldar\CashierDriver\Sber\Driver as SberDriver;
-use Helldar\CashierDriver\Tinkoff\Driver as TinkoffDriver;
 
 return [
+
+    'environment' => env('APP_ENV'),
+
+    'payments' => [
+
+        'model' => env('CASHIER_MODEL_PAYMENT', App\Models\Payment::class),
+
+        'attributes' => [
+            'type' => 'payment_type',
+
+            'status' => 'status_id',
+
+            'sum' => 'sum',
+        ],
+
+        'statuses' => [
+            Status::NEW => 0,
+
+            Status::SUCCESS => 1,
+
+            Status::FAILED => 2,
+
+            Status::REFUND => 3,
+
+            Status::WAIT_REFUND => 4,
+        ],
+
+        'assign_drivers' => [
+            'payment_type_1' => 'sber',
+            'payment_type_2' => 'tinkoff',
+        ],
+    ],
 
     /*
      * This setting defines which logging channel will be used to write log
@@ -68,36 +98,20 @@ return [
      */
 
     'drivers' => [
-        SberDriver::NAME => [
-            'driver' => SberDriver::class,
+        'sber' => [
+            'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
 
             'client' => env('CASHIER_SBER_CLIENT_ID'),
 
             'secret' => env('CASHIER_SBER_CLIENT_SECRET'),
         ],
 
-        TinkoffDriver::NAME => [
-            'driver' => TinkoffDriver::class,
+        'tinkoff' => [
+            'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
 
             'client' => env('CASHIER_TINKOFF_CLIENT_ID'),
 
             'secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
         ],
-    ],
-
-    /*
-     * This setting determines the correspondence of the status in your application.
-     */
-
-    'statuses' => [
-        Status::NEW => 0,
-
-        Status::SUCCESS => 1,
-
-        Status::FAILED => 2,
-
-        Status::REFUND => 3,
-
-        Status::WAIT_REFUND => 4,
     ],
 ];

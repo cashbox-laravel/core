@@ -5,19 +5,14 @@ namespace Helldar\Cashier\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-final class PaymentRequest extends Model
+final class CashierDetail extends Model
 {
-    public $timestamps = false;
-
     protected $casts = [
-        'payment_id' => 'integer',
-
-        'request'  => 'json',
-        'response' => 'json',
+        'details' => 'json',
     ];
 
     public function parent(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('item');
     }
 }

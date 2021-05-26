@@ -14,7 +14,9 @@ abstract class Statuses implements Contract
 
     public const FAILED = [];
 
-    public function hasSuccess(string $status): bool
+    public const SUCCESS = [];
+
+    public function hasCreated(string $status): bool
     {
         return $this->has($status, static::NEW);
     }
@@ -32,6 +34,11 @@ abstract class Statuses implements Contract
     public function hasRefunded(string $status): bool
     {
         return $this->has($status, static::REFUNDED);
+    }
+
+    public function hasSuccess(string $status): bool
+    {
+        return $this->has($status, static::SUCCESS);
     }
 
     protected function has(string $status, array $statuses): bool

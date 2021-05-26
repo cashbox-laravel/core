@@ -6,7 +6,8 @@
     "keywords": [
         "bank",
         "billing",
-        "cashier"
+        "cashier",
+        "qr"
     ],
     "authors": [
         {
@@ -27,8 +28,8 @@
         "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {
-        "andrey-helldar/cashier-sber": "dev-main",
-        "andrey-helldar/cashier-tinkoff": "dev-main",
+        "andrey-helldar/cashier-sber-qr": "dev-main",
+        "andrey-helldar/cashier-tinkoff-qr": "dev-main",
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^4.0|^5.0"
@@ -44,8 +45,8 @@
         }
     },
     "suggest": {
-        "andrey-helldar/cashier-sber": "Driver for working with API Sber",
-        "andrey-helldar/cashier-tinkoff": "Driver for working with API Tinkoff"
+        "andrey-helldar/cashier-sber-qr": "Driver for payment with QR codes via Sber",
+        "andrey-helldar/cashier-tinkoff-qr": "Driver for payment with QR codes via Tinkoff"
     },
     "config": {
         "preferred-install": "dist",

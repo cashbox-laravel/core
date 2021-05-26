@@ -4,13 +4,13 @@ namespace Helldar\Cashier\Constants;
 
 final class Status
 {
-    public const NEW = 0;
+    public const NEW = 'new';
 
-    public const SUCCESS = 1;
+    public const SUCCESS = 'success';
 
-    public const FAILED = 2;
+    public const FAILED = 'failed';
 
-    public const REFUND = 3;
+    public const REFUND = 'refund';
 
-    public const WAIT_REFUND = 4;
+    public const WAIT_REFUND = 'wait_refund';
 }
