@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Concerns;
 
 trait Resolvable
 {
-    public static $resolved = [];
+    protected static $resolved = [];
 
     protected function resolve(string $id, callable $callback)
     {
