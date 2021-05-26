@@ -6,14 +6,14 @@ trait Resolvable
 {
     protected static $resolved = [];
 
-    protected function resolve(string $id, callable $callback)
+    protected function resolve(string $value, callable $callback)
     {
         $class = static::class;
 
-        if (isset(static::$resolved[$class][$id])) {
-            return static::$resolved[$class][$id];
+        if (isset(static::$resolved[$class][$value])) {
+            return static::$resolved[$class][$value];
         }
 
-        return static::$resolved[$class][$id] = $callback($id);
+        return static::$resolved[$class][$value] = $callback($value);
     }
 }
