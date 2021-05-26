@@ -1,5 +1,4 @@
 .idea/
-!.idea/runConfigurations
 
 node_modules/
 vendor/
