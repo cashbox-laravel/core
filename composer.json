@@ -66,10 +66,10 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../cashier-sber"
+            "url": "../cashier-sber-qr"
         }, {
             "type": "path",
-            "url": "../cashier-tinkoff"
+            "url": "../cashier-tinkoff-qr"
         }
     ]
 }
