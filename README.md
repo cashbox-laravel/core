@@ -29,6 +29,13 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
     Coming soon...
 
+## Drivers
+
+| Driver | Description |
+|:---|:---|
+| [andrey-helldar/cashier-sber-qr](https://github.com/andrey-helldar/cashier-sber-qr) | Driver for payment with QR codes via Sber |
+| [andrey-helldar/cashier-tinkoff-qr](https://github.com/andrey-helldar/cashier-tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
+
 ## For Enterprise
 
 Available as part of the Tidelift Subscription.
