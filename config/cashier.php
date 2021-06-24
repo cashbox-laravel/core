@@ -11,7 +11,7 @@ return [
         'model' => env('CASHIER_MODEL_PAYMENT', App\Models\Payment::class),
 
         'attributes' => [
-            'type' => 'payment_type',
+            'type' => 'type_id',
 
             'status' => 'status_id',
 
@@ -101,17 +101,17 @@ return [
         'sber' => [
             'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
 
-            'client' => env('CASHIER_SBER_CLIENT_ID'),
+            'client_id' => env('CASHIER_SBER_CLIENT_ID'),
 
-            'secret' => env('CASHIER_SBER_CLIENT_SECRET'),
+            'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
         ],
 
         'tinkoff' => [
             'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
 
-            'client' => env('CASHIER_TINKOFF_CLIENT_ID'),
+            'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
 
-            'secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
+            'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
         ],
     ],
 ];
