@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Concerns;
 use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\Exceptions\IncorrectDriverException;
-use Helldar\Cashier\Exceptions\IncorrectStatusesInstanceException;
+use Helldar\Cashier\Exceptions\IncorrectStatusesException;
 use Helldar\Support\Facades\Helpers\Instance;
 
 trait Validators
@@ -17,7 +17,7 @@ trait Validators
 
     protected function validateStatuses(string $statuses): void
     {
-        $this->validate($statuses, Statuses::class, IncorrectStatusesInstanceException::class);
+        $this->validate($statuses, Statuses::class, IncorrectStatusesException::class);
     }
 
     protected function validate(string $haystack, string $needle, string $exception): void
