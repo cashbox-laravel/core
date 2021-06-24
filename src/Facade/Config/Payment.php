@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array assignDrivers()
+ * @method static array attributes()
  * @method static array statuses()
  * @method static mixed status(string $status)
  * @method static string attributeStatus()

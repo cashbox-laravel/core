@@ -26,6 +26,15 @@ final class Payment extends Base
         return config('cashier.payments.attributes.sum');
     }
 
+    public function attributes(): array
+    {
+        return [
+            $this->attributeType(),
+            $this->attributeStatus(),
+            $this->attributeSum(),
+        ];
+    }
+
     public function statuses(): array
     {
         return config('cashier.payments.statuses');

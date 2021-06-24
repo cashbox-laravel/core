@@ -2,6 +2,7 @@
 
 namespace Helldar\Cashier\Observers;
 
+use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Models\CashierDetail as Model;
 use Helldar\Cashier\Services\Jobs;
 
@@ -21,7 +22,16 @@ final class Details
 
     public function updated(Model $model)
     {
-        $this->jobs->init($model);
-        $this->jobs->check($model);
+        if ($this->has($model)) {
+            $this->jobs->init($model);
+            $this->jobs->check($model);
+        }
+    }
+
+    protected function has(Model $model): bool
+    {
+        $attributes = Payment::attributes();
+
+        return $model->wasChanged($attributes);
     }
 }
