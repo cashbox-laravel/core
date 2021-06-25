@@ -4,9 +4,21 @@ use Helldar\Cashier\Constants\Status;
 
 return [
 
+    /*
+     * The block is responsible for defining parameters with a payment model.
+     */
+
     'payments' => [
 
+        /*
+         * Link to Payment model.
+         */
+
         'model' => env('CASHIER_MODEL_PAYMENT', App\Models\Payment::class),
+
+        /*
+         * Correspondence of Cashier attributes to Payment model.
+         */
 
         'attributes' => [
             'type' => 'type_id',
@@ -15,6 +27,10 @@ return [
 
             'sum' => 'sum',
         ],
+
+        /*
+         * Correspondence of statuses to the payment model.
+         */
 
         'statuses' => [
             Status::NEW => 0,
@@ -27,6 +43,10 @@ return [
 
             Status::WAIT_REFUND => 4,
         ],
+
+        /*
+         * Mapping status types to drivers call name.
+         */
 
         'assign_drivers' => [
             // 'payment_type_1' => 'sber',
