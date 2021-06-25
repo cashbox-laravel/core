@@ -4,8 +4,6 @@ use Helldar\Cashier\Constants\Status;
 
 return [
 
-    'environment' => env('APP_ENV'),
-
     'payments' => [
 
         'model' => env('CASHIER_MODEL_PAYMENT', App\Models\Payment::class),

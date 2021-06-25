@@ -6,7 +6,7 @@ final class Main extends Base
 {
     public function hasProduction(): bool
     {
-        return config('cashier.environment') === 'production';
+        return config('app.env') === 'production';
     }
 
     public function logger(): ?string
