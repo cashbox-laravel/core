@@ -21,14 +21,22 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function bootPublishes(): void
     {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
         $this->publishes([
             __DIR__ . '/../config/cashier.php' => $this->app->configPath('cashier.php'),
         ], 'config');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations/public' => $this->app->databasePath('migrations'),
+        ], 'migrations');
     }
 
     protected function bootMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/main');
     }
 
     protected function bootCommands(): void
