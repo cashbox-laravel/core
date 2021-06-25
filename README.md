@@ -25,16 +25,53 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 }
 ```
 
+You should publish the [config/cashier.php](https://github.com/andrey-helldar/cashier/blob/main/config/cashier.php) config file with:
+
+```bash
+php artisan vendor:publish --provider="Helldar\Cashier\ServiceProvider"
+```
+
+Next, run the migrations:
+
+```bash
+php artisan migrate
+```
+
 ## Using
 
-Add a trait call to the payment model:
+Before starting, fill in the [config/cashier.php](https://github.com/andrey-helldar/cashier/blob/main/config/cashier.php) file published in the app.
+
+Add the necessary trait to your Payment model:
 
 ```php
 use Helldar\Cashier\Concerns\Casheable;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model {
+class Payment extends Model
+{
     use Casheable;
+}
+```
+
+If you need to specify different pairs of client id and client secret, depending on any conditions, you can add a public method `cashierAuth` to the Payment
+model:
+
+```php
+use Helldar\Cashier\Concerns\Casheable;
+use Helldar\Cashier\Contracts\Auth as AuthContract;
+use Helldar\Cashier\DTO\Auth;
+use Illuminate\Database\Eloquent\Model;
+
+class Payment extends Model
+{
+    use Casheable;
+
+    public function cashierAuth(): AuthContract
+    {
+        return Auth::make()
+            ->setClientId($this->order->company->banks->foo->client_id)
+            ->setClientSecret($this->order->company->banks->foo->client_secret);
+    }
 }
 ```
 
