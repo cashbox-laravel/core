@@ -22,6 +22,7 @@
     },
     "require": {
         "php": "^7.2.5|^8.0",
+        "ext-json": "*",
         "andrey-helldar/support": "^3.18",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0",

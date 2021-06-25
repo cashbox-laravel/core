@@ -6,6 +6,7 @@ use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Auth as AuthContract;
 use Helldar\Cashier\Contracts\Driver as DriverContract;
+use Helldar\Cashier\DTO\Auth;
 use Helldar\Cashier\Facade\Config\Payment as PaymentFacade;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
@@ -55,13 +56,15 @@ final class Driver extends Base
 
         $this->validateDriver($driver);
 
-        $auth = $this->resolveAuth($model->cashierAuth(), $client_id, $client_secret);
+        $auth = $this->resolveAuth($model, $client_id, $client_secret);
 
         return $driver::make()->model($model)->auth($auth);
     }
 
-    protected function resolveAuth(AuthContract $auth, ?string $client_id, ?string $client_secret): AuthContract
+    protected function resolveAuth(Model $model, ?string $client_id, ?string $client_secret): AuthContract
     {
+        $auth = $this->resolveModelAuth($model);
+
         if ($auth->doesntEmpty()) {
             return $auth;
         }
@@ -69,5 +72,14 @@ final class Driver extends Base
         return $auth
             ->setClientId($client_id)
             ->setClientSecret($client_secret);
+    }
+
+    protected function resolveModelAuth(Model $model): AuthContract
+    {
+        if (method_exists($model, 'cashierAuth')) {
+            return $model->cashierAuth();
+        }
+
+        return Auth::make();
     }
 }

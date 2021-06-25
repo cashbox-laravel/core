@@ -8,7 +8,6 @@ use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Facade\Config\Check as CheckConfig;
 use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Facade\Helpers\Driver as DriverHelper;
-use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -61,11 +60,9 @@ abstract class Base implements ShouldQueue
         return $this->force_break;
     }
 
-    protected function store(Response $response): void
+    protected function store(Response $details): void
     {
         $builder = $this->model->details();
-
-        $details = Arr::toArray($response);
 
         $builder->doesntExist()
             ? $builder->create(compact('details'))
