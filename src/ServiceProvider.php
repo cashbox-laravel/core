@@ -9,9 +9,12 @@ final class ServiceProvider extends BaseServiceProvider
 {
     public function boot(): void
     {
-        $this->bootPublishes();
         $this->bootMigrations();
-        $this->bootCommands();
+
+        if ($this->allowRunning()) {
+            $this->bootPublishes();
+            $this->bootCommands();
+        }
     }
 
     public function register(): void
@@ -21,10 +24,6 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function bootPublishes(): void
     {
-        if (! $this->app->runningInConsole()) {
-            return;
-        }
-
         $this->publishes([
             __DIR__ . '/../config/cashier.php' => $this->app->configPath('cashier.php'),
         ], 'config');
@@ -41,13 +40,16 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function bootCommands(): void
     {
-        $this->commands([
-            Check::class,
-        ]);
+        $this->commands([Check::class]);
     }
 
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/cashier.php', 'cashier');
+    }
+
+    protected function allowRunning(): bool
+    {
+        return $this->app->runningInConsole() || $this->app->runningUnitTests();
     }
 }
