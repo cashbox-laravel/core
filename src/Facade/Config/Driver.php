@@ -2,12 +2,12 @@
 
 namespace Helldar\Cashier\Facade\Config;
 
-use Helldar\Cashier\Contracts\Auth;
 use Helldar\Cashier\Helpers\Config\Driver as Config;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Helldar\Cashier\Contracts\Driver get(string $type_id, Auth $auth)
+ * @method static \Helldar\Cashier\Contracts\Driver get(string $type_id, Model $auth)
  */
 final class Driver extends Facade
 {

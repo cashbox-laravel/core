@@ -18,7 +18,7 @@ final class Driver
     {
         $type = $this->type($model);
 
-        return DriverConfig::get($type, $model->cashierAuth());
+        return DriverConfig::get($type, $model);
     }
 
     protected function type(Model $model): string

@@ -4,10 +4,13 @@ namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Contracts\Statuses as Contract;
 use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Statuses implements Contract
 {
+    use Makeable;
+
     public const NEW = [];
 
     public const REFUNDING = [];
@@ -18,50 +21,60 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    public function hasCreated(Model $model): bool
+    /** @var \Illuminate\Database\Eloquent\Model */
+    protected $model;
+
+    public function model(Model $model): Contract
     {
-        return $this->has($model, static::NEW);
+        $this->model = $model;
+
+        return $this;
     }
 
-    public function hasFailed(Model $model): bool
+    public function hasCreated(string $status = null): bool
     {
-        return $this->has($model, static::FAILED);
+        return $this->has(static::NEW, $status);
     }
 
-    public function hasRefunding(Model $model): bool
+    public function hasFailed(string $status = null): bool
     {
-        return $this->has($model, static::REFUNDING);
+        return $this->has(static::FAILED, $status);
     }
 
-    public function hasRefunded(Model $model): bool
+    public function hasRefunding(string $status = null): bool
     {
-        return $this->has($model, static::REFUNDED);
+        return $this->has(static::REFUNDING, $status);
     }
 
-    public function hasSuccess(Model $model): bool
+    public function hasRefunded(string $status = null): bool
     {
-        return $this->has($model, static::SUCCESS);
+        return $this->has(static::REFUNDED, $status);
     }
 
-    public function inProgress(Model $model): bool
+    public function hasSuccess(string $status = null): bool
     {
-        return ! $this->hasSuccess($model)
-            && ! $this->hasFailed($model)
-            && ! $this->hasRefunded($model);
+        return $this->has(static::SUCCESS, $status);
     }
 
-    protected function has(Model $model, array $statuses): bool
+    public function inProgress(string $status = null): bool
     {
-        $status = $this->status($model);
+        return ! $this->hasSuccess($status)
+            && ! $this->hasFailed($status)
+            && ! $this->hasRefunded($status);
+    }
+
+    protected function has(array $statuses, string $status = null): bool
+    {
+        $status = $status ?: $this->status();
 
         return in_array($status, $statuses);
     }
 
-    protected function status(Model $model)
+    protected function status()
     {
         $attribute = $this->getAttribute();
 
-        return $model->getAttribute($attribute);
+        return $this->model->getAttribute($attribute);
     }
 
     protected function getAttribute(): string
