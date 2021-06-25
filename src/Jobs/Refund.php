@@ -19,7 +19,7 @@ final class Refund extends Base
             return;
         }
 
-        $this->setParentStatus(Status::REFUND);
+        $this->updateParentStatus(Status::REFUND);
 
         $this->store($response);
     }

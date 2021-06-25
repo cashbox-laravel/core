@@ -84,7 +84,7 @@ abstract class Base implements ShouldQueue
         $this->release($delay);
     }
 
-    protected function setParentStatus(string $status): void
+    protected function updateParentStatus(string $status): void
     {
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
