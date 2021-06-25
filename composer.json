@@ -25,6 +25,7 @@
         "ext-json": "*",
         "andrey-helldar/support": "^3.18",
         "guzzlehttp/guzzle": "^6.5|^7.0",
+        "illuminate/console": "^6.0|^7.0|^8.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0",
         "illuminate/database": "^6.0|^7.0|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",

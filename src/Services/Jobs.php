@@ -33,10 +33,10 @@ final class Jobs
         }
     }
 
-    public function check(Model $model)
+    public function check(Model $model, bool $force_break = false)
     {
         if ($this->hasCheck($model)) {
-            $this->send($model, Check::class);
+            $this->send($model, Check::class, $force_break);
         }
     }
 
