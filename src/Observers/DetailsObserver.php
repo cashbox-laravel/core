@@ -17,21 +17,31 @@ final class DetailsObserver
 
     public function created(Model $model)
     {
-        $this->jobs->init($model);
+        if ($this->allow($model)) {
+            $this->jobs->init($model);
+        }
     }
 
     public function updated(Model $model)
     {
-        if ($this->has($model)) {
+        if ($this->allow($model) && $this->wasChanged($model)) {
             $this->jobs->init($model);
             $this->jobs->check($model);
         }
     }
 
-    protected function has(Model $model): bool
+    protected function wasChanged(Model $model): bool
     {
         $attributes = Payment::attributes();
 
         return $model->wasChanged($attributes);
+    }
+
+    protected function allow(Model $model): bool
+    {
+        $assigned = Payment::assignDrivers();
+        $type     = Payment::attributeType();
+
+        return in_array($model->getAttribute($type), array_keys($assigned), true);
     }
 }
