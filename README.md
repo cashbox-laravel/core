@@ -38,6 +38,22 @@ class Payment extends Model {
 }
 ```
 
+### Manual
+
+```php
+use App\Models\Payment;
+use Helldar\Cashier\Services\Jobs;
+
+$jobs = new Jobs();
+
+$model = Payment::findOrfail(1234);
+
+$jobs->init($model);
+$jobs->check($model);
+$jobs->refund($model);
+$jobs->retry($model);
+```
+
 ## Drivers
 
 | Driver | Description |
