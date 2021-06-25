@@ -9,11 +9,16 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Driver
 {
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $model
+     *
+     * @return \Helldar\Cashier\Contracts\Driver
+     */
     public function fromModel(Model $model): Contract
     {
         $type = $this->type($model);
 
-        return DriverConfig::get($type);
+        return DriverConfig::get($type, $model->cashierAuth());
     }
 
     protected function type(Model $model): string

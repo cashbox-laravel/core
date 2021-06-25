@@ -27,7 +27,16 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## Using
 
-    Coming soon...
+Add a trait call to the payment model:
+
+```php
+use Helldar\Cashier\Concerns\Casheable;
+use Illuminate\Database\Eloquent\Model;
+
+class Payment extends Model {
+    use Casheable;
+}
+```
 
 ## Drivers
 

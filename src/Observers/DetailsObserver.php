@@ -6,7 +6,7 @@ use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Models\CashierDetail as Model;
 use Helldar\Cashier\Services\Jobs;
 
-final class Details
+final class DetailsObserver
 {
     protected $jobs;
 

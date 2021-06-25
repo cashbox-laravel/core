@@ -7,9 +7,7 @@ interface Driver
     /** @return \Helldar\Cashier\Contracts\Driver */
     public static function make();
 
-    public function client(string $client_id): self;
-
-    public function secret(string $secret): self;
+    public function auth(Auth $auth): self;
 
     public function statuses(): Statuses;
 

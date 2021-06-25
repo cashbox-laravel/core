@@ -31,8 +31,8 @@ return [
         ],
 
         'assign_drivers' => [
-            'payment_type_1' => 'sber',
-            'payment_type_2' => 'tinkoff',
+            // 'payment_type_1' => 'sber',
+            // 'payment_type_2' => 'tinkoff',
         ],
     ],
 
@@ -98,20 +98,20 @@ return [
      */
 
     'drivers' => [
-        'sber' => [
-            'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
-
-            'client_id' => env('CASHIER_SBER_CLIENT_ID'),
-
-            'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
-        ],
-
-        'tinkoff' => [
-            'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
-
-            'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
-
-            'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
-        ],
+        // 'sber' => [
+        //     'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
+        //
+        //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
+        //
+        //     'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
+        // ],
+        //
+        // 'tinkoff' => [
+        //     'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
+        //
+        //     'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
+        //
+        //     'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
+        // ],
     ],
 ];

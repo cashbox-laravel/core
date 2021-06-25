@@ -4,7 +4,8 @@ namespace Helldar\Cashier\Helpers\Config;
 
 use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Contracts\Driver as Contract;
+use Helldar\Cashier\Contracts\Auth as AuthContract;
+use Helldar\Cashier\Contracts\Driver as DriverContract;
 use Helldar\Cashier\Facade\Config\Payment as PaymentFacade;
 use Helldar\Support\Facades\Helpers\Arr;
 
@@ -13,14 +14,14 @@ final class Driver extends Base
     use Resolvable;
     use Validators;
 
-    public function get(string $key): Contract
+    public function get(string $key, AuthContract $auth): DriverContract
     {
-        return $this->resolve($key, function (string $key) {
+        return $this->resolve($key, function (string $key) use ($auth) {
             $type = $this->type($key);
 
             $driver = $this->driver($type);
 
-            return $this->resolveDriver($driver);
+            return $this->resolveDriver($driver, $auth);
         });
     }
 
@@ -36,17 +37,30 @@ final class Driver extends Base
         return config('cashier.drivers.' . $driver);
     }
 
-    protected function resolveDriver(array $config): Contract
+    protected function resolveDriver(array $config, AuthContract $auth): DriverContract
     {
         /**
-         * @var Contract|string $driver
-         * @var string $client
-         * @var string $secret
+         * @var DriverContract|string $driver
+         * @var string $client_id
+         * @var string $client_secret
          */
         extract($config);
 
         $this->validateDriver($driver);
 
-        return $driver::make()->client($client)->secret($secret);
+        $auth = $this->resolveAuth($auth, $client_id, $client_secret);
+
+        return $driver::make()->auth($auth);
+    }
+
+    protected function resolveAuth(AuthContract $auth, ?string $client_id, ?string $client_secret): AuthContract
+    {
+        if ($auth->doesntEmpty()) {
+            return $auth;
+        }
+
+        return $auth
+            ->setClientId($client_id)
+            ->setClientSecret($client_secret);
     }
 }
