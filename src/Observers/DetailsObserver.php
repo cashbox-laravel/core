@@ -2,6 +2,7 @@
 
 namespace Helldar\Cashier\Observers;
 
+use Helldar\Cashier\Facade\Access;
 use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Models\CashierDetail as Model;
 use Helldar\Cashier\Services\Jobs;
@@ -39,9 +40,6 @@ final class DetailsObserver
 
     protected function allow(Model $model): bool
     {
-        $assigned = Payment::assignDrivers();
-        $type     = Payment::attributeType();
-
-        return in_array($model->getAttribute($type), array_keys($assigned), true);
+        return Access::allow($model);
     }
 }

@@ -4,9 +4,9 @@ namespace Helldar\Cashier\Services;
 
 use Helldar\Cashier\Contracts\Driver as DriverContract;
 use Helldar\Cashier\Contracts\Statuses;
+use Helldar\Cashier\Facade\Access;
 use Helldar\Cashier\Facade\Config\AutoRefund;
 use Helldar\Cashier\Facade\Config\Main;
-use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Facade\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Init;
@@ -89,12 +89,7 @@ final class Jobs
 
     protected function hasType(Model $model): bool
     {
-        $field     = $this->typeField();
-        $available = $this->types();
-
-        $type = $model->getAttribute($field);
-
-        return in_array($type, $available);
+        return Access::allow($model);
     }
 
     protected function hasRequested(Model $model): bool
@@ -105,18 +100,6 @@ final class Jobs
     protected function hasAutoRefund(): bool
     {
         return AutoRefund::has();
-    }
-
-    protected function types(): array
-    {
-        $statuses = Payment::assignDrivers();
-
-        return array_keys($statuses);
-    }
-
-    protected function typeField(): string
-    {
-        return Payment::attributeType();
     }
 
     protected function autoRefundDelay(): int
