@@ -12,7 +12,7 @@ Cashier provides an expressive, fluent interface to manage billing services.
 To get the latest version of `Cashier`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require helldar/cashier
+$ composer require andrey-helldar/cashier
 ```
 
 Or manually update `require` block of `composer.json` and run `composer update`.
@@ -107,14 +107,14 @@ source packages you use to build your applications. Save time, reduce risk, and 
 use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-cashier?utm_source=packagist-andrey-helldar-cashier&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 .
 
-[badge_downloads]:      https://img.shields.io/packagist/dt/helldar/cashier.svg?style=flat-square
+[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/cashier.svg?style=flat-square
 
-[badge_license]:        https://img.shields.io/packagist/l/helldar/cashier.svg?style=flat-square
+[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/cashier.svg?style=flat-square
 
-[badge_stable]:         https://img.shields.io/github/v/release/helldar/cashier?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/cashier?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [link_license]:         LICENSE
 
-[link_packagist]:       https://packagist.org/packages/helldar/cashier
+[link_packagist]:       https://packagist.org/packages/andrey-helldar/cashier
