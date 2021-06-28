@@ -26,7 +26,7 @@ abstract class Driver implements Contract
     protected $model;
 
     /** @var \Helldar\Cashier\Requests\Payment */
-    protected $map;
+    protected $request;
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
     protected $statuses;
@@ -40,11 +40,11 @@ abstract class Driver implements Contract
     /** @var string */
     protected $dev_host;
 
-    public function model(Model $model, string $map): Contract
+    public function model(Model $model, string $request): Contract
     {
         $this->model = $model;
 
-        $this->map = $this->makeMap($model, $map);
+        $this->request = $this->resolveRequest($model, $request);
 
         return $this;
     }
@@ -90,14 +90,14 @@ abstract class Driver implements Contract
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Helldar\Cashier\Requests\Payment|string  $map
+     * @param  \Helldar\Cashier\Requests\Payment|string  $request
      *
      * @return \Helldar\Cashier\Requests\Payment
      */
-    protected function makeMap(Model $model, string $map): Payment
+    protected function resolveRequest(Model $model, string $request): Payment
     {
-        $this->validateRequest($map);
+        $this->validateRequest($request);
 
-        return $map::make($model);
+        return $request::make($model);
     }
 }

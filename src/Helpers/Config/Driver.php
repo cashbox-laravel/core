@@ -49,7 +49,7 @@ final class Driver extends Base
     {
         /**
          * @var DriverContract|string $driver
-         * @var string $map
+         * @var string $request
          * @var string $client_id
          * @var string $client_secret
          */
@@ -59,7 +59,7 @@ final class Driver extends Base
 
         $auth = $this->resolveAuth($model, $client_id, $client_secret);
 
-        return $driver::make()->model($model, $map)->auth($auth);
+        return $driver::make()->model($model, $request)->auth($auth);
     }
 
     protected function resolveAuth(Model $model, ?string $client_id, ?string $client_secret): AuthContract

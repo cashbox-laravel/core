@@ -121,7 +121,7 @@ return [
         'sber' => [
             'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
 
-            'map' => Helldar\CashierDriver\Sber\QR\Requests\Payment::class,
+            'request' => Helldar\CashierDriver\Sber\QR\Requests\Payment::class,
 
             'client_id' => env('CASHIER_SBER_CLIENT_ID'),
 
@@ -131,7 +131,7 @@ return [
         'tinkoff' => [
             'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
 
-            'map' => Helldar\CashierDriver\Tinkoff\QR\Requests\Payment::class,
+            'request' => Helldar\CashierDriver\Tinkoff\QR\Requests\Payment::class,
 
             'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
 
