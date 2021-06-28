@@ -10,7 +10,7 @@ interface Driver
     /** @return \Helldar\Cashier\Contracts\Driver */
     public static function make();
 
-    public function model(Model $model): self;
+    public function model(Model $model, string $map): self;
 
     public function auth(Auth $auth): self;
 

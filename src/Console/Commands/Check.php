@@ -3,7 +3,6 @@
 namespace Helldar\Cashier\Console\Commands;
 
 use Carbon\Carbon;
-use DateTimeInterface;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facade\Config\Payment;
 use Helldar\Cashier\Services\Jobs;
@@ -74,7 +73,7 @@ class Check extends Command
         return Payment::attributeStatus();
     }
 
-    protected function before(): DateTimeInterface
+    protected function before(): Carbon
     {
         return Carbon::now()->subHour();
     }

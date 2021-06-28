@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static array attributes()
  * @method static array statuses()
  * @method static mixed status(string $status)
+ * @method static string attributeCurrency()
  * @method static string attributeStatus()
  * @method static string attributeSum()
  * @method static string attributeType()

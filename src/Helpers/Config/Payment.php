@@ -26,12 +26,18 @@ final class Payment extends Base
         return config('cashier.payments.attributes.sum');
     }
 
+    public function attributeCurrency(): string
+    {
+        return config('cashier.payments.attributes.currency');
+    }
+
     public function attributes(): array
     {
         return [
             $this->attributeType(),
             $this->attributeStatus(),
             $this->attributeSum(),
+            $this->attributeCurrency(),
         ];
     }
 

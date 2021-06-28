@@ -6,6 +6,8 @@ use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\Exceptions\IncorrectDriverException;
 use Helldar\Cashier\Exceptions\IncorrectStatusesException;
+use Helldar\Cashier\Exceptions\UnknownMethodException;
+use Helldar\Cashier\Requests\Payment;
 use Helldar\Support\Facades\Helpers\Instance;
 
 trait Validators
@@ -18,6 +20,16 @@ trait Validators
     protected function validateStatuses(string $statuses): void
     {
         $this->validate($statuses, Statuses::class, IncorrectStatusesException::class);
+    }
+
+    protected function validateRequest(string $map): void
+    {
+        $this->validate($map, Payment::class, UnknownMethodException::class);
+    }
+
+    protected function validateMethod(string $haystack, string $method): void
+    {
+        throw new UnknownMethodException($haystack, $method);
     }
 
     protected function validate(string $haystack, string $needle, string $exception): void
