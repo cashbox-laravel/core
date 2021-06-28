@@ -7,9 +7,13 @@ use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Auth;
 use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Contracts\Statuses;
+use Helldar\Cashier\DTO\Request;
+use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Facade\Config\Main;
+use Helldar\Cashier\Facade\Helpers\Http;
 use Helldar\Cashier\Requests\Payment;
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\HttpBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver implements Contract
@@ -66,6 +70,22 @@ abstract class Driver implements Contract
     public function host(): string
     {
         return Main::hasProduction() ? $this->production_host : $this->dev_host;
+    }
+
+    protected function url(string $path): string
+    {
+        return HttpBuilder::parse($this->host())
+            ->setPath($path)
+            ->compile();
+    }
+
+    protected function request(Request $request): Response
+    {
+        return Http::post(
+            $request->getUri(),
+            $request->getData(),
+            $request->getHeaders()
+        );
     }
 
     /**

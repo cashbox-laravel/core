@@ -4,11 +4,12 @@ namespace Helldar\Cashier\Requests;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Concerns\Validators;
+use Helldar\Cashier\Contracts\Payment as Contract;
 use Helldar\Cashier\Facade\Date;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Payment
+abstract class Payment implements Contract
 {
     use Makeable;
     use Validators;
@@ -18,6 +19,42 @@ abstract class Payment
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    public function getUniqueId(): string
+    {
+        $unique = $this->uniqueId();
+
+        return md5($unique);
+    }
+
+    public function getPaymentId(): string
+    {
+        return $this->paymentId();
+    }
+
+    public function getSum(): int
+    {
+        $sum = $this->sum();
+
+        return (int) ($sum * 100);
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency();
+    }
+
+    public function getCreatedAt(): string
+    {
+        return Date::toString($this->createdAt());
+    }
+
+    public function getNow(): string
+    {
+        $date = Carbon::now();
+
+        return Date::toString($date);
     }
 
     protected function uniqueId(): string
@@ -43,41 +80,5 @@ abstract class Payment
     protected function createdAt(): Carbon
     {
         $this->validateMethod(static::class, __FUNCTION__);
-    }
-
-    protected function getUniqueId(): string
-    {
-        $unique = $this->uniqueId();
-
-        return md5($unique);
-    }
-
-    protected function getPaymentId(): string
-    {
-        return $this->paymentId();
-    }
-
-    protected function getSum(): int
-    {
-        $sum = $this->sum();
-
-        return (int) ($sum * 100);
-    }
-
-    protected function getCurrency(): string
-    {
-        return $this->currency();
-    }
-
-    protected function getCreatedAt(): string
-    {
-        return Date::toString($this->createdAt());
-    }
-
-    protected function getNow(): string
-    {
-        $date = Carbon::now();
-
-        return Date::toString($date);
     }
 }

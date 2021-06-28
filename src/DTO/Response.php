@@ -3,38 +3,34 @@
 namespace Helldar\Cashier\DTO;
 
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Response implements Arrayable
 {
     use Makeable;
 
-    /** @var string */
-    protected $status;
+    protected $map = [];
 
-    public function __construct(array $data = [])
-    {
-        foreach ($data as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $value;
-            }
-        }
-    }
+    protected $items = [];
 
-    public function getStatus(): string
+    public function __construct(array $items = [])
     {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
+        $this->items = $this->map($items);
     }
 
     public function toArray(): array
     {
-        return [
-            'status' => $this->status,
-        ];
+        return $this->items;
+    }
+
+    public function __get($name)
+    {
+        return $this->items[$name];
+    }
+
+    protected function map(array $items): array
+    {
+        return Arr::renameKeysMap($items, $this->map);
     }
 }
