@@ -4,8 +4,8 @@ namespace Helldar\Cashier\Observers;
 
 use Helldar\Cashier\Facades\Access;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Models\CashierDetail as Model;
 use Helldar\Cashier\Services\Jobs;
+use Illuminate\Database\Eloquent\Model;
 
 final class DetailsObserver
 {
