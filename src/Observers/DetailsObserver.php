@@ -19,15 +19,15 @@ final class DetailsObserver
     public function created(Model $model)
     {
         if ($this->allow($model)) {
-            $this->jobs->init($model);
+            $this->jobs($model)->init();
         }
     }
 
     public function updated(Model $model)
     {
         if ($this->allow($model) && $this->wasChanged($model)) {
-            $this->jobs->init($model);
-            $this->jobs->check($model);
+            $this->jobs($model)->init();
+            $this->jobs($model)->check();
         }
     }
 
@@ -41,5 +41,10 @@ final class DetailsObserver
     protected function allow(Model $model): bool
     {
         return Access::allow($model);
+    }
+
+    protected function jobs(Model $model): Jobs
+    {
+        return Jobs::make($model);
     }
 }

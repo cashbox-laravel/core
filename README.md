@@ -75,20 +75,39 @@ class Payment extends Model
 }
 ```
 
+### Schedule command
+
+You need to register a call to the console command to periodically start checking payment statuses.
+
+Add a call to `app/Console/Kernel.php` file:
+
+```
+use Illuminate\Console\Scheduling\Schedule;
+
+protected function schedule(Schedule $schedule)
+{
+    $schedule->command('cashier:check')->withoutOverlapping()->hourlyAt(12);
+}
+```
+
+You can specify any start time, but we recommend using the call every hour.
+
+> **Note:** we do not recommend calling the command every 30 minutes or more often - this can fill up the task queue and delay the processing of new items.
+
 ### Manual
 
 ```php
 use App\Models\Payment;
 use Helldar\Cashier\Services\Jobs;
 
-$jobs = new Jobs();
-
 $model = Payment::findOrfail(1234);
 
-$jobs->init($model);
-$jobs->check($model);
-$jobs->refund($model);
-$jobs->retry($model);
+$jobs = Jobs::make($model);
+
+$jobs->init();
+$jobs->check();
+$jobs->refund();
+$jobs->retry();
 ```
 
 ## Drivers

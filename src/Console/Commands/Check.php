@@ -48,12 +48,7 @@ class Check extends Command
 
     protected function check(Model $model)
     {
-        $this->job()->check($model, true);
-    }
-
-    protected function job(): Jobs
-    {
-        return new Jobs();
+        Jobs::make($model)->check(true);
     }
 
     protected function attributeType(): string

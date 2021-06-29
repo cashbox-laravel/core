@@ -11,44 +11,58 @@ use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Init;
 use Helldar\Cashier\Jobs\Refund;
+use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static Jobs make(Model $model)
+ */
 final class Jobs
 {
-    public function init(Model $model)
+    use Makeable;
+
+    /** @var \Illuminate\Database\Eloquent\Model */
+    protected $model;
+
+    public function __construct(Model $model)
     {
-        if ($this->hasInit($model)) {
-            $this->retry($model);
+        $this->model = $model;
+    }
+
+    public function init()
+    {
+        if ($this->hasInit($this->model)) {
+            $this->retry();
         }
     }
 
-    public function retry(Model $model)
+    public function retry()
     {
-        $this->send($model, Init::class);
+        $this->send(Init::class);
 
         if ($this->hasAutoRefund()) {
             $delay = $this->autoRefundDelay();
 
-            $this->refund($model, $delay);
+            $this->refund($delay);
         }
     }
 
-    public function check(Model $model, bool $force_break = false)
+    public function check(bool $force_break = false)
     {
-        if ($this->hasCheck($model)) {
-            $this->send($model, Check::class, $force_break);
+        if ($this->hasCheck($this->model)) {
+            $this->send(Check::class, $force_break);
         }
     }
 
-    public function refund(Model $model, int $delay = null): void
+    public function refund(int $delay = null): void
     {
-        $this->send($model, Refund::class, false, $delay);
+        $this->send(Refund::class, false, $delay);
     }
 
-    protected function send(Model $model, $job, bool $force_break = false, int $delay = null): void
+    protected function send($job, bool $force_break = false, int $delay = null): void
     {
         /** @var \Helldar\Cashier\Jobs\Base $instance */
-        $instance = new $job($model, $force_break);
+        $instance = new $job($this->model, $force_break);
 
         $queue = $this->onQueue();
 
