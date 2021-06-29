@@ -1,11 +1,11 @@
 <?php
 
-namespace Helldar\Cashier\Requests;
+namespace Helldar\Cashier\Resources;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Payment as Contract;
-use Helldar\Cashier\Facade\Date;
+use Helldar\Cashier\Facades\Date;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
