@@ -40,11 +40,11 @@ abstract class Driver implements Contract
     /** @var string */
     protected $dev_host;
 
-    public function model(Model $model, string $request): Contract
+    public function model(Model $model, string $resource): Contract
     {
         $this->model = $model;
 
-        $this->resource = $this->resource($model, $request);
+        $this->resource = $this->resource($model, $resource);
 
         return $this;
     }
@@ -90,14 +90,14 @@ abstract class Driver implements Contract
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Helldar\Cashier\Resources\Payment|string  $request
+     * @param  \Helldar\Cashier\Resources\Payment|string  $resource
      *
      * @return \Helldar\Cashier\Resources\Payment
      */
-    protected function resource(Model $model, string $request): Payment
+    protected function resource(Model $model, string $resource): Payment
     {
-        $this->validateResource($request);
+        $this->validateResource($resource);
 
-        return $request::make($model);
+        return $resource::make($model);
     }
 }
