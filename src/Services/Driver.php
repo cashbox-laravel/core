@@ -11,7 +11,7 @@ use Helldar\Cashier\DTO\Request;
 use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
-use Helldar\Cashier\Requests\Payment;
+use Helldar\Cashier\Resources\Payment;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\HttpBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,7 @@ abstract class Driver implements Contract
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
-    /** @var \Helldar\Cashier\Requests\Payment */
+    /** @var \Helldar\Cashier\Resources\Payment */
     protected $resource;
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
@@ -90,9 +90,9 @@ abstract class Driver implements Contract
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Helldar\Cashier\Requests\Payment|string  $request
+     * @param  \Helldar\Cashier\Resources\Payment|string  $request
      *
-     * @return \Helldar\Cashier\Requests\Payment
+     * @return \Helldar\Cashier\Resources\Payment
      */
     protected function resource(Model $model, string $request): Payment
     {
