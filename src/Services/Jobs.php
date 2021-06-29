@@ -77,7 +77,7 @@ final class Jobs
             return false;
         }
 
-        if (! $this->status($model)->hasCreated($model)) {
+        if (! $this->status($model)->hasCreated()) {
             return false;
         }
 
@@ -94,7 +94,7 @@ final class Jobs
             return false;
         }
 
-        if (! $this->status($model)->inProgress($model)) {
+        if (! $this->status($model)->inProgress()) {
             return false;
         }
 
