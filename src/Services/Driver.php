@@ -8,10 +8,9 @@ use Helldar\Cashier\Contracts\Auth;
 use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\DTO\Request;
-use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
-use Helldar\Cashier\Resources\Payment;
+use Helldar\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\HttpBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -25,8 +24,11 @@ abstract class Driver implements Contract
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
-    /** @var \Helldar\Cashier\Resources\Payment */
+    /** @var \Helldar\Cashier\Resources\Request */
     protected $resource;
+
+    /** @var \Helldar\Cashier\Resources\Response */
+    protected $response;
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
     protected $statuses;
@@ -40,11 +42,18 @@ abstract class Driver implements Contract
     /** @var string */
     protected $dev_host;
 
-    public function model(Model $model, string $resource): Contract
+    public function response(array $data): Response
+    {
+        $instance = $this->response;
+
+        return $instance::make($data);
+    }
+
+    public function model(Model $model, string $request): Contract
     {
         $this->model = $model;
 
-        $this->resource = $this->resource($model, $resource);
+        $this->resource = $this->resource($model, $request);
 
         return $this;
     }
@@ -79,25 +88,38 @@ abstract class Driver implements Contract
             ->compile();
     }
 
-    protected function request(Request $request): Response
+    protected function request(Request $request, bool $store_details = true): Response
     {
-        return Http::post(
+        $response = Http::post(
             $request->getUri(),
             $request->getData(),
             $request->getHeaders()
         );
+
+        $model = $this->response($response);
+
+        if ($store_details) {
+            $this->storeDetails($model);
+        }
+
+        return $model;
     }
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Helldar\Cashier\Resources\Payment|string  $resource
+     * @param  \Helldar\Cashier\Resources\Request|string  $resource
      *
-     * @return \Helldar\Cashier\Resources\Payment
+     * @return \Helldar\Cashier\Resources\Request
      */
-    protected function resource(Model $model, string $resource): Payment
+    protected function resource(Model $model, string $resource): Request
     {
         $this->validateResource($resource);
 
         return $resource::make($model);
+    }
+
+    protected function storeDetails(Response $details): void
+    {
+        $this->model->cashier()->updateOrCreate([], compact('details'));
     }
 }

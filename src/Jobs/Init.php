@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Jobs;
 
-use Helldar\Cashier\DTO\Response;
+use Helldar\Cashier\Resources\Response;
 
 final class Init extends Base
 {

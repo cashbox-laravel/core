@@ -2,7 +2,8 @@
 
 namespace Helldar\Cashier\Models;
 
-use Helldar\Cashier\DTO\Response;
+use Helldar\Cashier\Facades\Helpers\Driver;
+use Helldar\Cashier\Resources\Response;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -25,6 +26,11 @@ final class CashierDetail extends Model
     {
         $decoded = json_decode($this->attributes['details']);
 
-        return Response::make($decoded);
+        return $this->getCashierResponseFromDriver($decoded);
+    }
+
+    protected function getCashierResponseFromDriver(array $data): Response
+    {
+        return Driver::fromModel($this)->response($data);
     }
 }

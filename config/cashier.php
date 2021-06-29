@@ -123,7 +123,7 @@ return [
         // 'sber' => [
         //     'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
         //
-        //     'resource' => Helldar\CashierDriver\Sber\QR\Resources\Payment::class,
+        //     'request' => Helldar\CashierDriver\Sber\QR\Resources\Request::class,
         //
         //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
         //
@@ -133,7 +133,7 @@ return [
         // 'tinkoff' => [
         //     'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
         //
-        //     'resource' => Helldar\CashierDriver\Tinkoff\QR\Resources\Payment::class,
+        //     'request' => Helldar\CashierDriver\Tinkoff\QR\Resources\Request::class,
         //
         //     'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
         //

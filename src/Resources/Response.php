@@ -1,12 +1,15 @@
 <?php
 
-namespace Helldar\Cashier\DTO;
+namespace Helldar\Cashier\Resources;
 
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Contracts\Support\Arrayable;
 
-class Response implements Arrayable
+/**
+ * @method static Response make(array $items = [])
+ */
+abstract class Response implements Arrayable
 {
     use Makeable;
 
@@ -19,14 +22,24 @@ class Response implements Arrayable
         $this->items = $this->map($items);
     }
 
+    public function paymentId(): ?string
+    {
+        return $this->value('payment_id');
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->value('status');
+    }
+
     public function toArray(): array
     {
         return $this->items;
     }
 
-    public function __get($name)
+    protected function value(string $key)
     {
-        return $this->items[$name];
+        return Arr::get($this->items, $key);
     }
 
     protected function map(array $items): array

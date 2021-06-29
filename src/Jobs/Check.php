@@ -3,7 +3,7 @@
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\DTO\Response;
+use Helldar\Cashier\Resources\Response;
 
 final class Check extends Base
 {

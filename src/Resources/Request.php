@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Resources;
 use Carbon\Carbon;
 use Helldar\Cashier\Facades\Date;
 
-abstract class Payment extends BaseResource
+abstract class Request extends BaseResource
 {
     public function getUniqueId(): string
     {

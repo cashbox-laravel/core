@@ -4,10 +4,10 @@ namespace Helldar\Cashier\Jobs;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Contracts\Driver;
-use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Facades\Config\Check as CheckConfig;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
+use Helldar\Cashier\Resources\Response;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;

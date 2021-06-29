@@ -7,7 +7,7 @@ use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\Exceptions\IncorrectDriverException;
 use Helldar\Cashier\Exceptions\IncorrectStatusesException;
 use Helldar\Cashier\Exceptions\UnknownMethodException;
-use Helldar\Cashier\Resources\Payment;
+use Helldar\Cashier\Resources\Request;
 use Helldar\Support\Facades\Helpers\Instance;
 
 trait Validators
@@ -24,7 +24,7 @@ trait Validators
 
     protected function validateResource(string $request): void
     {
-        $this->validate($request, Payment::class, UnknownMethodException::class);
+        $this->validate($request, Request::class, UnknownMethodException::class);
     }
 
     protected function validateMethod(string $haystack, string $method): void

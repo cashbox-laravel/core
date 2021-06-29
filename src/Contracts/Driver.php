@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Contracts;
 
-use Helldar\Cashier\DTO\Response;
+use Helldar\Cashier\Resources\Response;
 use Illuminate\Database\Eloquent\Model;
 
 interface Driver
@@ -10,7 +10,9 @@ interface Driver
     /** @return \Helldar\Cashier\Contracts\Driver */
     public static function make();
 
-    public function model(Model $model, string $resource): self;
+    public function response(array $data): Response;
+
+    public function model(Model $model, string $request): self;
 
     public function auth(Auth $auth): self;
 

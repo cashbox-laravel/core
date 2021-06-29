@@ -3,7 +3,6 @@
 namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
-use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Exceptions\BadRequestException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -17,12 +16,12 @@ final class Http
         $this->client = $client;
     }
 
-    public function post(string $uri, array $data, array $headers): Response
+    public function post(string $uri, array $data, array $headers): array
     {
         return $this->request('post', $uri, $data, $headers);
     }
 
-    protected function request(string $method, string $uri, array $data, array $headers): Response
+    protected function request(string $method, string $uri, array $data, array $headers): array
     {
         try {
             $response = $this->client->{$method}($uri, compact('data', 'headers'));
@@ -30,9 +29,7 @@ final class Http
             $code = $response->getStatusCode();
 
             if ($this->success($code)) {
-                $data = $this->decode($response);
-
-                return $this->successResponse($data);
+                return $this->decode($response);
             }
 
             $reason = $response->getReasonPhrase();
@@ -42,11 +39,6 @@ final class Http
         catch (Throwable $e) {
             $this->abort($e->getMessage(), $e->getCode());
         }
-    }
-
-    protected function successResponse(array $data): Response
-    {
-        return Response::make($data);
     }
 
     protected function success(int $status_code): bool
