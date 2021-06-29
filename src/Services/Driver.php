@@ -6,6 +6,7 @@ use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Auth;
 use Helldar\Cashier\Contracts\Driver as Contract;
+use Helldar\Cashier\Contracts\Payment;
 use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\DTO\Request;
 use Helldar\Cashier\Facades\Config\Main;
@@ -111,7 +112,7 @@ abstract class Driver implements Contract
      *
      * @return \Helldar\Cashier\Resources\Request
      */
-    protected function resource(Model $model, string $resource): Request
+    protected function resource(Model $model, string $resource): Payment
     {
         $this->validateResource($resource);
 
