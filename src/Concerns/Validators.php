@@ -22,7 +22,7 @@ trait Validators
         $this->validate($statuses, Statuses::class, IncorrectStatusesException::class);
     }
 
-    protected function validateRequest(string $request): void
+    protected function validateResource(string $request): void
     {
         $this->validate($request, Payment::class, UnknownMethodException::class);
     }

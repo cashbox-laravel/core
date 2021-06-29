@@ -101,6 +101,8 @@ return [
         /*
          * This setting determines whether you want to issue an automatic refund
          * of payments.
+         *
+         * By default, false.
          */
 
         'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
@@ -118,24 +120,24 @@ return [
      */
 
     'drivers' => [
-        'sber' => [
-            'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
-
-            'request' => Helldar\CashierDriver\Sber\QR\Requests\Payment::class,
-
-            'client_id' => env('CASHIER_SBER_CLIENT_ID'),
-
-            'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
-        ],
-
-        'tinkoff' => [
-            'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
-
-            'request' => Helldar\CashierDriver\Tinkoff\QR\Requests\Payment::class,
-
-            'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
-
-            'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
-        ],
+        // 'sber' => [
+        //     'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
+        //
+        //     'request' => Helldar\CashierDriver\Sber\QR\Requests\Payment::class,
+        //
+        //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
+        //
+        //     'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
+        // ],
+        //
+        // 'tinkoff' => [
+        //     'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
+        //
+        //     'request' => Helldar\CashierDriver\Tinkoff\QR\Requests\Payment::class,
+        //
+        //     'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
+        //
+        //     'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
+        // ],
     ],
 ];

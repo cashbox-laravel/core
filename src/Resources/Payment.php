@@ -3,24 +3,10 @@
 namespace Helldar\Cashier\Resources;
 
 use Carbon\Carbon;
-use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Contracts\Payment as Contract;
 use Helldar\Cashier\Facades\Date;
-use Helldar\Support\Concerns\Makeable;
-use Illuminate\Database\Eloquent\Model;
 
-abstract class Payment implements Contract
+abstract class Payment extends BaseResource
 {
-    use Makeable;
-    use Validators;
-
-    protected $model;
-
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
-
     public function getUniqueId(): string
     {
         $unique = $this->uniqueId();
@@ -47,19 +33,21 @@ abstract class Payment implements Contract
 
     public function getCreatedAt(): string
     {
-        return Date::toString($this->createdAt());
+        return $this->formatDate($this->createdAt());
     }
 
     public function getNow(): string
     {
-        $date = Carbon::now();
-
-        return Date::toString($date);
+        return $this->formatDate($this->now());
     }
 
     protected function uniqueId(): string
     {
-        $this->validateMethod(static::class, __FUNCTION__);
+        return implode(':', [
+            $this->getPaymentId(),
+            $this->getSum(),
+            $this->getCurrency(),
+        ]);
     }
 
     protected function paymentId(): string
@@ -80,5 +68,15 @@ abstract class Payment implements Contract
     protected function createdAt(): Carbon
     {
         $this->validateMethod(static::class, __FUNCTION__);
+    }
+
+    protected function now(): Carbon
+    {
+        return Carbon::now();
+    }
+
+    protected function formatDate(Carbon $date): string
+    {
+        return Date::toString($date);
     }
 }

@@ -26,7 +26,7 @@ abstract class Driver implements Contract
     protected $model;
 
     /** @var \Helldar\Cashier\Requests\Payment */
-    protected $request;
+    protected $resource;
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
     protected $statuses;
@@ -44,7 +44,7 @@ abstract class Driver implements Contract
     {
         $this->model = $model;
 
-        $this->request = $this->resolveRequest($model, $request);
+        $this->resource = $this->resource($model, $request);
 
         return $this;
     }
@@ -94,9 +94,9 @@ abstract class Driver implements Contract
      *
      * @return \Helldar\Cashier\Requests\Payment
      */
-    protected function resolveRequest(Model $model, string $request): Payment
+    protected function resource(Model $model, string $request): Payment
     {
-        $this->validateRequest($request);
+        $this->validateResource($request);
 
         return $request::make($model);
     }

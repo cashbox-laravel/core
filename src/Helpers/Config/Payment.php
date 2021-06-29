@@ -2,6 +2,7 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Arr;
 
 final class Payment extends Base
@@ -26,19 +27,19 @@ final class Payment extends Base
         return config('cashier.payments.attributes.sum');
     }
 
-    public function attributeCurrency(): string
+    public function attributeCurrency(): ?string
     {
         return config('cashier.payments.attributes.currency');
     }
 
     public function attributes(): array
     {
-        return [
+        return Arrayable::of([
             $this->attributeType(),
             $this->attributeStatus(),
             $this->attributeSum(),
             $this->attributeCurrency(),
-        ];
+        ])->filter()->values()->get();
     }
 
     public function statuses(): array
