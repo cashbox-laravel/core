@@ -9,13 +9,6 @@ use Helldar\Cashier\Services\Jobs;
 
 final class DetailsObserver
 {
-    protected $jobs;
-
-    public function __construct(Jobs $jobs)
-    {
-        $this->jobs = $jobs;
-    }
-
     public function created(Model $model)
     {
         if ($this->allow($model)) {
