@@ -34,7 +34,7 @@ class Check extends Command
 
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), Status::NEW)
+            ->where($this->attributeStatus(), $this->getStatus())
             ->where('created_at', '<', $this->before());
     }
 
@@ -71,6 +71,11 @@ class Check extends Command
     protected function attributeStatus(): string
     {
         return Payment::attributeStatus();
+    }
+
+    protected function getStatus()
+    {
+        return Payment::status(Status::NEW);
     }
 
     protected function before(): Carbon
