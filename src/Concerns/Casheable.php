@@ -13,7 +13,7 @@ trait Casheable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function details(): MorphOne
+    public function cashier(): MorphOne
     {
         return $this->morphOne(CashierDetail::class, 'item');
     }

@@ -62,7 +62,7 @@ abstract class Base implements ShouldQueue
 
     protected function store(Response $details): void
     {
-        $builder = $this->model->details();
+        $builder = $this->model->cashier();
 
         $builder->doesntExist()
             ? $builder->create(compact('details'))
