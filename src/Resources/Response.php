@@ -3,8 +3,8 @@
 namespace Helldar\Cashier\Resources;
 
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 
 /**
  * @method static Response make(array $items = [])
@@ -19,7 +19,7 @@ abstract class Response implements Arrayable
 
     public function __construct(array $items = [])
     {
-        $this->items = $this->map($items);
+        $this->map($items);
     }
 
     public function paymentId(): ?string
@@ -42,8 +42,12 @@ abstract class Response implements Arrayable
         return Arr::get($this->items, $key);
     }
 
-    protected function map(array $items): array
+    protected function map(array $items): void
     {
-        return Arr::renameKeysMap($items, $this->map);
+        foreach ($this->map as $new => $old) {
+            $value = Arr::get($items, $old);
+
+            Arr::set($this->items, $new, $value);
+        }
     }
 }
