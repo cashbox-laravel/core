@@ -121,6 +121,8 @@ abstract class Driver implements Contract
 
     protected function storeDetails(Response $details): void
     {
-        $this->model->cashier()->updateOrCreate([], compact('details'));
+        $payment_id = $details->paymentId();
+
+        $this->model->cashier()->updateOrCreate(compact('payment_id'), compact('details'));
     }
 }

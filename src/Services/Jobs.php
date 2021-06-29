@@ -108,7 +108,7 @@ final class Jobs
 
     protected function hasRequested(Model $model): bool
     {
-        return $model->details()->exists();
+        return $model->cashier()->exists();
     }
 
     protected function hasAutoRefund(): bool
