@@ -3,8 +3,8 @@
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Contracts\Driver as Contract;
-use Helldar\Cashier\Facade\Config\Driver as DriverConfig;
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Driver as DriverConfig;
+use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Database\Eloquent\Model;
 
 final class Driver

@@ -3,7 +3,7 @@
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Contracts\Statuses as Contract;
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 

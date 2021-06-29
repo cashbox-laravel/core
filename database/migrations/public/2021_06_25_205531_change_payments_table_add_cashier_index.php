@@ -1,6 +1,6 @@
 <?php
 
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;

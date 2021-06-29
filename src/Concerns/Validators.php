@@ -7,7 +7,7 @@ use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\Exceptions\IncorrectDriverException;
 use Helldar\Cashier\Exceptions\IncorrectStatusesException;
 use Helldar\Cashier\Exceptions\UnknownMethodException;
-use Helldar\Cashier\Requests\Payment;
+use Helldar\Cashier\Resources\Payment;
 use Helldar\Support\Facades\Helpers\Instance;
 
 trait Validators

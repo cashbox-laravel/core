@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Providers;
 
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Observers\DetailsObserver as Observer;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

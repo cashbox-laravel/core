@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Console\Commands;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;

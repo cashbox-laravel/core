@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade\Config;
+namespace Helldar\Cashier\Facades\Config;
 
 use Helldar\Cashier\Helpers\Config\Driver as Config;
 use Illuminate\Database\Eloquent\Model;

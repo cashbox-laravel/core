@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade\Config;
+namespace Helldar\Cashier\Facades\Config;
 
 use Helldar\Cashier\Helpers\Config\Main as Config;
 use Illuminate\Support\Facades\Facade;

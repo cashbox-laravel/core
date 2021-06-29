@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Database\Eloquent\Model;
 
 class Access

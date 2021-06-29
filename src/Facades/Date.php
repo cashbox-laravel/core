@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade;
+namespace Helldar\Cashier\Facades;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Helpers\Date as Helper;

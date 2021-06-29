@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade\Helpers;
+namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\DTO\Response;
 use Helldar\Cashier\Helpers\Http as Helper;

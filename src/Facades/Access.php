@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade;
+namespace Helldar\Cashier\Facades;
 
 use Helldar\Cashier\Helpers\Access as Helper;
 use Illuminate\Database\Eloquent\Model;

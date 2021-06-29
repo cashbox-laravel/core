@@ -1,15 +1,15 @@
 <?php
 
-namespace Helldar\Cashier\Facade\Config;
+namespace Helldar\Cashier\Facades\Config;
 
-use Helldar\Cashier\Helpers\Config\AutoRefund as Config;
+use Helldar\Cashier\Helpers\Config\Check as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static bool has()
  * @method static int delay()
+ * @method static int timeout()
  */
-final class AutoRefund extends Facade
+final class Check extends Facade
 {
     protected static function getFacadeAccessor()
     {

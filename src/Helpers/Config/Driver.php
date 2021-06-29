@@ -7,7 +7,7 @@ use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Auth as AuthContract;
 use Helldar\Cashier\Contracts\Driver as DriverContract;
 use Helldar\Cashier\DTO\Auth;
-use Helldar\Cashier\Facade\Config\Payment as PaymentFacade;
+use Helldar\Cashier\Facades\Config\Payment as PaymentFacade;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 

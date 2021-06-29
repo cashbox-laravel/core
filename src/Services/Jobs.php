@@ -4,10 +4,10 @@ namespace Helldar\Cashier\Services;
 
 use Helldar\Cashier\Contracts\Driver as DriverContract;
 use Helldar\Cashier\Contracts\Statuses;
-use Helldar\Cashier\Facade\Access;
-use Helldar\Cashier\Facade\Config\AutoRefund;
-use Helldar\Cashier\Facade\Config\Main;
-use Helldar\Cashier\Facade\Helpers\Driver as DriverHelper;
+use Helldar\Cashier\Facades\Access;
+use Helldar\Cashier\Facades\Config\AutoRefund;
+use Helldar\Cashier\Facades\Config\Main;
+use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Init;
 use Helldar\Cashier\Jobs\Refund;

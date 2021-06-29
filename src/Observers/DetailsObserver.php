@@ -2,8 +2,8 @@
 
 namespace Helldar\Cashier\Observers;
 
-use Helldar\Cashier\Facade\Access;
-use Helldar\Cashier\Facade\Config\Payment;
+use Helldar\Cashier\Facades\Access;
+use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Models\CashierDetail as Model;
 use Helldar\Cashier\Services\Jobs;
 

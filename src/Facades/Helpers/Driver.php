@@ -1,6 +1,6 @@
 <?php
 
-namespace Helldar\Cashier\Facade\Helpers;
+namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Helpers\Driver as Helper;
