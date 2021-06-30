@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static Contract fromModel(Model $model)
  */
-final class Driver extends Facade
+class Driver extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string|null logger()
  * @method static string|null queue()
  */
-final class Main extends Facade
+class Main extends Facade
 {
     protected static function getFacadeAccessor()
     {

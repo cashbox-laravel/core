@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static string toString(Carbon $date)
  */
-final class Date extends Facade
+class Date extends Facade
 {
     protected static function getFacadeAccessor()
     {

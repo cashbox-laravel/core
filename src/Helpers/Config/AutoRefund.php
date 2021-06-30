@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
-final class AutoRefund extends Base
+class AutoRefund extends Base
 {
     public function has(): bool
     {

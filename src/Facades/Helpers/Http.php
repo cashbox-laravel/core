@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static array post(string $uri, array $data, array $headers)
  */
-final class Http extends Facade
+class Http extends Facade
 {
     protected static function getFacadeAccessor()
     {

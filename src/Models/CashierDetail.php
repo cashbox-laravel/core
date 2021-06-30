@@ -8,7 +8,7 @@ use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-final class CashierDetail extends Model
+class CashierDetail extends Model
 {
     public function parent(): MorphTo
     {

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static \Helldar\Cashier\Contracts\Driver get(string $type_id, Model $auth)
  */
-final class Driver extends Facade
+class Driver extends Facade
 {
     protected static function getFacadeAccessor()
     {

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @method static Jobs make(Model $model)
  */
-final class Jobs
+class Jobs
 {
     use Makeable;
 

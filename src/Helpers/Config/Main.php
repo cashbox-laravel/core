@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
-final class Main extends Base
+class Main extends Base
 {
     public function hasProduction(): bool
     {

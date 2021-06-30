@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Exceptions;
 
 use RuntimeException;
 
-final class UnknownMethodException extends RuntimeException
+class UnknownMethodException extends RuntimeException
 {
     public function __construct(string $class, string $method)
     {

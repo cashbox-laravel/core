@@ -11,7 +11,7 @@ use Helldar\Cashier\Facades\Config\Payment as PaymentFacade;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
-final class Driver extends Base
+class Driver extends Base
 {
     use Resolvable;
     use Validators;

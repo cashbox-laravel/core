@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Jobs;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Resources\Response;
 
-final class Refund extends Base
+class Refund extends Base
 {
     public function handle()
     {

@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
-final class Check extends Base
+class Check extends Base
 {
     public function delay(): int
     {

@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Exceptions;
 
 use Exception;
 
-final class RefundingWaitException extends Exception
+class RefundingWaitException extends Exception
 {
     public function __construct(string $payment_id)
     {

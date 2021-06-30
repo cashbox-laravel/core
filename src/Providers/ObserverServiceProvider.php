@@ -6,7 +6,7 @@ use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Observers\DetailsObserver as Observer;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-final class ObserverServiceProvider extends BaseServiceProvider
+class ObserverServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {

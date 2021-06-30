@@ -3,7 +3,7 @@
 namespace Helldar\Cashier\Constants;
 
 /** @see ISO 4217 */
-final class Currency
+class Currency
 {
     public const AOA = 973;
 

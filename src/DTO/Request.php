@@ -5,7 +5,7 @@ namespace Helldar\Cashier\DTO;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Http;
 
-final class Request
+class Request
 {
     use Makeable;
 

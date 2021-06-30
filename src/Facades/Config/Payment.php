@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string attributeType()
  * @method static string model()
  */
-final class Payment extends Facade
+class Payment extends Facade
 {
     protected static function getFacadeAccessor()
     {

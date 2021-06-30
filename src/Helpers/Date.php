@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Helpers;
 
 use Carbon\Carbon;
 
-final class Date
+class Date
 {
     protected $format = 'Y-m-d\TH:i:s\Z';
 

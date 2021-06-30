@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Exceptions;
 use Helldar\Cashier\Contracts\Statuses;
 use RuntimeException;
 
-final class IncorrectStatusesException extends RuntimeException
+class IncorrectStatusesException extends RuntimeException
 {
     public function __construct(string $class)
     {

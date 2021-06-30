@@ -7,7 +7,7 @@ use Helldar\Cashier\Exceptions\BadRequestException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
-final class Http
+class Http
 {
     protected $client;
 

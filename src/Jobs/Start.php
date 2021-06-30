@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Resources\Response;
 
-final class Start extends Base
+class Start extends Base
 {
     public function handle()
     {

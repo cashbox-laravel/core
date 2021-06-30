@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static int delay()
  * @method static int timeout()
  */
-final class Check extends Facade
+class Check extends Facade
 {
     protected static function getFacadeAccessor()
     {

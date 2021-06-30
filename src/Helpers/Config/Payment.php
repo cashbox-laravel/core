@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Helpers\Config;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Helldar\Support\Facades\Helpers\Arr;
 
-final class Payment extends Base
+class Payment extends Base
 {
     public function model(): string
     {

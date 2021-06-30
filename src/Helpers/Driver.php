@@ -7,7 +7,7 @@ use Helldar\Cashier\Facades\Config\Driver as DriverConfig;
 use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Database\Eloquent\Model;
 
-final class Driver
+class Driver
 {
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $model

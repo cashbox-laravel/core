@@ -5,7 +5,7 @@ namespace Helldar\Cashier\Exceptions;
 use Helldar\Cashier\Concerns\Casheable;
 use RuntimeException;
 
-final class IncorrectPaymentModelException extends RuntimeException
+class IncorrectPaymentModelException extends RuntimeException
 {
     public function __construct(string $model)
     {

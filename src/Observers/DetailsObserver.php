@@ -7,7 +7,7 @@ use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 
-final class DetailsObserver
+class DetailsObserver
 {
     public function created(Model $model)
     {
