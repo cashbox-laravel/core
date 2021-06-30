@@ -13,6 +13,11 @@ class Auth implements Contract
 
     protected $client_secret;
 
+    public function getClientId(): ?string
+    {
+        return $this->client_id;
+    }
+
     public function setClientId(?string $id): Contract
     {
         $this->client_id = $id;
@@ -20,9 +25,9 @@ class Auth implements Contract
         return $this;
     }
 
-    public function getClientId(): string
+    public function getClientSecret(): ?string
     {
-        return $this->client_id;
+        return $this->client_secret;
     }
 
     public function setClientSecret(?string $secret): Contract
@@ -32,13 +37,8 @@ class Auth implements Contract
         return $this;
     }
 
-    public function getClientSecret(): string
-    {
-        return $this->client_secret;
-    }
-
     public function doesntEmpty(): bool
     {
-        return ! empty($this->client_id) && ! empty($this->client_secret);
+        return ! empty($this->getClientId()) && ! empty($this->getClientSecret());
     }
 }
