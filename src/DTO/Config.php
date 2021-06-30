@@ -4,7 +4,7 @@ namespace Helldar\Cashier\DTO;
 
 use Helldar\Support\Concerns\Makeable;
 
-final class Config
+class Config
 {
     use Makeable;
 
