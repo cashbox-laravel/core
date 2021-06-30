@@ -20,7 +20,7 @@ interface Driver
 
     public function host(): string;
 
-    public function init(): Response;
+    public function start(): Response;
 
     public function check(): Response;
 

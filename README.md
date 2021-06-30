@@ -104,7 +104,7 @@ $model = Payment::findOrfail(1234);
 
 $jobs = Jobs::make($model);
 
-$jobs->init();
+$jobs->start();
 $jobs->check();
 $jobs->refund();
 $jobs->retry();

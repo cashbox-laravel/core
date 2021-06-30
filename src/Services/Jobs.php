@@ -9,7 +9,7 @@ use Helldar\Cashier\Facades\Config\AutoRefund;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
-use Helldar\Cashier\Jobs\Init;
+use Helldar\Cashier\Jobs\Start;
 use Helldar\Cashier\Jobs\Refund;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
@@ -29,16 +29,16 @@ final class Jobs
         $this->model = $model;
     }
 
-    public function init()
+    public function start()
     {
-        if ($this->hasInit($this->model)) {
+        if ($this->hasStart($this->model)) {
             $this->retry();
         }
     }
 
     public function retry()
     {
-        $this->send(Init::class);
+        $this->send(Start::class);
 
         if ($this->hasAutoRefund()) {
             $delay = $this->autoRefundDelay();
@@ -71,7 +71,7 @@ final class Jobs
         dispatch($instance)->onQueue($queue);
     }
 
-    protected function hasInit(Model $model): bool
+    protected function hasStart(Model $model): bool
     {
         if (! $this->hasType($model)) {
             return false;

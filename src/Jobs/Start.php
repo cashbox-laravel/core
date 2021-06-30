@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Resources\Response;
 
-final class Init extends Base
+final class Start extends Base
 {
     public function handle()
     {
@@ -15,6 +15,6 @@ final class Init extends Base
 
     protected function process(): Response
     {
-        return $this->driver()->init();
+        return $this->driver()->start();
     }
 }

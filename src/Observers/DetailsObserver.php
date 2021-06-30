@@ -12,14 +12,14 @@ final class DetailsObserver
     public function created(Model $model)
     {
         if ($this->allow($model)) {
-            $this->jobs($model)->init();
+            $this->jobs($model)->start();
         }
     }
 
     public function updated(Model $model)
     {
         if ($this->allow($model) && $this->wasChanged($model)) {
-            $this->jobs($model)->init();
+            $this->jobs($model)->start();
             $this->jobs($model)->check();
         }
     }
