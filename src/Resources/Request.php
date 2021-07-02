@@ -7,13 +7,6 @@ use Helldar\Cashier\Facades\Date;
 
 abstract class Request extends BaseResource
 {
-    public function getUniqueId(): string
-    {
-        $unique = $this->uniqueId();
-
-        return md5($unique);
-    }
-
     public function getPaymentId(): string
     {
         return $this->paymentId();
@@ -39,15 +32,6 @@ abstract class Request extends BaseResource
     public function getNow(): string
     {
         return $this->formatDate($this->now());
-    }
-
-    protected function uniqueId(): string
-    {
-        return implode(':', [
-            $this->getPaymentId(),
-            $this->getSum(),
-            $this->getCurrency(),
-        ]);
     }
 
     protected function paymentId(): string

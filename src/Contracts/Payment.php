@@ -9,7 +9,7 @@ interface Payment extends Arrayable
 {
     public function __construct(Model $model);
 
-    public function getUniqueId(): string;
+    public function getUniqueId(bool $every = false): string;
 
     public function getPaymentId(): string;
 
