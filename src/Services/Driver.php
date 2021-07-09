@@ -13,7 +13,7 @@ use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
 use Helldar\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\HttpBuilder;
+use Helldar\Support\Facades\Http\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver implements Contract
@@ -84,9 +84,7 @@ abstract class Driver implements Contract
 
     protected function url(string $path): string
     {
-        return HttpBuilder::parse($this->host())
-            ->setPath($path)
-            ->compile();
+        return Builder::parse($this->host())->withPath($path);
     }
 
     protected function request(Request $request, bool $store_details = true): Response

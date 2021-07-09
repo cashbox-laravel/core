@@ -3,7 +3,7 @@
 namespace Helldar\Cashier\DTO;
 
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Http;
+use Helldar\Support\Facades\Http\Url;
 
 class Request
 {
@@ -20,9 +20,9 @@ class Request
         return $this->uri;
     }
 
-    public function setUri($uri): self
+    public function setUrl($url): self
     {
-        $this->uri = Http::validatedUrl($uri);
+        $this->uri = Url::validated($url);
 
         return $this;
     }
