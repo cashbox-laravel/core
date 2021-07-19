@@ -4,6 +4,7 @@ namespace Helldar\Cashier\Resources;
 
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Contracts\Payment as Contract;
+use Helldar\Cashier\Facades\Unique;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -30,6 +31,6 @@ abstract class BaseResource implements Contract
             return $this->unique_id;
         }
 
-        return $this->unique_id = md5(Uuid::uuid4());
+        return $this->unique_id = Unique::uid();
     }
 }
