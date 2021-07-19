@@ -47,6 +47,8 @@ abstract class Driver implements Contract
     {
         $instance = $this->response;
 
+        $this->validateResponse($instance);
+
         return $instance::make($data);
     }
 
@@ -95,13 +97,13 @@ abstract class Driver implements Contract
             $request->getHeaders()
         );
 
-        $model = $this->response($response);
+        $details = $this->response($response);
 
         if ($store_details) {
-            $this->storeDetails($model);
+            $this->storeDetails($details);
         }
 
-        return $model;
+        return $details;
     }
 
     /**

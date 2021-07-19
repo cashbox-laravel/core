@@ -4,12 +4,18 @@ namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
 use Helldar\Cashier\Exceptions\BadRequestException;
+use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Str;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
 class Http
 {
     protected $client;
+
+    protected $tries = 5;
+
+    protected $sleep = 1;
 
     public function __construct(Client $client)
     {
@@ -24,17 +30,19 @@ class Http
     protected function request(string $method, string $uri, array $data, array $headers): array
     {
         try {
-            $response = $this->client->{$method}($uri, compact('data', 'headers'));
+            return retry($this->tries, function () use ($method, $uri, $data, $headers) {
+                $response = $this->client->{$method}($uri, compact('headers') + $this->body($data, $headers));
 
-            $code = $response->getStatusCode();
+                $code = $response->getStatusCode();
 
-            if ($this->success($code)) {
-                return $this->decode($response);
-            }
+                if ($this->success($code)) {
+                    return $this->decode($response);
+                }
 
-            $reason = $response->getReasonPhrase();
+                $reason = $response->getReasonPhrase();
 
-            $this->abort($reason, $code);
+                $this->abort($reason, $code);
+            }, $this->sleep);
         }
         catch (Throwable $e) {
             $this->abort($e->getMessage(), $e->getCode());
@@ -54,5 +62,18 @@ class Http
     protected function abort(string $message, int $code): void
     {
         throw new BadRequestException($message, $code);
+    }
+
+    protected function body(array $data, array $headers): array
+    {
+        $headers = Arr::renameKeys($headers, static function ($key) {
+            return Str::lower($key);
+        });
+
+        if (Arr::get($headers, 'content-type') === 'application/x-www-form-urlencoded') {
+            return ['form_params' => $data];
+        }
+
+        return ['json' => $data];
     }
 }

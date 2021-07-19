@@ -121,9 +121,9 @@ return [
 
     'drivers' => [
         // 'sber' => [
-        //     'driver' => Helldar\CashierDriver\Sber\QR\Driver::class,
+        //     'driver' => Helldar\CashierDriver\Sber\QrCode\Driver::class,
         //
-        //     'request' => Helldar\CashierDriver\Sber\QR\Resources\Request::class,
+        //     'request' => Helldar\CashierDriver\Sber\QrCode\Resources\Request::class,
         //
         //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
         //
@@ -131,9 +131,9 @@ return [
         // ],
         //
         // 'tinkoff' => [
-        //     'driver' => Helldar\CashierDriver\Tinkoff\QR\Driver::class,
+        //     'driver' => Helldar\CashierDriver\Tinkoff\QrCode\Driver::class,
         //
-        //     'request' => Helldar\CashierDriver\Tinkoff\QR\Resources\Request::class,
+        //     'request' => Helldar\CashierDriver\Tinkoff\QrCode\Resources\Request::class,
         //
         //     'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
         //

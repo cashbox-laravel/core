@@ -26,7 +26,7 @@ abstract class BaseResource implements Contract
 
     public function getUniqueId(bool $every = false): string
     {
-        if (! empty($this->unique_id) && $every !== false) {
+        if (! empty($this->unique_id) && ! $every) {
             return $this->unique_id;
         }
 

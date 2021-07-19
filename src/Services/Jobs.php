@@ -47,10 +47,10 @@ class Jobs
         }
     }
 
-    public function check(bool $force_break = false)
+    public function check(bool $force = false)
     {
-        if ($this->hasCheck($this->model)) {
-            $this->send(Check::class, $force_break);
+        if ($this->hasCheck($this->model) || $force) {
+            $this->send(Check::class, $force);
         }
     }
 

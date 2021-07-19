@@ -13,6 +13,10 @@ abstract class Response implements Arrayable
 {
     use Makeable;
 
+    public const KEY_PAYMENT_ID = 'payment_id';
+
+    public const KEY_STATUS = 'status';
+
     protected $map = [];
 
     protected $items = [];
@@ -24,17 +28,17 @@ abstract class Response implements Arrayable
 
     public function paymentId(): ?string
     {
-        return $this->value('payment_id');
+        return $this->value(self::KEY_PAYMENT_ID);
     }
 
     public function getStatus(): ?string
     {
-        return $this->value('status');
+        return $this->value(self::KEY_STATUS);
     }
 
     public function toArray(): array
     {
-        return $this->items;
+        return Arr::except($this->items, self::KEY_PAYMENT_ID);
     }
 
     protected function value(string $key)

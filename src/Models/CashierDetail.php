@@ -4,12 +4,16 @@ namespace Helldar\Cashier\Models;
 
 use Helldar\Cashier\Facades\Helpers\Driver;
 use Helldar\Cashier\Resources\Response;
+use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
 use Helldar\Support\Facades\Helpers\Arr;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class CashierDetail extends Model
+class CashierDetail extends CompositeKeysModel
 {
+    protected $primaryKey = ['item_type', 'item_id'];
+
+    protected $fillable = ['item_type', 'item_id', 'payment_id', 'details'];
+
     public function parent(): MorphTo
     {
         return $this->morphTo('item');
@@ -24,7 +28,7 @@ class CashierDetail extends Model
 
     protected function getDetailsAttribute(): Response
     {
-        $decoded = json_decode($this->attributes['details']);
+        $decoded = json_decode($this->attributes['details'], true);
 
         return $this->getCashierResponseFromDriver($decoded);
     }
