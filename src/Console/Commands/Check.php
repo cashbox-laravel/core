@@ -75,6 +75,7 @@ class Check extends Command
 
     protected function before(): Carbon
     {
+        return Carbon::now();
         return Carbon::now()->subHour();
     }
 }

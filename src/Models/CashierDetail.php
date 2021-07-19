@@ -35,6 +35,6 @@ class CashierDetail extends CompositeKeysModel
 
     protected function getCashierResponseFromDriver(array $data): Response
     {
-        return Driver::fromModel($this)->response($data);
+        return Driver::fromModel($this->parent)->response($data);
     }
 }
