@@ -4,9 +4,10 @@ namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Helpers\Http as Helper;
 use Illuminate\Support\Facades\Facade;
+use Psr\Http\Message\UriInterface;
 
 /**
- * @method static array post(string $uri, array $data, array $headers)
+ * @method static array post(UriInterface $uri, array $data, array $headers)
  */
 class Http extends Facade
 {

@@ -15,6 +15,7 @@ use Helldar\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Http\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Psr\Http\Message\UriInterface;
 
 abstract class Driver implements Contract
 {
@@ -28,7 +29,7 @@ abstract class Driver implements Contract
     /** @var \Helldar\Cashier\Resources\Request */
     protected $resource;
 
-    /** @var \Helldar\Cashier\Resources\Response */
+    /** @var \Helldar\Cashier\Resources\Response|string */
     protected $response;
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
@@ -84,7 +85,7 @@ abstract class Driver implements Contract
         return Main::hasProduction() ? $this->production_host : $this->dev_host;
     }
 
-    protected function url(string $path): string
+    protected function url(string $path): UriInterface
     {
         return Builder::parse($this->host())->withPath($path);
     }

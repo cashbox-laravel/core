@@ -7,6 +7,7 @@ use Helldar\Cashier\Exceptions\BadRequestException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 use Throwable;
 
 class Http
@@ -22,12 +23,12 @@ class Http
         $this->client = $client;
     }
 
-    public function post(string $uri, array $data, array $headers): array
+    public function post(UriInterface $uri, array $data, array $headers): array
     {
         return $this->request('post', $uri, $data, $headers);
     }
 
-    protected function request(string $method, string $uri, array $data, array $headers): array
+    protected function request(string $method, UriInterface $uri, array $data, array $headers): array
     {
         try {
             return retry($this->tries, function () use ($method, $uri, $data, $headers) {
