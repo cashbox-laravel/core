@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 
 /**
- * @method static Response make(array $items = [])
+ * @method static Response make(array $items = [], bool $mapping = true)
  */
 abstract class Response implements Arrayable
 {
@@ -21,9 +21,11 @@ abstract class Response implements Arrayable
 
     protected $items = [];
 
-    public function __construct(array $items = [])
+    public function __construct(array $items = [], bool $mapping = true)
     {
-        $this->map($items);
+        $mapping
+            ? $this->map($items)
+            : $this->set($items);
     }
 
     public function paymentId(): ?string
@@ -53,5 +55,10 @@ abstract class Response implements Arrayable
 
             Arr::set($this->items, $new, $value);
         }
+    }
+
+    protected function set(array $items): void
+    {
+        $this->items = $items;
     }
 }

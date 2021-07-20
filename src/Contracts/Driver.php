@@ -10,7 +10,7 @@ interface Driver
     /** @return \Helldar\Cashier\Contracts\Driver */
     public static function make();
 
-    public function response(array $data): Response;
+    public function response(array $data, bool $mapping = true): Response;
 
     public function model(Model $model, string $request): self;
 

@@ -2,42 +2,49 @@
 
 namespace Helldar\Cashier\Observers;
 
-use Helldar\Cashier\Facades\Access;
+use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Contracts\Driver;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Services\Jobs;
-use Illuminate\Database\Eloquent\Model;
+use Helldar\Cashier\Models\CashierDetail;
 
 class DetailsObserver
 {
-    public function created(Model $model)
+    public function updated(CashierDetail $model)
     {
-        if ($this->allow($model)) {
-            $this->jobs($model)->start();
+        $statuses = $this->driver($model)->statuses();
+
+        $status = $model->details->getStatus();
+
+        if ($model->wasChanged('details') && $statuses->hasRefunded($status)) {
+            $this->updateStatus($model, Status::REFUND);
+        }
+
+        if ($model->wasChanged('details') && $statuses->hasFailed($status)) {
+            $this->updateStatus($model, Status::FAILED);
         }
     }
 
-    public function updated(Model $model)
+    protected function driver(CashierDetail $model): Driver
     {
-        if ($this->allow($model) && $this->wasChanged($model)) {
-            $this->jobs($model)->start();
-            $this->jobs($model)->check();
-        }
+        return \Helldar\Cashier\Facades\Helpers\Driver::fromModel($model->parent);
     }
 
-    protected function wasChanged(Model $model): bool
+    protected function updateStatus(CashierDetail $model, string $status): void
     {
-        $attributes = Payment::attributes();
+        $value = $this->status($status);
 
-        return $model->wasChanged($attributes);
+        $field = $this->statusField();
+
+        $model->parent()->update([$field => $value]);
     }
 
-    protected function allow(Model $model): bool
+    protected function status(string $status)
     {
-        return Access::allow($model);
+        return Payment::status($status);
     }
 
-    protected function jobs(Model $model): Jobs
+    protected function statusField(): string
     {
-        return Jobs::make($model);
+        return Payment::attributeStatus();
     }
 }

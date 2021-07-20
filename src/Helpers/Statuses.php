@@ -3,7 +3,6 @@
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Contracts\Statuses as Contract;
-use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -72,13 +71,6 @@ abstract class Statuses implements Contract
 
     protected function status()
     {
-        $attribute = $this->getAttribute();
-
-        return $this->model->getAttribute($attribute);
-    }
-
-    protected function getAttribute(): string
-    {
-        return Payment::attributeStatus();
+        return $this->model->cashier->details->getStatus();
     }
 }

@@ -8,6 +8,9 @@ use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property \Helldar\Cashier\Resources\Response $details
+ */
 class CashierDetail extends CompositeKeysModel
 {
     protected $primaryKey = ['item_type', 'item_id'];
@@ -35,6 +38,6 @@ class CashierDetail extends CompositeKeysModel
 
     protected function getCashierResponseFromDriver(array $data): Response
     {
-        return Driver::fromModel($this->parent)->response($data);
+        return Driver::fromModel($this->parent)->response($data, false);
     }
 }

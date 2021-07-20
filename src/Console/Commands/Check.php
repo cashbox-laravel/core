@@ -6,12 +6,11 @@ use Carbon\Carbon;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Services\Jobs;
-use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class Check extends Command
+class Check extends Base
 {
     protected $signature = 'cashier:check';
 
@@ -36,14 +35,6 @@ class Check extends Command
             ->whereIn($this->attributeType(), $this->attributeTypes())
             ->where($this->attributeStatus(), $this->getStatus())
             ->where('created_at', '<', $this->before());
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|string
-     */
-    protected function model(): string
-    {
-        return Payment::model();
     }
 
     protected function check(Model $model)
@@ -75,7 +66,6 @@ class Check extends Command
 
     protected function before(): Carbon
     {
-        return Carbon::now();
         return Carbon::now()->subHour();
     }
 }

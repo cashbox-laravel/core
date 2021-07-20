@@ -3,7 +3,9 @@
 namespace Helldar\Cashier\Providers;
 
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Observers\DetailsObserver as Observer;
+use Helldar\Cashier\Models\CashierDetail;
+use Helldar\Cashier\Observers\DetailsObserver;
+use Helldar\Cashier\Observers\PaymentsObserver as PaymentsObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider
@@ -12,7 +14,9 @@ class ObserverServiceProvider extends BaseServiceProvider
     {
         $model = $this->model();
 
-        $model::observe(Observer::class);
+        $model::observe(PaymentsObserver::class);
+
+        CashierDetail::observe(DetailsObserver::class);
     }
 
     /**

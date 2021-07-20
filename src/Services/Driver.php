@@ -44,13 +44,13 @@ abstract class Driver implements Contract
     /** @var string */
     protected $dev_host;
 
-    public function response(array $data): Response
+    public function response(array $data, bool $mapping = true): Response
     {
         $instance = $this->response;
 
         $this->validateResponse($instance);
 
-        return $instance::make($data);
+        return $instance::make($data, $mapping);
     }
 
     public function model(Model $model, string $request): Contract

@@ -81,7 +81,7 @@ You need to register a call to the console command to periodically start checkin
 
 Add a call to `app/Console/Kernel.php` file:
 
-```
+```php
 use Illuminate\Console\Scheduling\Schedule;
 
 protected function schedule(Schedule $schedule)

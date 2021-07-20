@@ -3,6 +3,7 @@
 namespace Helldar\Cashier;
 
 use Helldar\Cashier\Console\Commands\Check;
+use Helldar\Cashier\Console\Commands\Refund;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -10,11 +11,8 @@ class ServiceProvider extends BaseServiceProvider
     public function boot(): void
     {
         $this->bootMigrations();
-
-        if ($this->allowRunning()) {
-            $this->bootPublishes();
-            $this->bootCommands();
-        }
+        $this->bootPublishes();
+        $this->bootCommands();
     }
 
     public function register(): void
@@ -40,16 +38,14 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function bootCommands(): void
     {
-        $this->commands([Check::class]);
+        $this->commands([
+            Check::class,
+            Refund::class,
+        ]);
     }
 
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/cashier.php', 'cashier');
-    }
-
-    protected function allowRunning(): bool
-    {
-        return $this->app->runningInConsole() || $this->app->runningUnitTests();
     }
 }
