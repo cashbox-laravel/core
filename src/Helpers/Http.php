@@ -14,7 +14,7 @@ class Http
 {
     protected $client;
 
-    protected $tries = 5;
+    protected $tries = 10;
 
     protected $sleep = 1;
 

@@ -24,6 +24,11 @@ class PaymentsObserver
         }
     }
 
+    public function deleted(Model $model)
+    {
+        $model->cashier()->delete();
+    }
+
     protected function wasChanged(Model $model): bool
     {
         $attributes = Payment::attributes();

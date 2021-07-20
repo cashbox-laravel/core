@@ -32,7 +32,9 @@ abstract class Statuses implements Contract
 
     public function hasCreated(string $status = null): bool
     {
-        return $this->has(static::NEW, $status);
+        $status = $status ?: $this->status();
+
+        return empty($status) || $this->has(static::NEW, $status);
     }
 
     public function hasFailed(string $status = null): bool
@@ -66,11 +68,15 @@ abstract class Statuses implements Contract
     {
         $status = $status ?: $this->status();
 
-        return in_array($status, $statuses);
+        return ! empty($status) && in_array($status, $statuses);
     }
 
-    protected function status()
+    protected function status(): ?string
     {
-        return $this->model->cashier->details->getStatus();
+        if ($this->model->cashier) {
+            return $this->model->cashier->details->getStatus();
+        }
+
+        return null;
     }
 }
