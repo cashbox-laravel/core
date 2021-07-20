@@ -69,11 +69,17 @@ return [
         ],
 
         'assign_drivers' => [
-            Model::PAYMENT_TYPE_QR_SBERBANK => 'sber_qr',
+            Model::PAYMENT_TYPE_QR_SBERBANK => 'driver_name',
         ],
     ],
 
     'queue' => env('CASHIER_QUEUE', 'payments'),
+
+    'drivers' => [
+        'driver_name' => [
+            // ...
+        ]
+    ]
 ];
 ```
 
