@@ -3,13 +3,14 @@
 namespace Helldar\Cashier\Resources;
 
 use Helldar\Support\Concerns\Makeable;
-use Illuminate\Contracts\Support\Arrayable;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 use Illuminate\Support\Arr;
 
 /**
  * @method static Response make(array $items = [], bool $mapping = true)
  */
-abstract class Response implements Arrayable
+abstract class Response implements ArrayableContract
 {
     use Makeable;
 
@@ -40,7 +41,10 @@ abstract class Response implements Arrayable
 
     public function toArray(): array
     {
-        return Arr::except($this->items, self::KEY_PAYMENT_ID);
+        return Arrayable::of($this->items)
+            ->except(self::KEY_PAYMENT_ID)
+            ->filter()
+            ->get();
     }
 
     protected function value(string $key)
