@@ -2,6 +2,7 @@
 
 namespace Helldar\Cashier\Console\Commands;
 
+use Helldar\Cashier\Contracts\Driver as DriverContract;
 use Helldar\Cashier\Exceptions\AlreadyRefundedException;
 use Helldar\Cashier\Exceptions\PaymentInProgressException;
 use Helldar\Cashier\Facades\Helpers\Driver;
@@ -13,6 +14,10 @@ class Refund extends Base
 
     protected $description = 'The command to call the cancellation of the payment with the return of funds to the sender';
 
+    /**
+     * @throws \Helldar\Cashier\Exceptions\AlreadyRefundedException
+     * @throws \Helldar\Cashier\Exceptions\PaymentInProgressException
+     */
     public function handle()
     {
         $payment = $this->payment();
@@ -21,11 +26,6 @@ class Refund extends Base
 
         $this->abort($driver, $payment);
 
-        $this->refund($driver);
-    }
-
-    protected function refund(\Helldar\Cashier\Contracts\Driver $driver)
-    {
         $driver->refund();
     }
 
@@ -43,7 +43,14 @@ class Refund extends Base
         return $this->argument('payment_id');
     }
 
-    protected function abort(\Helldar\Cashier\Contracts\Driver $driver, Model $model): void
+    /**
+     * @param  \Helldar\Cashier\Contracts\Driver  $driver
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     *
+     * @throws \Helldar\Cashier\Exceptions\AlreadyRefundedException
+     * @throws \Helldar\Cashier\Exceptions\PaymentInProgressException
+     */
+    protected function abort(DriverContract $driver, Model $model): void
     {
         $status = $driver->statuses();
 
@@ -56,7 +63,7 @@ class Refund extends Base
         }
     }
 
-    protected function driver(Model $model): \Helldar\Cashier\Contracts\Driver
+    protected function driver(Model $model): DriverContract
     {
         return Driver::fromModel($model);
     }
