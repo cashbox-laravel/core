@@ -39,7 +39,43 @@ php artisan migrate
 
 ## Using
 
-Before starting, fill in the [config/cashier.php](https://github.com/andrey-helldar/cashier/blob/main/config/cashier.php) file published in the app.
+Before starting, fill in the [config/cashier.php](https://github.com/andrey-helldar/cashier/blob/main/config/cashier.php) file published in the app:
+
+```php
+use App\Models\Payment as Model;
+use Helldar\Cashier\Constants\Status;
+
+return [
+    'payments' => [
+        'model' => App\Models\Payment::class,
+
+        'attributes' => [
+            'type'     => 'type_id',
+            'status'   => 'status_id',
+            'sum'      => 'sum',
+            'currency' => 'currency'
+        ],
+
+        'statuses' => [
+            Status::NEW => Model::STATUS_NEW,
+
+            Status::SUCCESS => Model::STATUS_SUCCESS,
+
+            Status::FAILED => Model::STATUS_FAILED,
+
+            Status::REFUND => Model::STATUS_REFUND,
+
+            Status::WAIT_REFUND => Model::STATUS_WAIT_REFUND,
+        ],
+
+        'assign_drivers' => [
+            Model::PAYMENT_TYPE_QR_SBERBANK => 'sber_qr',
+        ],
+    ],
+
+    'queue' => env('CASHIER_QUEUE', 'payments'),
+];
+```
 
 Add the necessary trait to your Payment model:
 
@@ -68,9 +104,11 @@ class Payment extends Model
 
     public function cashierAuth(): AuthContract
     {
+        $settings = $this->order->unit->settings;
+
         return Auth::make()
-            ->setClientId($this->order->company->banks->foo->client_id)
-            ->setClientSecret($this->order->company->banks->foo->client_secret);
+            ->setClientId($settings->client_id)
+            ->setClientSecret($settings->client_secret);
     }
 }
 ```
@@ -108,6 +146,13 @@ $jobs->start();
 $jobs->check();
 $jobs->refund();
 $jobs->retry();
+```
+
+Also, you can use the console commands:
+
+```bash
+php artisan cashier:check
+php artisan cashier:refund {payment_id}
 ```
 
 ## Drivers
