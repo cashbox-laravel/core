@@ -95,8 +95,6 @@ abstract class Driver implements Contract
 
     public function host(): string
     {
-        return $this->production_host;
-
         return Main::hasProduction() ? $this->production_host : $this->dev_host;
     }
 
