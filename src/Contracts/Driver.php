@@ -2,6 +2,7 @@
 
 namespace Helldar\Cashier\Contracts;
 
+use Helldar\Cashier\Helpers\Exception;
 use Helldar\Cashier\Resources\Response;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,8 @@ interface Driver
     public function auth(Auth $auth): self;
 
     public function statuses(): Statuses;
+
+    public function exception(): Exception;
 
     public function host(): string;
 

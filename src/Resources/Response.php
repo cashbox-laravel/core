@@ -47,6 +47,17 @@ abstract class Response implements ArrayableContract
             ->get();
     }
 
+    public function put(string $key, $value, bool $mapping = true): self
+    {
+        if ($mapping) {
+            $key = Arr::get($this->map, $key, $key);
+        }
+
+        Arr::set($this->items, $key, $value);
+
+        return $this;
+    }
+
     protected function value(string $key)
     {
         return Arr::get($this->items, $key);

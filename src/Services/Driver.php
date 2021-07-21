@@ -11,6 +11,7 @@ use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\DTO\Request;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
+use Helldar\Cashier\Helpers\Exception;
 use Helldar\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Http\Builder;
@@ -34,6 +35,9 @@ abstract class Driver implements Contract
 
     /** @var \Helldar\Cashier\Contracts\Statuses|string */
     protected $statuses;
+
+    /** @var \Helldar\Cashier\Helpers\Exception|string */
+    protected $exception;
 
     /** @var \Helldar\Cashier\Contracts\Auth */
     protected $auth;
@@ -80,8 +84,19 @@ abstract class Driver implements Contract
         });
     }
 
+    public function exception(): Exception
+    {
+        return $this->resolve($this->exception, function ($exception) {
+            $exception = $this->exception;
+
+            return $exception::make();
+        });
+    }
+
     public function host(): string
     {
+        return $this->production_host;
+
         return Main::hasProduction() ? $this->production_host : $this->dev_host;
     }
 
