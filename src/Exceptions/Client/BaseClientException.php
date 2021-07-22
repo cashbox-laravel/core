@@ -18,7 +18,7 @@ abstract class BaseClientException extends HttpException implements ClientExcept
 
         $code = $this->statusCode();
 
-        parent::__construct($code, $message, null, null, $code);
+        parent::__construct($code, $message, null, [], $code);
     }
 
     protected function message(UriInterface $uri): string
