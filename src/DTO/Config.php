@@ -18,7 +18,7 @@ class Config
 
     public function __construct(array $data)
     {
-        /**
+        /*
          * @var string $driver
          * @var string $request
          * @var string $client_id

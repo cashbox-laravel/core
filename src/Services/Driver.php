@@ -76,7 +76,7 @@ abstract class Driver implements Contract
     public function statuses(): Statuses
     {
         return $this->resolve($this->statuses, function ($statuses) {
-            /** @var \Helldar\Cashier\Helpers\Statuses|string $statuses */
+            /* @var \Helldar\Cashier\Helpers\Statuses|string $statuses */
 
             $this->validateStatuses($statuses);
 

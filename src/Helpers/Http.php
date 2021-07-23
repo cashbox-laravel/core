@@ -52,11 +52,9 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             throw $e;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             $this->abort($e->getMessage(), $e->getCode(), $method, $uri);
         }
     }

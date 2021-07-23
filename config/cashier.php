@@ -3,13 +3,11 @@
 use Helldar\Cashier\Constants\Status;
 
 return [
-
     /*
      * The block is responsible for defining parameters with a payment model.
      */
 
     'payments' => [
-
         /*
          * Link to Payment model.
          */
@@ -76,7 +74,6 @@ return [
      */
 
     'check' => [
-
         /*
          * This setting determines the number of seconds to pause before
          * re-checking the payment status.
@@ -97,7 +94,6 @@ return [
      */
 
     'auto_refund' => [
-
         /*
          * This setting determines whether you want to issue an automatic refund
          * of payments.
