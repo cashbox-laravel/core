@@ -42,7 +42,7 @@ class Driver extends Base
 
     /**
      * @param  array  $config
-     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $model
+     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return \Helldar\Cashier\Contracts\Driver
      */

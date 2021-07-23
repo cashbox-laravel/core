@@ -40,7 +40,7 @@ final class ChangePaymentsTableAddCashierIndex extends Migration
     {
         $model = Payment::model();
 
-        return new $model;
+        return new $model();
     }
 
     protected function attributeType(): string

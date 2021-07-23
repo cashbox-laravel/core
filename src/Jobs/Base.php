@@ -20,7 +20,7 @@ abstract class Base implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /** @var \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable */
+    /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;
 
     public $force_break;
@@ -37,14 +37,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
-    abstract protected function process(): Response;
-
     public function retryUntil(): Carbon
     {
         $timeout = CheckConfig::timeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
+
+    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {

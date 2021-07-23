@@ -7,7 +7,6 @@ use Helldar\Cashier\Contracts\Payment as Contract;
 use Helldar\Cashier\Facades\Unique;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid;
 
 abstract class BaseResource implements Contract
 {
