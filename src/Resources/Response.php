@@ -41,17 +41,20 @@ abstract class Response implements ArrayableContract
 
     public function toArray(): array
     {
+        $keys = $this->keys();
+
         return Arrayable::of($this->items)
             ->except(self::KEY_PAYMENT_ID)
+            ->filter(function (string $key) use ($keys) {
+                return in_array($key, $keys, true);
+            }, ARRAY_FILTER_USE_KEY)
             ->filter()
             ->get();
     }
 
-    public function put(string $key, $value, bool $mapping = true): self
+    public function put(string $key, $value): self
     {
-        if ($mapping) {
-            $key = Arr::get($this->map, $key, $key);
-        }
+        $key = Arr::get($this->flipMap(), $key, $key);
 
         Arr::set($this->items, $key, $value);
 
@@ -65,15 +68,25 @@ abstract class Response implements ArrayableContract
 
     protected function map(array $items): void
     {
-        foreach ($this->map as $new => $old) {
-            $value = Arr::get($items, $old);
+        $items = Arrayable::of($items)
+            ->renameKeysMap($this->flipMap())
+            ->get();
 
-            Arr::set($this->items, $new, $value);
-        }
+        $this->set($items);
     }
 
     protected function set(array $items): void
     {
         $this->items = $items;
+    }
+
+    protected function keys(): array
+    {
+        return array_keys($this->map);
+    }
+
+    protected function flipMap(): array
+    {
+        return array_flip($this->map);
     }
 }
