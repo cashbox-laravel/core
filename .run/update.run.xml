@@ -1,9 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="update" type="CompoundRunConfigurationType">
-    <toRun name="update sber auth" type="ShConfigurationType" />
-    <toRun name="update sber qr" type="ShConfigurationType" />
-    <toRun name="update tinkoff qr" type="ShConfigurationType" />
-    <toRun name="update cashier" type="ShConfigurationType" />
-    <method v="2" />
-  </configuration>
-</component>
