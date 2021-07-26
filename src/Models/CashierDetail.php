@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property \Helldar\Contracts\Cashier\Resources\Response $details
- * @property-read \Illuminate\Database\Eloquent\Model $parent
+ * @property \Illuminate\Database\Eloquent\Model $parent
  */
 class CashierDetail extends CompositeKeysModel
 {

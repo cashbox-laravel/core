@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
- * @property-read \Helldar\Cashier\Models\CashierDetail $cashier
+ *
+ * @property \Helldar\Cashier\Models\CashierDetail $cashier
  */
 trait Casheable
 {
