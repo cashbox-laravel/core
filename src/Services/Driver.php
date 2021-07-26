@@ -53,10 +53,6 @@ abstract class Driver implements Contract
         $this->config = $config;
     }
 
-    abstract protected function headers(array $headers, bool $hash = true): array;
-
-    abstract protected function content(array $content, bool $hash = true): array;
-
     public function response(array $data, bool $mapping = true): Response
     {
         $instance = $this->response;
@@ -95,6 +91,10 @@ abstract class Driver implements Contract
     {
         return Main::hasProduction() ? $this->production_host : $this->dev_host;
     }
+
+    abstract protected function headers(array $headers, bool $hash = true): array;
+
+    abstract protected function content(array $content, bool $hash = true): array;
 
     protected function url(string $path): UriInterface
     {
