@@ -2,9 +2,10 @@
 
 namespace Helldar\Cashier\DTO;
 
+use Helldar\Contracts\Cashier\DTO\Config as Contract;
 use Helldar\Support\Concerns\Makeable;
 
-class Config
+class Config implements Contract
 {
     use Makeable;
 
@@ -33,7 +34,7 @@ class Config
     }
 
     /**
-     * @return \Helldar\Cashier\Contracts\Driver|string
+     * @return \Helldar\Contracts\Cashier\Driver|string
      */
     public function getDriver(): string
     {

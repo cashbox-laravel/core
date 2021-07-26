@@ -23,8 +23,9 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "ext-json": "*",
+        "andrey-helldar/contracts": "^1.4",
         "andrey-helldar/laravel-support": "^2.0",
-        "andrey-helldar/support": "^4.0",
+        "andrey-helldar/support": "^4.2",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/console": "^6.0|^7.0|^8.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0",
@@ -36,8 +37,6 @@
         "symfony/http-kernel": "^4.0|^5.0"
     },
     "require-dev": {
-        "andrey-helldar/cashier-sber-qr": "dev-main",
-        "andrey-helldar/cashier-tinkoff-qr": "dev-main",
         "orchestra/testbench": "^6.0",
         "phpunit/phpunit": "^9.0",
         "symfony/var-dumper": "^4.0|^5.0"
@@ -69,14 +68,5 @@
                 "Helldar\\Cashier\\Providers\\ObserverServiceProvider"
             ]
         }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../cashier-sber-qr"
-        }, {
-            "type": "path",
-            "url": "../cashier-tinkoff-qr"
-        }
-    ]
+    }
 }

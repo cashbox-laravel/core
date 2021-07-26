@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Exceptions\Client;
 
-use Helldar\Cashier\Contracts\ClientException;
+use Helldar\Contracts\Cashier\Exceptions\Client\ClientException;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

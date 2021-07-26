@@ -2,8 +2,6 @@
 
 namespace Helldar\Cashier\Services;
 
-use Helldar\Cashier\Contracts\Driver as DriverContract;
-use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\Facades\Access;
 use Helldar\Cashier\Facades\Config\AutoRefund;
 use Helldar\Cashier\Facades\Config\Main;
@@ -11,6 +9,8 @@ use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Refund;
 use Helldar\Cashier\Jobs\Start;
+use Helldar\Contracts\Cashier\Driver as DriverContract;
+use Helldar\Contracts\Cashier\Helpers\Status;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -113,7 +113,7 @@ class Jobs
 
     protected function hasAutoRefund(): bool
     {
-        return AutoRefund::has();
+        return AutoRefund::enabled();
     }
 
     protected function autoRefundDelay(): int
@@ -131,7 +131,7 @@ class Jobs
         return DriverHelper::fromModel($model);
     }
 
-    protected function status(Model $model): Statuses
+    protected function status(Model $model): Status
     {
         return $this->driver($model)->statuses();
     }

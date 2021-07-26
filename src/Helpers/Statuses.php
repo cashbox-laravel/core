@@ -2,7 +2,7 @@
 
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Cashier\Contracts\Statuses as Contract;
+use Helldar\Contracts\Cashier\Helpers\Status as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 

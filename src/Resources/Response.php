@@ -2,15 +2,15 @@
 
 namespace Helldar\Cashier\Resources;
 
+use Helldar\Contracts\Cashier\Resources\Response as ResponseContract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
-use Illuminate\Contracts\Support\Arrayable as ArrayableContract;
 use Illuminate\Support\Arr;
 
 /**
  * @method static Response make(array $items = [], bool $mapping = true)
  */
-abstract class Response implements ArrayableContract
+abstract class Response implements ResponseContract
 {
     use Makeable;
 
@@ -29,7 +29,7 @@ abstract class Response implements ArrayableContract
             : $this->set($items);
     }
 
-    public function paymentId(): ?string
+    public function getPaymentId(): ?string
     {
         return $this->value(self::KEY_PAYMENT_ID);
     }

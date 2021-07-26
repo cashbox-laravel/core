@@ -2,20 +2,29 @@
 
 namespace Helldar\Cashier\Models;
 
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Driver;
-use Helldar\Cashier\Resources\Response;
+use Helldar\Cashier\Facades\JSON;
+use Helldar\Contracts\Cashier\Resources\Response;
 use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
-use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property \Helldar\Cashier\Resources\Response $details
+ * @property \Helldar\Contracts\Cashier\Resources\Response $details
+ * @property-read \Illuminate\Database\Eloquent\Model $parent
  */
 class CashierDetail extends CompositeKeysModel
 {
     protected $primaryKey = ['item_type', 'item_id'];
 
     protected $fillable = ['item_type', 'item_id', 'payment_id', 'details'];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(Main::tableDetails());
+    }
 
     public function parent(): MorphTo
     {
@@ -24,14 +33,12 @@ class CashierDetail extends CompositeKeysModel
 
     protected function setDetailsAttribute(Response $response): void
     {
-        $data = Arr::toArray($response);
-
-        $this->attributes['details'] = json_encode($data);
+        $this->attributes['details'] = JSON::encode($response);
     }
 
     protected function getDetailsAttribute(): Response
     {
-        $decoded = json_decode($this->attributes['details'], true);
+        $decoded = JSON::decode($this->attributes['details']);
 
         return $this->getCashierResponseFromDriver($decoded);
     }

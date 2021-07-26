@@ -6,7 +6,7 @@ use Helldar\Cashier\Helpers\Config\AutoRefund as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static bool has()
+ * @method static bool enabled()
  * @method static int delay()
  */
 class AutoRefund extends Facade

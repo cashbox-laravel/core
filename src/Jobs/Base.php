@@ -3,11 +3,11 @@
 namespace Helldar\Cashier\Jobs;
 
 use Carbon\Carbon;
-use Helldar\Cashier\Contracts\Driver;
 use Helldar\Cashier\Facades\Config\Check as CheckConfig;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
-use Helldar\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Driver;
+use Helldar\Contracts\Cashier\Resources\Response;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,7 @@ abstract class Base implements ShouldQueue
 
     public $force_break;
 
-    /** @var \Helldar\Cashier\Contracts\Driver */
+    /** @var \Helldar\Contracts\Cashier\Driver */
     protected $driver;
 
     public function __construct(Model $model, bool $force_break = false)
@@ -37,14 +37,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = CheckConfig::timeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
@@ -62,7 +62,7 @@ abstract class Base implements ShouldQueue
 
     protected function store(Response $details): void
     {
-        $payment_id = $details->paymentId();
+        $payment_id = $details->getPaymentId();
 
         $this->model->cashier()->updateOrCreate(compact('payment_id'), compact('details'));
     }

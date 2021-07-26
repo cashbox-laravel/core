@@ -3,19 +3,17 @@
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Exceptions\Client\BadRequestClientException;
-use Helldar\Support\Concerns\Makeable;
+use Helldar\Contracts\Cashier\Exceptions\Exception as Contract;
 use Helldar\Support\Facades\Helpers\Arr;
 use Psr\Http\Message\UriInterface;
 
-abstract class Exception
+abstract class Exception implements Contract
 {
-    use Makeable;
-
     protected $codes = [];
 
     protected $default = BadRequestClientException::class;
 
-    public function throw($code, UriInterface $uri): void
+    public function throw(?int $code, UriInterface $uri): void
     {
         $exception = $this->get($code);
 

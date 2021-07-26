@@ -18,4 +18,9 @@ class Main extends Base
     {
         return config('cashier.queue');
     }
+
+    public function tableDetails(): string
+    {
+        return config('cashier.cashier_details_table', 'cashier_details');
+    }
 }

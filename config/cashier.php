@@ -90,6 +90,14 @@ return [
     ],
 
     /*
+     * Table name for the Cashier Details.
+     *
+     * Default, cashier_details.
+     */
+
+    'cashier_details_table' => 'cashier_details',
+
+    /*
      * This setting defines the parameters for automatic refunds.
      */
 

@@ -2,13 +2,12 @@
 
 namespace Helldar\Cashier\Facades\Helpers;
 
-use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Helpers\Driver as Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static Contract fromModel(Model $model)
+ * @method static \Helldar\Contracts\Cashier\Driver fromModel(Model $model)
  */
 class Driver extends Facade
 {

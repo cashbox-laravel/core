@@ -2,18 +2,18 @@
 
 namespace Helldar\Cashier\Services;
 
-use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Contracts\Auth;
-use Helldar\Cashier\Contracts\Driver as Contract;
-use Helldar\Cashier\Contracts\Payment;
-use Helldar\Cashier\Contracts\Statuses;
 use Helldar\Cashier\DTO\Request;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
-use Helldar\Cashier\Helpers\Exception;
-use Helldar\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Driver as Contract;
+use Helldar\Contracts\Cashier\DTO\Config;
+use Helldar\Contracts\Cashier\Exceptions\Exception;
+use Helldar\Contracts\Cashier\Helpers\Status;
+use Helldar\Contracts\Cashier\Resources\Request as RequestContract;
+use Helldar\Contracts\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Concerns\Resolvable;
 use Helldar\Support\Facades\Http\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Psr\Http\Message\UriInterface;
@@ -24,29 +24,34 @@ abstract class Driver implements Contract
     use Resolvable;
     use Validators;
 
+    /** @var \Helldar\Contracts\Cashier\DTO\Config */
+    protected $config;
+
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
     /** @var \Helldar\Cashier\Resources\Request */
-    protected $resource;
+    protected $request;
 
     /** @var \Helldar\Cashier\Resources\Response|string */
     protected $response;
 
-    /** @var \Helldar\Cashier\Contracts\Statuses|string */
+    /** @var \Helldar\Contracts\Cashier\Helpers\Status|string */
     protected $statuses;
 
     /** @var \Helldar\Cashier\Helpers\Exception|string */
     protected $exception;
-
-    /** @var \Helldar\Cashier\Contracts\Auth */
-    protected $auth;
 
     /** @var string */
     protected $production_host;
 
     /** @var string */
     protected $dev_host;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
 
     public function response(array $data, bool $mapping = true): Response
     {
@@ -57,25 +62,18 @@ abstract class Driver implements Contract
         return $instance::make($data, $mapping);
     }
 
-    public function model(Model $model, string $request): Contract
+    public function model(Model $model): Contract
     {
         $this->model = $model;
 
-        $this->resource = $this->resource($model, $request);
+        $this->request = $this->requestResource($model, $this->config->getRequest());
 
         return $this;
     }
 
-    public function auth(Auth $auth): Contract
+    public function statuses(): Status
     {
-        $this->auth = $auth;
-
-        return $this;
-    }
-
-    public function statuses(): Statuses
-    {
-        return $this->resolve($this->statuses, function ($statuses) {
+        return static::resolveCallback($this->statuses, function ($statuses) {
             /* @var \Helldar\Cashier\Helpers\Statuses|string $statuses */
 
             $this->validateStatuses($statuses);
@@ -86,11 +84,7 @@ abstract class Driver implements Contract
 
     public function exception(): Exception
     {
-        return $this->resolve($this->exception, function ($exception) {
-            $exception = $this->exception;
-
-            return $exception::make();
-        });
+        return static::resolveInstance($this->exception);
     }
 
     public function host(): string
@@ -122,20 +116,20 @@ abstract class Driver implements Contract
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  \Helldar\Cashier\Resources\Request|string  $resource
+     * @param  \Helldar\Cashier\Resources\Request|string  $request
      *
      * @return \Helldar\Cashier\Resources\Request
      */
-    protected function resource(Model $model, string $resource): Payment
+    protected function requestResource(Model $model, string $request): RequestContract
     {
-        $this->validateResource($resource);
+        $this->validateResource($request);
 
-        return $resource::make($model);
+        return $request::make($model, $this->config);
     }
 
     protected function storeDetails(Response $details): void
     {
-        $payment_id = $details->paymentId();
+        $payment_id = $details->getPaymentId();
 
         $this->model->cashier()->updateOrCreate(compact('payment_id'), compact('details'));
     }

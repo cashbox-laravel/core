@@ -3,9 +3,10 @@
 namespace Helldar\Cashier\Observers;
 
 use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Contracts\Driver;
 use Helldar\Cashier\Facades\Config\Payment;
+use Helldar\Cashier\Facades\Helpers\Driver;
 use Helldar\Cashier\Models\CashierDetail;
+use Helldar\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver
 {
@@ -24,9 +25,9 @@ class DetailsObserver
         }
     }
 
-    protected function driver(CashierDetail $model): Driver
+    protected function driver(CashierDetail $model): DriverContract
     {
-        return \Helldar\Cashier\Facades\Helpers\Driver::fromModel($model->parent);
+        return Driver::fromModel($model->parent);
     }
 
     protected function updateStatus(CashierDetail $model, string $status): void

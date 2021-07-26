@@ -12,10 +12,19 @@ class ObserverServiceProvider extends BaseServiceProvider
 {
     public function boot()
     {
+        $this->bootPayment();
+        $this->bootPaymentDetails();
+    }
+
+    protected function bootPayment(): void
+    {
         $model = $this->model();
 
         $model::observe(PaymentsObserver::class);
+    }
 
+    protected function bootPaymentDetails(): void
+    {
         CashierDetail::observe(DetailsObserver::class);
     }
 

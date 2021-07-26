@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Helldar\Cashier\Contracts\Driver get(string $type_id, Model $auth)
+ * @method static \Helldar\Contracts\Cashier\Driver get(string $type_id, Model $auth)
  */
 class Driver extends Facade
 {

@@ -2,10 +2,10 @@
 
 namespace Helldar\Cashier\DTO;
 
-use Helldar\Cashier\Contracts\Auth as Contract;
+use Helldar\Contracts\Cashier\Authentication\Client as Contract;
 use Helldar\Support\Concerns\Makeable;
 
-class Auth implements Contract
+class Client implements Contract
 {
     use Makeable;
 
@@ -18,9 +18,9 @@ class Auth implements Contract
         return $this->client_id;
     }
 
-    public function setClientId(?string $id): Contract
+    public function setClientId(?string $client_id): Contract
     {
-        $this->client_id = $id;
+        $this->client_id = $client_id;
 
         return $this;
     }
@@ -30,15 +30,15 @@ class Auth implements Contract
         return $this->client_secret;
     }
 
-    public function setClientSecret(?string $secret): Contract
+    public function setClientSecret(?string $client_secret): Contract
     {
-        $this->client_secret = $secret;
+        $this->client_secret = $client_secret;
 
         return $this;
     }
 
     public function doesntEmpty(): bool
     {
-        return ! empty($this->getClientId()) && ! empty($this->getClientSecret());
+        return ! $this->getClientId() && ! $this->getClientSecret();
     }
 }

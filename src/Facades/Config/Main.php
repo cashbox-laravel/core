@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static bool hasProduction()
+ * @method static string tableDetails()
  * @method static string|null logger()
  * @method static string|null queue()
  */

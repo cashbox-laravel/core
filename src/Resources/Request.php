@@ -3,10 +3,52 @@
 namespace Helldar\Cashier\Resources;
 
 use Carbon\Carbon;
+use Helldar\Cashier\Concerns\Validators;
+use Helldar\Cashier\DTO\Client;
 use Helldar\Cashier\Facades\Date;
+use Helldar\Cashier\Facades\Unique;
+use Helldar\Contracts\Cashier\Authentication\Client as ClientContract;
+use Helldar\Contracts\Cashier\DTO\Config;
+use Helldar\Contracts\Cashier\Resources\Request as RequestContract;
+use Helldar\Support\Concerns\Makeable;
+use Illuminate\Database\Eloquent\Model;
 
-abstract class Request extends BaseResource
+abstract class Request implements RequestContract
 {
+    use Makeable;
+    use Validators;
+
+    /** @var \Helldar\Contracts\Cashier\DTO\Config */
+    protected $config;
+
+    /** @var \Illuminate\Database\Eloquent\Model */
+    protected $model;
+
+    /** @var string */
+    protected $unique_id;
+
+    public function __construct(Model $model, Config $config)
+    {
+        $this->model  = $model;
+        $this->config = $config;
+    }
+
+    public function getAuthentication(): ClientContract
+    {
+        return Client::make()
+            ->setClientId($this->config->getClientId())
+            ->setClientSecret($this->config->getClientSecret());
+    }
+
+    public function getUniqueId(bool $every = false): string
+    {
+        if (! empty($this->unique_id) && ! $every) {
+            return $this->unique_id;
+        }
+
+        return $this->unique_id = Unique::uid();
+    }
+
     public function getPaymentId(): string
     {
         return $this->paymentId();

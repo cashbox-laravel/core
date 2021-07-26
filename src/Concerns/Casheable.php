@@ -5,7 +5,10 @@ namespace Helldar\Cashier\Concerns;
 use Helldar\Cashier\Models\CashierDetail;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-/** @mixin \Illuminate\Database\Eloquent\Model */
+/**
+ * @mixin \Illuminate\Database\Eloquent\Model
+ * @property-read \Helldar\Cashier\Models\CashierDetail $cashier
+ */
 trait Casheable
 {
     /**

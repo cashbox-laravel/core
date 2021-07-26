@@ -2,7 +2,9 @@
 
 namespace Helldar\Cashier\Jobs;
 
-use Helldar\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Resources\Response;
+
+;
 
 class Start extends Base
 {

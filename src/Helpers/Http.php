@@ -3,12 +3,11 @@
 namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
-use Helldar\Cashier\Contracts\ClientException;
 use Helldar\Cashier\Exceptions\BadRequestException;
 use Helldar\Cashier\Exceptions\EmptyResponseException;
+use Helldar\Contracts\Cashier\Exceptions\Client\ClientException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
-use Illuminate\Support\Facades\Log;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Throwable;
@@ -30,18 +29,24 @@ class Http
         $this->client = $client;
     }
 
+    /**
+     * @throws \Helldar\Contracts\Cashier\Exceptions\Client\ClientException
+     * @throws \Helldar\Cashier\Exceptions\BadRequestException
+     */
     public function post(UriInterface $uri, array $data, array $headers): array
     {
         return $this->request('post', $uri, $data, $headers);
     }
 
+    /**
+     * @throws \Helldar\Cashier\Exceptions\BadRequestException
+     * @throws \Helldar\Contracts\Cashier\Exceptions\Client\ClientException
+     */
     protected function request(string $method, UriInterface $uri, array $data, array $headers): array
     {
         try {
             return retry($this->tries, function () use ($method, $uri, $data, $headers) {
                 $params = compact('headers') + $this->body($data, $headers);
-
-                Log::info('REQUEST', compact('uri', 'data', 'headers'));
 
                 /** @var \Psr\Http\Message\ResponseInterface $response */
                 $response = $this->client->{$method}($uri, $params);
@@ -52,13 +57,18 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->abort($e->getMessage(), $e->getCode(), $method, $uri);
         }
     }
 
+    /**
+     * @throws \Helldar\Cashier\Exceptions\BadRequestException
+     */
     protected function validateResponse(string $method, UriInterface $uri, int $status_code, array $content): void
     {
         if ($this->isFailedCode($status_code) || $this->isFailedContent($content)) {

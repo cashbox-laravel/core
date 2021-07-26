@@ -2,13 +2,11 @@
 
 namespace Helldar\Cashier\Helpers\Config;
 
-use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Contracts\Auth as AuthContract;
-use Helldar\Cashier\Contracts\Driver as DriverContract;
-use Helldar\Cashier\DTO\Auth;
 use Helldar\Cashier\DTO\Config;
 use Helldar\Cashier\Facades\Config\Payment as PaymentFacade;
+use Helldar\Contracts\Cashier\Driver as DriverContract;
+use Helldar\Support\Concerns\Resolvable;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,7 +17,7 @@ class Driver extends Base
 
     public function get(string $key, Model $model): DriverContract
     {
-        return $this->resolve($key, function (string $key) use ($model) {
+        return static::resolveCallback($key, function (string $key) use ($model) {
             $type = $this->type($key);
 
             $driver = $this->driver($type);
@@ -44,7 +42,7 @@ class Driver extends Base
      * @param  array  $config
      * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
-     * @return \Helldar\Cashier\Contracts\Driver
+     * @return \Helldar\Contracts\Cashier\Driver
      */
     protected function resolveDriver(array $config, Model $model): DriverContract
     {
@@ -54,30 +52,6 @@ class Driver extends Base
 
         $this->validateDriver($driver);
 
-        $auth = $this->resolveAuth($model, $config->getClientId(), $config->getClientSecret());
-
-        return $driver::make()->model($model, $config->getRequest())->auth($auth);
-    }
-
-    protected function resolveAuth(Model $model, ?string $client_id, ?string $client_secret): AuthContract
-    {
-        $auth = $this->resolveModelAuth($model);
-
-        if ($auth->doesntEmpty()) {
-            return $auth;
-        }
-
-        return $auth
-            ->setClientId($client_id)
-            ->setClientSecret($client_secret);
-    }
-
-    protected function resolveModelAuth(Model $model): AuthContract
-    {
-        if (method_exists($model, 'cashierAuth')) {
-            return $model->cashierAuth();
-        }
-
-        return Auth::make();
+        return $driver::make($config)->model($model);
     }
 }

@@ -4,7 +4,7 @@ namespace Helldar\Cashier\Helpers\Config;
 
 class AutoRefund extends Base
 {
-    public function has(): bool
+    public function enabled(): bool
     {
         return config('cashier.auto_refund.enabled');
     }
@@ -13,6 +13,6 @@ class AutoRefund extends Base
     {
         $value = config('cashier.auto_refund.delay');
 
-        return $this->fixDelay($value);
+        return $this->moduleValue($value);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Cashier\Contracts\Driver as Contract;
 use Helldar\Cashier\Facades\Config\Driver as DriverConfig;
 use Helldar\Cashier\Facades\Config\Payment;
+use Helldar\Contracts\Cashier\Driver as Contract;
 use Illuminate\Database\Eloquent\Model;
 
 class Driver
@@ -12,7 +12,7 @@ class Driver
     /**
      * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
-     * @return \Helldar\Cashier\Contracts\Driver
+     * @return \Helldar\Contracts\Cashier\Driver
      */
     public function fromModel(Model $model): Contract
     {

@@ -3,7 +3,7 @@
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Resources\Response;
 
 class Refund extends Base
 {
