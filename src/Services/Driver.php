@@ -30,7 +30,7 @@ abstract class Driver implements Contract
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
-    /** @var \Helldar\Cashier\Resources\Request */
+    /** @var \Helldar\Contracts\Cashier\Resources\Request */
     protected $request;
 
     /** @var \Helldar\Cashier\Resources\Response|string */
@@ -52,6 +52,10 @@ abstract class Driver implements Contract
     {
         $this->config = $config;
     }
+
+    abstract protected function headers(array $headers, bool $hash = true): array;
+
+    abstract protected function content(array $content, bool $hash = true): array;
 
     public function response(array $data, bool $mapping = true): Response
     {
