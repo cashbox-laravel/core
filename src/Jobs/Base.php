@@ -37,14 +37,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
-    abstract protected function process(): Response;
-
     public function retryUntil(): Carbon
     {
         $timeout = CheckConfig::timeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
+
+    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
