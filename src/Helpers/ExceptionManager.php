@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Exceptions\Client\BadRequestClientException;
-use Helldar\Contracts\Cashier\Exceptions\Exception as Contract;
+use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as Contract;
 use Helldar\Support\Facades\Helpers\Arr;
 use Psr\Http\Message\UriInterface;
 
-abstract class Exception implements Contract
+abstract class ExceptionManager implements Contract
 {
     protected $codes = [];
 

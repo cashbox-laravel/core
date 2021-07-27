@@ -1,6 +1,8 @@
 <?php
 
-namespace Helldar\Cashier\Facades;
+declare(strict_types = 1);
+
+namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Helpers\JSON as Helper;
 use Illuminate\Support\Facades\Facade;

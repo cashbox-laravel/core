@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Facades\Config;
 
-use Helldar\Cashier\Helpers\Config\Driver as Config;
-use Illuminate\Database\Eloquent\Model;
+use Helldar\Cashier\Config\Driver as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Helldar\Contracts\Cashier\Driver get(string $type_id, Model $auth)
+ * @method static string getDriver()
+ * @method static string getResource()
+ * @method static string|null getClientId()
+ * @method static string|null getClientSecret()
  */
 class Driver extends Facade
 {

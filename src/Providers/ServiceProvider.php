@@ -1,6 +1,8 @@
 <?php
 
-namespace Helldar\Cashier;
+declare(strict_types = 1);
+
+namespace Helldar\Cashier\Providers;
 
 use Helldar\Cashier\Console\Commands\Check;
 use Helldar\Cashier\Console\Commands\Refund;

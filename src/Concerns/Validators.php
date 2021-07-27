@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Concerns;
 
 use Helldar\Cashier\Exceptions\IncorrectDriverException;
@@ -9,7 +11,7 @@ use Helldar\Cashier\Exceptions\UnknownResponseException;
 use Helldar\Cashier\Resources\Request;
 use Helldar\Cashier\Resources\Response;
 use Helldar\Contracts\Cashier\Driver as Contract;
-use Helldar\Contracts\Cashier\Resources\Status;
+use Helldar\Contracts\Cashier\Helpers\Status;
 use Helldar\Support\Facades\Helpers\Instance;
 
 trait Validators

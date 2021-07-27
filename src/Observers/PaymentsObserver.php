@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Observers;
 
-use Helldar\Cashier\Facades\Access;
 use Helldar\Cashier\Facades\Config\Payment;
+use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 

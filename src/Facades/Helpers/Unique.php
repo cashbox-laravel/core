@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\Http as Helper;
+use Helldar\Cashier\Helpers\Unique as Helper;
 use Illuminate\Support\Facades\Facade;
-use Psr\Http\Message\UriInterface;
 
 /**
- * @method static array post(UriInterface $uri, array $data, array $headers)
+ * @method static string uid()
  */
-class Http extends Facade
+class Unique extends Facade
 {
     protected static function getFacadeAccessor()
     {

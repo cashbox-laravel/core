@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Models;
 
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Driver;
-use Helldar\Cashier\Facades\JSON;
+use Helldar\Cashier\Facades\Helpers\JSON;
 use Helldar\Contracts\Cashier\Resources\Response;
 use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

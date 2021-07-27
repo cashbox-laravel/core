@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\DTO;
 
-use Helldar\Contracts\Cashier\Authentication\Client as Contract;
+use Helldar\Contracts\Cashier\Auth\Authorization as Contract;
 use Helldar\Support\Concerns\Makeable;
 
-class Client implements Contract
+class Authorization implements Contract
 {
     use Makeable;
 

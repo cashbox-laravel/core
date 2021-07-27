@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Constants;
 
 /** @see ISO 4217 */

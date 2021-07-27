@@ -101,7 +101,7 @@ model:
 ```php
 use Helldar\Cashier\Concerns\Casheable;
 use Helldar\Cashier\Contracts\Auth as AuthContract;
-use Helldar\Cashier\DTO\Client;
+use Helldar\Cashier\DTO\Authorization;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -112,7 +112,7 @@ class Payment extends Model
     {
         $settings = $this->order->unit->settings;
 
-        return Client::make()
+        return Authorization::make()
             ->setClientId($settings->client_id)
             ->setClientSecret($settings->client_secret);
     }

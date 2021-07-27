@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Services;
 
 use Helldar\Cashier\Concerns\Validators;
@@ -8,8 +10,8 @@ use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Http;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\DTO\Config;
-use Helldar\Contracts\Cashier\Exceptions\Exception;
-use Helldar\Contracts\Cashier\Helpers\Status;
+use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
+use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Contracts\Cashier\Resources\Request as RequestContract;
 use Helldar\Contracts\Cashier\Resources\Response;
 use Helldar\Support\Concerns\Makeable;
@@ -36,10 +38,10 @@ abstract class Driver implements Contract
     /** @var \Helldar\Cashier\Resources\Response|string */
     protected $response;
 
-    /** @var \Helldar\Contracts\Cashier\Helpers\Status|string */
+    /** @var \Helldar\Contracts\Cashier\Helpers\Statuses|string */
     protected $statuses;
 
-    /** @var \Helldar\Cashier\Helpers\Exception|string */
+    /** @var \Helldar\Cashier\Helpers\ExceptionManager|string */
     protected $exception;
 
     /** @var string */
@@ -71,7 +73,7 @@ abstract class Driver implements Contract
         return $this;
     }
 
-    public function statuses(): Status
+    public function statuses(): Statuses
     {
         return static::resolveCallback($this->statuses, function ($statuses) {
             /* @var \Helldar\Cashier\Helpers\Statuses|string $statuses */
@@ -82,7 +84,7 @@ abstract class Driver implements Contract
         });
     }
 
-    public function exception(): Exception
+    public function exception(): ExceptionManager
     {
         return static::resolveInstance($this->exception);
     }

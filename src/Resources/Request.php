@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Resources;
 
 use Carbon\Carbon;
 use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\DTO\Client;
-use Helldar\Cashier\Facades\Date;
-use Helldar\Cashier\Facades\Unique;
-use Helldar\Contracts\Cashier\Authentication\Client as ClientContract;
+use Helldar\Cashier\DTO\Authorization;
+use Helldar\Cashier\Facades\Helpers\Date;
+use Helldar\Cashier\Facades\Helpers\Unique;
+use Helldar\Contracts\Cashier\Auth\Authorization as ClientContract;
 use Helldar\Contracts\Cashier\DTO\Config;
 use Helldar\Contracts\Cashier\Resources\Request as RequestContract;
 use Helldar\Support\Concerns\Makeable;
@@ -35,7 +37,7 @@ abstract class Request implements RequestContract
 
     public function getAuthentication(): ClientContract
     {
-        return Client::make()
+        return Authorization::make()
             ->setClientId($this->config->getClientId())
             ->setClientSecret($this->config->getClientSecret());
     }

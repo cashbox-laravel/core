@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Contracts\Cashier\Helpers\Status as Contract;
+use Helldar\Contracts\Cashier\Helpers\Statuses as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 

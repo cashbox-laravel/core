@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Facades\Config;
 
-use Helldar\Cashier\Helpers\Config\Payment as Config;
+use Helldar\Cashier\Config\Payment as Config;
+use Helldar\Contracts\Cashier\Config\Payments\Attributes;
+use Helldar\Contracts\Cashier\Config\Payments\Statuses;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array assignDrivers()
- * @method static array attributes()
- * @method static array statuses()
- * @method static mixed status(string $status)
- * @method static string attributeStatus()
- * @method static string attributeType()
- * @method static string model()
+ * @method static string getModel()
+ * @method static Attributes getAttributes()
+ * @method static Statuses getStatuses()
  */
 class Payment extends Facade
 {

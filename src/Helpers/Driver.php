@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Facades\Config\Driver as DriverConfig;

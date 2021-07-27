@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Exceptions\Client;
 
-use Helldar\Contracts\Cashier\Exceptions\Client\ClientException;
+use Helldar\Contracts\Cashier\Exceptions\Http\ClientException;
 use Psr\Http\Message\UriInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

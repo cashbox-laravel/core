@@ -3,16 +3,18 @@
 use Helldar\Cashier\Constants\Status;
 
 return [
+    'env' => env('APP_ENV', 'production'),
+
     /*
      * The block is responsible for defining parameters with a payment model.
      */
 
-    'payments' => [
+    'payment' => [
         /*
          * Link to Payment model.
          */
 
-        'model' => env('CASHIER_MODEL_PAYMENT', App\Models\Payment::class),
+        'model' => App\Models\Payment::class,
 
         /*
          * Correspondence of Cashier attributes to Payment model.
@@ -22,10 +24,6 @@ return [
             'type' => 'type_id',
 
             'status' => 'status_id',
-
-            'sum' => 'sum',
-
-            'currency' => 'currency',
         ],
 
         /*
@@ -48,16 +46,28 @@ return [
          * Mapping status types to drivers call name.
          */
 
-        'assign_drivers' => [
+        'map' => [
             // 'payment_type_1' => 'sber',
             // 'payment_type_2' => 'tinkoff',
         ],
+    ],
+
+    'details' => [
+        /*
+         * Table name for the Cashier Details.
+         *
+         * Default, cashier_details.
+         */
+
+        'table' => 'cashier_details',
     ],
 
     /*
      * This setting defines which logging channel will be used to write log
      * messages. You are free to specify any of your logging channels listed
      * inside the "logging" configuration file.
+     *
+     * By default, `null` (disabled).
      */
 
     'logger' => env('CASHIER_LOGGER'),
@@ -86,16 +96,8 @@ return [
          * stop trying to check the status of the payment
          */
 
-        'timeout' => 600,
+        'timeout' => 30,
     ],
-
-    /*
-     * Table name for the Cashier Details.
-     *
-     * Default, cashier_details.
-     */
-
-    'cashier_details_table' => 'cashier_details',
 
     /*
      * This setting defines the parameters for automatic refunds.
@@ -127,21 +129,11 @@ return [
         // 'sber' => [
         //     'driver' => Helldar\CashierDriver\Sber\QrCode\Driver::class,
         //
-        //     'request' => Helldar\CashierDriver\Sber\QrCode\Resources\Request::class,
+        //     'resource' => Helldar\CashierDriver\Sber\QrCode\Resources\Request::class,
         //
         //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
         //
         //     'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
-        // ],
-        //
-        // 'tinkoff' => [
-        //     'driver' => Helldar\CashierDriver\Tinkoff\QrCode\Driver::class,
-        //
-        //     'request' => Helldar\CashierDriver\Tinkoff\QrCode\Resources\Request::class,
-        //
-        //     'client_id' => env('CASHIER_TINKOFF_CLIENT_ID'),
-        //
-        //     'client_secret' => env('CASHIER_TINKOFF_CLIENT_SECRET'),
         // ],
     ],
 ];

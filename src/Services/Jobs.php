@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Services;
 
-use Helldar\Cashier\Facades\Access;
 use Helldar\Cashier\Facades\Config\AutoRefund;
 use Helldar\Cashier\Facades\Config\Main;
+use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Refund;
 use Helldar\Cashier\Jobs\Start;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Helpers\Status;
+use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -131,7 +133,7 @@ class Jobs
         return DriverHelper::fromModel($model);
     }
 
-    protected function status(Model $model): Status
+    protected function status(Model $model): Statuses
     {
         return $this->driver($model)->statuses();
     }

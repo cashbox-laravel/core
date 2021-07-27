@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Helldar\Cashier\ServiceProvider;
+use Helldar\Cashier\Providers\ServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 

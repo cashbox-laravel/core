@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
 use Helldar\Cashier\Exceptions\BadRequestException;
 use Helldar\Cashier\Exceptions\EmptyResponseException;
-use Helldar\Contracts\Cashier\Exceptions\Client\ClientException;
+use Helldar\Contracts\Cashier\Exceptions\Http\ClientException;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
 use Psr\Http\Message\ResponseInterface;
@@ -30,7 +32,7 @@ class Http
     }
 
     /**
-     * @throws \Helldar\Contracts\Cashier\Exceptions\Client\ClientException
+     * @throws \Helldar\Contracts\Cashier\Exceptions\Http\ClientException
      * @throws \Helldar\Cashier\Exceptions\BadRequestException
      */
     public function post(UriInterface $uri, array $data, array $headers): array
@@ -40,7 +42,7 @@ class Http
 
     /**
      * @throws \Helldar\Cashier\Exceptions\BadRequestException
-     * @throws \Helldar\Contracts\Cashier\Exceptions\Client\ClientException
+     * @throws \Helldar\Contracts\Cashier\Exceptions\Http\ClientException
      */
     protected function request(string $method, UriInterface $uri, array $data, array $headers): array
     {

@@ -1,11 +1,13 @@
 <?php
 
-namespace Helldar\Cashier\Helpers\Config;
+declare(strict_types = 1);
+
+namespace Helldar\Cashier\Config;
 
 abstract class Base
 {
     protected function moduleValue(int $value): int
     {
-        return abs($value);
+        return (int) abs($value);
     }
 }

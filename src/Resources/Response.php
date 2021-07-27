@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Resources;
 
 use Helldar\Contracts\Cashier\Resources\Response as ResponseContract;

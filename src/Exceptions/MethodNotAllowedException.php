@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Helldar\Cashier\Exceptions;
 
 use RuntimeException;
 
-final class MethodNotAllowedException extends RuntimeException
+class MethodNotAllowedException extends RuntimeException
 {
     public function __construct(string $method)
     {
