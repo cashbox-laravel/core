@@ -50,7 +50,7 @@ abstract class Driver implements Contract
     public function statuses(): Statuses
     {
         return self::resolveCallback($this->statuses, function (string $statuses) {
-            /** @var \Helldar\Contracts\Cashier\Helpers\Statuses|string $statuses */
+            /* @var \Helldar\Contracts\Cashier\Helpers\Statuses|string $statuses */
 
             return $statuses::make($this->payment);
         });
@@ -58,7 +58,7 @@ abstract class Driver implements Contract
 
     /**
      * @param  \Helldar\Contracts\Cashier\Resources\Request  $request
-     * @param  string|\Helldar\Contracts\Cashier\Resources\Response  $response
+     * @param  \Helldar\Contracts\Cashier\Resources\Response|string  $response
      *
      * @return \Helldar\Contracts\Cashier\Resources\Response
      */

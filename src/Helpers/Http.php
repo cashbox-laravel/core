@@ -54,11 +54,9 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        }
-        catch (BadRequestClientException $e) {
+        } catch (BadRequestClientException $e) {
             throw $e;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             $exception->throw($e, $uri);
         }
     }
