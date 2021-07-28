@@ -6,7 +6,7 @@ namespace Helldar\Cashier\Observers;
 
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\Driver;
+use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Models\CashierDetail;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 
@@ -20,6 +20,8 @@ class DetailsObserver
 
         if ($model->wasChanged('details') && $statuses->hasRefunded($status)) {
             $this->updateStatus($model, Status::REFUND);
+
+            return;
         }
 
         if ($model->wasChanged('details') && $statuses->hasFailed($status)) {
@@ -29,7 +31,7 @@ class DetailsObserver
 
     protected function driver(CashierDetail $model): DriverContract
     {
-        return Driver::fromModel($model->parent);
+        return DriverManager::fromModel($model->parent);
     }
 
     protected function updateStatus(CashierDetail $model, string $status): void
@@ -43,11 +45,11 @@ class DetailsObserver
 
     protected function status(string $status)
     {
-        return Payment::status($status);
+        return Payment::getStatuses()->getStatus($status);
     }
 
     protected function statusField(): string
     {
-        return Payment::attributeStatus();
+        return Payment::getAttributes()->getStatus();
     }
 }

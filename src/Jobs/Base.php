@@ -4,23 +4,25 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Jobs;
 
-use Carbon\Carbon;
-use Helldar\Cashier\Facades\Config\Check as CheckConfig;
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
+use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver;
 use Helldar\Contracts\Cashier\Resources\Response;
+use Helldar\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
 
 abstract class Base implements ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+    use Makeable;
 
     /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;
@@ -39,14 +41,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
-        $timeout = CheckConfig::timeout();
+        $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
@@ -54,7 +56,7 @@ abstract class Base implements ShouldQueue
             return $this->driver;
         }
 
-        return $this->driver = DriverHelper::fromModel($this->model);
+        return $this->driver = DriverManager::fromModel($this->model);
     }
 
     protected function hasBreak(): bool
@@ -76,7 +78,7 @@ abstract class Base implements ShouldQueue
 
     protected function returnToQueue(): void
     {
-        $delay = CheckConfig::delay();
+        $delay = Main::getCheckDelay();
 
         $this->release($delay);
     }
@@ -93,12 +95,12 @@ abstract class Base implements ShouldQueue
 
     protected function attributeStatus(): string
     {
-        return Payment::attributeStatus();
+        return Payment::getAttributes()->getStatus();
     }
 
     protected function status(string $status)
     {
-        return Payment::status($status);
+        return Payment::getStatuses()->getStatus($status);
     }
 
     protected function hasSuccess(string $status): bool

@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Cashier\Exceptions\Client\BadRequestClientException;
+use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as Contract;
+use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;
-use Psr\Http\Message\UriInterface;
 
 abstract class ExceptionManager implements Contract
 {
@@ -15,7 +15,7 @@ abstract class ExceptionManager implements Contract
 
     protected $default = BadRequestClientException::class;
 
-    public function throw(?int $code, UriInterface $uri): void
+    public function throw(Throwable $e, Builder $uri): void
     {
         $exception = $this->get($code);
 

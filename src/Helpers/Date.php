@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Helpers;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class Date
 {

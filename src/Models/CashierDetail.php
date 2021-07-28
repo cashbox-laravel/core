@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Models;
 
-use Helldar\Cashier\Facades\Config\Main;
-use Helldar\Cashier\Facades\Helpers\Driver;
+use Helldar\Cashier\Facades\Config\Details;
+use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Facades\Helpers\JSON;
 use Helldar\Contracts\Cashier\Resources\Response;
 use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
@@ -25,7 +25,7 @@ class CashierDetail extends CompositeKeysModel
     {
         parent::__construct($attributes);
 
-        $this->setTable(Main::tableDetails());
+        $this->setTable(Details::getTable());
     }
 
     public function parent(): MorphTo
@@ -35,7 +35,7 @@ class CashierDetail extends CompositeKeysModel
 
     protected function setDetailsAttribute(Response $response): void
     {
-        $this->attributes['details'] = JSON::encode($response);
+        $this->attributes['details'] = $response->toJson();
     }
 
     protected function getDetailsAttribute(): Response
@@ -47,6 +47,6 @@ class CashierDetail extends CompositeKeysModel
 
     protected function getCashierResponseFromDriver(array $data): Response
     {
-        return Driver::fromModel($this->parent)->response($data, false);
+        return DriverManager::fromModel($this->parent)->response($data, false);
     }
 }

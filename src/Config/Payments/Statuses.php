@@ -19,6 +19,6 @@ class Statuses extends DataTransferObject implements StatusesContract
 
     public function getStatus(string $status)
     {
-        return Arr::get($this->statuses, $status);
+        return Arr::get($this->getAll(), $status);
     }
 }

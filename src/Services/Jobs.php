@@ -4,10 +4,9 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Services;
 
-use Helldar\Cashier\Facades\Config\AutoRefund;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Access;
-use Helldar\Cashier\Facades\Helpers\Driver as DriverHelper;
+use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Jobs\Check;
 use Helldar\Cashier\Jobs\Refund;
 use Helldar\Cashier\Jobs\Start;
@@ -61,10 +60,14 @@ class Jobs
         $this->send(Refund::class, false, $delay);
     }
 
+    /**
+     * @param  \Helldar\Cashier\Jobs\Base|string  $job
+     * @param  bool  $force_break
+     * @param  int|null  $delay
+     */
     protected function send($job, bool $force_break = false, int $delay = null): void
     {
-        /** @var \Helldar\Cashier\Jobs\Base $instance */
-        $instance = new $job($this->model, $force_break);
+        $instance = $job::make($this->model, $force_break);
 
         $queue = $this->onQueue();
 
@@ -115,22 +118,22 @@ class Jobs
 
     protected function hasAutoRefund(): bool
     {
-        return AutoRefund::enabled();
+        return Main::getAutoRefundEnabled();
     }
 
     protected function autoRefundDelay(): int
     {
-        return AutoRefund::delay();
+        return Main::getAutoRefundDelay();
     }
 
     protected function onQueue(): ?string
     {
-        return Main::queue();
+        return Main::getQueue();
     }
 
     protected function driver(Model $model): DriverContract
     {
-        return DriverHelper::fromModel($model);
+        return DriverManager::fromModel($model);
     }
 
     protected function status(Model $model): Statuses

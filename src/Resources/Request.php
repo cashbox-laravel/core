@@ -4,107 +4,42 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Resources;
 
-use Carbon\Carbon;
-use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\DTO\Authorization;
-use Helldar\Cashier\Facades\Helpers\Date;
-use Helldar\Cashier\Facades\Helpers\Unique;
-use Helldar\Contracts\Cashier\Auth\Authorization as ClientContract;
-use Helldar\Contracts\Cashier\DTO\Config;
-use Helldar\Contracts\Cashier\Resources\Request as RequestContract;
-use Helldar\Support\Concerns\Makeable;
-use Illuminate\Database\Eloquent\Model;
+use Helldar\Cashier\Facades\Config\Main;
+use Helldar\Contracts\Cashier\Resources\Model;
+use Helldar\Contracts\Cashier\Resources\Request as Contract;
+use Helldar\Contracts\Http\Builder as HttpBuilderContract;
+use Helldar\Support\Facades\Http\Builder as HttpBuilder;
 
-abstract class Request implements RequestContract
+abstract class Request implements Contract
 {
-    use Makeable;
-    use Validators;
-
-    /** @var \Helldar\Contracts\Cashier\DTO\Config */
-    protected $config;
-
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /** @var \Helldar\Contracts\Cashier\Resources\Model */
     protected $model;
 
     /** @var string */
-    protected $unique_id;
+    protected $production_host;
 
-    public function __construct(Model $model, Config $config)
+    /** @var string */
+    protected $dev_host;
+
+    /** @var string|null */
+    protected $path;
+
+    public function __construct(Model $model)
     {
-        $this->model  = $model;
-        $this->config = $config;
+        $this->model = $model;
     }
 
-    public function getAuthentication(): ClientContract
+    public function uri(): HttpBuilderContract
     {
-        return Authorization::make()
-            ->setClientId($this->config->getClientId())
-            ->setClientSecret($this->config->getClientSecret());
+        $host = $this->getHost();
+
+        return HttpBuilder::parse($host)->withPath($this->path);
     }
 
-    public function getUniqueId(bool $every = false): string
+    protected function getHost(): string
     {
-        if (! empty($this->unique_id) && ! $every) {
-            return $this->unique_id;
-        }
-
-        return $this->unique_id = Unique::uid();
-    }
-
-    public function getPaymentId(): string
-    {
-        return $this->paymentId();
-    }
-
-    public function getSum(): int
-    {
-        $sum = $this->sum();
-
-        return (int) ($sum * 100);
-    }
-
-    public function getCurrency(): string
-    {
-        return $this->currency();
-    }
-
-    public function getCreatedAt(): string
-    {
-        return $this->formatDate($this->createdAt());
-    }
-
-    public function getNow(): string
-    {
-        return $this->formatDate($this->now());
-    }
-
-    protected function paymentId(): string
-    {
-        $this->validateMethod(static::class, __FUNCTION__);
-    }
-
-    protected function sum(): float
-    {
-        $this->validateMethod(static::class, __FUNCTION__);
-    }
-
-    protected function currency(): int
-    {
-        $this->validateMethod(static::class, __FUNCTION__);
-    }
-
-    protected function createdAt(): Carbon
-    {
-        $this->validateMethod(static::class, __FUNCTION__);
-    }
-
-    protected function now(): Carbon
-    {
-        return Carbon::now();
-    }
-
-    protected function formatDate(Carbon $date): string
-    {
-        return Date::toString($date);
+        return ! Main::isProduction() && $this->dev_host
+            ? $this->dev_host
+            : $this->production_host;
     }
 }

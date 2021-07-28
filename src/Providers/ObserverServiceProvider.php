@@ -35,6 +35,6 @@ class ObserverServiceProvider extends BaseServiceProvider
      */
     protected function model(): string
     {
-        return Payment::model();
+        return Payment::getModel();
     }
 }

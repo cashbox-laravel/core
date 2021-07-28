@@ -4,13 +4,15 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\Unique as Helper;
+use Helldar\Cashier\Helpers\DriverManager as Helper;
+use Helldar\Contracts\Cashier\Driver;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string id(bool $unique = true)
+ * @method static Driver fromModel(Model $model)
  */
-class Unique extends Facade
+class DriverManager extends Facade
 {
     protected static function getFacadeAccessor()
     {

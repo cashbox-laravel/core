@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Console\Commands;
 
-use Carbon\Carbon;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class Check extends Base
@@ -46,24 +46,22 @@ class Check extends Base
 
     protected function attributeType(): string
     {
-        return Payment::attributeType();
+        return Payment::getAttributes()->getType();
     }
 
     protected function attributeTypes(): array
     {
-        $assigned = Payment::assignDrivers();
-
-        return array_keys($assigned);
+        return Payment::getMap()->getTypes();
     }
 
     protected function attributeStatus(): string
     {
-        return Payment::attributeStatus();
+        return Payment::getAttributes()->getStatus();
     }
 
-    protected function getStatus()
+    protected function getStatus(): string
     {
-        return Payment::status(Status::NEW);
+        return Payment::getStatuses()->getStatus(Status::NEW);
     }
 
     protected function before(): Carbon

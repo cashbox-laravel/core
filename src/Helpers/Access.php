@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Helldar\Cashier\Helpers;
 
+use Helldar\Cashier\Concerns\Casheable;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Support\Facades\Helpers\Instance;
 use Illuminate\Database\Eloquent\Model;
@@ -19,19 +20,12 @@ class Access
 
     protected function types(): array
     {
-        $assigned = Payment::assignDrivers();
-
-        return array_keys($assigned);
-    }
-
-    protected function attribute(): string
-    {
-        return Payment::attributeType();
+        return Payment::getMap()->getTypes();
     }
 
     protected function type(Model $model)
     {
-        $name = $this->attribute();
+        $name = Payment::getAttributes()->getType();
 
         return $model->getAttribute($name);
     }
@@ -46,7 +40,7 @@ class Access
 
     protected function model(): string
     {
-        return Payment::model();
+        return Payment::getModel();
     }
 
     protected function allowModel(Model $model): bool
@@ -56,6 +50,6 @@ class Access
 
     protected function allowMethod(Model $model): bool
     {
-        return method_exists($model, 'cashier');
+        return Instance::of($model, Casheable::class);
     }
 }

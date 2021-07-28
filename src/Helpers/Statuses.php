@@ -25,18 +25,29 @@ abstract class Statuses implements Contract
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
 
-    public function model(Model $model): Contract
+    public function __construct(Model $model)
     {
         $this->model = $model;
+    }
 
-        return $this;
+    public function hasUnknown(string $status = null): bool
+    {
+        $status = $status ?: $this->status();
+
+        return ! $this->has(array_merge([
+            static::NEW,
+            static::REFUNDING,
+            static::REFUNDED,
+            static::FAILED,
+            static::SUCCESS,
+        ]), $status);
     }
 
     public function hasCreated(string $status = null): bool
     {
         $status = $status ?: $this->status();
 
-        return empty($status) || $this->has(static::NEW, $status);
+        return $this->has(static::NEW, $status);
     }
 
     public function hasFailed(string $status = null): bool
@@ -61,21 +72,19 @@ abstract class Statuses implements Contract
 
     public function inProgress(string $status = null): bool
     {
-        return ! $this->hasSuccess($status)
-            && ! $this->hasFailed($status)
-            && ! $this->hasRefunded($status);
+        return $this->hasCreated($status) || $this->hasRefunding($status);
     }
 
     protected function has(array $statuses, string $status = null): bool
     {
         $status = $status ?: $this->status();
 
-        return ! empty($status) && in_array($status, $statuses);
+        return ! empty($status) && in_array($status, $statuses, true);
     }
 
     protected function status(): ?string
     {
-        if ($this->model->cashier) {
+        if ($this->model->cashier && $this->model->cashier->details) {
             return $this->model->cashier->details->getStatus();
         }
 

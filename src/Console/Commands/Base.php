@@ -16,6 +16,6 @@ abstract class Base extends Command
      */
     protected function model(): string
     {
-        return Payment::model();
+        return Payment::getModel();
     }
 }

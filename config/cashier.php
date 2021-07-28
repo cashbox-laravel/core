@@ -129,7 +129,7 @@ return [
         // 'sber' => [
         //     'driver' => Helldar\CashierDriver\Sber\QrCode\Driver::class,
         //
-        //     'resource' => Helldar\CashierDriver\Sber\QrCode\Resources\Request::class,
+        //     'resource' => Helldar\Cashier\Resources\Model::class,
         //
         //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
         //
