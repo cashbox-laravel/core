@@ -30,7 +30,7 @@ class DriverManager
 
         $driver = $this->getDriver($name);
 
-        return $this->resolve($driver)->model($model);
+        return $this->resolve($driver, $model);
     }
 
     protected function type(Model $model): string
@@ -55,10 +55,13 @@ class DriverManager
         return Main::getDriver($name);
     }
 
-    protected function resolve(Driver $config): Contract
+    protected function resolve(Driver $config, Model $payment): Contract
     {
         $driver = $config->getDriver();
 
-        return $driver::make($config);
+        $this->validateDriver($driver);
+        $this->validateModel($payment);
+
+        return $driver::make($config, $payment);
     }
 }

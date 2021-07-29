@@ -4,18 +4,23 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Resources;
 
+use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Auth\Auth;
 use Helldar\Contracts\Cashier\Resources\Model;
 use Helldar\Contracts\Cashier\Resources\Request as Contract;
 use Helldar\Contracts\Http\Builder as HttpBuilderContract;
+use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Http\Builder as HttpBuilder;
 
 /**
- * @method Contract make(Model $model)
+ * @method static Contract make(Model $model, string $auth = null, bool $hash_token = true)
  */
 abstract class Request implements Contract
 {
+    use Makeable;
+    use Validators;
+
     /** @var \Helldar\Contracts\Cashier\Resources\Model */
     protected $model;
 
