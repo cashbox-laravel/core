@@ -25,6 +25,9 @@ class PaymentsObserver
         }
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $model
+     */
     public function deleted(Model $model)
     {
         $model->cashier()->delete();

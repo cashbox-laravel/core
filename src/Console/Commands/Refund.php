@@ -6,6 +6,7 @@ namespace Helldar\Cashier\Console\Commands;
 
 use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
 use Helldar\Cashier\Exceptions\Logic\PaymentInProgressException;
+use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 use Illuminate\Database\Eloquent\Model;
 
@@ -66,6 +67,6 @@ class Refund extends Base
 
     protected function driver(Model $model): DriverContract
     {
-        return Driver::fromModel($model);
+        return DriverManager::fromModel($model);
     }
 }

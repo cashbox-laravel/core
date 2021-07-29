@@ -22,6 +22,6 @@ class JSON
 
     public function decode(string $encoded): array
     {
-        return json_decode($encoded, true);
+        return json_decode($encoded, true) ?: [];
     }
 }

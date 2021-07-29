@@ -10,6 +10,7 @@ use Helldar\Contracts\Cashier\Config\Driver as DriverConfig;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
+use Helldar\Contracts\Cashier\Resources\Details;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 use Helldar\Contracts\Cashier\Resources\Request as RequestResource;
 use Helldar\Contracts\Cashier\Resources\Response;
@@ -38,6 +39,9 @@ abstract class Driver implements Contract
     /** @var \Helldar\Contracts\Cashier\Helpers\Statuses|string */
     protected $statuses;
 
+    /** @var \Helldar\Contracts\Cashier\Resources\Details */
+    protected $details;
+
     public function __construct(DriverConfig $config, Model $payment)
     {
         $this->config = $config;
@@ -54,6 +58,13 @@ abstract class Driver implements Contract
 
             return $statuses::make($this->payment);
         });
+    }
+
+    public function modelDetails(array $data): Details
+    {
+        $details = $this->details;
+
+        return $details::make($data);
     }
 
     /**

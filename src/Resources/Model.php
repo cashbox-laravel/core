@@ -22,6 +22,18 @@ abstract class Model implements Contract
         $this->model = $model;
     }
 
+    abstract protected function clientId(): string;
+
+    abstract protected function clientSecret(): string;
+
+    abstract protected function paymentId(): string;
+
+    abstract protected function sum(): float;
+
+    abstract protected function currency(): string;
+
+    abstract protected function createdAt(): Carbon;
+
     public function getClientId(): string
     {
         return $this->clientId();
@@ -60,16 +72,4 @@ abstract class Model implements Contract
 
         return Date::toString($date);
     }
-
-    abstract protected function clientId(): string;
-
-    abstract protected function clientSecret(): string;
-
-    abstract protected function paymentId(): string;
-
-    abstract protected function sum(): float;
-
-    abstract protected function currency(): string;
-
-    abstract protected function createdAt(): Carbon;
 }
