@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migration;
