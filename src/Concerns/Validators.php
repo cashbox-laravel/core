@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Concerns;
 
-use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectAuthException;
 use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectDriverException;
 use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
 use Helldar\Cashier\Exceptions\Runtime\Implement\UnknownResponseException;
