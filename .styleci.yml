@@ -16,7 +16,6 @@ enabled:
     - cast_spaces
     - combine_consecutive_issets
     - const_separation
-    - declare_equal_normalize
     - declare_strict_types
     - dir_constant
     - fully_qualified_strict_types
