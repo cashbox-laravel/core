@@ -26,7 +26,7 @@ class PaymentsObserver
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $model
+     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      */
     public function deleted(Model $model)
     {
