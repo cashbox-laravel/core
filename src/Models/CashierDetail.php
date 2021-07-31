@@ -36,6 +36,8 @@ class CashierDetail extends CompositeKeysModel
 
     protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
 
+    protected $touches = ['parent'];
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
