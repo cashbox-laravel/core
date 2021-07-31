@@ -42,7 +42,7 @@ class Map extends DataTransferObject implements MapContract
         return array_values($this->drivers);
     }
 
-    public function get(string $type): string
+    public function get($type): string
     {
         return Arr::get($this->getAll(), $type);
     }

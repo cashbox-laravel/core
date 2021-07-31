@@ -48,7 +48,7 @@ class DriverManager
         return $this->resolve($driver, $model);
     }
 
-    protected function type(Model $model): string
+    protected function type(Model $model)
     {
         $type = $this->getTypeAttribute();
 
