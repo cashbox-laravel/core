@@ -25,8 +25,8 @@ use Helldar\Contracts\Cashier\Config\Driver as DriverConfig;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
-use Helldar\Contracts\Cashier\Http\Requests\Request as RequestResource;
-use Helldar\Contracts\Cashier\Http\Responses\Response;
+use Helldar\Contracts\Cashier\Http\Request as RequestResource;
+use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Contracts\Cashier\Resources\Details;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 use Helldar\Support\Concerns\Makeable;
@@ -83,10 +83,10 @@ abstract class Driver implements Contract
     }
 
     /**
-     * @param  \Helldar\Contracts\Cashier\Http\Requests\Request  $request
-     * @param  \Helldar\Contracts\Cashier\Http\Responses\Response|string  $response
+     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
+     * @param  \Helldar\Contracts\Cashier\Http\Response|string  $response
      *
-     * @return \Helldar\Contracts\Cashier\Http\Responses\Response
+     * @return \Helldar\Contracts\Cashier\Http\Response
      */
     protected function request(RequestResource $request, string $response): Response
     {

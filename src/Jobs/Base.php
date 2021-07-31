@@ -23,7 +23,7 @@ use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver;
-use Helldar\Contracts\Cashier\Http\Responses\Response;
+use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

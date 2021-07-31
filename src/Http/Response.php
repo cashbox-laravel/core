@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Http;
 
-use Helldar\Contracts\Cashier\Http\Responses\Response as ResponseContract;
+use Helldar\Contracts\Cashier\Http\Response as ResponseContract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr;

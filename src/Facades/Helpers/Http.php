@@ -21,7 +21,7 @@ namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Helpers\Http as Helper;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
-use Helldar\Contracts\Cashier\Http\Requests\Request;
+use Helldar\Contracts\Cashier\Http\Request;
 use Illuminate\Support\Facades\Facade;
 
 /**

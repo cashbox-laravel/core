@@ -23,7 +23,7 @@ use GuzzleHttp\Client;
 use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as ExceptionManagerContract;
-use Helldar\Contracts\Cashier\Http\Requests\Request;
+use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
