@@ -40,6 +40,6 @@ abstract class ExceptionManager implements Contract
 
     protected static function get($code): string
     {
-        return Arr::get(self::$codes, $code, self::$default);
+        return Arr::get(static::$codes, $code, self::$default);
     }
 }
