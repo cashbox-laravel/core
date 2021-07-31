@@ -40,17 +40,17 @@ class ServiceProvider extends BaseServiceProvider
     protected function bootPublishes(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/cashier.php' => $this->app->configPath('cashier.php'),
+            __DIR__ . '/../../config/cashier.php' => $this->app->configPath('cashier.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../database/migrations/public' => $this->app->databasePath('migrations'),
+            __DIR__ . '/../../database/migrations/public' => $this->app->databasePath('migrations'),
         ], 'migrations');
     }
 
     protected function bootMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations/main');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/main');
     }
 
     protected function bootCommands(): void
@@ -63,6 +63,6 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/cashier.php', 'cashier');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/cashier.php', 'cashier');
     }
 }
