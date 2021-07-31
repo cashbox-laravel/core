@@ -17,12 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace Helldar\Cashier\Services;
 
 use Helldar\Contracts\Cashier\Helpers\Statuses as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
+/** @method static Statuses make(Model $model) */
 abstract class Statuses implements Contract
 {
     use Makeable;
