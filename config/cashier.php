@@ -17,6 +17,7 @@
 
 declare(strict_types=1);
 
+use Helldar\Cashier\Constants\Attributes;
 use Helldar\Cashier\Constants\Status;
 
 return [
@@ -43,9 +44,11 @@ return [
          */
 
         'attributes' => [
-            'type' => 'type_id',
+            Attributes::TYPE => 'type_id',
 
-            'status' => 'status_id',
+            Attributes::STATUS => 'status_id',
+
+            Attributes::CREATED_AT => 'created_at',
         ],
 
         /*
@@ -149,13 +152,13 @@ return [
 
     'drivers' => [
         // 'sber' => [
-        //     'driver' => Helldar\CashierDriver\Sber\QrCode\Driver::class,
+        //     \Helldar\Cashier\Constants\Driver::DRIVER => Helldar\CashierDriver\Sber\QrCode\Driver::class,
         //
-        //     'resource' => Helldar\Cashier\Resources\Model::class,
+        //     \Helldar\Cashier\Constants\Driver::RESOURCE => Helldar\Cashier\Resources\Model::class,
         //
-        //     'client_id' => env('CASHIER_SBER_CLIENT_ID'),
+        //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_SBER_CLIENT_ID'),
         //
-        //     'client_secret' => env('CASHIER_SBER_CLIENT_SECRET'),
+        //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_SBER_CLIENT_SECRET'),
         // ],
     ],
 ];
