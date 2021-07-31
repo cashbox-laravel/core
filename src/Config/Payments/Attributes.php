@@ -28,6 +28,8 @@ class Attributes extends DataTransferObject implements AttributesContract
 
     protected $status;
 
+    protected $created_at;
+
     public function getType(): string
     {
         return $this->type;
@@ -36,5 +38,10 @@ class Attributes extends DataTransferObject implements AttributesContract
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
     }
 }

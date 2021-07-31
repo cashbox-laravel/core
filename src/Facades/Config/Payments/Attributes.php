@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @method static string getType()
  * @method static string getStatus()
+ * @method static string getCreatedAt()
  */
 class Attributes extends Facade
 {
