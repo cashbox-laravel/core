@@ -60,7 +60,7 @@ class ChangePaymentsTableAddCashierIndex extends Migration
      */
     protected function table(): string
     {
-        $model = Payment::getModel();
+        $model = $this->getModel();
 
         return $this->model()->table($model);
     }
@@ -77,6 +77,11 @@ class ChangePaymentsTableAddCashierIndex extends Migration
 
     protected function attributeCreatedAt(): string
     {
-        return 'created_at';
+        return Payment::getAttributes()->getCreatedAt();
+    }
+
+    protected function getModel(): string
+    {
+        return Payment::getModel();
     }
 }
