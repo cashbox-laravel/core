@@ -50,15 +50,15 @@ class CashierDetail extends CompositeKeysModel
         return $this->morphTo('item');
     }
 
-    protected function setDetailsAttribute(DetailsCast $details): void
+    protected function setDetailsAttribute(DetailsCast $details = null): void
     {
-        $this->attributes['details'] = $details->toJson();
+        $this->attributes['details'] = $details ? $details->toJson() : null;
     }
 
-    protected function getDetailsAttribute(): DetailsCast
+    protected function getDetailsAttribute(): ?DetailsCast
     {
         $decoded = JSON::decode($this->attributes['details']);
 
-        return DriverManager::fromModel($this->parent)->details($decoded);
+        return DriverManager::fromModel($this->parent)->details($decoded ?: []);
     }
 }
