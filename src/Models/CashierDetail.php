@@ -40,9 +40,9 @@ class CashierDetail extends CompositeKeysModel
 
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(Details::getTable());
+
+        parent::__construct($attributes);
     }
 
     public function parent(): MorphTo
