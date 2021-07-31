@@ -43,17 +43,19 @@ Before starting, fill in the [config/cashier.php](https://github.com/andrey-hell
 
 ```php
 use App\Models\Payment as Model;
+use Helldar\Cashier\Constants\Attributes;
 use Helldar\Cashier\Constants\Status;
 
 return [
-    'payments' => [
+    'payment' => [
         'model' => App\Models\Payment::class,
 
         'attributes' => [
-            'type'     => 'type_id',
-            'status'   => 'status_id',
-            'sum'      => 'sum',
-            'currency' => 'currency'
+            Attributes::TYPE => 'type_id',
+
+            Attributes::STATUS => 'status_id',
+
+            Attributes::CREATED_AT => 'created_at',
         ],
 
         'statuses' => [
@@ -69,11 +71,17 @@ return [
         ],
 
         'assign_drivers' => [
-            Model::PAYMENT_TYPE_QR_SBERBANK => 'driver_name',
+            Model::PAYMENT_TYPE_QR_SBER => 'driver_name',
         ],
     ],
 
-    'queue' => env('CASHIER_QUEUE', 'payments'),
+    'queue' => env('CASHIER_QUEUE'),
+
+    'auto_refund' => [
+        'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
+
+        'delay' => env('CASHIER_AUTO_REFUND_DELAY', 600),
+    ],
 
     'drivers' => [
         'driver_name' => [
@@ -92,30 +100,6 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use Casheable;
-}
-```
-
-If you need to specify different pairs of client id and client secret, depending on any conditions, you can add a public method `cashierAuth` to the Payment
-model:
-
-```php
-use Helldar\Cashier\Concerns\Casheable;
-use Helldar\Cashier\Contracts\Auth as AuthContract;
-use Helldar\Cashier\DTO\Authorization;
-use Illuminate\Database\Eloquent\Model;
-
-class Payment extends Model
-{
-    use Casheable;
-
-    public function cashierAuth(): AuthContract
-    {
-        $settings = $this->order->unit->settings;
-
-        return Authorization::make()
-            ->setClientId($settings->client_id)
-            ->setClientSecret($settings->client_secret);
-    }
 }
 ```
 
@@ -172,8 +156,8 @@ php artisan cashier:refund {payment_id}
 
 Available as part of the Tidelift Subscription.
 
-The maintainers of `andrey-helldar/cashier` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open
-source packages you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you
+The maintainers of `andrey-helldar/cashier` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you
+use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you
 use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-cashier?utm_source=packagist-andrey-helldar-cashier&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
 .
 
