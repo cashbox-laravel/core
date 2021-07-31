@@ -5,6 +5,11 @@ declare(strict_types=1);
 use Helldar\Cashier\Constants\Status;
 
 return [
+    /*
+     * This value determines the "environment" your application is currently
+     * running in.
+     */
+
     'env' => env('APP_ENV', 'production'),
 
     /*
@@ -45,7 +50,7 @@ return [
         ],
 
         /*
-         * Mapping status types to drivers call name.
+         * Mapping status types to drivers names.
          */
 
         'map' => [
