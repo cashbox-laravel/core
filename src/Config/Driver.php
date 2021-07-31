@@ -26,7 +26,7 @@ class Driver extends DataTransferObject implements DriverContract
 {
     protected $driver;
 
-    protected $resource;
+    protected $details;
 
     protected $client_id;
 
@@ -37,9 +37,9 @@ class Driver extends DataTransferObject implements DriverContract
         return $this->driver;
     }
 
-    public function getResource(): string
+    public function getDetails(): string
     {
-        return $this->resource;
+        return $this->details;
     }
 
     public function getClientId(): ?string

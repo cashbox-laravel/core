@@ -59,6 +59,6 @@ class CashierDetail extends CompositeKeysModel
     {
         $decoded = JSON::decode($this->attributes['details']);
 
-        return DriverManager::fromModel($this->parent)->modelDetails($decoded);
+        return DriverManager::fromModel($this->parent)->details($decoded);
     }
 }

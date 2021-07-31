@@ -75,11 +75,11 @@ abstract class Driver implements Contract
         });
     }
 
-    public function modelDetails(array $data): Details
+    public function details(array $details): Details
     {
-        $details = $this->details;
+        $cast = $this->details;
 
-        return $details::make($data);
+        return $cast::make($details);
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class Driver implements Contract
 
     protected function resolveModel(Model $payment): ModelResource
     {
-        $resource = $this->config->getResource();
+        $resource = $this->config->getDetails();
 
         return $resource::make($payment);
     }

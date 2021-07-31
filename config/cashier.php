@@ -154,7 +154,7 @@ return [
         // 'sber' => [
         //     \Helldar\Cashier\Constants\Driver::DRIVER => Helldar\CashierDriver\Sber\QrCode\Driver::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::RESOURCE => Helldar\Cashier\Resources\Model::class,
+        //     \Helldar\Cashier\Constants\Driver::DETAILS => Helldar\Cashier\Resources\Model::class,
         //
         //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_SBER_CLIENT_ID'),
         //

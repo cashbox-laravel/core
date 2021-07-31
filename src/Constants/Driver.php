@@ -21,7 +21,7 @@ class Driver
 {
     public const DRIVER = 'driver';
 
-    public const RESOURCE = 'resource';
+    public const DETAILS = 'details';
 
     public const CLIENT_ID = 'client_id';
 

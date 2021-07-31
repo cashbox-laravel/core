@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string getDriver()
- * @method static string getResource()
+ * @method static string getDetails()
  * @method static string|null getClientId()
  * @method static string|null getClientSecret()
  */
