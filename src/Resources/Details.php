@@ -19,12 +19,14 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Resources;
 
-use Helldar\Cashier\Facades\Helpers\JSON;
+use Helldar\Cashier\Concerns\Jsonable;
 use Helldar\Contracts\Cashier\Resources\Details as DetailsContract;
 use Helldar\SimpleDataTransferObject\DataTransferObject;
 
 abstract class Details extends DataTransferObject implements DetailsContract
 {
+    use Jsonable;
+
     protected $status;
 
     public function getStatus(): ?string
@@ -37,10 +39,5 @@ abstract class Details extends DataTransferObject implements DetailsContract
         return [
             'status' => $this->status,
         ];
-    }
-
-    public function toJson(int $options = 0): string
-    {
-        return JSON::encode($this->toArray());
     }
 }

@@ -76,6 +76,11 @@ abstract class Model implements Contract
         return Date::toString($date);
     }
 
+    public function getExternalId(): ?string
+    {
+        return $this->model->cashier->external_id ?? null;
+    }
+
     abstract protected function clientId(): string;
 
     abstract protected function clientSecret(): string;

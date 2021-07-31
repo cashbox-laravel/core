@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
-use Helldar\Contracts\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Http\Responses\Response;
 
 class Start extends Base
 {

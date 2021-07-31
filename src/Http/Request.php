@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Resources;
+namespace Helldar\Cashier\Http;
 
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Auth\Auth;
+use Helldar\Contracts\Cashier\Http\Requests\Request as Contract;
 use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Contracts\Cashier\Resources\Request as Contract;
 use Helldar\Contracts\Http\Builder as HttpBuilderContract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Http\Builder as HttpBuilder;

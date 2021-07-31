@@ -34,7 +34,7 @@ class CashierDetail extends CompositeKeysModel
 {
     protected $primaryKey = ['item_type', 'item_id'];
 
-    protected $fillable = ['item_type', 'item_id', 'payment_id', 'details'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
 
     public function __construct(array $attributes = [])
     {

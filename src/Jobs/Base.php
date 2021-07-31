@@ -23,7 +23,7 @@ use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver;
-use Helldar\Contracts\Cashier\Resources\Response;
+use Helldar\Contracts\Cashier\Http\Responses\Response;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -81,9 +81,9 @@ abstract class Base implements ShouldQueue
 
     protected function store(Response $details): void
     {
-        $payment_id = $details->getPaymentId();
+        $external_id = $details->getExternalId();
 
-        $this->model->cashier()->updateOrCreate(compact('payment_id'), compact('details'));
+        $this->model->cashier()->updateOrCreate(compact('external_id'), compact('details'));
     }
 
     protected function modelId(): string

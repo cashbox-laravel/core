@@ -18,13 +18,19 @@
 declare(strict_types=1);
 
 use Helldar\Cashier\Facades\Config\Payment;
-use Illuminate\Database\Eloquent\Model;
+use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class ChangePaymentsTableAddCashierIndex extends Migration
 {
+    use InitModelHelper;
+
+    /**
+     * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function up()
     {
         Schema::table($this->table(), function (Blueprint $table) {
@@ -48,26 +54,25 @@ class ChangePaymentsTableAddCashierIndex extends Migration
         ];
     }
 
+    /**
+     * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     protected function table(): string
     {
-        return $this->model()->getTable();
-    }
+        $model = Payment::getModel();
 
-    protected function model(): Model
-    {
-        $model = Payment::model();
-
-        return new $model();
+        return $this->model()->table($model);
     }
 
     protected function attributeType(): string
     {
-        return Payment::attributeType();
+        return Payment::getAttributes()->getType();
     }
 
     protected function attributeStatus(): string
     {
-        return Payment::attributeStatus();
+        return Payment::getAttributes()->getStatus();
     }
 
     protected function attributeCreatedAt(): string

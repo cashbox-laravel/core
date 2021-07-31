@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Resources;
+namespace Helldar\Cashier\Http;
 
-use Helldar\Contracts\Cashier\Resources\Response as ResponseContract;
+use Helldar\Contracts\Cashier\Http\Responses\Response as ResponseContract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr;
@@ -31,7 +31,7 @@ abstract class Response implements ResponseContract
 {
     use Makeable;
 
-    public const KEY_PAYMENT_ID = 'payment_id';
+    public const KEY_EXTERNAL_ID = 'external_id';
 
     public const KEY_STATUS = 'status';
 
@@ -46,9 +46,9 @@ abstract class Response implements ResponseContract
             : $this->set($items);
     }
 
-    public function getPaymentId(): ?string
+    public function getExternalId(): ?string
     {
-        return $this->value(self::KEY_PAYMENT_ID);
+        return $this->value(self::KEY_EXTERNAL_ID);
     }
 
     public function getStatus(): ?string
@@ -61,7 +61,7 @@ abstract class Response implements ResponseContract
         $keys = $this->keys();
 
         return Arrayable::of($this->items)
-            ->except(self::KEY_PAYMENT_ID)
+            ->except(self::KEY_EXTERNAL_ID)
             ->filter(function (string $key) use ($keys) {
                 return in_array($key, $keys, true);
             }, ARRAY_FILTER_USE_KEY)

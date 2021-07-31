@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Facades\Config\Main;
+use Helldar\Cashier\Facades\Config\Details;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +29,7 @@ class CreateCashierDetailsTable extends Migration
         Schema::create($this->table(), function (Blueprint $table) {
             $table->morphs('item');
 
-            $table->string('payment_id')->nullable();
+            $table->string('external_id')->nullable();
 
             $table->json('details')->nullable();
 
@@ -44,6 +44,6 @@ class CreateCashierDetailsTable extends Migration
 
     protected function table(): string
     {
-        return Main::tableDetails();
+        return Details::getTable();
     }
 }

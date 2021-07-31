@@ -20,12 +20,12 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Helpers\Http as Helper;
-use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as ExceptionManagerContract;
-use Helldar\Contracts\Cashier\Resources\Request;
+use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
+use Helldar\Contracts\Cashier\Http\Requests\Request;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array post(Request $request, ExceptionManagerContract $manager)
+ * @method static array post(Request $request, ExceptionManager $manager)
  */
 class Http extends Facade
 {

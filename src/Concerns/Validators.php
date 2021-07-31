@@ -24,7 +24,7 @@ use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
 use Helldar\Cashier\Exceptions\Runtime\Implement\UnknownResponseException;
 use Helldar\Cashier\Exceptions\Runtime\UnknownMethodException;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Resources\Response;
+use Helldar\Cashier\Http\Response;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Support\Facades\Helpers\Instance;
 use Illuminate\Database\Eloquent\Model;

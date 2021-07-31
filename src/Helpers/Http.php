@@ -23,7 +23,7 @@ use GuzzleHttp\Client;
 use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as ExceptionManagerContract;
-use Helldar\Contracts\Cashier\Resources\Request;
+use Helldar\Contracts\Cashier\Http\Requests\Request;
 use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
@@ -69,9 +69,11 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        } catch (BadRequestClientException $e) {
+        }
+        catch (BadRequestClientException $e) {
             throw $e;
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $exception->throw($e, $request->uri());
         }
     }
