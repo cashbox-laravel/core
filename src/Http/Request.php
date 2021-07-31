@@ -29,7 +29,7 @@ use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Http\Builder as HttpBuilder;
 
 /**
- * @method static Contract make(Model $model, string $auth = null, bool $hash_token = true)
+ * @method static Contract make(Model $model)
  */
 abstract class Request implements Contract
 {
@@ -51,11 +51,13 @@ abstract class Request implements Contract
     /** @var \Helldar\Contracts\Cashier\Auth\Auth|null */
     protected $auth;
 
-    public function __construct(Model $model, string $auth = null, bool $hash_token = true)
+    protected $hash = true;
+
+    public function __construct(Model $model)
     {
         $this->model = $model;
 
-        $this->auth = $this->resolveAuth($model, $auth, $hash_token);
+        $this->auth = $this->resolveAuth($model);
     }
 
     public function uri(): HttpBuilderContract
@@ -84,17 +86,17 @@ abstract class Request implements Contract
 
     /**
      * @param  \Helldar\Contracts\Cashier\Resources\Model  $model
-     * @param  \Helldar\Contracts\Cashier\Auth\Auth|string|null  $auth
-     * @param  bool  $hash_token
      *
      * @return \Helldar\Contracts\Cashier\Auth\Auth|null
      */
-    protected function resolveAuth(Model $model, string $auth = null, bool $hash_token = true): ?Auth
+    protected function resolveAuth(Model $model): ?Auth
     {
-        if (empty($auth)) {
+        if (empty($this->auth)) {
             return null;
         }
 
-        return $auth::make($model, $this, $hash_token);
+        $auth = $this->auth;
+
+        return $auth::make($model, $this, $this->hash);
     }
 }
