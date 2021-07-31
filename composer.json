@@ -68,11 +68,5 @@
                 "Helldar\\Cashier\\Providers\\ObserverServiceProvider"
             ]
         }
-    },
-    "repositories": [
-        {"type": "path", "url": "../cashier-sber-qr"},
-        {"type": "path", "url": "../cashier-sber-auth"},
-        {"type": "path", "url": "../cashier-tinkoff-qr"},
-        {"type": "path", "url": "../cashier-tinkoff-auth"}
-    ]
+    }
 }
