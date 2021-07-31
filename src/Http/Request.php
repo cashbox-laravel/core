@@ -51,15 +51,11 @@ abstract class Request implements Contract
     /** @var \Helldar\Contracts\Cashier\Auth\Auth|null */
     protected $auth;
 
-    /** @var bool */
-    protected $hash_token;
-
     public function __construct(Model $model, string $auth = null, bool $hash_token = true)
     {
         $this->model = $model;
-        $this->auth  = $auth;
 
-        $this->hash_token = $hash_token;
+        $this->auth = $this->resolveAuth($model, $auth, $hash_token);
     }
 
     public function uri(): HttpBuilderContract
@@ -86,14 +82,19 @@ abstract class Request implements Contract
             : $this->production_host;
     }
 
-    protected function resolveAuth(): ?Auth
+    /**
+     * @param  \Helldar\Contracts\Cashier\Resources\Model  $model
+     * @param  \Helldar\Contracts\Cashier\Auth\Auth|string|null  $auth
+     * @param  bool  $hash_token
+     *
+     * @return \Helldar\Contracts\Cashier\Auth\Auth|null
+     */
+    protected function resolveAuth(Model $model, string $auth = null, bool $hash_token = true): ?Auth
     {
-        if (! is_string($this->auth)) {
-            return $this->auth;
+        if (empty($auth)) {
+            return null;
         }
 
-        $auth = $this->auth;
-
-        return $this->auth = $auth::make($this->model, $this, $this->hash_token);
+        return $auth::make($model, $this, $hash_token);
     }
 }
