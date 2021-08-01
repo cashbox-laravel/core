@@ -101,7 +101,7 @@ abstract class Driver implements Contract
     {
         $resource = $this->config->getDetails();
 
-        return $resource::make($payment);
+        return $resource::make($payment, $this->config);
     }
 
     protected function resolveExceptionManager(): ExceptionManager

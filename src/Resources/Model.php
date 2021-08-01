@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Resources;
 
 use Helldar\Cashier\Facades\Helpers\Date;
 use Helldar\Cashier\Facades\Helpers\Unique;
+use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Resources\Model as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -32,9 +33,12 @@ abstract class Model implements Contract
 
     protected $model;
 
-    public function __construct(EloquentModel $model)
+    protected $config;
+
+    public function __construct(EloquentModel $model, Driver $config)
     {
-        $this->model = $model;
+        $this->model  = $model;
+        $this->config = $config;
     }
 
     public function getClientId(): string
@@ -66,7 +70,7 @@ abstract class Model implements Contract
 
     public function getCurrency(): string
     {
-        return $this->currency();
+        return (string) $this->currency();
     }
 
     public function getCreatedAt(): string
@@ -81,15 +85,21 @@ abstract class Model implements Contract
         return $this->model->cashier->external_id ?? null;
     }
 
-    abstract protected function clientId(): string;
+    protected function clientId(): string
+    {
+        return $this->config->getClientId();
+    }
 
-    abstract protected function clientSecret(): string;
+    protected function clientSecret(): string
+    {
+        return $this->config->getClientSecret();
+    }
 
     abstract protected function paymentId(): string;
 
     abstract protected function sum(): float;
 
-    abstract protected function currency(): string;
+    abstract protected function currency(): int;
 
     abstract protected function createdAt(): Carbon;
 }
