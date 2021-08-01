@@ -20,10 +20,11 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
-use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
-use Helldar\Contracts\Cashier\Exceptions\ExceptionManager as ExceptionManagerContract;
+use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
+use Helldar\Contracts\Exceptions\Http\ClientException;
+use Helldar\Contracts\Exceptions\Manager as ExceptionManagerContract;
 use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
@@ -45,6 +46,9 @@ class Http
         $this->client = $client;
     }
 
+    /**
+     * @throws \Helldar\Contracts\Exceptions\Http\ClientException
+     */
     public function post(Request $request, ExceptionManagerContract $manager): array
     {
         return $this->request('post', $request, $manager);
@@ -57,7 +61,7 @@ class Http
             $headers = $request->headers();
             $data    = $request->body();
 
-            return retry($this->tries, function () use ($method, $uri, $data, $headers) {
+            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception) {
                 $params = compact('headers') + $this->body($data, $headers);
 
                 /** @var \Psr\Http\Message\ResponseInterface $response */
@@ -65,21 +69,25 @@ class Http
 
                 $content = $this->decode($response);
 
-                $this->validateResponse($uri, $response->getStatusCode(), $content);
+                $this->validateResponse($uri, $response->getStatusCode(), $content, $exception);
 
                 return $content;
             }, $this->sleep);
-        } catch (BadRequestClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (Throwable $e) {
-            $exception->throw($e, $request->uri());
+        }
+        catch (Throwable $e) {
+            $exception->throw($request->uri(), $e->getCode(), [
+                'Message' => $e->getMessage(),
+            ]);
         }
     }
 
-    protected function validateResponse(Builder $uri, int $status_code, array $content): void
+    protected function validateResponse(Builder $uri, int $status_code, array $content, ExceptionManagerContract $exception): void
     {
         if ($this->isFailedCode($status_code) || $this->isFailedContent($content)) {
-            $this->abort($uri);
+            $exception->throw($uri, $status_code, $content);
         }
     }
 
@@ -103,16 +111,11 @@ class Http
 
     protected function decode(ResponseInterface $response): array
     {
-        if ($content = json_decode($response->getBody()->getContents(), true)) {
+        if ($content = JsonDecoder::decode($response->getBody()->getContents())) {
             return $content;
         }
 
         throw new EmptyResponseException('');
-    }
-
-    protected function abort(Builder $uri): void
-    {
-        throw new BadRequestClientException($uri);
     }
 
     protected function body(array $data, array $headers): array

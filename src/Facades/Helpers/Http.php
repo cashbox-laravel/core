@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Facades\Helpers;
 
 use Helldar\Cashier\Helpers\Http as Helper;
-use Helldar\Contracts\Cashier\Exceptions\ExceptionManager;
 use Helldar\Contracts\Cashier\Http\Request;
+use Helldar\Contracts\Exceptions\Manager as ExceptionManager;
 use Illuminate\Support\Facades\Facade;
 
 /**

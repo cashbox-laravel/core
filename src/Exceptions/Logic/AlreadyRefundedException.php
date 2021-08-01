@@ -23,5 +23,5 @@ class AlreadyRefundedException extends BaseException
 {
     protected $status_code = 409;
 
-    protected $reason = 'Funds for payment #%s have already been returned';
+    protected $reason = 'Funds for payment #%s already returned';
 }

@@ -52,7 +52,7 @@ class CashierDetail extends CompositeKeysModel
 
     protected function setDetailsAttribute(DetailsCast $details = null): void
     {
-        $this->attributes['details'] = $details ? $details->toJson() : null;
+        $this->attributes['details'] = $details->toJson() ?? null;
     }
 
     protected function getDetailsAttribute(): ?DetailsCast
