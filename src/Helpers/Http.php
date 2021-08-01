@@ -73,11 +73,9 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             throw $e;
-        }
-        catch (Throwable $e) {
+        } catch (Throwable $e) {
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
