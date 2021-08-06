@@ -48,7 +48,9 @@ abstract class Response implements ResponseContract
 
     public function getExternalId(): ?string
     {
-        return $this->value(self::KEY_EXTERNAL_ID);
+        $value = $this->value(self::KEY_EXTERNAL_ID);
+
+        return ! empty($value) ? (string) $value : null;
     }
 
     public function getStatus(): ?string
