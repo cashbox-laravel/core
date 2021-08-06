@@ -35,8 +35,12 @@ class JSON
         return json_encode($data);
     }
 
-    public function decode(string $encoded): array
+    public function decode(?string $encoded): array
     {
+        if (empty($encoded)) {
+            return [];
+        }
+
         return json_decode($encoded, true) ?: [];
     }
 }
