@@ -42,7 +42,7 @@ abstract class Driver implements Contract
     /** @var DriverConfig */
     protected $config;
 
-    /** @var Model */
+    /** @var Model|\Helldar\Cashier\Concerns\Casheable */
     protected $payment;
 
     /** @var ModelResource */

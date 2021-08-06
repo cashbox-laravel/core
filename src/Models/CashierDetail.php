@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * @property \Helldar\Contracts\Cashier\Resources\Details $details
  * @property \Illuminate\Database\Eloquent\Model $parent
+ * @property string $external_id
  */
 class CashierDetail extends CompositeKeysModel
 {
