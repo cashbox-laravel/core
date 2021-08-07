@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Helldar\Cashier\Providers\ObserverServiceProvider;
 use Helldar\Cashier\Providers\ServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -29,6 +30,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function getPackageProviders($app): array
     {
-        return [ServiceProvider::class];
+        return [
+            ServiceProvider::class,
+            ObserverServiceProvider::class,
+        ];
     }
 }
