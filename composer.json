@@ -21,7 +21,7 @@
         "source": "https://github.com/andrey-helldar/cashier"
     },
     "require": {
-        "php": "^7.2.5|^8.0",
+        "php": "^7.3|^8.0",
         "ext-json": "*",
         "andrey-helldar/contracts": "^1.5-BETA22",
         "andrey-helldar/simple-data-transfer-object": "^1.0",
