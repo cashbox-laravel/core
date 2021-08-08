@@ -56,14 +56,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
@@ -83,7 +83,9 @@ abstract class Base implements ShouldQueue
     {
         $external_id = $response->getExternalId();
 
-        $details = $this->driver()->details($response->toArray());
+        $saved = $this->model->cashier->details->toArray();
+
+        $details = $this->driver()->details(array_merge($saved, $response->toArray()));
 
         $this->model->cashier()->updateOrCreate(compact('external_id'), compact('details'));
     }
