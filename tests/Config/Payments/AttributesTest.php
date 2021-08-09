@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Config\Payments;
 
 use Helldar\Cashier\Config\Payments\Attributes;
