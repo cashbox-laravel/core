@@ -23,6 +23,7 @@ use Helldar\Cashier\Providers\ObserverServiceProvider;
 use Helldar\Cashier\Providers\ServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tests\Fixtures\Models\Payment;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -34,5 +35,13 @@ abstract class TestCase extends BaseTestCase
             ServiceProvider::class,
             ObserverServiceProvider::class,
         ];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        /** @var \Illuminate\Config\Repository $config */
+        $config = $app['config'];
+
+        $config->set('cashier.payment.model', Payment::class);
     }
 }
