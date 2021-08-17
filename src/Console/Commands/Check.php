@@ -74,7 +74,7 @@ class Check extends Base
         return Payment::getAttributes()->getStatus();
     }
 
-    protected function getStatus(): string
+    protected function getStatus()
     {
         return Payment::getStatuses()->getStatus(Status::NEW);
     }
