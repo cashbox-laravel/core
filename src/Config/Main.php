@@ -26,7 +26,7 @@ class Main extends Base implements MainContract
 {
     public function isProduction(): bool
     {
-        return app('cashier.env') === 'production';
+        return config('cashier.env') === 'production';
     }
 
     public function getLogger(): ?string
