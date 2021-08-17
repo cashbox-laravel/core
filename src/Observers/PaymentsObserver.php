@@ -25,14 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver
 {
-    public function created(Model $model)
-    {
-        if ($this->allow($model)) {
-            $this->jobs($model)->start();
-        }
-    }
-
-    public function updated(Model $model)
+    public function saved(Model $model)
     {
         if ($this->allow($model)) {
             $this->jobs($model)->start();
