@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Config;
 
 use Helldar\Contracts\Cashier\Config\Driver as DriverContract;
 use Helldar\Contracts\Cashier\Config\Main as MainContract;
+use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
 
 class Main extends Base implements MainContract
 {
@@ -34,9 +35,11 @@ class Main extends Base implements MainContract
         return config('cashier.logger');
     }
 
-    public function getQueue(): ?string
+    public function getQueue(): QueueContract
     {
-        return config('cashier.queue');
+        $value = config('cashier.queue');
+
+        return Queue::make($value);
     }
 
     public function getCheckDelay(): int

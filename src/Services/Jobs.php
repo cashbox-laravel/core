@@ -84,11 +84,11 @@ class Jobs
     {
         $instance = $job::make($this->model, $force_break);
 
-        $queue = $this->onQueue();
-
         $instance->delay($delay);
 
-        dispatch($instance)->onQueue($queue);
+        dispatch($instance)
+            ->onConnection($this->onConnection())
+            ->onQueue($this->onQueue());
     }
 
     protected function hasStart(Model $model): bool
@@ -141,9 +141,14 @@ class Jobs
         return Main::getAutoRefundDelay();
     }
 
+    protected function onConnection(): ?string
+    {
+        return Main::getQueue()->getConnection();
+    }
+
     protected function onQueue(): ?string
     {
-        return Main::getQueue();
+        return Main::getQueue()->getName();
     }
 
     protected function driver(Model $model): DriverContract

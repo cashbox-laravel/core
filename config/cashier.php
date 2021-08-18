@@ -102,7 +102,11 @@ return [
      * requests to banks.
      */
 
-    'queue' => env('CASHIER_QUEUE'),
+    'queue' => [
+        'connection' => env('QUEUE_CONNECTION'),
+
+        'name' => env('CASHIER_QUEUE'),
+    ],
 
     /*
      * This block of settings is responsible for the duration of the requests.
