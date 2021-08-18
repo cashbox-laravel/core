@@ -70,12 +70,18 @@ return [
             Status::WAIT_REFUND => Model::STATUS_WAIT_REFUND,
         ],
 
-        'assign_drivers' => [
+        'map' => [
             Model::PAYMENT_TYPE_QR_SBER => 'driver_name',
         ],
     ],
 
-    'queue' => env('CASHIER_QUEUE'),
+    'queue' => [
+        'connection' => env('QUEUE_CONNECTION'),
+
+        'name' => env('CASHIER_QUEUE'),
+
+        'after_commit' => false,
+    ],
 
     'auto_refund' => [
         'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
