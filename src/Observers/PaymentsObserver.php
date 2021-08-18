@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Observers;
 
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,12 @@ class PaymentsObserver
      *
      * @var bool
      */
-    public $afterCommit = true;
+    public $afterCommit;
+
+    public function __construct()
+    {
+        $this->afterCommit = Main::getQueue()->afterCommit();
+    }
 
     public function saved(Model $model)
     {

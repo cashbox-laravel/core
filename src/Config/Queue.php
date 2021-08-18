@@ -13,6 +13,8 @@ class Queue extends DataTransferObject implements QueueContract
 
     protected $name;
 
+    protected $after_commit = false;
+
     public function getConnection(): ?string
     {
         return $this->connection;
@@ -21,5 +23,10 @@ class Queue extends DataTransferObject implements QueueContract
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function afterCommit(): bool
+    {
+        return $this->after_commit;
     }
 }
