@@ -64,6 +64,6 @@ class Check extends Base
     protected function update(Response $response, string $status): void
     {
         $this->updateParentStatus($status);
-        $this->store($response);
+        $this->store($response, false);
     }
 }

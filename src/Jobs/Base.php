@@ -89,13 +89,17 @@ abstract class Base implements ShouldQueue
         return $this->force_break;
     }
 
-    protected function store(Response $response): void
+    protected function store(Response $response, bool $save_details = true): void
     {
         $external_id = $response->getExternalId();
 
-        $saved = $this->model->cashier->details->toArray();
+        $details = $response->toArray();
 
-        $details = $this->driver()->details(array_merge($saved, $response->toArray()));
+        if ($save_details) {
+            $saved = $this->model->cashier->details->toArray();
+
+            $details = $this->driver()->details(array_merge($saved, $details));
+        }
 
         ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
     }
