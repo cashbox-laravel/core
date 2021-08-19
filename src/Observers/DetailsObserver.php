@@ -55,7 +55,7 @@ class DetailsObserver
 
         $field = $this->statusField();
 
-        $model->parent()->update([$field => $value]);
+        $model->parent->update([$field => $value]);
     }
 
     protected function status(string $status)
