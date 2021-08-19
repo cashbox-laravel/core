@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Jobs;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
+use Helldar\Cashier\Facades\Helpers\Model as ModelHelper;
 use Helldar\Contracts\Cashier\Driver;
 use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Concerns\Makeable;
@@ -56,14 +57,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
@@ -87,7 +88,7 @@ abstract class Base implements ShouldQueue
 
         $details = $this->driver()->details(array_merge($saved, $response->toArray()));
 
-        $this->model->cashier()->updateOrCreate(compact('external_id'), compact('details'));
+        ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
     }
 
     protected function modelId(): string
