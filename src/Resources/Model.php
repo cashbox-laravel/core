@@ -85,11 +85,6 @@ abstract class Model implements Contract
         return $this->model->cashier->external_id ?? null;
     }
 
-    public function refresh(): void
-    {
-        $this->model->refresh();
-    }
-
     abstract protected function paymentId(): string;
 
     abstract protected function sum(): float;
