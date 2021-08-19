@@ -116,6 +116,8 @@ return [
         | with your search indexes after every open database transaction has
         | been committed, thus preventing any discarded data from syncing.
         |
+        | Since Laravel/Lumen 8
+        |
         */
 
         'after_commit' => false,
