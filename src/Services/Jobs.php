@@ -63,10 +63,10 @@ class Jobs
         }
     }
 
-    public function check(bool $force = false)
+    public function check(bool $force = false, int $delay = null)
     {
         if ($this->hasCheck($this->model) || $force) {
-            $this->send(Check::class, $force);
+            $this->send(Check::class, $force, $delay);
         }
     }
 

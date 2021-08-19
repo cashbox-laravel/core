@@ -42,6 +42,7 @@ class PaymentsObserver
     {
         if ($this->allow($model)) {
             $this->jobs($model)->start();
+            $this->jobs($model)->check(false, $this->delay());
         }
     }
 
@@ -61,5 +62,10 @@ class PaymentsObserver
     protected function jobs(Model $model): Jobs
     {
         return Jobs::make($model);
+    }
+
+    protected function delay(): int
+    {
+        return Main::getCheckDelay();
     }
 }
