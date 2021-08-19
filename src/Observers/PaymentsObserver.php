@@ -19,18 +19,23 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Observers;
 
-use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver
 {
-    public function saved(Model $model)
+    public function created(Model $model)
     {
         if ($this->allow($model)) {
             $this->jobs($model)->start();
-            $this->jobs($model)->check(false, $this->delay());
+        }
+    }
+
+    public function updated(Model $model)
+    {
+        if ($this->allow($model)) {
+            $this->jobs($model)->check();
         }
     }
 
@@ -50,10 +55,5 @@ class PaymentsObserver
     protected function jobs(Model $model): Jobs
     {
         return Jobs::make($model);
-    }
-
-    protected function delay(): int
-    {
-        return Main::getCheckDelay();
     }
 }
