@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
+use Helldar\Cashier\Services\Jobs;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Start extends Base
@@ -28,10 +29,17 @@ class Start extends Base
         $data = $this->process();
 
         $this->store($data);
+
+        $this->check();
     }
 
     protected function process(): Response
     {
         return $this->driver()->start();
+    }
+
+    protected function check()
+    {
+        Jobs::make($this->model)->check(true);
     }
 }

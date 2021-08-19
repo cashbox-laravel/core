@@ -42,7 +42,6 @@ class PaymentsObserver
     {
         if ($this->allow($model)) {
             $this->jobs($model)->start();
-            $this->jobs($model)->check();
         }
     }
 
