@@ -35,6 +35,8 @@ class Model
     public function update(EloquentModel $payment, array $data): void
     {
         $payment->cashier()->update($data);
+
+        $payment->refresh();
     }
 
     /**
