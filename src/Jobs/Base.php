@@ -15,7 +15,7 @@
  * @see https://github.com/andrey-helldar/cashier
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
@@ -66,14 +66,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
-    abstract protected function process(): Response;
-
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
+
+    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
