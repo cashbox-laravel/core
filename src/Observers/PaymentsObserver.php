@@ -26,18 +26,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver
 {
-    /**
-     * Handle events after all transactions are committed.
-     *
-     * @var bool
-     */
-    public $afterCommit;
-
-    public function __construct()
-    {
-        $this->afterCommit = Main::getQueue()->afterCommit();
-    }
-
     public function saved(Model $model)
     {
         if ($this->allow($model)) {
