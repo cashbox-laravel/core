@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Helpers;
 
+use Helldar\Cashier\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
 {
+    use Validators;
+
     /**
      * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
     {
+        $this->validateModel($payment);
+
         $this->exists($payment)
             ? $this->update($payment, $data)
             : $this->create($payment, $data);
@@ -25,6 +30,8 @@ class Model
      */
     public function create(EloquentModel $payment, array $data): void
     {
+        $this->validateModel($payment);
+
         $payment->cashier()->create($data);
     }
 
@@ -34,7 +41,9 @@ class Model
      */
     public function update(EloquentModel $payment, array $data): void
     {
-        $payment->cashier()->update($data);
+        $this->validateModel($payment);
+
+        $payment->cashier->update($data);
     }
 
     /**
@@ -44,6 +53,8 @@ class Model
      */
     public function exists(EloquentModel $model): bool
     {
+        $this->validateModel($model);
+
         return $model->cashier()->exists();
     }
 }
