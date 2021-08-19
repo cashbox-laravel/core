@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Contracts\Cashier\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class Start extends Base
 {

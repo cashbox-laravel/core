@@ -23,10 +23,16 @@ use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Models\CashierDetail;
+use Helldar\Cashier\Services\Jobs;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver
 {
+    public function saved(CashierDetail $model)
+    {
+        Jobs::make($model->parent)->check();
+    }
+
     public function updated(CashierDetail $model)
     {
         $statuses = $this->driver($model)->statuses();

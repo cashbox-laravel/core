@@ -15,7 +15,7 @@
  * @see https://github.com/andrey-helldar/cashier
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Helldar\Cashier\Services;
 
