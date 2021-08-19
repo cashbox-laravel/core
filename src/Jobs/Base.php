@@ -45,13 +45,6 @@ abstract class Base implements ShouldQueue
 
     public $force_break;
 
-    /**
-     * Indicates whether the job should be dispatched after all database transactions have committed.
-     *
-     * @var bool|null
-     */
-    public $afterCommit = false;
-
     /** @var \Helldar\Contracts\Cashier\Driver */
     protected $driver;
 
@@ -66,14 +59,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
