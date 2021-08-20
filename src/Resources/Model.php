@@ -41,6 +41,14 @@ abstract class Model implements Contract
         $this->config = $config;
     }
 
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
+
     public function getClientId(): string
     {
         return $this->clientId();
@@ -58,12 +66,12 @@ abstract class Model implements Contract
 
     public function getPaymentId(): string
     {
-        return $this->paymentId();
+        return (string) $this->paymentId();
     }
 
     public function getSum(): int
     {
-        $sum = $this->sum();
+        $sum = (float) $this->sum();
 
         return (int) ($sum * 100);
     }
@@ -84,14 +92,6 @@ abstract class Model implements Contract
     {
         return $this->model->cashier->external_id ?? null;
     }
-
-    abstract protected function paymentId(): string;
-
-    abstract protected function sum(): float;
-
-    abstract protected function currency(): int;
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {
