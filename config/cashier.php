@@ -21,27 +21,51 @@ use Helldar\Cashier\Constants\Attributes;
 use Helldar\Cashier\Constants\Status;
 
 return [
+
     /*
-     * This value determines the "environment" your application is currently
-     * running in.
-     */
+    |--------------------------------------------------------------------------
+    | Cashier Environment
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "environment" your cashier instance is
+    | currently running in. This may determine how you prefer to configure
+    | various services the application utilizes. Set this in your ".env"
+    | file.
+    |
+    */
 
     'env' => env('APP_ENV', 'production'),
 
     /*
-     * The block is responsible for defining parameters with a payment model.
-     */
+    |--------------------------------------------------------------------------
+    | Payment Model
+    |--------------------------------------------------------------------------
+    |
+    | This parameter defines the work with the payment model.
+    |
+    */
 
     'payment' => [
+
         /*
-         * Link to Payment model.
-         */
+        |--------------------------------------------------------------------------
+        | Payment Model
+        |--------------------------------------------------------------------------
+        |
+        | This value defines the work with the payment model.
+        |
+        */
 
         'model' => App\Models\Payment::class,
 
         /*
-         * Correspondence of Cashier attributes to Payment model.
-         */
+        |--------------------------------------------------------------------------
+        | Payment Model Attributes
+        |--------------------------------------------------------------------------
+        |
+        | Correspondence of Cashier attributes to Payment model.
+        |
+        */
 
         'attributes' => [
             Attributes::TYPE => 'type_id',
@@ -52,8 +76,13 @@ return [
         ],
 
         /*
-         * Correspondence of statuses to the payment model.
-         */
+        |--------------------------------------------------------------------------
+        | Payment Statuses
+        |--------------------------------------------------------------------------
+        |
+        | Correspondence of statuses to the payment model.
+        |
+        */
 
         'statuses' => [
             Status::NEW => 0,
@@ -68,42 +97,95 @@ return [
         ],
 
         /*
-         * Mapping status types to drivers names.
-         */
+        |--------------------------------------------------------------------------
+        | Drivers Connections
+        |--------------------------------------------------------------------------
+        |
+        | Here you may configure the connection information for each payment type
+        | that is used by your application.
+        |
+        */
 
         'map' => [
-            // 'payment_type_1' => 'sber',
-            // 'payment_type_2' => 'tinkoff',
+            // 'payment_type_1' => 'foo',
+            // 'payment_type_2' => 'bar',
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cashier Details
+    |--------------------------------------------------------------------------
+    |
+    | This parameter contains settings for the cashier table.
+    |
+    */
+
     'details' => [
+
         /*
-         * Table name for the Cashier Details.
-         *
-         * Default, cashier_details.
-         */
+        |--------------------------------------------------------------------------
+        | Cashier Details table settings
+        |--------------------------------------------------------------------------
+        |
+        | Table name for the Cashier Details.
+        |
+        */
 
         'table' => 'cashier_details',
     ],
 
     /*
-     * This setting defines which logging channel will be used to write log
-     * messages. You are free to specify any of your logging channels listed
-     * inside the "logging" configuration file.
-     *
-     * By default, `null` (disabled).
-     */
+    |--------------------------------------------------------------------------
+    | Logger
+    |--------------------------------------------------------------------------
+    |
+    | This setting defines which logging channel will be used by the Stripe
+    | library to write log messages. You are free to specify any of your
+    | logging channels listed inside the "logging" configuration file.
+    |
+    */
 
     'logger' => env('CASHIER_LOGGER'),
 
     /*
-     * This parameter determines in which queue workers will be sent for
-     * requests to banks.
-     */
+    |--------------------------------------------------------------------------
+    | Queue Connections
+    |--------------------------------------------------------------------------
+    |
+    | This parameter determines in which queue workers will be sent for
+    | requests to banks.
+    |
+    */
 
     'queue' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Queue Connection Name
+        |--------------------------------------------------------------------------
+        |
+        | This value indicates which queue service the jobs will fall into.
+        |
+        | Here you may define a default connection.
+        |
+        | By default, `null`.
+        |
+        */
+
         'connection' => env('QUEUE_CONNECTION'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Queue Name
+        |--------------------------------------------------------------------------
+        |
+        | This value specifies the name of the queue into which the task will
+        | be placed.
+        |
+        | By default, `null`.
+        |
+        */
 
         'name' => env('CASHIER_QUEUE'),
 
@@ -116,68 +198,104 @@ return [
         | with your search indexes after every open database transaction has
         | been committed, thus preventing any discarded data from syncing.
         |
-        | Since Laravel/Lumen 8
-        |
         */
 
         'after_commit' => false,
     ],
 
     /*
-     * This block of settings is responsible for the duration of the requests.
-     */
+    |--------------------------------------------------------------------------
+    | Check Requests
+    |--------------------------------------------------------------------------
+    |
+    | This parameter of settings is responsible for the duration of the requests.
+    |
+    */
 
     'check' => [
+
         /*
-         * This setting determines the number of seconds to pause before
-         * re-checking the payment status.
-         */
+        |--------------------------------------------------------------------------
+        | Delay
+        |--------------------------------------------------------------------------
+        |
+        | This setting determines the number of seconds to pause before
+        | re-checking the payment status.
+        |
+        */
 
         'delay' => 3,
 
         /*
-         * This setting determines the number of seconds after which you need to
-         * stop trying to check the status of the payment
-         */
+        |--------------------------------------------------------------------------
+        | Timeout
+        |--------------------------------------------------------------------------
+        |
+        | This setting determines the number of seconds after which you need to
+        | stop trying to check the status of the payment.
+        |
+        */
 
         'timeout' => 30,
     ],
 
     /*
-     * This setting defines the parameters for automatic refunds.
-     */
+    |--------------------------------------------------------------------------
+    | Auto Refund
+    |--------------------------------------------------------------------------
+    |
+    | This parameter defines the parameters for automatic refunds.
+    |
+    */
 
     'auto_refund' => [
+
         /*
-         * This setting determines whether you want to issue an automatic refund
-         * of payments.
-         *
-         * By default, false.
-         */
+        |--------------------------------------------------------------------------
+        | Allow Refund
+        |--------------------------------------------------------------------------
+        |
+        | This setting determines whether you want to issue an automatic refund
+        | of payments.
+        |
+        | By default, false.
+        |
+        */
 
         'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
 
         /*
-         * This setting determines the period after which it is necessary to carry
-         * out an automatic refund.
-         */
+        |--------------------------------------------------------------------------
+        | Refund Delay
+        |--------------------------------------------------------------------------
+        |
+        | This setting determines the period after which it is necessary to carry
+        | out an automatic refund.
+        |
+        */
 
         'delay' => env('CASHIER_AUTO_REFUND_DELAY', 600),
     ],
 
     /*
-     * This setting defines the list of drivers for the implementation of payments.
-     */
+    |--------------------------------------------------------------------------
+    | Drivers
+    |--------------------------------------------------------------------------
+    |
+    | This setting defines the list of drivers for the implementation of
+    | payments.
+    |
+    */
 
     'drivers' => [
-        // 'sber' => [
-        //     \Helldar\Cashier\Constants\Driver::DRIVER => Helldar\CashierDriver\Sber\QrCode\Driver::class,
+        // 'foo' => [
+        //     \Helldar\Cashier\Constants\Driver::DRIVER => \Helldar\CashierDriver\BankName\PaymentType\Driver::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::DETAILS => Helldar\Cashier\Resources\Model::class,
+        //     \Helldar\Cashier\Constants\Driver::DETAILS => \App\Payments\BankName::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_SBER_CLIENT_ID'),
+        //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_SBER_CLIENT_SECRET'),
+        //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
     ],
 ];
