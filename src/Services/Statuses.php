@@ -41,7 +41,7 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    /** @var \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable */
+    /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     protected $model;
 
     public function __construct(Model $model)
