@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the "andrey-helldar/cashier" project.
  *
@@ -23,4 +25,3 @@ class TooManyRequestsException extends BaseException
 
     protected $reason = 'Too Many Requests';
 }
-
