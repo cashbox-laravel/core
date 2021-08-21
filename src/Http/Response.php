@@ -64,16 +64,17 @@ abstract class Response implements ResponseContract
 
         return Arrayable::of($this->items)
             ->except(self::KEY_EXTERNAL_ID)
-            ->filter(function (string $key) use ($keys) {
-                return in_array($key, $keys, true);
-            }, ARRAY_FILTER_USE_KEY)
-            ->filter()
+            ->filter(function ($value, string $key) use ($keys) {
+                return in_array($key, $keys, true) && ! empty($value);
+            }, ARRAY_FILTER_USE_BOTH)
             ->get();
     }
 
     public function put(string $key, $value): self
     {
         $key = Arr::get($this->flipMap(), $key, $key);
+
+        $value = is_string($value) ? trim($value) : $value;
 
         Arr::set($this->items, $key, $value);
 
@@ -87,11 +88,11 @@ abstract class Response implements ResponseContract
 
     protected function map(array $items): void
     {
-        $items = Arrayable::of($items)
-            ->renameKeysMap($this->flipMap())
-            ->get();
+        foreach ($this->map as $to => $from) {
+            $value = Arr::get($items, $from);
 
-        $this->set($items);
+            $this->put($to, $value);
+        }
     }
 
     protected function set(array $items): void

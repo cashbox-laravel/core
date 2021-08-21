@@ -88,7 +88,7 @@ abstract class Base implements ShouldQueue
 
         $content = $response->toArray();
 
-        if ($save_details) {
+        if ($save_details && ! empty($this->model->cashier)) {
             $saved = $this->model->cashier->details->toArray();
 
             $content = array_merge($saved, $content);
