@@ -30,7 +30,9 @@ class DetailsObserver
 {
     public function saved(CashierDetail $model)
     {
-        Jobs::make($model->parent)->check();
+        if ($model->isDirty()) {
+            Jobs::make($model->parent)->check();
+        }
     }
 
     public function updated(CashierDetail $model)
