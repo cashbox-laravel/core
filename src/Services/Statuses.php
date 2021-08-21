@@ -41,7 +41,7 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /** @var \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable */
     protected $model;
 
     public function __construct(Model $model)
@@ -67,37 +67,37 @@ abstract class Statuses implements Contract
             Status::SUCCESS,
         ];
 
-        return ! $this->has($bank, $status)
+        return ! $this->hasCashier($bank, $status)
             && ! $this->hasModel($model, $status);
     }
 
     public function hasCreated($status = null): bool
     {
-        return $this->has(static::NEW, $status)
+        return $this->hasCashier(static::NEW, $status)
             || $this->hasModel([Status::NEW], $status);
     }
 
     public function hasFailed($status = null): bool
     {
-        return $this->has(static::FAILED, $status)
+        return $this->hasCashier(static::FAILED, $status)
             || $this->hasModel([Status::FAILED], $status);
     }
 
     public function hasRefunding($status = null): bool
     {
-        return $this->has(static::REFUNDING, $status)
+        return $this->hasCashier(static::REFUNDING, $status)
             || $this->hasModel([Status::WAIT_REFUND], $status);
     }
 
     public function hasRefunded($status = null): bool
     {
-        return $this->has(static::REFUNDED, $status)
+        return $this->hasCashier(static::REFUNDED, $status)
             || $this->hasModel([Status::REFUND], $status);
     }
 
     public function hasSuccess($status = null): bool
     {
-        return $this->has(static::SUCCESS, $status)
+        return $this->hasCashier(static::SUCCESS, $status)
             || $this->hasModel([Status::SUCCESS], $status);
     }
 
@@ -106,11 +106,11 @@ abstract class Statuses implements Contract
         return $this->hasCreated($status) || $this->hasRefunding($status);
     }
 
-    protected function has(array $statuses, $status = null): bool
+    protected function hasCashier(array $statuses, $status = null): bool
     {
         $status = ! is_null($status) ? $status : $this->cashierStatus();
 
-        return ! is_null($status) && in_array($status, $statuses, true);
+        return $this->has($statuses, $status);
     }
 
     protected function hasModel(array $statuses, $status = null): bool
@@ -122,6 +122,11 @@ abstract class Statuses implements Contract
         $status = ! is_null($status) ? $status : $this->modelStatus();
 
         return $this->has($statuses, $status);
+    }
+
+    protected function has(array $statuses, $status = null): bool
+    {
+        return ! is_null($status) && in_array($status, $statuses, true);
     }
 
     protected function cashierStatus(): ?string
