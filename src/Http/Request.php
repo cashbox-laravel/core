@@ -51,6 +51,10 @@ abstract class Request implements Contract
     /** @var \Helldar\Contracts\Cashier\Auth\Auth|null */
     protected $auth;
 
+    /** @var array */
+    protected $auth_extra = [];
+
+    /** @var bool */
     protected $hash = true;
 
     public function __construct(Model $model)
@@ -97,6 +101,6 @@ abstract class Request implements Contract
 
         $auth = $this->auth;
 
-        return $auth::make($model, $this, $this->hash);
+        return $auth::make($model, $this, $this->hash, $this->auth_extra);
     }
 }
