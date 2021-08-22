@@ -38,7 +38,7 @@ class Http
 
     protected $tries = 10;
 
-    protected $sleep = 1;
+    protected $sleep = 500;
 
     protected $status_keys = ['success'];
 
