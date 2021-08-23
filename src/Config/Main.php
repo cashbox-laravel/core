@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Config;
 
 use Helldar\Contracts\Cashier\Config\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Config\Http as HttpContract;
 use Helldar\Contracts\Cashier\Config\Main as MainContract;
 use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
 
@@ -29,13 +28,6 @@ class Main extends Base implements MainContract
     public function isProduction(): bool
     {
         return config('cashier.env') === 'production';
-    }
-
-    public function getHttp(): HttpContract
-    {
-        $value = config('cashier.http', []);
-
-        return Http::make($value);
     }
 
     public function getLogger(): ?string

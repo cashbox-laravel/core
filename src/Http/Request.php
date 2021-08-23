@@ -57,9 +57,6 @@ abstract class Request implements Contract
     /** @var bool */
     protected $hash = true;
 
-    /** @var array */
-    protected $curl = [];
-
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -84,9 +81,17 @@ abstract class Request implements Contract
         return $this->auth ? $this->auth->body() : $this->getRawBody();
     }
 
-    public function getCurlOptions(): array
+    public function getHttpOptions(): array
     {
-        return $this->curl;
+        $config = $this->model->getConfig();
+
+        $options = ['verify' => $config->getVerifySsl()];
+
+        if ($certificate = $config->getCertificate()) {
+            $options['cert'] = $certificate;
+        }
+
+        return $options;
     }
 
     protected function getHost(): string

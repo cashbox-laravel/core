@@ -37,30 +37,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Http
-    |--------------------------------------------------------------------------
-    |
-    | This parameter defines a set of instructions for working with HTTP
-    | requests.
-    |
-    */
-
-    'http' => [
-        /*
-        |--------------------------------------------------------------------------
-        | SSL Verify
-        |--------------------------------------------------------------------------
-        |
-        | This value determines whether to check the SSL certificate when
-        | requesting.
-        |
-        */
-
-        'ssl_verify' => true,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Payment Model
     |--------------------------------------------------------------------------
     |
@@ -314,6 +290,10 @@ return [
         //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
         //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //
+        //     \Helldar\Cashier\Constants\Driver::SSL_VERIFY => true,
+        //
+        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE => '/path/to/cert.pem',
         // ],
     ],
 ];

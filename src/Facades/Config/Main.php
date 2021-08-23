@@ -21,13 +21,11 @@ namespace Helldar\Cashier\Facades\Config;
 
 use Helldar\Cashier\Config\Main as Config;
 use Helldar\Contracts\Cashier\Config\Driver;
-use Helldar\Contracts\Cashier\Config\Http;
 use Helldar\Contracts\Cashier\Config\Queue;
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static bool isProduction()
- * @method static Http getHttp()
  * @method static string|null getLogger()
  * @method static Queue getQueue()
  * @method static int getCheckDelay()
