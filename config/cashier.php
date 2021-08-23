@@ -293,7 +293,9 @@ return [
         //
         //     \Helldar\Cashier\Constants\Driver::SSL_VERIFY => true,
         //
-        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE => '/path/to/cert.pem',
+        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE_PATH => '/path/to/cert.pem',
+        //
+        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE_PASSWORD => 'qwerty',
         // ],
     ],
 ];
