@@ -62,11 +62,12 @@ class Http
             $uri     = $request->uri();
             $headers = $request->headers();
             $data    = $request->body();
+            $curl    = $request->getCurlOptions();
 
             $verify = $this->sslVerify();
 
-            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception, $verify) {
-                $params = compact('headers', 'verify') + $this->body($data, $headers);
+            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception, $verify, $curl) {
+                $params = compact('headers', 'verify', 'curl') + $this->body($data, $headers);
 
                 /** @var \Psr\Http\Message\ResponseInterface $response */
                 $response = $this->client->{$method}($uri, $params);
@@ -77,9 +78,11 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
@@ -87,7 +90,8 @@ class Http
             $exception->throw($request->uri(), $response->getStatusCode(), [
                 'Message' => Arr::get($content, 'moreInformation') ?: Arr::get($content, 'httpMessage'),
             ]);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
