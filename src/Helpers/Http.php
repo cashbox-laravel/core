@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Helpers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Exceptions\Http\ClientException;
@@ -62,8 +63,10 @@ class Http
             $headers = $request->headers();
             $data    = $request->body();
 
-            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception) {
-                $params = compact('headers') + $this->body($data, $headers);
+            $verify = $this->sslVerify();
+
+            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception, $verify) {
+                $params = compact('headers', 'verify') + $this->body($data, $headers);
 
                 /** @var \Psr\Http\Message\ResponseInterface $response */
                 $response = $this->client->{$method}($uri, $params);
@@ -74,9 +77,11 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
@@ -84,7 +89,8 @@ class Http
             $exception->throw($request->uri(), $response->getStatusCode(), [
                 'Message' => Arr::get($content, 'moreInformation') ?: Arr::get($content, 'httpMessage'),
             ]);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
@@ -141,5 +147,10 @@ class Http
         return Arr::renameKeys($items, static function (string $key) {
             return Str::lower($key);
         });
+    }
+
+    protected function sslVerify()
+    {
+        return Main::getHttp()->sslVerify();
     }
 }
