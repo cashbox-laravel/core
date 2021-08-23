@@ -26,7 +26,6 @@ use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Exceptions\Http\ClientException;
 use Helldar\Contracts\Exceptions\Manager as ExceptionManagerContract;
-use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Str;
 use Psr\Http\Message\ResponseInterface;
@@ -39,8 +38,6 @@ class Http
     protected $tries = 10;
 
     protected $sleep = 500;
-
-    protected $status_keys = ['success'];
 
     public function __construct(Client $client)
     {
@@ -72,50 +69,26 @@ class Http
 
                 $content = $this->decode($response);
 
-                $this->validateResponse($uri, $response->getStatusCode(), $content, $exception);
+                $exception->validateResponse($uri, $content, $response->getStatusCode());
 
                 return $content;
             }, $this->sleep);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
 
-            $exception->throw($request->uri(), $response->getStatusCode(), [
-                'Message' => Arr::get($content, 'moreInformation') ?: Arr::get($content, 'httpMessage'),
-            ]);
-        } catch (Throwable $e) {
+            $exception->throw($request->uri(), $response->getStatusCode(), $content);
+        }
+        catch (Throwable $e) {
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
         }
-    }
-
-    protected function validateResponse(Builder $uri, int $status_code, array $content, ExceptionManagerContract $exception): void
-    {
-        if ($this->isFailedCode($status_code) || $this->isFailedContent($content)) {
-            $exception->throw($uri, $status_code, $content);
-        }
-    }
-
-    protected function isFailedCode(int $code): bool
-    {
-        return $code < 200 || $code >= 400;
-    }
-
-    protected function isFailedContent(array $content): bool
-    {
-        $content = $this->lowerKeys($content);
-
-        foreach ($this->status_keys as $key) {
-            if (Arr::exists($content, $key)) {
-                return $content[$key] === false;
-            }
-        }
-
-        return false;
     }
 
     protected function decode(ResponseInterface $response): array

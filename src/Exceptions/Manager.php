@@ -34,6 +34,15 @@ abstract class Manager implements Contract
 
     protected $reason_keys = ['Message', 'Data'];
 
+    protected $status_keys = ['Success'];
+
+    public function validateResponse(Builder $uri, array $response, int $status_code): void
+    {
+        if ($this->isFailedCode($status_code) || $this->isFailedContent($response)) {
+            $this->throw($uri, $status_code, $response);
+        }
+    }
+
     public function throw(Builder $uri, int $code, array $response): void
     {
         $code = $this->getCode($code, $response);
@@ -77,5 +86,28 @@ abstract class Manager implements Contract
         }
 
         return null;
+    }
+
+    protected function isFailedCode(int $code): bool
+    {
+        return $code < 200 || $code >= 400;
+    }
+
+    protected function isFailedContent(array $response): bool
+    {
+        foreach ($this->status_keys as $key) {
+            if (Arr::exists($response, $key)) {
+                $value = Arr::get($response, $key);
+
+                return $this->isFailedValue($value);
+            }
+        }
+
+        return false;
+    }
+
+    protected function isFailedValue($value): bool
+    {
+        return $value === false;
     }
 }

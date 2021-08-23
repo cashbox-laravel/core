@@ -23,10 +23,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "andrey-helldar/contracts": "^1.11.1",
+        "andrey-helldar/contracts": "^1.12",
         "andrey-helldar/simple-data-transfer-object": "^1.0",
         "andrey-helldar/laravel-support": "^2.0",
-        "andrey-helldar/support": "^4.4",
+        "andrey-helldar/support": "^4.5",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/console": "^6.0|^7.0|^8.0",
         "illuminate/contracts": "^6.0|^7.0|^8.0",
