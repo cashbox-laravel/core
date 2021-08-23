@@ -33,7 +33,7 @@ class Main extends Base implements MainContract
 
     public function getHttp(): HttpContract
     {
-        $value = config('cashier.http');
+        $value = config('cashier.http', []);
 
         return Http::make($value);
     }
