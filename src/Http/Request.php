@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Http;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Auth\Auth;
+use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Http\Request as Contract;
 use Helldar\Contracts\Cashier\Resources\Model;
 use Helldar\Contracts\Http\Builder as HttpBuilderContract;
@@ -85,13 +86,10 @@ abstract class Request implements Contract
     {
         $config = $this->model->getConfig();
 
-        $options = ['verify' => $config->getVerifySsl()];
+        $verify      = $this->getVerifyOptions($config);
+        $certificate = $this->getCertificateOptions($config);
 
-        if ($certificate = $config->getCertificate()) {
-            $options['cert'] = $certificate;
-        }
-
-        return $options;
+        return $verify + $certificate;
     }
 
     protected function getHost(): string
@@ -115,5 +113,24 @@ abstract class Request implements Contract
         $auth = $this->auth;
 
         return $auth::make($model, $this, $this->hash, $this->auth_extra);
+    }
+
+    protected function getVerifyOptions(Driver $config): array
+    {
+        return ['verify' => $config->getVerifySsl()];
+    }
+
+    protected function getCertificateOptions(Driver $config): array
+    {
+        if ($config->hasCertificate()) {
+            return [
+                'cert' => [
+                    $config->getCertificatePath(),
+                    $config->getCertificatePassword(),
+                ],
+            ];
+        }
+
+        return [];
     }
 }

@@ -34,7 +34,9 @@ class Driver extends DataTransferObject implements DriverContract
 
     protected $ssl_verify;
 
-    protected $certificate;
+    protected $certificate_path;
+
+    protected $certificate_password;
 
     public function getDriver(): string
     {
@@ -63,8 +65,18 @@ class Driver extends DataTransferObject implements DriverContract
         return is_null($value) ? true : $value;
     }
 
-    public function getCertificate()
+    public function hasCertificate(): bool
     {
-        return $this->certificate;
+        return ! empty($this->certificate_path);
+    }
+
+    public function getCertificatePath(): ?string
+    {
+        return $this->certificate_path;
+    }
+
+    public function getCertificatePassword(): ?string
+    {
+        return $this->certificate_password;
     }
 }
