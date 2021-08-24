@@ -86,10 +86,9 @@ abstract class Request implements Contract
     {
         $config = $this->model->getConfig();
 
-        $verify      = $this->getVerifyOptions($config);
         $certificate = $this->getCertificateOptions($config);
 
-        return $verify + $certificate;
+        return $certificate;
     }
 
     public function refreshAuth(): void
@@ -122,11 +121,6 @@ abstract class Request implements Contract
         $auth = $this->auth;
 
         return $auth::make($model, $this, $this->hash, $this->auth_extra);
-    }
-
-    protected function getVerifyOptions(Driver $config): array
-    {
-        return ['verify' => $config->getVerifySsl()];
     }
 
     protected function getCertificateOptions(Driver $config): array

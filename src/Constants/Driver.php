@@ -29,8 +29,6 @@ class Driver
 
     public const CLIENT_SECRET = 'client_secret';
 
-    public const SSL_VERIFY = 'ssl_verify';
-
     public const CERTIFICATE_PATH = 'certificate_path';
 
     public const CERTIFICATE_PASSWORD = 'certificate_password';

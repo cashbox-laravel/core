@@ -32,8 +32,6 @@ class Driver extends DataTransferObject implements DriverContract
 
     protected $client_secret;
 
-    protected $ssl_verify;
-
     protected $certificate_path;
 
     protected $certificate_password;
@@ -56,13 +54,6 @@ class Driver extends DataTransferObject implements DriverContract
     public function getClientSecret(): ?string
     {
         return $this->client_secret;
-    }
-
-    public function getVerifySsl()
-    {
-        $value = $this->ssl_verify;
-
-        return is_null($value) ? true : $value;
     }
 
     public function hasCertificate(): bool
