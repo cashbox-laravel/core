@@ -59,14 +59,14 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {
@@ -84,6 +84,10 @@ abstract class Base implements ShouldQueue
 
     protected function store(Response $response, bool $save_details = true): void
     {
+        if (! $response->getExternalId()) {
+            return;
+        }
+
         $external_id = $response->getExternalId();
 
         $content = $response->toArray();
