@@ -92,6 +92,15 @@ abstract class Request implements Contract
         return $verify + $certificate;
     }
 
+    public function refreshAuth(): void
+    {
+        if (empty($this->auth)) {
+            return;
+        }
+
+        $this->auth->refresh();
+    }
+
     protected function getHost(): string
     {
         return ! Main::isProduction() && $this->dev_host

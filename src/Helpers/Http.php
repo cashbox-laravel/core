@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
@@ -55,13 +56,13 @@ class Http
     protected function request(string $method, Request $request, ExceptionManagerContract $exception): array
     {
         try {
-            $uri     = $request->uri();
-            $headers = $request->headers();
-            $data    = $request->body();
+            return $this->retry($this->tries, function () use ($method, $request, $exception) {
+                $uri     = $request->uri();
+                $headers = $request->headers();
+                $data    = $request->body();
 
-            $options = $request->getHttpOptions();
+                $options = $request->getHttpOptions();
 
-            return retry($this->tries, function () use ($method, $uri, $data, $headers, $exception, $options) {
                 $params = compact('headers') + $options + $this->body($data, $headers);
 
                 /** @var \Psr\Http\Message\ResponseInterface $response */
@@ -72,7 +73,7 @@ class Http
                 $exception->validateResponse($uri, $content, $response->getStatusCode());
 
                 return $content;
-            }, $this->sleep);
+            }, $request);
         } catch (ClientException $e) {
             throw $e;
         } catch (GuzzleClientException $e) {
@@ -85,6 +86,37 @@ class Http
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
+        }
+    }
+
+    protected function retry(int $times, callable $callback, Request $request): array
+    {
+        $attempts = 0;
+
+        beginning:
+        $attempts++;
+        $times--;
+
+        try {
+            return $callback($attempts);
+        } catch (UnauthorizedException $e) {
+            if ($times < 1) {
+                throw $e;
+            }
+
+            $request->refreshAuth();
+
+            usleep(value($this->sleep, $attempts) * 1000);
+
+            goto beginning;
+        } catch (Throwable $e) {
+            if ($times < 1) {
+                throw $e;
+            }
+
+            usleep(value($this->sleep, $attempts) * 1000);
+
+            goto beginning;
         }
     }
 
