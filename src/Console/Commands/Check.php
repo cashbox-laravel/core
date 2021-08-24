@@ -39,7 +39,9 @@ class Check extends Base
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
             $payments->each(function (Model $payment) {
-                $this->check($payment);
+                $this->hasCancel($payment)
+                    ? $this->cancel($payment)
+                    : $this->check($payment);
             });
         });
     }
@@ -51,12 +53,17 @@ class Check extends Base
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
             ->where($this->attributeStatus(), $this->getStatus())
-            ->where('created_at', '<', $this->before());
+            ->where($this->attributeCreatedAt(), '<', $this->before());
     }
 
-    protected function check(Model $model)
+    protected function check(Model $model): void
     {
         Jobs::make($model)->check(true);
+    }
+
+    protected function cancel(Model $model): void
+    {
+        Jobs::make($model)->refund();
     }
 
     protected function attributeType(): string
@@ -74,6 +81,11 @@ class Check extends Base
         return Payment::getAttributes()->getStatus();
     }
 
+    protected function attributeCreatedAt(): string
+    {
+        return Payment::getAttributes()->getCreatedAt();
+    }
+
     protected function getStatus()
     {
         return Payment::getStatuses()->getStatus(Status::NEW);
@@ -82,5 +94,17 @@ class Check extends Base
     protected function before(): Carbon
     {
         return Carbon::now()->subHour();
+    }
+
+    protected function hasCancel(Model $payment): bool
+    {
+        $attribute = $this->attributeCreatedAt();
+
+        /** @var \Carbon\Carbon $value */
+        $value = $payment->getAttribute($attribute);
+
+        $now = Carbon::now()->subDay();
+
+        return $value->lte($now);
     }
 }
