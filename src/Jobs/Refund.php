@@ -20,12 +20,17 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Refund extends Base
 {
     public function handle()
     {
+        if (empty($this->model->cashier->external_id)) {
+            throw new UnknownExternalIdException($this->paymentId());
+        }
+
         $response = $this->process();
 
         $status = $response->getStatus();
@@ -44,5 +49,10 @@ class Refund extends Base
     protected function process(): Response
     {
         return $this->driver()->refund();
+    }
+
+    protected function paymentId()
+    {
+        return $this->model->getKey();
     }
 }

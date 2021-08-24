@@ -26,6 +26,12 @@ class Check extends Base
 {
     public function handle()
     {
+        if (empty($this->model->cashier->external_id)) {
+            $this->returnToQueue();
+
+            return;
+        }
+
         $response = $this->process();
 
         $status = $response->getStatus();
