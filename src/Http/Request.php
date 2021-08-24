@@ -22,7 +22,6 @@ namespace Helldar\Cashier\Http;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Auth\Auth;
-use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Http\Request as Contract;
 use Helldar\Contracts\Cashier\Resources\Model;
 use Helldar\Contracts\Http\Builder as HttpBuilderContract;
@@ -84,11 +83,7 @@ abstract class Request implements Contract
 
     public function getHttpOptions(): array
     {
-        $config = $this->model->getConfig();
-
-        $certificate = $this->getCertificateOptions($config);
-
-        return $certificate;
+        return [];
     }
 
     public function refreshAuth(): void
@@ -121,19 +116,5 @@ abstract class Request implements Contract
         $auth = $this->auth;
 
         return $auth::make($model, $this, $this->hash, $this->auth_extra);
-    }
-
-    protected function getCertificateOptions(Driver $config): array
-    {
-        if ($config->hasCertificate()) {
-            return [
-                'cert' => [
-                    $config->getCertificatePath(),
-                    $config->getCertificatePassword(),
-                ],
-            ];
-        }
-
-        return [];
     }
 }

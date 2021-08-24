@@ -28,8 +28,4 @@ class Driver
     public const CLIENT_ID = 'client_id';
 
     public const CLIENT_SECRET = 'client_secret';
-
-    public const CERTIFICATE_PATH = 'certificate_path';
-
-    public const CERTIFICATE_PASSWORD = 'certificate_password';
 }
