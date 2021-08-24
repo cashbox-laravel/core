@@ -46,6 +46,11 @@ abstract class Response implements ResponseContract
             : $this->set($items);
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->getExternalId());
+    }
+
     public function getExternalId(): ?string
     {
         $value = $this->value(self::KEY_EXTERNAL_ID);

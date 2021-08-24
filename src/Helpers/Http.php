@@ -73,15 +73,18 @@ class Http
 
                 return $content;
             }, $this->sleep);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
 
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);

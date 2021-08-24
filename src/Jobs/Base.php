@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
+use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
@@ -84,8 +85,8 @@ abstract class Base implements ShouldQueue
 
     protected function store(Response $response, bool $save_details = true): void
     {
-        if (! $response->getExternalId()) {
-            return;
+        if ($response->isEmpty()) {
+            throw new EmptyResponseException('');
         }
 
         $external_id = $response->getExternalId();
