@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Resources;
 
+use Helldar\Cashier\Facades\Helpers\Currency as CurrencyHelper;
 use Helldar\Cashier\Facades\Helpers\Date;
 use Helldar\Cashier\Facades\Helpers\Unique;
 use Helldar\Contracts\Cashier\Config\Driver;
@@ -40,6 +41,14 @@ abstract class Model implements Contract
         $this->model  = $model;
         $this->config = $config;
     }
+
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
 
     public function getClientId(): string
     {
@@ -70,7 +79,9 @@ abstract class Model implements Contract
 
     public function getCurrency(): string
     {
-        return (string) $this->currency();
+        $currency = CurrencyHelper::get($this->currency());
+
+        return (string) $currency->getNumericCode();
     }
 
     public function getCreatedAt(): string
@@ -89,14 +100,6 @@ abstract class Model implements Contract
     {
         return $this->config;
     }
-
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {

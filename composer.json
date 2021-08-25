@@ -24,8 +24,8 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "andrey-helldar/contracts": "^1.14",
-        "andrey-helldar/simple-data-transfer-object": "^1.0",
         "andrey-helldar/laravel-support": "^2.0",
+        "andrey-helldar/simple-data-transfer-object": "^1.0",
         "andrey-helldar/support": "^4.5",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/broadcasting": "^6.0|^7.0|^8.0",
@@ -34,6 +34,7 @@
         "illuminate/database": "^6.0|^7.0|^8.0",
         "illuminate/queue": "^6.0|^7.0|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",
+        "moneyphp/money": "^3.3|^4.0",
         "psr/http-message": "^1.0",
         "ramsey/uuid": "^3.7|^4.0",
         "symfony/http-kernel": "^4.3.4|^5.0"
