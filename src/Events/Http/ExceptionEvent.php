@@ -12,10 +12,26 @@ class ExceptionEvent
     use InteractsWithSockets;
     use SerializesModels;
 
+    /**
+     * The status code.
+     *
+     * @var int
+     */
     public $code;
 
+    /**
+     * The message of the exception.
+     *
+     * @var string
+     */
     public $message;
 
+    /**
+     * Create a new event instance.
+     *
+     * @param  int  $code
+     * @param  string  $message
+     */
     public function __construct(int $code, string $message)
     {
         $this->code = $code;
