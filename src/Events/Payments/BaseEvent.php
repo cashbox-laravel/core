@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events;
+namespace Helldar\Cashier\Events\Payments;
 
 use Helldar\Cashier\Models\CashierDetail;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -28,9 +28,18 @@ abstract class BaseEvent
     use InteractsWithSockets;
     use SerializesModels;
 
-    /** @var \Illuminate\Database\Eloquent\Model */
+    /**
+     * The payment model instance.
+     *
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     public $payment;
 
+    /**
+     * Create a new event instance.
+     *
+     * @param  \Helldar\Cashier\Models\CashierDetail  $detail
+     */
     public function __construct(CashierDetail $detail)
     {
         $this->payment = $detail->parent;
