@@ -7,7 +7,7 @@ namespace Helldar\Cashier\Events\Http;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Queue\SerializesModels;
 
-class RequestErrorEvent
+class ExceptionEvent
 {
     use InteractsWithSockets;
     use SerializesModels;
