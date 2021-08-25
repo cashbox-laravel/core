@@ -19,16 +19,15 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Helpers;
 
+use Helldar\Cashier\Constants\Currency as CurrencyConstants;
+use Helldar\Cashier\Exceptions\Runtime\UnknownCurrencyCodeException;
 use Helldar\Cashier\Resources\Currency as Resource;
-use Helldar\Support\Concerns\Resolvable;
+use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Reflection;
 use Helldar\Support\Facades\Helpers\Str;
-use Money\Currencies\ISOCurrencies;
-use Money\Currency as CurrencyMoney;
 
 class Currency
 {
-    use Resolvable;
-
     /**
      * Get the currency resource instance.
      *
@@ -44,26 +43,39 @@ class Currency
             return $this->findByString($value);
         }
 
-        return $this->resource($currency);
+        return $this->findByNumeric($currency);
+    }
+
+    /**
+     * Get the available currencies list.
+     *
+     * @return array
+     */
+    public function all(): array
+    {
+        return Reflection::getConstants(CurrencyConstants::class);
     }
 
     protected function findByString(string $value): Resource
     {
-        $currency = $this->money($value);
+        $items = $this->all();
 
-        $numeric = $this->iso()->numericCodeFor($currency);
+        if (array_key_exists($value, $items)) {
+            return Arr::get($items, $value);
+        }
 
-        return $this->resource($numeric);
+        throw new UnknownCurrencyCodeException($value);
     }
 
-    protected function money(string $value): CurrencyMoney
+    protected function findByNumeric(int $value): Resource
     {
-        return new CurrencyMoney($value);
-    }
+        $items = $this->all();
 
-    protected function iso(): ISOCurrencies
-    {
-        return self::resolveInstance(ISOCurrencies::class);
+        if ($key = array_search($value, $items, true)) {
+            return Arr::get($items, $key);
+        }
+
+        throw new UnknownCurrencyCodeException($value);
     }
 
     protected function prepare(string $currency): string
@@ -71,8 +83,8 @@ class Currency
         return Str::upper($currency);
     }
 
-    protected function resource(int $numeric): Resource
+    protected function resource(int $numeric, string $alphabetic): Resource
     {
-        return Resource::make(compact('numeric'));
+        return Resource::make(compact('numeric', 'alphabetic'));
     }
 }

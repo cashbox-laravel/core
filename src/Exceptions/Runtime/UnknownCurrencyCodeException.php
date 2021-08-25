@@ -17,23 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Resources;
+namespace Helldar\Cashier\Exceptions\Runtime;
 
-use Helldar\SimpleDataTransferObject\DataTransferObject;
-
-class Currency extends DataTransferObject
+/** @method UnknownCurrencyCodeException __construct(string $currency) */
+class UnknownCurrencyCodeException extends BaseException
 {
-    protected $numeric;
-
-    protected $alphabetic;
-
-    public function getNumeric(): int
-    {
-        return $this->numeric;
-    }
-
-    public function getAlphabetic(): string
-    {
-        return $this->alphabetic;
-    }
+    protected $reason = 'Unknown currency code: %s';
 }
