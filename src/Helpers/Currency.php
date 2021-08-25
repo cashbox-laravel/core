@@ -61,7 +61,9 @@ class Currency
         $items = $this->all();
 
         if (array_key_exists($value, $items)) {
-            return Arr::get($items, $value);
+            $code = Arr::get($items, $value);
+
+            return $this->resource($code, $value);
         }
 
         throw new UnknownCurrencyCodeException($value);
@@ -72,7 +74,9 @@ class Currency
         $items = $this->all();
 
         if ($key = array_search($value, $items, true)) {
-            return Arr::get($items, $key);
+            $code = Arr::get($items, $key);
+
+            return $this->resource($value, $code);
         }
 
         throw new UnknownCurrencyCodeException($value);
