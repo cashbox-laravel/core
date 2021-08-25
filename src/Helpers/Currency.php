@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * This file is part of the "andrey-helldar/cashier" project.
  *
@@ -16,6 +14,8 @@ declare(strict_types=1);
  *
  * @see https://github.com/andrey-helldar/cashier
  */
+
+declare(strict_types=1);
 
 namespace Helldar\Cashier\Helpers;
 
