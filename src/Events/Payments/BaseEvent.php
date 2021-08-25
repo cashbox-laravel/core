@@ -19,14 +19,16 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Events\Payments;
 
-use Helldar\Cashier\Models\CashierDetail;
+use Helldar\Cashier\Concerns\Validators;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;
 
 abstract class BaseEvent
 {
     use InteractsWithSockets;
     use SerializesModels;
+    use Validators;
 
     /**
      * The payment model instance.
@@ -38,10 +40,12 @@ abstract class BaseEvent
     /**
      * Create a new event instance.
      *
-     * @param  \Helldar\Cashier\Models\CashierDetail  $detail
+     * @param  \Illuminate\Database\Eloquent\Model  $payment
      */
-    public function __construct(CashierDetail $detail)
+    public function __construct(Model $payment)
     {
-        $this->payment = $detail->parent;
+        $this->validateModel($payment);
+
+        $this->payment = $payment;
     }
 }
