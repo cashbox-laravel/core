@@ -22,7 +22,7 @@ namespace Helldar\Cashier\Observers;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Events\Payments\FailedEvent;
 use Helldar\Cashier\Events\Payments\RefundEvent;
-use Helldar\Cashier\Events\Payments\SuccessfulEvent;
+use Helldar\Cashier\Events\Payments\SuccessEvent;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Models\CashierDetail;
@@ -37,10 +37,7 @@ class DetailsObserver
         if ($model->isDirty()) {
             Jobs::make($model->parent)->check();
         }
-    }
 
-    public function updated(CashierDetail $model)
-    {
         $statuses = $this->driver($model)->statuses();
 
         $status = $model->details->getStatus();
@@ -90,7 +87,7 @@ class DetailsObserver
 
         switch (true) {
             case $statuses->hasSuccess($status):
-                event(new SuccessfulEvent($detail));
+                event(new SuccessEvent($detail));
                 break;
 
             case $statuses->hasRefunded($status):
