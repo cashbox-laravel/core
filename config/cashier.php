@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => env('CASHIER_ENV', env('APP_ENV', 'production')),
 
     /*
     |--------------------------------------------------------------------------
