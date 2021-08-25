@@ -290,10 +290,6 @@ return [
         //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
         //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
-        //
-        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE_PATH => '/path/to/cert.pem',
-        //
-        //     \Helldar\Cashier\Constants\Driver::CERTIFICATE_PASSWORD => 'qwerty',
         // ],
     ],
 ];
