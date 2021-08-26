@@ -173,17 +173,55 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Queue Name
+        | Queue Names
         |--------------------------------------------------------------------------
         |
-        | This value specifies the name of the queue into which the task will
+        | This value specifies the names of the queue into which the task will
         | be placed.
-        |
-        | By default, `null`.
         |
         */
 
-        'name' => env('CASHIER_QUEUE'),
+        'names' => [
+
+            /*
+            |--------------------------------------------------------------------------
+            | Initialize Queue Name
+            |--------------------------------------------------------------------------
+            |
+            | This value defines the queue name for payment initiation tasks.
+            |
+            | By default, `null`.
+            |
+            */
+
+            'start' => env('CASHIER_QUEUE'),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Check Queue Name
+            |--------------------------------------------------------------------------
+            |
+            | This value defines the queue name for payment checking tasks.
+            |
+            | By default, `null`.
+            |
+            */
+
+            'check' => env('CASHIER_QUEUE'),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Refund Queue Name
+            |--------------------------------------------------------------------------
+            |
+            | This value defines the queue name for payment refund tasks.
+            |
+            | By default, `null`.
+            |
+            */
+
+            'refund' => env('CASHIER_QUEUE'),
+        ],
 
         /*
         |--------------------------------------------------------------------------

@@ -23,7 +23,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "andrey-helldar/contracts": "^1.14",
+        "andrey-helldar/contracts": "^1.16",
         "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/simple-data-transfer-object": "^1.0",
         "andrey-helldar/support": "^4.6",

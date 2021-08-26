@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Jobs;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
 use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
@@ -98,5 +99,10 @@ class Refund extends Base
         if ($this->resolveStatuses()->hasRefunded()) {
             throw new AlreadyRefundedException($this->model->getKey());
         }
+    }
+
+    protected function queueName(): ?string
+    {
+        return Main::getQueue()->getNames()->getRefund();
     }
 }

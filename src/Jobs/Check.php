@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base
@@ -71,5 +72,10 @@ class Check extends Base
     {
         $this->updateParentStatus($status);
         $this->store($response, false);
+    }
+
+    protected function queueName(): ?string
+    {
+        return Main::getQueue()->getNames()->getCheck();
     }
 }

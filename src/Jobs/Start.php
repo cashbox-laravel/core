@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
+use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Start extends Base
@@ -33,5 +34,10 @@ class Start extends Base
     protected function process(): Response
     {
         return $this->resolveDriver()->start();
+    }
+
+    protected function queueName(): ?string
+    {
+        return Main::getQueue()->getNames()->getStart();
     }
 }

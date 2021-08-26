@@ -86,9 +86,7 @@ class Jobs
 
         $instance->delay($delay);
 
-        dispatch($instance)
-            ->onConnection($this->onConnection())
-            ->onQueue($this->onQueue());
+        dispatch($instance)->onConnection($this->onConnection());
     }
 
     protected function hasStart(Model $model): bool
@@ -144,11 +142,6 @@ class Jobs
     protected function onConnection(): ?string
     {
         return Main::getQueue()->getConnection();
-    }
-
-    protected function onQueue(): ?string
-    {
-        return Main::getQueue()->getName();
     }
 
     protected function driver(Model $model): DriverContract

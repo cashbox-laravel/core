@@ -64,9 +64,15 @@ abstract class Base implements ShouldQueue
         $this->afterCommit = Main::getQueue()->afterCommit();
 
         $this->tries = Main::getQueue()->getTries();
+
+        $this->queue = $this->queueName();
     }
 
     abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
 
     public function retryUntil(): Carbon
     {
@@ -74,8 +80,6 @@ abstract class Base implements ShouldQueue
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function hasBreak(): bool
     {

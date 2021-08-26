@@ -20,13 +20,14 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Config;
 
 use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
+use Helldar\Contracts\Cashier\Config\Queues\Names;
 use Helldar\SimpleDataTransferObject\DataTransferObject;
 
 class Queue extends DataTransferObject implements QueueContract
 {
     protected $connection;
 
-    protected $name;
+    protected $names = [];
 
     protected $after_commit = false;
 
@@ -37,9 +38,9 @@ class Queue extends DataTransferObject implements QueueContract
         return $this->connection;
     }
 
-    public function getName(): ?string
+    public function getNames(): Names
     {
-        return $this->name;
+        return Queues\Names::make($this->names);
     }
 
     public function afterCommit(): bool
