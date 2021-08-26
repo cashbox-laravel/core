@@ -38,7 +38,7 @@ class Http
 
     protected $tries = 10;
 
-    protected $sleep = 500;
+    protected $sleep = 300;
 
     public function __construct(Client $client)
     {
