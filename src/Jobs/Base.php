@@ -46,7 +46,7 @@ abstract class Base implements ShouldQueue
      *
      * @var int
      */
-    public $tries = 5;
+    public $tries;
 
     /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;

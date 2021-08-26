@@ -206,9 +206,11 @@ return [
         | This value determines the number of attempts to execute the job
         | before logging it failed.
         |
+        | By default, 5.
+        |
         */
 
-        'tries' => 100,
+        'tries' => 5,
     ],
 
     /*
