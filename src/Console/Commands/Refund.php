@@ -64,7 +64,6 @@ class Refund extends Base
      * @param  \Illuminate\Database\Eloquent\Model  $model
      *
      * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     * @throws \Helldar\Cashier\Exceptions\Logic\PaymentInProgressException
      */
     protected function abort(DriverContract $driver, Model $model): void
     {
