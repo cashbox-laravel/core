@@ -42,9 +42,6 @@ class Refund extends Base
         $this->ran();
     }
 
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
-     */
     protected function ran()
     {
         $response = $this->process();
@@ -59,7 +56,7 @@ class Refund extends Base
 
         $this->updateParentStatus(Status::REFUND);
 
-        $this->store($response);
+        $this->store($response, false);
     }
 
     protected function process(): Response

@@ -22,9 +22,10 @@ namespace Helldar\Cashier\Observers;
 use Helldar\Cashier\Concerns\Events;
 use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Services\Jobs;
+use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentsObserver
+class PaymentsObserver extends BaseObserver
 {
     use Events;
 
@@ -40,7 +41,7 @@ class PaymentsObserver
         if ($this->allow($payment)) {
             $this->event($payment);
 
-            if ($payment->isDirty() && ! $payment->isDirty($this->attributeStatus())) {
+            if ($this->wasChanged($payment)) {
                 $this->jobs($payment)->check();
             }
         }
@@ -49,7 +50,7 @@ class PaymentsObserver
     /**
      * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
-    public function deleted(Model $payment)
+    public function deleting(Model $payment)
     {
         $payment->cashier()->delete();
     }
@@ -62,5 +63,15 @@ class PaymentsObserver
     protected function jobs(Model $payment): Jobs
     {
         return Jobs::make($payment);
+    }
+
+    protected function wasChanged(Model $payment): bool
+    {
+        $attributes = Arr::except($payment->getChanges(), [
+            $this->attributeStatus(),
+            $this->attributeCreatedAt(),
+        ]);
+
+        return $payment->wasChanged($attributes);
     }
 }

@@ -59,11 +59,6 @@ trait Events
         return $this->getStatus($value);
     }
 
-    protected function attributeStatus(): string
-    {
-        return Payment::getAttributes()->getStatus();
-    }
-
     protected function getStatus($status): ?string
     {
         return Arr::get($this->getAvailableStatuses(), $status);

@@ -26,9 +26,6 @@ use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base
 {
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
-     */
     public function handle()
     {
         $this->checkExternalId();
@@ -68,9 +65,6 @@ class Check extends Base
         return $this->resolveDriver()->check();
     }
 
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
-     */
     protected function update(Response $response, string $status): void
     {
         $this->updateParentStatus($status);

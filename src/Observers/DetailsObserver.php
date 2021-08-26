@@ -27,13 +27,13 @@ use Helldar\Cashier\Models\CashierDetail;
 use Helldar\Cashier\Services\Jobs;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 
-class DetailsObserver
+class DetailsObserver extends BaseObserver
 {
     use Relations;
 
     public function saved(CashierDetail $model)
     {
-        if (! $model->isDirty()) {
+        if ($model->isClean()) {
             return;
         }
 
@@ -41,7 +41,7 @@ class DetailsObserver
 
         $status = $model->details->getStatus();
 
-        if ($model->wasChanged('details')) {
+        if ($model->isDirty('details')) {
             switch (true) {
                 case $statuses->hasSuccess($status):
                     $this->updateStatus($model, Status::SUCCESS);

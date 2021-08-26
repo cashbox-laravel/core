@@ -282,7 +282,7 @@ return [
         |
         */
 
-        'timeout' => 30,
+        'timeout' => 300,
     ],
 
     /*
