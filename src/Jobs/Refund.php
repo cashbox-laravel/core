@@ -74,7 +74,7 @@ class Refund extends Base
     {
         $status = $this->driver()->statuses();
 
-        if ($status->inProgress() || $status->hasRefunded()) {
+        if (! $status->inProgress() || $status->hasRefunded()) {
             return true;
         }
 
