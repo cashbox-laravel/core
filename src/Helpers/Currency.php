@@ -74,7 +74,6 @@ class Currency
         $items = $this->all();
 
         if ($value = array_search($code, $items, true)) {
-
             return $this->resource($code, $value);
         }
 
