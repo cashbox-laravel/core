@@ -22,7 +22,7 @@ namespace Helldar\Cashier\Observers;
 use Helldar\Cashier\Concerns\Events;
 use Helldar\Cashier\Facades\Helpers\Access;
 use Helldar\Cashier\Services\Jobs;
-use Helldar\Support\Facades\Helpers\Arr;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver extends BaseObserver
@@ -67,10 +67,11 @@ class PaymentsObserver extends BaseObserver
 
     protected function wasChanged(Model $payment): bool
     {
-        $attributes = Arr::except($payment->getChanges(), [
-            $this->attributeStatus(),
-            $this->attributeCreatedAt(),
-        ]);
+        $attributes = Arrayable::of($payment->getChanges())
+            ->except([
+                $this->attributeStatus(),
+                $this->attributeCreatedAt(),
+            ])->keys()->get();
 
         return $payment->wasChanged($attributes);
     }
