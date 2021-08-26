@@ -41,6 +41,13 @@ abstract class Base implements ShouldQueue
     use SerializesModels;
     use Makeable;
 
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
+
     /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;
 
@@ -56,9 +63,13 @@ abstract class Base implements ShouldQueue
         $this->force_break = $force_break;
 
         $this->afterCommit = Main::getQueue()->afterCommit();
+
+        $this->tries = Main::getQueue()->getTries();
     }
 
     abstract public function handle();
+
+    abstract protected function process(): Response;
 
     public function retryUntil(): Carbon
     {
@@ -66,8 +77,6 @@ abstract class Base implements ShouldQueue
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
 
     protected function driver(): Driver
     {

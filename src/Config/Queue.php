@@ -30,6 +30,8 @@ class Queue extends DataTransferObject implements QueueContract
 
     protected $after_commit = false;
 
+    protected $tries = 5;
+
     public function getConnection(): ?string
     {
         return $this->connection;
@@ -43,5 +45,12 @@ class Queue extends DataTransferObject implements QueueContract
     public function afterCommit(): bool
     {
         return $this->after_commit;
+    }
+
+    public function getTries(): int
+    {
+        $value = abs($this->tries);
+
+        return $value > 0 ? $value : 5;
     }
 }

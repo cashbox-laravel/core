@@ -197,6 +197,18 @@ return [
         */
 
         'after_commit' => false,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Max Attempts
+        |--------------------------------------------------------------------------
+        |
+        | This value determines the number of attempts to execute the job
+        | before logging it failed.
+        |
+        */
+
+        'tries' => 100,
     ],
 
     /*
