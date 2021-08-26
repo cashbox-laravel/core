@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Models;
 
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Facades\Config\Details;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Facades\Helpers\JSON;
@@ -33,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class CashierDetail extends CompositeKeysModel
 {
+    use Relations;
+
     protected $primaryKey = ['item_type', 'item_id'];
 
     protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
@@ -58,6 +61,8 @@ class CashierDetail extends CompositeKeysModel
 
     protected function getDetailsAttribute(): ?DetailsCast
     {
+        $this->resolvePayment($this);
+
         $decoded = JSON::decode($this->attributes['details']);
 
         return DriverManager::fromModel($this->parent)->details($decoded ?: []);

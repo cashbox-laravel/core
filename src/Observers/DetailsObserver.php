@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Observers;
 
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
@@ -28,9 +29,13 @@ use Helldar\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver
 {
+    use Relations;
+
     public function saved(CashierDetail $model)
     {
         if ($model->isDirty()) {
+            $this->resolvePayment($model);
+
             Jobs::make($model->parent)->check();
         }
 
@@ -51,11 +56,15 @@ class DetailsObserver
 
     protected function driver(CashierDetail $model): DriverContract
     {
+        $this->resolvePayment($model);
+
         return DriverManager::fromModel($model->parent);
     }
 
     protected function updateStatus(CashierDetail $model, string $status): void
     {
+        $this->resolvePayment($model);
+
         $value = $this->status($status);
 
         $field = $this->statusField();
