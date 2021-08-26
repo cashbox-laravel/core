@@ -69,14 +69,13 @@ class Currency
         throw new UnknownCurrencyCodeException($value);
     }
 
-    protected function findByNumeric(int $value): Resource
+    protected function findByNumeric(int $code): Resource
     {
         $items = $this->all();
 
-        if ($key = array_search($value, $items, true)) {
-            $code = Arr::get($items, $key);
+        if ($value = array_search($code, $items, true)) {
 
-            return $this->resource($value, $code);
+            return $this->resource($code, $value);
         }
 
         throw new UnknownCurrencyCodeException($value);
