@@ -14,7 +14,7 @@ trait Driverable
     protected $driver;
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $payment
+     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      *
      * @return \Helldar\Contracts\Cashier\Driver
      */
