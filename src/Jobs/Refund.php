@@ -31,6 +31,12 @@ class Refund extends Base
             throw new UnknownExternalIdException($this->paymentId());
         }
 
+        $this->runCheckJob();
+
+        if ($this->abort()) {
+            return;
+        }
+
         $response = $this->process();
 
         $status = $response->getStatus();
@@ -54,5 +60,21 @@ class Refund extends Base
     protected function paymentId()
     {
         return $this->model->getKey();
+    }
+
+    protected function runCheckJob(): void
+    {
+        dispatch_sync(new Check($this->model, true));
+    }
+
+    protected function abort(): bool
+    {
+        $status = $this->driver()->statuses();
+
+        if ($status->inProgress() || $status->hasRefunded()) {
+            return true;
+        }
+
+        return false;
     }
 }
