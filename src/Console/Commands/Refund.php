@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Console\Commands;
 
 use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
-use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 use Illuminate\Database\Eloquent\Model;
 
@@ -70,10 +69,5 @@ class Refund extends Base
         if ($driver->statuses()->hasRefunded()) {
             throw new AlreadyRefundedException($model->getKey());
         }
-    }
-
-    protected function driver(Model $model): DriverContract
-    {
-        return DriverManager::fromModel($model);
     }
 }

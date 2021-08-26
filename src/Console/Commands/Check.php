@@ -98,6 +98,12 @@ class Check extends Base
 
     protected function hasCancel(Model $payment): bool
     {
+        return $this->allowCancelByDate($payment)
+            && $this->allowCancelByStatus($payment);
+    }
+
+    protected function allowCancelByDate(Model $payment): bool
+    {
         $attribute = $this->attributeCreatedAt();
 
         /** @var \Carbon\Carbon $value */
@@ -106,5 +112,12 @@ class Check extends Base
         $now = Carbon::now()->subDay();
 
         return $value->lte($now);
+    }
+
+    protected function allowCancelByStatus(Model $payment): bool
+    {
+        $statuses = $this->driver($payment)->statuses();
+
+        return $statuses->inProgress() || $statuses->hasFailed();
     }
 }

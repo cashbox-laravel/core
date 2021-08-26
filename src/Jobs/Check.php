@@ -64,7 +64,7 @@ class Check extends Base
 
     protected function process(): Response
     {
-        return $this->driver()->check();
+        return $this->resolveDriver()->check();
     }
 
     protected function update(Response $response, string $status): void

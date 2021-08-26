@@ -19,11 +19,14 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Console\Commands;
 
+use Helldar\Cashier\Concerns\Driverable;
 use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
+    use Driverable;
+
     abstract public function handle();
 
     /**

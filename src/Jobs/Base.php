@@ -19,12 +19,13 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
+use Helldar\Cashier\Concerns\Driverable;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Facades\Helpers\Model as ModelHelper;
 use Helldar\Contracts\Cashier\Driver;
+use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
@@ -36,10 +37,11 @@ use Illuminate\Support\Carbon;
 
 abstract class Base implements ShouldQueue
 {
+    use Driverable;
     use InteractsWithQueue;
+    use Makeable;
     use Queueable;
     use SerializesModels;
-    use Makeable;
 
     /**
      * The number of times the job may be attempted.
@@ -52,9 +54,6 @@ abstract class Base implements ShouldQueue
     public $model;
 
     public $force_break;
-
-    /** @var \Helldar\Contracts\Cashier\Driver */
-    protected $driver;
 
     public function __construct(Model $model, bool $force_break = false)
     {
@@ -69,22 +68,13 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
-    }
-
-    abstract protected function process(): Response;
-
-    protected function driver(): Driver
-    {
-        if (! empty($this->driver)) {
-            return $this->driver;
-        }
-
-        return $this->driver = DriverManager::fromModel($this->model);
     }
 
     protected function hasBreak(): bool
@@ -108,7 +98,7 @@ abstract class Base implements ShouldQueue
             $content = array_merge($saved, $content);
         }
 
-        $details = $this->driver()->details($content);
+        $details = $this->resolveDriver()->details($content);
 
         ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
     }
@@ -147,21 +137,31 @@ abstract class Base implements ShouldQueue
 
     protected function hasSuccess(string $status): bool
     {
-        return $this->driver()->statuses()->hasSuccess($status);
+        return $this->resolveStatuses()->hasSuccess($status);
     }
 
     protected function hasFailed(string $status): bool
     {
-        return $this->driver()->statuses()->hasFailed($status);
+        return $this->resolveStatuses()->hasFailed($status);
     }
 
     protected function hasRefunding(string $status): bool
     {
-        return $this->driver()->statuses()->hasRefunding($status);
+        return $this->resolveStatuses()->hasRefunding($status);
     }
 
     protected function hasRefunded(string $status): bool
     {
-        return $this->driver()->statuses()->hasRefunded($status);
+        return $this->resolveStatuses()->hasRefunded($status);
+    }
+
+    protected function resolveDriver(): Driver
+    {
+        return $this->driver($this->model);
+    }
+
+    protected function resolveStatuses(): Statuses
+    {
+        return $this->resolveDriver()->statuses();
     }
 }

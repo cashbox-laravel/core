@@ -20,24 +20,34 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
 use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
+     * @throws \Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException
+     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
+     */
     public function handle()
     {
-        if (empty($this->model->cashier->external_id)) {
-            throw new UnknownExternalIdException($this->paymentId());
-        }
+        $this->checkExternalId();
 
         $this->runCheckJob();
 
-        if ($this->abort()) {
-            return;
-        }
+        $this->checkStatus();
 
+        $this->ran();
+    }
+
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
+     */
+    protected function ran()
+    {
         $response = $this->process();
 
         $status = $response->getStatus();
@@ -55,7 +65,7 @@ class Refund extends Base
 
     protected function process(): Response
     {
-        return $this->driver()->refund();
+        return $this->resolveDriver()->refund();
     }
 
     protected function paymentId()
@@ -70,14 +80,23 @@ class Refund extends Base
         app(Dispatcher::class)->dispatchNow($job);
     }
 
-    protected function abort(): bool
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException
+     */
+    protected function checkExternalId(): void
     {
-        $status = $this->driver()->statuses();
-
-        if (! $status->inProgress() || $status->hasRefunded()) {
-            return true;
+        if (empty($this->model->cashier->external_id)) {
+            throw new UnknownExternalIdException($this->paymentId());
         }
+    }
 
-        return false;
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
+     */
+    protected function checkStatus(): void
+    {
+        if ($this->resolveStatuses()->hasRefunded()) {
+            throw new AlreadyRefundedException($this->model->getKey());
+        }
     }
 }

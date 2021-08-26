@@ -32,6 +32,6 @@ class Start extends Base
 
     protected function process(): Response
     {
-        return $this->driver()->start();
+        return $this->resolveDriver()->start();
     }
 }
