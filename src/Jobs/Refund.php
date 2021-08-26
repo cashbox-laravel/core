@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Jobs;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Contracts\Cashier\Http\Response;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
@@ -64,7 +65,9 @@ class Refund extends Base
 
     protected function runCheckJob(): void
     {
-        dispatch_sync(new Check($this->model, true));
+        $job = new Check($this->model, true);
+
+        app(Dispatcher::class)->dispatchNow($job);
     }
 
     protected function abort(): bool
