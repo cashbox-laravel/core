@@ -20,18 +20,18 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base
 {
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
+     */
     public function handle()
     {
-        if (empty($this->model->cashier->external_id)) {
-            $this->returnToQueue();
-
-            return;
-        }
+        $this->checkExternalId();
 
         $response = $this->process();
 
@@ -68,6 +68,9 @@ class Check extends Base
         return $this->resolveDriver()->check();
     }
 
+    /**
+     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
+     */
     protected function update(Response $response, string $status): void
     {
         $this->updateParentStatus($status);
@@ -77,5 +80,12 @@ class Check extends Base
     protected function queueName(): ?string
     {
         return Main::getQueue()->getNames()->getCheck();
+    }
+
+    protected function checkExternalId(): void
+    {
+        if (empty($this->model->cashier->external_id)) {
+            $this->fail(new UnknownExternalIdException($this->model->getKey()));
+        }
     }
 }

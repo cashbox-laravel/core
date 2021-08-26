@@ -29,8 +29,6 @@ use Illuminate\Contracts\Bus\Dispatcher;
 class Refund extends Base
 {
     /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     * @throws \Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException
      * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
      */
     public function handle()
@@ -81,23 +79,21 @@ class Refund extends Base
         app(Dispatcher::class)->dispatchNow($job);
     }
 
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException
-     */
     protected function checkExternalId(): void
     {
         if (empty($this->model->cashier->external_id)) {
-            throw new UnknownExternalIdException($this->paymentId());
+            $this->fail(
+                new UnknownExternalIdException($this->paymentId())
+            );
         }
     }
 
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     */
     protected function checkStatus(): void
     {
         if ($this->resolveStatuses()->hasRefunded()) {
-            throw new AlreadyRefundedException($this->model->getKey());
+            $this->fail(
+                new AlreadyRefundedException($this->model->getKey())
+            );
         }
     }
 

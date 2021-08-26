@@ -15,7 +15,7 @@
  * @see https://github.com/andrey-helldar/cashier
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Helldar\Cashier\Observers;
 
@@ -40,7 +40,9 @@ class PaymentsObserver
         if ($this->allow($payment)) {
             $this->event($payment);
 
-            $this->jobs($payment)->check();
+            if ($payment->isDirty() && ! $payment->isDirty($this->attributeStatus())) {
+                $this->jobs($payment)->check();
+            }
         }
     }
 

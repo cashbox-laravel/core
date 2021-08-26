@@ -89,7 +89,9 @@ abstract class Base implements ShouldQueue
     protected function store(Response $response, bool $save_details = true): void
     {
         if ($response->isEmpty()) {
-            throw new EmptyResponseException('');
+            $this->fail(
+                new EmptyResponseException('')
+            );
         }
 
         $external_id = $response->getExternalId();
@@ -124,9 +126,11 @@ abstract class Base implements ShouldQueue
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
 
-        $this->model->update([
-            $attribute => $status,
-        ]);
+        if ($this->model->getAttribute($attribute) !== $status) {
+            $this->model->update([
+                $attribute => $status,
+            ]);
+        }
     }
 
     protected function attributeStatus(): string

@@ -15,7 +15,7 @@
  * @see https://github.com/andrey-helldar/cashier
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Helldar\Cashier\Observers;
 
@@ -33,25 +33,36 @@ class DetailsObserver
 
     public function saved(CashierDetail $model)
     {
-        if ($model->isDirty()) {
-            $this->resolvePayment($model);
-
-            Jobs::make($model->parent)->check();
+        if (! $model->isDirty()) {
+            return;
         }
 
         $statuses = $this->driver($model)->statuses();
 
         $status = $model->details->getStatus();
 
-        if ($model->wasChanged('details') && $statuses->hasRefunded($status)) {
-            $this->updateStatus($model, Status::REFUND);
+        if ($model->wasChanged('details')) {
+            switch (true) {
+                case $statuses->hasSuccess($status):
+                    $this->updateStatus($model, Status::SUCCESS);
 
-            return;
+                    return;
+
+                case $statuses->hasRefunded($status):
+                    $this->updateStatus($model, Status::REFUND);
+
+                    return;
+
+                case $statuses->hasFailed($status):
+                    $this->updateStatus($model, Status::FAILED);
+
+                    return;
+            }
         }
 
-        if ($model->wasChanged('details') && $statuses->hasFailed($status)) {
-            $this->updateStatus($model, Status::FAILED);
-        }
+        $this->resolvePayment($model);
+
+        Jobs::make($model->parent)->check();
     }
 
     protected function driver(CashierDetail $model): DriverContract
