@@ -51,7 +51,7 @@ class Main extends Base implements MainContract
 
     public function getCheckTimeout(): int
     {
-        $value = config('cashier.check.timeout', 30);
+        $value = config('cashier.check.timeout', 600);
 
         return $this->moduleValue($value);
     }

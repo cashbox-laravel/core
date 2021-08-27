@@ -284,7 +284,7 @@ return [
         |
         */
 
-        'timeout' => 300,
+        'timeout' => 600,
     ],
 
     /*
