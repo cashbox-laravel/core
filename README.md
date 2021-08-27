@@ -175,7 +175,7 @@ For example:
 ```ini
 [program:queue-payments]
 process_name = %(process_num)02d
-command = php /var/www/artisan queue:work database --tries=100 --queue=payments_start,payments_check,payments_refund
+command = php /var/www/artisan queue:work database --queue=payments_start,payments_check,payments_refund
 autostart = true
 autorestart = true
 numprocs = 4
