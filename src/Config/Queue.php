@@ -29,7 +29,7 @@ class Queue extends DataTransferObject implements QueueContract
 
     protected $names = [];
 
-    protected $after_commit = false;
+    protected $after_commit = true;
 
     protected $tries = 5;
 

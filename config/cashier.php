@@ -231,9 +231,11 @@ return [
         | with your search indexes after every open database transaction has
         | been committed, thus preventing any discarded data from syncing.
         |
+        | By default, true.
+        |
         */
 
-        'after_commit' => false,
+        'after_commit' => true,
 
         /*
         |--------------------------------------------------------------------------
