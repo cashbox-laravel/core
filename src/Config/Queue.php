@@ -31,7 +31,7 @@ class Queue extends DataTransferObject implements QueueContract
 
     protected $after_commit = true;
 
-    protected $tries = 5;
+    protected $tries = 100;
 
     public function getConnection(): ?string
     {
