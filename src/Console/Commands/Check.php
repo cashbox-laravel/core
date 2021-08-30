@@ -19,8 +19,6 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Console\Commands;
 
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Cashier\Models\CashierDetail;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,8 +32,6 @@ class Check extends Base
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
 
-    protected $count = 1000;
-
     public function handle()
     {
         $this->cleanup();
@@ -45,7 +41,7 @@ class Check extends Base
     protected function cleanup(): void
     {
         CashierDetail::query()
-            ->whereDoesntHaveMorph('parent', '*')
+            ->whereDoesntHaveMorph('parent', $this->model())
             ->delete();
     }
 
@@ -53,9 +49,7 @@ class Check extends Base
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
             $payments->each(function (Model $payment) {
-                $this->hasCancel($payment)
-                    ? $this->cancel($payment)
-                    : $this->check($payment);
+                $this->check($payment);
             });
         });
     }
@@ -75,63 +69,8 @@ class Check extends Base
         Jobs::make($model)->check(true);
     }
 
-    protected function cancel(Model $model): void
-    {
-        Jobs::make($model)->refund();
-    }
-
-    protected function attributeType(): string
-    {
-        return Payment::getAttributes()->getType();
-    }
-
-    protected function attributeTypes(): array
-    {
-        return Payment::getMap()->getTypes();
-    }
-
-    protected function attributeStatus(): string
-    {
-        return Payment::getAttributes()->getStatus();
-    }
-
-    protected function attributeCreatedAt(): string
-    {
-        return Payment::getAttributes()->getCreatedAt();
-    }
-
-    protected function getStatus()
-    {
-        return Payment::getStatuses()->getStatus(Status::NEW);
-    }
-
     protected function before(): Carbon
     {
         return Carbon::now()->subHour();
-    }
-
-    protected function hasCancel(Model $payment): bool
-    {
-        return $this->allowCancelByDate($payment)
-            && $this->allowCancelByStatus($payment);
-    }
-
-    protected function allowCancelByDate(Model $payment): bool
-    {
-        $attribute = $this->attributeCreatedAt();
-
-        /** @var \Carbon\Carbon $value */
-        $value = $payment->getAttribute($attribute);
-
-        $now = Carbon::now()->subDay();
-
-        return $value->lte($now);
-    }
-
-    protected function allowCancelByStatus(Model $payment): bool
-    {
-        $statuses = $this->driver($payment)->statuses();
-
-        return $statuses->inProgress();
     }
 }

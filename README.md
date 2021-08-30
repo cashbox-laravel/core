@@ -145,7 +145,7 @@ class Payment extends Model
 }
 ```
 
-### Schedule command
+### Cron Commands
 
 You need to register a call to the console command to periodically start checking payment statuses.
 
@@ -157,12 +157,17 @@ use Illuminate\Console\Scheduling\Schedule;
 protected function schedule(Schedule $schedule)
 {
     $schedule->command('cashier:check')->withoutOverlapping()->everyThirtyMinutes();
+    $schedule->command('cashier:refund')->withoutOverlapping()->daily();
 }
 ```
 
-You can specify any start time, but we recommend using the call every hour.
+* `cashier:check` - Launching a re-verification of payments with a long processing cycle.
+* `cashier:refund` - Launching the command to check payments for refunds.
+
+You can specify any start time for the `cashier:check` command, but we recommend using the call every thirty minutes.
 
 > **Note:** we do not recommend calling the command every 15 minutes or more often - this can fill up the task queue and delay the processing of new items.
+
 
 ### Queue Handler
 
@@ -182,7 +187,6 @@ numprocs = 4
 user = www-data
 redirect_stderr = true
 stdout_logfile = /var/www/storage/logs/queue-payments.log
-
 ```
 
 ### Manual
