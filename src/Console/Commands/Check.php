@@ -132,6 +132,6 @@ class Check extends Base
     {
         $statuses = $this->driver($payment)->statuses();
 
-        return $statuses->inProgress() || $statuses->hasFailed();
+        return $statuses->inProgress();
     }
 }
