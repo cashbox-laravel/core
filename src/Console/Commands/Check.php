@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Console\Commands;
 
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
+use Helldar\Cashier\Models\CashierDetail;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,19 @@ class Check extends Base
     protected $count = 1000;
 
     public function handle()
+    {
+        $this->cleanup();
+        $this->checkPayments();
+    }
+
+    protected function cleanup(): void
+    {
+        CashierDetail::query()
+            ->whereDoesntHave('parent')
+            ->delete();
+    }
+
+    protected function checkPayments(): void
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
             $payments->each(function (Model $payment) {
