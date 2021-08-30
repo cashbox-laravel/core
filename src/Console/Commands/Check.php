@@ -45,7 +45,7 @@ class Check extends Base
     protected function cleanup(): void
     {
         CashierDetail::query()
-            ->whereDoesntHave('parent')
+            ->whereDoesntHaveMorph('parent', '*')
             ->delete();
     }
 
