@@ -205,13 +205,6 @@ $jobs->refund();
 $jobs->retry();
 ```
 
-Also, you can use the console commands:
-
-```bash
-php artisan cashier:check
-php artisan cashier:refund {payment_id}
-```
-
 ## Drivers
 
 ### Available
