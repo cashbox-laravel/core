@@ -19,7 +19,7 @@ trait Relations
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable  $payment
+     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     protected function resolveCashier(Model $payment): void
     {
