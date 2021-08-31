@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Resources;
 
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Facades\Helpers\Currency as CurrencyHelper;
 use Helldar\Cashier\Facades\Helpers\Date;
 use Helldar\Cashier\Facades\Helpers\Unique;
@@ -31,6 +32,7 @@ use Illuminate\Support\Carbon;
 abstract class Model implements Contract
 {
     use Makeable;
+    use Relations;
 
     protected $model;
 
@@ -41,6 +43,14 @@ abstract class Model implements Contract
         $this->model  = $model;
         $this->config = $config;
     }
+
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
 
     public function getClientId(): string
     {
@@ -85,6 +95,8 @@ abstract class Model implements Contract
 
     public function getExternalId(): ?string
     {
+        $this->resolveCashier($this->model);
+
         return $this->model->cashier->external_id ?? null;
     }
 
@@ -92,14 +104,6 @@ abstract class Model implements Contract
     {
         return $this->config;
     }
-
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {

@@ -19,11 +19,13 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Helpers;
 
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
 {
+    use Relations;
     use Validators;
 
     /**
@@ -57,6 +59,8 @@ class Model
     public function update(EloquentModel $payment, array $data): void
     {
         $this->validateModel($payment);
+
+        $this->resolveCashier($payment);
 
         $payment->cashier->update($data);
     }

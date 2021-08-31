@@ -78,6 +78,8 @@ class Check extends Base
 
     protected function checkExternalId(): void
     {
+        $this->resolveCashier($this->model);
+
         if (empty($this->model->cashier->external_id)) {
             $this->fail(new UnknownExternalIdException($this->model->getKey()));
         }

@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Concerns\Driverable;
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
@@ -41,6 +42,7 @@ abstract class Base implements ShouldQueue
     use InteractsWithQueue;
     use Makeable;
     use Queueable;
+    use Relations;
     use SerializesModels;
 
     /**
@@ -70,16 +72,16 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     protected function hasBreak(): bool
     {
@@ -97,6 +99,8 @@ abstract class Base implements ShouldQueue
         $external_id = $response->getExternalId();
 
         $content = $response->toArray();
+
+        $this->resolveCashier($this->model);
 
         if ($save_details && ! empty($this->model->cashier)) {
             $saved = $this->model->cashier->details->toArray();
