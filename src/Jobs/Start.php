@@ -19,11 +19,14 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Jobs;
 
+use Helldar\Cashier\Events\Processes\Started;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Start extends Base
 {
+    protected $event = Started::class;
+
     public function handle()
     {
         $data = $this->process();

@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events\Payments;
+namespace Helldar\Cashier\Events\Processes;
 
 use Helldar\Cashier\Events\BaseEvent;
 
-class FailedEvent extends BaseEvent
+class Refunded extends BaseEvent
 {
 }

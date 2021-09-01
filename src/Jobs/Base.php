@@ -57,6 +57,8 @@ abstract class Base implements ShouldQueue
 
     public $force_break;
 
+    protected $event;
+
     public function __construct(Model $model, bool $force_break = false)
     {
         $this->model = $model;
@@ -72,16 +74,16 @@ abstract class Base implements ShouldQueue
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function retryUntil(): Carbon
     {
         $timeout = Main::getCheckTimeout();
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     protected function hasBreak(): bool
     {
@@ -111,6 +113,13 @@ abstract class Base implements ShouldQueue
         $details = $this->resolveDriver()->details($content);
 
         ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
+
+        $this->sendEvent();
+    }
+
+    protected function sendEvent(): void
+    {
+        event(new $this->event($this->model));
     }
 
     protected function modelId(): string

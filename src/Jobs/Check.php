@@ -20,12 +20,15 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Events\Processes\Checked;
 use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base
 {
+    protected $event = Checked::class;
+
     public function handle()
     {
         $this->checkExternalId();

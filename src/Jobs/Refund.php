@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Constants\Status;
+use Helldar\Cashier\Events\Processes\Refunded;
 use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
 use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
 use Helldar\Cashier\Facades\Config\Main;
@@ -28,6 +29,8 @@ use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
+    protected $event = Refunded::class;
+
     /**
      * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
      */
