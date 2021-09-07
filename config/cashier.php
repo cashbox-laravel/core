@@ -250,6 +250,45 @@ return [
         */
 
         'tries' => 100,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Unique Lock
+        |--------------------------------------------------------------------------
+        |
+        | This value contains parameters for implementing uniqueness of queues.
+        |
+        */
+
+        'unique' => [
+
+            /*
+            |--------------------------------------------------------------------------
+            | Lock's Driver
+            |--------------------------------------------------------------------------
+            |
+            | Set the cache driver for the unique job lock.
+            |
+            | By default, `CACHE_DRIVER` value.
+            |
+            */
+
+            'driver' => env('CACHE_DRIVER'),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Lock's Timeout
+            |--------------------------------------------------------------------------
+            |
+            | The number of seconds after which the job's unique lock will be
+            | released.
+            |
+            | By default, 3600.
+            |
+            */
+
+            'seconds' => 3600,
+        ],
     ],
 
     /*
