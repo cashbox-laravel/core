@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use Helldar\Cashier\Concerns\FailedEvent;
 use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
@@ -34,6 +35,8 @@ use Throwable;
 
 class Http
 {
+    use FailedEvent;
+
     protected $client;
 
     protected $tries = 10;
@@ -75,6 +78,8 @@ class Http
                 return $content;
             }, $request);
         } catch (ClientException $e) {
+            $this->failedEvent($e);
+
             throw $e;
         } catch (GuzzleClientException $e) {
             $response = $e->getResponse();

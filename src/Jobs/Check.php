@@ -84,7 +84,9 @@ class Check extends Base
         $this->resolveCashier($this->model);
 
         if (empty($this->model->cashier->external_id)) {
-            $this->fail(new UnknownExternalIdException($this->model->getKey()));
+            $this->fail(
+                new UnknownExternalIdException($this->model->getKey())
+            );
         }
     }
 }

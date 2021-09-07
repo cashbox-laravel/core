@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Events\Http;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 class ExceptionEvent
 {
@@ -28,29 +29,19 @@ class ExceptionEvent
     use SerializesModels;
 
     /**
-     * The status code.
+     * The exception instance.
      *
-     * @var int
+     * @var Throwable|null
      */
-    public $code;
-
-    /**
-     * The message of the exception.
-     *
-     * @var string
-     */
-    public $message;
+    public $exception;
 
     /**
      * Create a new event instance.
      *
-     * @param  int  $code
-     * @param  string  $message
+     * @param  \Throwable|null  $exception
      */
-    public function __construct(int $code, string $message)
+    public function __construct(Throwable $exception = null)
     {
-        $this->code = $code;
-
-        $this->message = $message;
+        $this->exception = $exception;
     }
 }
