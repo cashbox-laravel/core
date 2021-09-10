@@ -50,14 +50,4 @@ trait Casheable
     {
         return $this->morphMany(CashierLog::class, 'item');
     }
-
-    /**
-     * Defines additional values for logging.
-     *
-     * @return array|null
-     */
-    public function cashierExtra(): ?array
-    {
-        return null;
-    }
 }

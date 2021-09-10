@@ -80,6 +80,10 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function uniqueId()
     {
         return $this->model->getKey();
@@ -98,10 +102,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     protected function hasBreak(): bool
     {
@@ -130,7 +130,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $details = $this->resolveDriver()->details($content);
 
-        $extra = $this->model->cashierExtra();
+        $extra = method_exists($this->model, 'cashierExtra') ? $this->model->cashierExtra() : null;
 
         ModelHelper::updateOrCreate($this->model, compact('external_id', 'details', 'extra'));
 

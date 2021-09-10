@@ -11,15 +11,15 @@ use Throwable;
 
 trait Logs
 {
-    protected function logInfo(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
+    protected function logInfo(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code): void
     {
-        HttpLog::info($model, $method, $url, $request, $response, $status_code, $extra);
+        HttpLog::info($model, $method, $url, $request, $response, $status_code, $model->getExtra());
     }
 
     protected function logError(ModelResource $model, string $method, Request $request, Throwable $exception): void
     {
         $this->logInfo($model, $method, $request->uri()->toUrl(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
-        ], $exception->getCode(), $request->model()->getExtra());
+        ], $exception->getCode());
     }
 }
