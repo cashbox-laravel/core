@@ -24,7 +24,7 @@ use Helldar\Cashier\Facades\Config\Details;
 use Helldar\Cashier\Facades\Helpers\DriverManager;
 use Helldar\Cashier\Facades\Helpers\JSON;
 use Helldar\Contracts\Cashier\Resources\Details as DetailsCast;
-use Helldar\LaravelSupport\Eloquent\CompositeKeysModel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -32,11 +32,9 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property \Illuminate\Database\Eloquent\Model $parent
  * @property string $external_id
  */
-class CashierDetail extends CompositeKeysModel
+class CashierDetail extends Model
 {
     use Relations;
-
-    protected $primaryKey = ['item_type', 'item_id'];
 
     protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
 

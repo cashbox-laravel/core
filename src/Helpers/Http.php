@@ -22,6 +22,7 @@ namespace Helldar\Cashier\Helpers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use Helldar\Cashier\Concerns\FailedEvent;
+use Helldar\Cashier\Concerns\Logs;
 use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
@@ -36,6 +37,7 @@ use Throwable;
 class Http
 {
     use FailedEvent;
+    use Logs;
 
     protected $client;
 
@@ -49,7 +51,12 @@ class Http
     }
 
     /**
+     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
+     * @param  \Helldar\Contracts\Exceptions\Manager  $manager
+     *
      * @throws \Helldar\Contracts\Exceptions\Http\ClientException
+     *
+     * @return array
      */
     public function post(Request $request, ExceptionManagerContract $manager): array
     {
@@ -73,12 +80,18 @@ class Http
 
                 $content = $this->decode($response);
 
-                $exception->validateResponse($uri, $content, $response->getStatusCode());
+                $status_code = $response->getStatusCode();
+
+                $exception->validateResponse($uri, $content, $status_code);
+
+                $this->logInfo($request->model(), $method, $request->uri()->toUrl(), $data, $content, $status_code);
 
                 return $content;
             }, $request);
         } catch (ClientException $e) {
             $this->failedEvent($e);
+
+            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e);
 
             throw $e;
         } catch (GuzzleClientException $e) {
@@ -86,8 +99,12 @@ class Http
 
             $content = $this->decode($response);
 
+            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e);
+
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
         } catch (Throwable $e) {
+            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e);
+
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);

@@ -18,11 +18,10 @@
 declare(strict_types=1);
 
 use Helldar\Cashier\Facades\Config\Details;
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierIncrementField extends Migration
+class CreateCashierIncrementField extends BaseMigration
 {
     public function up()
     {

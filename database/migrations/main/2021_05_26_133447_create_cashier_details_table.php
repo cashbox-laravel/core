@@ -18,16 +18,11 @@
 declare(strict_types=1);
 
 use Helldar\Cashier\Facades\Config\Details;
-use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\LaravelSupport\Traits\InitModelHelper;
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierDetailsTable extends Migration
+class CreateCashierDetailsTable extends BaseMigration
 {
-    use InitModelHelper;
-
     public function up()
     {
         Schema::create($this->table(), function (Blueprint $table) {
@@ -55,14 +50,5 @@ class CreateCashierDetailsTable extends Migration
     protected function table(): string
     {
         return Details::getTable();
-    }
-
-    protected function isNumericPrimaryKey(): bool
-    {
-        $model = Payment::getModel();
-
-        $type = $this->model()->primaryKeyType($model);
-
-        return in_array($type, ['int', 'integer']);
     }
 }

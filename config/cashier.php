@@ -130,6 +130,41 @@ return [
         */
 
         'table' => 'cashier_details',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cashier Details Logging
+        |--------------------------------------------------------------------------
+        |
+        | This parameter contains settings for logging HTTP requests.
+        */
+
+        'logs' => [
+            /*
+            |--------------------------------------------------------------------------
+            | Cashier Details Logs table settings
+            |--------------------------------------------------------------------------
+            |
+            | This parameter indicates the need to save logs of requests and
+            | responses from the bank.
+            |
+            | By default, true.
+            |
+            */
+
+            'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Cashier Details Logs Table
+            |--------------------------------------------------------------------------
+            |
+            | This value contains the name of the table for storing query logs.
+            |
+            */
+
+            'table' => 'cashier_detail_logs',
+        ],
     ],
 
     /*

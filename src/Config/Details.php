@@ -27,4 +27,14 @@ class Details extends Base implements DetailsContract
     {
         return config('cashier.details.table');
     }
+
+    public function getLogsTable(): string
+    {
+        return config('cashier.details.logs.table');
+    }
+
+    public function hasLogsEnabled(): bool
+    {
+        return config('cashier.details.logs.enabled', true);
+    }
 }

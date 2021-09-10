@@ -38,6 +38,10 @@ class ChangePaymentsTableAddCashierIndex extends Migration
         });
     }
 
+    /**
+     * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function down()
     {
         Schema::table($this->table(), function (Blueprint $table) {
