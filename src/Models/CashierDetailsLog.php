@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable $payment
+ * @property array $extra
  * @property array $request
  * @property array $response
  * @property float $sum
@@ -54,6 +55,7 @@ class CashierDetailsLog extends Model
 
         'request'  => 'json',
         'response' => 'json',
+        'extra'    => 'json',
     ];
 
     public function __construct(array $attributes = [])

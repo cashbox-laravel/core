@@ -45,6 +45,7 @@ class CreateCashierDetailsLogsTable extends BaseMigration
 
             $table->json('request');
             $table->json('response');
+            $table->json('extra');
 
             $table->timestamps();
         });

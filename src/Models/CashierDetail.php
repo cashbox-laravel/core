@@ -30,15 +30,22 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * @property \Helldar\Contracts\Cashier\Resources\Details $details
  * @property \Illuminate\Database\Eloquent\Model $parent
+ * @property array|null $extra
  * @property string $external_id
+ * @property string $item_type
+ * @property string|int $item_id
  */
 class CashierDetail extends Model
 {
     use Relations;
 
-    protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'details', 'extra'];
 
     protected $touches = ['parent'];
+
+    protected $casts = [
+        'extra' => 'json',
+    ];
 
     public function __construct(array $attributes = [])
     {
