@@ -91,7 +91,7 @@ class Http
         } catch (ClientException $e) {
             $this->failedEvent($e);
 
-            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e, $request->model()->getPaymentModel()->cashierExtra());
+            $this->logError($request->model(), $method, $request, $e);
 
             throw $e;
         } catch (GuzzleClientException $e) {
@@ -99,11 +99,11 @@ class Http
 
             $content = $this->decode($response);
 
-            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e, $request->model()->getPaymentModel()->cashierExtra());
+            $this->logError($request->model(), $method, $request, $e);
 
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
         } catch (Throwable $e) {
-            $this->logError($request->model(), $method, $request->uri()->toUrl(), $request->body(), $e, $request->model()->getPaymentModel()->cashierExtra());
+            $this->logError($request->model(), $method, $request, $e);
 
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
