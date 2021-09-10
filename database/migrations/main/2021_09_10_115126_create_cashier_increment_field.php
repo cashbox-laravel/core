@@ -27,14 +27,18 @@ class CreateCashierIncrementField extends Migration
     public function up()
     {
         Schema::table($this->table(), function (Blueprint $table) {
-            $table->bigIncrements('id')->first();
+            if ($this->doesntMemory()) {
+                $table->bigIncrements('id')->first();
+            }
         });
     }
 
     public function down()
     {
         Schema::table($this->table(), function (Blueprint $table) {
-            $table->dropColumn('id');
+            if ($this->doesntMemory()) {
+                $table->dropColumn('id');
+            }
         });
     }
 
