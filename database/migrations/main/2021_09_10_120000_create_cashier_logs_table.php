@@ -46,7 +46,7 @@ class CreateCashierLogsTable extends Migration
 
                 $table->json('request');
                 $table->json('response');
-                $table->json('extra');
+                $table->json('extra')->nullable();
 
                 $table->timestamps();
 
