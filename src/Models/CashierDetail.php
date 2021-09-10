@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property array|null $extra
  * @property string $external_id
  * @property string $item_type
- * @property string|int $item_id
+ * @property int|string $item_id
  */
 class CashierDetail extends Model
 {

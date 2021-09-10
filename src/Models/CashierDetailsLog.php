@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable $payment
+ * @property \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
  * @property array $extra
  * @property array $request
  * @property array $response
