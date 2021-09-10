@@ -35,8 +35,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property string $external_id
  * @property string $method
  * @property string $url
- * @property string|int $item_id
- * @property string|int $item_type
+ * @property int|string $item_id
+ * @property int|string $item_type
  */
 class CashierLog extends Model
 {
