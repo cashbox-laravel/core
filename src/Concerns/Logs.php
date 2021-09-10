@@ -20,7 +20,6 @@ trait Logs
     {
         $this->logInfo($model, $method, $request->uri()->toUrl(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
-            'Trace'   => $exception->getTrace(),
         ], $exception->getCode(), $request->model()->getExtra());
     }
 }
