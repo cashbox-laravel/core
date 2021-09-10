@@ -36,9 +36,6 @@ class HttpLog
         $model->getPaymentModel()->cashierLogs()->create([
             'external_id' => $model->getExternalId(),
 
-            'sum'      => $model->getSum(),
-            'currency' => $model->getCurrency(),
-
             'method'      => $method,
             'url'         => $url,
             'status_code' => $status_code,

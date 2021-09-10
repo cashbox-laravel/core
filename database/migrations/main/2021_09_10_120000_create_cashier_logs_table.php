@@ -39,10 +39,6 @@ class CreateCashierLogsTable extends Migration
 
                 $table->string('external_id')->nullable();
 
-                $table->unsignedBigInteger('sum');
-
-                $table->string('currency');
-
                 $table->string('method');
                 $table->string('url');
 

@@ -42,14 +42,12 @@ class CashierLog extends Model
 {
     use InitModelHelper;
 
-    protected $fillable = ['item_type', 'item_id', 'external_id', 'sum', 'currency', 'method', 'url', 'status_code', 'request', 'response'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'method', 'url', 'status_code', 'request', 'response'];
 
     protected $casts = [
         'status_code' => 'integer',
 
         'external_id' => 'string',
-
-        'sum' => 'integer',
 
         'request'  => 'json',
         'response' => 'json',
