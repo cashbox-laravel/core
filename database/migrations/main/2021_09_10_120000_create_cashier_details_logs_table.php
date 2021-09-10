@@ -27,7 +27,7 @@ class CreateCashierDetailsLogsTable extends Migration
     public function up()
     {
         Schema::create($this->logsTable(), function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->primary();
 
             $this->isNumericPrimaryKey()
                 ? $table->unsignedBigInteger('payment_id')->index()
