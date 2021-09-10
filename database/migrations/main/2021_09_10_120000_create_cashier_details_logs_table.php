@@ -18,10 +18,11 @@
 declare(strict_types=1);
 
 use Helldar\Cashier\Facades\Config\Details;
+use Helldar\Cashier\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierDetailsLogsTable extends BaseMigration
+class CreateCashierDetailsLogsTable extends Migration
 {
     public function up()
     {
