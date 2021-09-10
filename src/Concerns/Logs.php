@@ -7,6 +7,7 @@ namespace Helldar\Cashier\Concerns;
 use Helldar\Cashier\Facades\Helpers\HttpLog;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
+use Helldar\Support\Facades\Helpers\Call;
 use Throwable;
 
 trait Logs
@@ -20,6 +21,11 @@ trait Logs
     {
         $this->logInfo($model, $method, $request->uri()->toUrl(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
-        ], (int) $exception->getCode());
+        ], $this->getStatusCode($exception));
+    }
+
+    protected function getStatusCode(Throwable $e): int
+    {
+        return Call::runMethods($e, ['getStatusCode', 'getCode']) ?: 0;
     }
 }
