@@ -44,6 +44,22 @@ abstract class Model implements Contract
         $this->config = $config;
     }
 
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model|\Helldar\Cashier\Concerns\Casheable
+     */
+    public function getPaymentModel(): EloquentModel
+    {
+        return $this->model;
+    }
+
     public function getClientId(): string
     {
         return $this->clientId();
@@ -101,14 +117,6 @@ abstract class Model implements Contract
     {
         return null;
     }
-
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {

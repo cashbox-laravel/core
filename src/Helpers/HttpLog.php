@@ -19,23 +19,21 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Helpers;
 
-use Helldar\Cashier\Facades\Config\Details;
-use Helldar\Cashier\Models\CashierDetailsLog;
+use Helldar\Cashier\Facades\Config\Logs;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 
 class HttpLog
 {
-    public function info(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code): void
+    public function info(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
     {
-        if ($this->has()) {
-            $this->store($model, $method, $url, $request, $response, $status_code);
+        if ($this->enabled()) {
+            $this->store($model, $method, $url, $request, $response, $status_code, $extra);
         }
     }
 
-    protected function store(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code): void
+    protected function store(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
     {
-        CashierDetailsLog::create([
-            'payment_id'  => $model->getPaymentId(),
+        $model->getPaymentModel()->cashierLogs()->create([
             'external_id' => $model->getExternalId(),
 
             'sum'      => $model->getSum(),
@@ -47,11 +45,12 @@ class HttpLog
 
             'request'  => $request,
             'response' => $response,
+            'extra'    => $extra,
         ]);
     }
 
-    protected function has(): bool
+    protected function enabled(): bool
     {
-        return Details::hasLogsEnabled();
+        return Logs::isEnabled();
     }
 }

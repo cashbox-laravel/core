@@ -19,11 +19,10 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Models;
 
-use Helldar\Cashier\Facades\Config\Details;
-use Helldar\Cashier\Facades\Config\Payment;
+use Helldar\Cashier\Facades\Config\Logs;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * @property \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
@@ -31,22 +30,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property array $request
  * @property array $response
  * @property float $sum
- * @property int $payment_id
  * @property int $status_code
  * @property string $currency
  * @property string $external_id
  * @property string $method
  * @property string $url
+ * @property string|int $item_id
+ * @property string|int $item_type
  */
-class CashierDetailsLog extends Model
+class CashierLog extends Model
 {
     use InitModelHelper;
 
-    protected $fillable = ['payment_id', 'external_id', 'sum', 'currency', 'method', 'url', 'status_code', 'request', 'response'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'sum', 'currency', 'method', 'url', 'status_code', 'request', 'response'];
 
     protected $casts = [
-        'payment_id' => 'integer',
-
         'status_code' => 'integer',
 
         'external_id' => 'string',
@@ -60,17 +58,15 @@ class CashierDetailsLog extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setTable(Details::getLogsTable());
+        $this->setConnection(Logs::getConnection());
+
+        $this->setTable(Logs::getTable());
 
         parent::__construct($attributes);
     }
 
-    public function payment(): HasOne
+    public function parent(): MorphTo
     {
-        $model = Payment::getModel();
-
-        $key = $this->model()->primaryKey($model);
-
-        return $this->hasOne($model, $key, 'payment_id');
+        return $this->morphTo('item');
     }
 }

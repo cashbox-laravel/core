@@ -9,7 +9,7 @@ use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void info(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code)
+ * @method static void info(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = [])
  */
 class HttpLog extends Facade
 {

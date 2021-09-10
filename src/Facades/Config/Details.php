@@ -23,8 +23,6 @@ use Helldar\Cashier\Config\Details as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static bool hasLogsEnabled()
- * @method static string getLogsTable()
  * @method static string getTable()
  */
 class Details extends Facade

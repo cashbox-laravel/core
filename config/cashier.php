@@ -130,55 +130,55 @@ return [
         */
 
         'table' => 'cashier_details',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cashier Details Logging
-        |--------------------------------------------------------------------------
-        |
-        | This parameter contains settings for logging HTTP requests.
-        */
-
-        'logs' => [
-            /*
-            |--------------------------------------------------------------------------
-            | Cashier Details Logs table settings
-            |--------------------------------------------------------------------------
-            |
-            | This parameter indicates the need to save logs of requests and
-            | responses from the bank.
-            |
-            | By default, true.
-            |
-            */
-
-            'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Cashier Details Logs Table
-            |--------------------------------------------------------------------------
-            |
-            | This value contains the name of the table for storing query logs.
-            |
-            */
-
-            'table' => 'cashier_detail_logs',
-        ],
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Logger
+    | Logs
     |--------------------------------------------------------------------------
     |
-    | This setting defines which logging channel will be used by the Stripe
-    | library to write log messages. You are free to specify any of your
-    | logging channels listed inside the "logging" configuration file.
+    | This setting defines the data for connecting to the logging table.
     |
     */
 
-    'logger' => env('CASHIER_LOGGER'),
+    'logs' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Enabling Logging
+        |--------------------------------------------------------------------------
+        |
+        | This parameter indicates the need to save logs of requests and
+        | responses from the bank.
+        |
+        | By default, true.
+        |
+        */
+
+        'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Connection Name
+        |--------------------------------------------------------------------------
+        |
+        | This value defines the name of the connection for accessing the
+        | database with the logging table.
+        |
+        */
+
+        'connection' => null,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cashier Details Logs Table
+        |--------------------------------------------------------------------------
+        |
+        | This value contains the name of the table for storing query logs.
+        |
+        */
+
+        'table' => 'cashier_logs',
+    ],
 
     /*
     |--------------------------------------------------------------------------
