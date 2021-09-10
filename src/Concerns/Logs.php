@@ -26,6 +26,6 @@ trait Logs
 
     protected function getStatusCode(Throwable $e): int
     {
-        return Call::runMethods($e, ['getStatusCode', 'getCode']) ?: 0;
+        return (int) Call::runMethods($e, ['getStatusCode', 'getCode']) ?: 0;
     }
 }
