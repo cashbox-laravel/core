@@ -21,13 +21,14 @@ namespace Helldar\Cashier\Helpers;
 
 use Helldar\Cashier\Facades\Config\Logs;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
+use Helldar\Contracts\Http\Builder;
 
 class HttpLog
 {
-    public function info(ModelResource $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
+    public function info(ModelResource $model, string $method, Builder $url, array $request, array $response, int $status_code, ?array $extra = []): void
     {
         if ($this->enabled()) {
-            $this->store($model, $method, $url, $request, $response, $status_code, $extra);
+            $this->store($model, $method, $url->toUrl(), $request, $response, $status_code, $extra);
         }
     }
 

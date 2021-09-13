@@ -84,7 +84,7 @@ class Http
 
                 $exception->validateResponse($uri, $content, $status_code);
 
-                $this->logInfo($request->model(), $method, $request->uri()->toUrl(), $data, $content, $status_code);
+                $this->logInfo($request->model(), $method, $uri, $data, $content, $status_code);
 
                 return $content;
             }, $request);

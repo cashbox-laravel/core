@@ -107,10 +107,6 @@ abstract class Model implements Contract
 
     public function getExtra(): ?array
     {
-        if (method_exists($this->model, 'cashierExtra')) {
-            return $this->model->cashierExtra();
-        }
-
         return null;
     }
 

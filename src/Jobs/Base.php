@@ -130,9 +130,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $details = $this->resolveDriver()->details($content);
 
-        $extra = method_exists($this->model, 'cashierExtra') ? $this->model->cashierExtra() : null;
-
-        ModelHelper::updateOrCreate($this->model, compact('external_id', 'details', 'extra'));
+        ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
 
         $this->sendEvent();
     }
