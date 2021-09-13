@@ -121,22 +121,16 @@ class Http
 
         try {
             return $callback($attempts);
-        } catch (UnauthorizedException $e) {
-            if ($times < 1) {
-                throw $e;
-            }
-
-            $request->refreshAuth();
-
-            usleep(value($this->sleep, $attempts) * 1000);
-
-            goto beginning;
         } catch (Throwable $e) {
             if ($times < 1) {
                 throw $e;
             }
 
-            usleep(value($this->sleep, $attempts) * 1000);
+            if ($e instanceof UnauthorizedException) {
+                $request->refreshAuth();
+            }
+
+            $this->sleep($attempts);
 
             goto beginning;
         }
@@ -167,5 +161,10 @@ class Http
         return Arr::renameKeys($items, static function (string $key) {
             return Str::lower($key);
         });
+    }
+
+    protected function sleep(int $attempts): void
+    {
+        usleep(value($this->sleep, $attempts) * 1000);
     }
 }
