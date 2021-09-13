@@ -39,13 +39,9 @@ class CashierDetail extends Model
 {
     use Relations;
 
-    protected $fillable = ['item_type', 'item_id', 'external_id', 'details', 'extra'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
 
     protected $touches = ['parent'];
-
-    protected $casts = [
-        'extra' => 'json',
-    ];
 
     public function __construct(array $attributes = [])
     {
