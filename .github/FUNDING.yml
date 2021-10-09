@@ -1,2 +1,3 @@
 tidelift: "packagist/andrey-helldar/cashier"
+open_collective: "laravel-cashier-provider"
 custom: [ "https://paypal.me/helldar" ]
