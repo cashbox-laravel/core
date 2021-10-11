@@ -212,8 +212,13 @@ $jobs->retry();
 | Driver | Description |
 |:---|:---|
 | [andrey-helldar/cashier-sber-qr](https://github.com/andrey-helldar/cashier-sber-qr) | Driver for payment with QR codes via Sber |
-| [andrey-helldar/cashier-sber-auth](https://github.com/andrey-helldar/cashier-sber-auth) | Sber API Authorization Driver |
 | [andrey-helldar/cashier-tinkoff-qr](https://github.com/andrey-helldar/cashier-tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
+
+#### Authorization drivers
+
+| Driver | Description |
+|:---|:---|
+| [andrey-helldar/cashier-sber-auth](https://github.com/andrey-helldar/cashier-sber-auth) | Sber API Authorization Driver |
 | [andrey-helldar/cashier-tinkoff-auth](https://github.com/andrey-helldar/cashier-tinkoff-auth) | Tinkoff API Authorization Driver |
 
 ### Development
