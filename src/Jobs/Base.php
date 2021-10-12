@@ -80,6 +80,10 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function uniqueId()
     {
         return $this->model->getKey();
@@ -99,10 +103,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         return Carbon::now()->addSeconds($timeout);
     }
 
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
-
     protected function hasBreak(): bool
     {
         return $this->force_break;
@@ -116,7 +116,8 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
             );
         }
 
-        $external_id = $response->getExternalId();
+        $external_id  = $response->getExternalId();
+        $operation_id = $response->getOperationId();
 
         $content = $response->toArray();
 
@@ -130,7 +131,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $details = $this->resolveDriver()->details($content);
 
-        ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
+        ModelHelper::updateOrCreate($this->model, compact('external_id', 'operation_id', 'details'));
 
         $this->sendEvent();
     }

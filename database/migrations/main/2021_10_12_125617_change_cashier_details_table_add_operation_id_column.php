@@ -21,19 +21,19 @@ use Helldar\Cashier\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierIncrementField extends Migration
+class ChangeCashierDetailsTableAddOperationIdColumn extends Migration
 {
     public function up()
     {
         Schema::table($this->detailsTable(), function (Blueprint $table) {
-            $table->bigIncrements('id')->first();
+            $table->string('operation_id')->nullable()->after('external_id');
         });
     }
 
     public function down()
     {
         Schema::table($this->detailsTable(), function (Blueprint $table) {
-            $table->dropColumn('id');
+            $table->dropColumn('operation_id');
         });
     }
 }

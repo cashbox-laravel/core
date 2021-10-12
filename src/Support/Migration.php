@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Support;
 
+use Helldar\Cashier\Facades\Config\Details;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
@@ -34,5 +35,10 @@ abstract class Migration extends BaseMigration
         $type = $this->model()->primaryKeyType($model);
 
         return in_array($type, ['int', 'integer']);
+    }
+
+    protected function detailsTable(): string
+    {
+        return Details::getTable();
     }
 }

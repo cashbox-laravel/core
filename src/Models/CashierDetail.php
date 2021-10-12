@@ -33,13 +33,14 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property array|null $extra
  * @property string $external_id
  * @property string $item_type
- * @property int|string $item_id
+ * @property string $operation_id
+ * @property string|int $item_id
  */
 class CashierDetail extends Model
 {
     use Relations;
 
-    protected $fillable = ['item_type', 'item_id', 'external_id', 'details'];
+    protected $fillable = ['item_type', 'item_id', 'external_id', 'operation_id', 'details'];
 
     protected $touches = ['parent'];
 

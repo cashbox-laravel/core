@@ -17,7 +17,6 @@
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Facades\Config\Details;
 use Helldar\Cashier\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,7 +25,7 @@ class CreateCashierDetailsTable extends Migration
 {
     public function up()
     {
-        Schema::create($this->table(), function (Blueprint $table) {
+        Schema::create($this->detailsTable(), function (Blueprint $table) {
             $table->string('item_type');
 
             $this->isNumericPrimaryKey()
@@ -45,11 +44,6 @@ class CreateCashierDetailsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists($this->table());
-    }
-
-    protected function table(): string
-    {
-        return Details::getTable();
+        Schema::dropIfExists($this->detailsTable());
     }
 }
