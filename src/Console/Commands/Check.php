@@ -52,8 +52,7 @@ class Check extends Base
 
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), $this->getStatus())
-            ->where($this->attributeCreatedAt(), '<', $this->before());
+            ->where($this->attributeStatus(), $this->getStatus());
     }
 
     protected function check(Model $model): void
@@ -89,11 +88,6 @@ class Check extends Base
     protected function getStatus()
     {
         return Payment::getStatuses()->getStatus(Status::NEW);
-    }
-
-    protected function before(): Carbon
-    {
-        return Carbon::now()->subHour();
     }
 
     protected function hasCancel(Model $payment): bool

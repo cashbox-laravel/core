@@ -21,7 +21,7 @@ use Helldar\Cashier\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangePaymentsTableAddCashierIndex extends PublicMigration
+class ChangePaymentsTableOptimizeIndex extends PublicMigration
 {
     /**
      * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
@@ -30,23 +30,33 @@ class ChangePaymentsTableAddCashierIndex extends PublicMigration
     public function up()
     {
         Schema::table($this->table(), function (Blueprint $table) {
-            $table->index($this->fields());
+            $table->dropIndex($this->oldFields());
+            $table->index($this->newFields());
         });
     }
 
     public function down()
     {
         Schema::table($this->table(), function (Blueprint $table) {
-            $table->dropIndex($this->fields());
+            $table->dropIndex($this->newFields());
+            $table->index($this->oldFields());
         });
     }
 
-    protected function fields(): array
+    protected function oldFields(): array
     {
         return [
             $this->attributeType(),
             $this->attributeStatus(),
             $this->attributeCreatedAt(),
+        ];
+    }
+
+    protected function newFields(): array
+    {
+        return [
+            $this->attributeType(),
+            $this->attributeStatus(),
         ];
     }
 }
