@@ -21,6 +21,7 @@ namespace Helldar\Cashier\Config;
 
 use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
 use Helldar\Contracts\Cashier\Config\Queues\Names;
+use Helldar\Contracts\Cashier\Config\Queues\Unique;
 use Helldar\SimpleDataTransferObject\DataTransferObject;
 
 class Queue extends DataTransferObject implements QueueContract
@@ -32,6 +33,8 @@ class Queue extends DataTransferObject implements QueueContract
     protected $after_commit = true;
 
     protected $tries = 100;
+
+    protected $unique = [];
 
     public function getConnection(): ?string
     {
@@ -53,5 +56,10 @@ class Queue extends DataTransferObject implements QueueContract
         $value = abs($this->tries);
 
         return $value > 0 ? $value : 5;
+    }
+
+    public function getUnique(): Unique
+    {
+        return Queues\Unique::make($this->unique);
     }
 }

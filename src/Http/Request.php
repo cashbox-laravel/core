@@ -64,6 +64,11 @@ abstract class Request implements Contract
         $this->auth = $this->resolveAuth($model);
     }
 
+    public function model(): Model
+    {
+        return $this->model;
+    }
+
     public function uri(): HttpBuilderContract
     {
         $host = $this->getHost();

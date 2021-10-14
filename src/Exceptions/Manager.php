@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Exceptions;
 
+use Helldar\Cashier\Concerns\FailedEvent;
 use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
 use Helldar\Contracts\Exceptions\Manager as Contract;
 use Helldar\Contracts\Http\Builder;
@@ -26,6 +27,8 @@ use Helldar\Support\Facades\Helpers\Arr;
 
 abstract class Manager implements Contract
 {
+    use FailedEvent;
+
     protected $codes = [];
 
     protected $default = BadRequestClientException::class;
@@ -39,9 +42,9 @@ abstract class Manager implements Contract
     public function validateResponse(Builder $uri, array $response, int $status_code): void
     {
         if (
-            $this->isFailedCode($status_code)
-            || $this->isFailedContentCode($response)
-            || $this->isFailedContent($response)
+            $this->isFailedCode($status_code) ||
+            $this->isFailedContentCode($response) ||
+            $this->isFailedContent($response)
         ) {
             $this->throw($uri, $status_code, $response);
         }
@@ -55,7 +58,11 @@ abstract class Manager implements Contract
 
         $reason = $this->getReason($response);
 
-        throw new $exception($uri, $reason);
+        $e = new $exception($uri, $reason);
+
+        $this->failedEvent($e);
+
+        throw $e;
     }
 
     protected function getCode(int $code, array $response): int

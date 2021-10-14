@@ -17,31 +17,35 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events\Http;
+namespace Helldar\Cashier\Events;
 
+use Helldar\Cashier\Concerns\Validators;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;
-use Throwable;
 
-class ExceptionEvent
+class BaseEvent
 {
     use InteractsWithSockets;
     use SerializesModels;
+    use Validators;
 
     /**
-     * The exception instance.
+     * The payment model instance.
      *
-     * @var Throwable|null
+     * @var \Illuminate\Database\Eloquent\Model
      */
-    public $exception;
+    public $payment;
 
     /**
      * Create a new event instance.
      *
-     * @param  \Throwable|null  $exception
+     * @param  \Illuminate\Database\Eloquent\Model  $payment
      */
-    public function __construct(Throwable $exception = null)
+    public function __construct(Model $payment)
     {
-        $this->exception = $exception;
+        $this->validateModel($payment);
+
+        $this->payment = $payment;
     }
 }

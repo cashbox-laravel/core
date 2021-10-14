@@ -25,6 +25,6 @@ class Details extends Base implements DetailsContract
 {
     public function getTable(): string
     {
-        return config('cashier.details.table');
+        return config('cashier.details.table', 'cashier_details');
     }
 }

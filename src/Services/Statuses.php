@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Services;
 
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Helpers\Statuses as Contract;
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Statuses implements Contract
 {
     use Makeable;
+    use Relations;
 
     public const NEW = [];
 
@@ -131,6 +133,8 @@ abstract class Statuses implements Contract
 
     protected function cashierStatus(): ?string
     {
+        $this->resolveCashier($this->model);
+
         if ($this->model->cashier && $this->model->cashier->details) {
             return $this->model->cashier->details->getStatus();
         }

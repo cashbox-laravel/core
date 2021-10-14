@@ -134,16 +134,51 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logger
+    | Logs
     |--------------------------------------------------------------------------
     |
-    | This setting defines which logging channel will be used by the Stripe
-    | library to write log messages. You are free to specify any of your
-    | logging channels listed inside the "logging" configuration file.
+    | This setting defines the data for connecting to the logging table.
     |
     */
 
-    'logger' => env('CASHIER_LOGGER'),
+    'logs' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Enabling Logging
+        |--------------------------------------------------------------------------
+        |
+        | This parameter indicates the need to save logs of requests and
+        | responses from the bank.
+        |
+        | By default, true.
+        |
+        */
+
+        'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Connection Name
+        |--------------------------------------------------------------------------
+        |
+        | This value defines the name of the connection for accessing the
+        | database with the logging table.
+        |
+        */
+
+        'connection' => null,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cashier Details Logs Table
+        |--------------------------------------------------------------------------
+        |
+        | This value contains the name of the table for storing query logs.
+        |
+        */
+
+        'table' => 'cashier_logs',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -250,6 +285,44 @@ return [
         */
 
         'tries' => 100,
+
+        /*
+        |--------------------------------------------------------------------------
+        | Unique Lock
+        |--------------------------------------------------------------------------
+        |
+        | This value contains parameters for implementing uniqueness of queues.
+        |
+        */
+
+        'unique' => [
+            /*
+            |--------------------------------------------------------------------------
+            | Lock's Driver
+            |--------------------------------------------------------------------------
+            |
+            | Set the cache driver for the unique job lock.
+            |
+            | By default, `CACHE_DRIVER` value.
+            |
+            */
+
+            'driver' => env('CACHE_DRIVER'),
+
+            /*
+            |--------------------------------------------------------------------------
+            | Lock's Timeout
+            |--------------------------------------------------------------------------
+            |
+            | The number of seconds after which the job's unique lock will be
+            | released.
+            |
+            | By default, 3600.
+            |
+            */
+
+            'seconds' => 3600,
+        ],
     ],
 
     /*

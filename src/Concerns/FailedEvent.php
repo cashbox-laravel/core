@@ -17,10 +17,17 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events\Payments;
+namespace Helldar\Cashier\Concerns;
 
-use Helldar\Cashier\Events\BaseEvent;
+use Helldar\Cashier\Events\Http\ExceptionEvent;
+use Throwable;
 
-class FailedEvent extends BaseEvent
+trait FailedEvent
 {
+    protected function failedEvent(Throwable $e): void
+    {
+        event(
+            new ExceptionEvent($e)
+        );
+    }
 }

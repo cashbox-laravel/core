@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Jobs;
 
 use Helldar\Cashier\Concerns\Driverable;
+use Helldar\Cashier\Concerns\Relations;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Config\Main;
 use Helldar\Cashier\Facades\Config\Payment;
@@ -29,18 +30,21 @@ use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
-abstract class Base implements ShouldQueue
+abstract class Base implements ShouldQueue, ShouldBeUnique
 {
     use Driverable;
     use InteractsWithQueue;
     use Makeable;
     use Queueable;
+    use Relations;
     use SerializesModels;
 
     /**
@@ -55,6 +59,10 @@ abstract class Base implements ShouldQueue
 
     public $force_break;
 
+    public $uniqueFor;
+
+    protected $event;
+
     public function __construct(Model $model, bool $force_break = false)
     {
         $this->model = $model;
@@ -65,10 +73,24 @@ abstract class Base implements ShouldQueue
 
         $this->tries = Main::getQueue()->getTries();
 
+        $this->uniqueFor = Main::getQueue()->getUnique()->getSeconds();
+
         $this->queue = $this->queueName();
     }
 
     abstract public function handle();
+
+    public function uniqueId()
+    {
+        return $this->model->getKey();
+    }
+
+    public function uniqueVia()
+    {
+        $driver = Main::getQueue()->getUnique()->getDriver();
+
+        return Cache::driver($driver);
+    }
 
     public function retryUntil(): Carbon
     {
@@ -94,9 +116,12 @@ abstract class Base implements ShouldQueue
             );
         }
 
-        $external_id = $response->getExternalId();
+        $external_id  = $response->getExternalId();
+        $operation_id = $response->getOperationId();
 
         $content = $response->toArray();
+
+        $this->resolveCashier($this->model);
 
         if ($save_details && ! empty($this->model->cashier)) {
             $saved = $this->model->cashier->details->toArray();
@@ -106,7 +131,14 @@ abstract class Base implements ShouldQueue
 
         $details = $this->resolveDriver()->details($content);
 
-        ModelHelper::updateOrCreate($this->model, compact('external_id', 'details'));
+        ModelHelper::updateOrCreate($this->model, compact('external_id', 'operation_id', 'details'));
+
+        $this->sendEvent();
+    }
+
+    protected function sendEvent(): void
+    {
+        event(new $this->event($this->model));
     }
 
     protected function modelId(): string

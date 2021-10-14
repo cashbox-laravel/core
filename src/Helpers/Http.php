@@ -21,6 +21,8 @@ namespace Helldar\Cashier\Helpers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use Helldar\Cashier\Concerns\FailedEvent;
+use Helldar\Cashier\Concerns\Logs;
 use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
 use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
 use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
@@ -34,6 +36,9 @@ use Throwable;
 
 class Http
 {
+    use FailedEvent;
+    use Logs;
+
     protected $client;
 
     protected $tries = 10;
@@ -46,7 +51,12 @@ class Http
     }
 
     /**
+     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
+     * @param  \Helldar\Contracts\Exceptions\Manager  $manager
+     *
      * @throws \Helldar\Contracts\Exceptions\Http\ClientException
+     *
+     * @return array
      */
     public function post(Request $request, ExceptionManagerContract $manager): array
     {
@@ -70,19 +80,31 @@ class Http
 
                 $content = $this->decode($response);
 
-                $exception->validateResponse($uri, $content, $response->getStatusCode());
+                $status_code = $response->getStatusCode();
+
+                $exception->validateResponse($uri, $content, $status_code);
+
+                $this->logInfo($request->model(), $method, $uri, $data, $content, $status_code);
 
                 return $content;
             }, $request);
         } catch (ClientException $e) {
+            $this->failedEvent($e);
+
+            $this->logError($request->model(), $method, $request, $e);
+
             throw $e;
         } catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
 
+            $this->logError($request->model(), $method, $request, $e);
+
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
         } catch (Throwable $e) {
+            $this->logError($request->model(), $method, $request, $e);
+
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
             ]);
@@ -99,22 +121,16 @@ class Http
 
         try {
             return $callback($attempts);
-        } catch (UnauthorizedException $e) {
-            if ($times < 1) {
-                throw $e;
-            }
-
-            $request->refreshAuth();
-
-            usleep(value($this->sleep, $attempts) * 1000);
-
-            goto beginning;
         } catch (Throwable $e) {
             if ($times < 1) {
                 throw $e;
             }
 
-            usleep(value($this->sleep, $attempts) * 1000);
+            if ($e instanceof UnauthorizedException) {
+                $request->refreshAuth();
+            }
+
+            $this->sleep($attempts);
 
             goto beginning;
         }
@@ -145,5 +161,10 @@ class Http
         return Arr::renameKeys($items, static function (string $key) {
             return Str::lower($key);
         });
+    }
+
+    protected function sleep(int $attempts): void
+    {
+        usleep(value($this->sleep, $attempts) * 1000);
     }
 }

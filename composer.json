@@ -23,10 +23,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "andrey-helldar/contracts": "^1.16",
+        "andrey-helldar/contracts": "^1.18",
         "andrey-helldar/laravel-support": "^2.0",
         "andrey-helldar/simple-data-transfer-object": "^1.0",
         "andrey-helldar/support": "^4.6",
+        "doctrine/dbal": "^2.6|^3.0",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/broadcasting": "^6.0|^7.0|^8.0",
         "illuminate/console": "^6.0|^7.0|^8.0",
@@ -46,7 +47,8 @@
     "autoload": {
         "psr-4": {
             "Helldar\\Cashier\\": "src"
-        }
+        },
+        "classmap": ["polyfill"]
     },
     "autoload-dev": {
         "psr-4": {

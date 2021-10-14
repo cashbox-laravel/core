@@ -19,55 +19,45 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Console\Commands;
 
-use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
+use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class Refund extends Base
 {
-    protected $signature = 'cashier:refund {payment_id}';
+    protected $signature = 'cashier:refund';
 
-    protected $description = 'The command to call the cancellation of the payment with the return of funds to the sender';
+    protected $description = 'Launching the command to check payments for refunds';
 
     /**
      * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     * @throws \Helldar\Cashier\Exceptions\Logic\PaymentInProgressException
      */
     public function handle()
     {
-        $payment = $this->payment();
-
-        $driver = $this->driver($payment);
-
-        $this->abort($driver, $payment);
-
-        $driver->refund();
+        $this->payments()->chunk($this->count, function (Collection $payments) {
+            $payments->each(function (Model $payment) {
+                if ($this->allowCancelByStatus($payment)) {
+                    $this->cancel($payment);
+                }
+            });
+        });
     }
 
-    protected function payment(): Model
+    protected function cancel(Model $payment): void
     {
-        $model = $this->model();
-
-        $id = $this->paymentId();
-
-        return $model::query()->findOrFail($id);
+        Jobs::make($payment)->refund();
     }
 
-    protected function paymentId()
+    protected function before(): Carbon
     {
-        return $this->argument('payment_id');
+        return Carbon::now()->subDay();
     }
 
-    /**
-     * @param  \Helldar\Contracts\Cashier\Driver  $driver
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     */
-    protected function abort(DriverContract $driver, Model $model): void
+    protected function allowCancelByStatus(Model $payment): bool
     {
-        if ($driver->statuses()->hasRefunded()) {
-            throw new AlreadyRefundedException($model->getKey());
-        }
+        $statuses = $this->driver($payment)->statuses();
+
+        return $statuses->inProgress();
     }
 }

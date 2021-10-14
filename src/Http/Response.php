@@ -33,6 +33,8 @@ abstract class Response implements ResponseContract
 
     public const KEY_EXTERNAL_ID = 'external_id';
 
+    public const KEY_OPERATION_ID = 'operation_id';
+
     public const KEY_STATUS = 'status';
 
     protected $map = [];
@@ -54,6 +56,13 @@ abstract class Response implements ResponseContract
     public function getExternalId(): ?string
     {
         $value = $this->value(self::KEY_EXTERNAL_ID);
+
+        return ! empty($value) ? (string) $value : null;
+    }
+
+    public function getOperationId(): ?string
+    {
+        $value = $this->value(self::KEY_OPERATION_ID);
 
         return ! empty($value) ? (string) $value : null;
     }

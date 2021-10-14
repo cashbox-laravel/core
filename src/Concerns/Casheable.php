@@ -20,6 +20,8 @@ declare(strict_types=1);
 namespace Helldar\Cashier\Concerns;
 
 use Helldar\Cashier\Models\CashierDetail;
+use Helldar\Cashier\Models\CashierLog;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
@@ -37,5 +39,15 @@ trait Casheable
     public function cashier(): MorphOne
     {
         return $this->morphOne(CashierDetail::class, 'item');
+    }
+
+    /**
+     * Relation to model with HTTP logs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function cashierLogs(): MorphMany
+    {
+        return $this->morphMany(CashierLog::class, 'item');
     }
 }

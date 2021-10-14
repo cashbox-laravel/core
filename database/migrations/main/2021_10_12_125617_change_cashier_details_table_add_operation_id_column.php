@@ -21,29 +21,19 @@ use Helldar\Cashier\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierDetailsTable extends Migration
+class ChangeCashierDetailsTableAddOperationIdColumn extends Migration
 {
     public function up()
     {
-        Schema::create($this->detailsTable(), function (Blueprint $table) {
-            $table->string('item_type');
-
-            $this->isNumericPrimaryKey()
-                ? $table->unsignedBigInteger('item_id')
-                : $table->uuid('item_id');
-
-            $table->string('external_id')->nullable();
-
-            $table->json('details')->nullable();
-
-            $table->timestamps();
-
-            $table->index(['item_type', 'item_id']);
+        Schema::table($this->detailsTable(), function (Blueprint $table) {
+            $table->string('operation_id')->nullable()->after('external_id');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists($this->detailsTable());
+        Schema::table($this->detailsTable(), function (Blueprint $table) {
+            $table->dropColumn('operation_id');
+        });
     }
 }
