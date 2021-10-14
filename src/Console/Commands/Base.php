@@ -24,7 +24,6 @@ use Helldar\Cashier\Constants\Status;
 use Helldar\Cashier\Facades\Config\Payment;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 
 abstract class Base extends Command
 {
@@ -33,8 +32,6 @@ abstract class Base extends Command
     protected $count = 1000;
 
     abstract public function handle();
-
-    abstract protected function before(): Carbon;
 
     /**
      * @return \Illuminate\Database\Eloquent\Model|string
@@ -50,8 +47,7 @@ abstract class Base extends Command
 
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), $this->getStatus())
-            ->where($this->attributeCreatedAt(), '<', $this->before());
+            ->where($this->attributeStatus(), $this->getStatus());
     }
 
     protected function attributeType(): string

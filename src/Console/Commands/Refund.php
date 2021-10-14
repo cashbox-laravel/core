@@ -21,7 +21,6 @@ namespace Helldar\Cashier\Console\Commands;
 
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class Refund extends Base
@@ -30,9 +29,6 @@ class Refund extends Base
 
     protected $description = 'Launching the command to check payments for refunds';
 
-    /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException
-     */
     public function handle()
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
@@ -47,11 +43,6 @@ class Refund extends Base
     protected function cancel(Model $payment): void
     {
         Jobs::make($payment)->refund();
-    }
-
-    protected function before(): Carbon
-    {
-        return Carbon::now()->subDay();
     }
 
     protected function allowCancelByStatus(Model $payment): bool

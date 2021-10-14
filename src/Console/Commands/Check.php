@@ -23,7 +23,6 @@ use Helldar\Cashier\Models\CashierDetail;
 use Helldar\Cashier\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class Check extends Base
@@ -66,7 +65,5 @@ class Check extends Base
     protected function check(Model $model): void
     {
         Jobs::make($model)->check(true);
-    }
-
     }
 }
