@@ -67,6 +67,6 @@ class CashierDetail extends Model
 
         $decoded = JSON::decode($this->attributes['details']);
 
-        return DriverManager::fromModel($this->parent)->details($decoded ?: []);
+        return DriverManager::fromModel($this->parent)->details($decoded);
     }
 }
