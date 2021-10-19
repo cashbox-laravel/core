@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace Helldar\Cashier\Services;
 
+use Helldar\Cashier\Concerns\Resolvable;
 use Helldar\Cashier\Concerns\Validators;
 use Helldar\Cashier\Facades\Helpers\Http;
 use Helldar\Contracts\Cashier\Config\Driver as DriverConfig;
@@ -30,7 +31,6 @@ use Helldar\Contracts\Cashier\Resources\Details;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 use Helldar\Contracts\Exceptions\Manager as ExceptionManager;
 use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Concerns\Resolvable;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver implements Contract
@@ -68,7 +68,7 @@ abstract class Driver implements Contract
 
     public function statuses(): Statuses
     {
-        return self::resolveCallback($this->statuses, function (string $statuses) {
+        return $this->resolveDynamicCallback($this->statuses, function (string $statuses) {
             /* @var \Helldar\Contracts\Cashier\Helpers\Statuses|string $statuses */
 
             return $statuses::make($this->payment);
