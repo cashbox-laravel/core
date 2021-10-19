@@ -57,11 +57,13 @@ abstract class Request implements Contract
     /** @var bool */
     protected $hash = true;
 
+    /** @var bool */
+    protected $force_reload = false;
+
     public function __construct(Model $model)
     {
-        $this->model = $model;
-
-        $this->auth = $this->resolveAuth($model);
+        $this->model = $this->reloadModel($model);
+        $this->auth  = $this->resolveAuth($model);
     }
 
     public function model(): Model
@@ -98,6 +100,15 @@ abstract class Request implements Contract
         }
 
         $this->auth->refresh();
+    }
+
+    protected function reloadModel(Model $model): Model
+    {
+        if ($this->force_reload) {
+            $model->getPaymentModel()->refresh();
+        }
+
+        return $model;
     }
 
     protected function getHost(): string
