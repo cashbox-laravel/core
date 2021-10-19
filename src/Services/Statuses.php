@@ -105,7 +105,9 @@ abstract class Statuses implements Contract
 
     public function inProgress($status = null): bool
     {
-        return $this->hasCreated($status) || $this->hasRefunding($status);
+        return ! $this->hasSuccess($status)
+            && ! $this->hasFailed($status)
+            && ! $this->hasRefunded($status);
     }
 
     protected function hasCashier(array $statuses, $status = null): bool
