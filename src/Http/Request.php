@@ -58,11 +58,11 @@ abstract class Request implements Contract
     protected $hash = true;
 
     /** @var bool */
-    protected $force_reload = false;
+    protected $reload_relations = false;
 
     public function __construct(Model $model)
     {
-        $this->model = $this->reloadModel($model);
+        $this->model = $this->reloadRelations($model);
         $this->auth  = $this->resolveAuth($model);
     }
 
@@ -102,9 +102,9 @@ abstract class Request implements Contract
         $this->auth->refresh();
     }
 
-    protected function reloadModel(Model $model): Model
+    protected function reloadRelations(Model $model): Model
     {
-        if ($this->force_reload) {
+        if ($this->reload_relations) {
             $model->getPaymentModel()->refresh();
         }
 
