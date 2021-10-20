@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime\Implement;
+namespace CashierProvider\Manager\Exceptions\Runtime\Implement;
 
-use Helldar\Cashier\Exceptions\Runtime\BaseException;
+use CashierProvider\Manager\Exceptions\Runtime\BaseException;
 
 /** @method BaseImplementException __construct(string $class) */
 abstract class BaseImplementException extends BaseException

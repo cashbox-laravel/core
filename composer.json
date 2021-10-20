@@ -1,5 +1,5 @@
 {
-    "name": "andrey-helldar/cashier",
+    "name": "cashier-provider/manager",
     "description": "Cashier provides an expressive, fluent interface to manage billing services.",
     "type": "library",
     "license": "MIT",
@@ -7,8 +7,7 @@
         "bank",
         "billing",
         "cashier",
-        "payments",
-        "subscribe"
+        "payments"
     ],
     "authors": [
         {
@@ -17,8 +16,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/cashier/issues",
-        "source": "https://github.com/andrey-helldar/cashier"
+        "issues": "https://github.com/cashier-provider/manager/issues",
+        "source": "https://github.com/cashier-provider/manager"
     },
     "require": {
         "php": "^7.3|^8.0",
@@ -46,7 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\Cashier\\": "src"
+            "CashierProvider\\Manager\\": "src"
         },
         "classmap": ["polyfill"]
     },
@@ -56,8 +55,8 @@
         }
     },
     "suggest": {
-        "andrey-helldar/cashier-sber-qr": "Driver for payment with QR codes via Sber",
-        "andrey-helldar/cashier-tinkoff-qr": "Driver for payment with QR codes via Tinkoff"
+        "cashier-provider/sber-qr": "Driver for payment with QR codes via Sber",
+        "cashier-provider/tinkoff-qr": "Driver for payment with QR codes via Tinkoff"
     },
     "config": {
         "preferred-install": "dist",
@@ -68,8 +67,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Helldar\\Cashier\\Providers\\ServiceProvider",
-                "Helldar\\Cashier\\Providers\\ObserverServiceProvider"
+                "CashierProvider\\Manager\\Providers\\ServiceProvider",
+                "CashierProvider\\Manager\\Providers\\ObserverServiceProvider"
             ]
         }
     }

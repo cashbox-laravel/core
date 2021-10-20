@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events\Processes;
+namespace CashierProvider\Manager\Events\Processes;
 
-use Helldar\Cashier\Events\BaseEvent;
+use CashierProvider\Manager\Events\BaseEvent;
 
 class Refunded extends BaseEvent
 {

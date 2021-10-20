@@ -17,12 +17,12 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Jobs;
+namespace CashierProvider\Manager\Jobs;
 
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Events\Processes\Checked;
-use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
-use Helldar\Cashier\Facades\Config\Main;
+use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Manager\Events\Processes\Checked;
+use CashierProvider\Manager\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Manager\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base

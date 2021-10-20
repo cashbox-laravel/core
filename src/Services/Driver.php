@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Services;
+namespace CashierProvider\Manager\Services;
 
-use Helldar\Cashier\Concerns\Resolvable;
-use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Facades\Helpers\Http;
+use CashierProvider\Manager\Concerns\Resolvable;
+use CashierProvider\Manager\Concerns\Validators;
+use CashierProvider\Manager\Facades\Helpers\Http;
 use Helldar\Contracts\Cashier\Config\Driver as DriverConfig;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
@@ -42,7 +42,7 @@ abstract class Driver implements Contract
     /** @var DriverConfig */
     protected $config;
 
-    /** @var \Helldar\Cashier\Concerns\Casheable|Model */
+    /** @var \CashierProvider\Manager\Concerns\Casheable|Model */
     protected $payment;
 
     /** @var ModelResource */

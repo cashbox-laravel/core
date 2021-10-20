@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Config;
+namespace CashierProvider\Manager\Facades\Config;
 
-use Helldar\Cashier\Config\Payment as Config;
+use CashierProvider\Manager\Config\Payment as Config;
 use Helldar\Contracts\Cashier\Config\Payments\Attributes;
 use Helldar\Contracts\Cashier\Config\Payments\Map;
 use Helldar\Contracts\Cashier\Config\Payments\Statuses;

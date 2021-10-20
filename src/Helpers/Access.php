@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Manager\Helpers;
 
-use Helldar\Cashier\Concerns\Casheable;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Manager\Concerns\Casheable;
+use CashierProvider\Manager\Facades\Config\Payment;
 use Helldar\Support\Facades\Helpers\Instance;
 use Illuminate\Database\Eloquent\Model;
 

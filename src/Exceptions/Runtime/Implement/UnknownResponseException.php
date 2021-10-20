@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime\Implement;
+namespace CashierProvider\Manager\Exceptions\Runtime\Implement;
 
 use Helldar\Contracts\Cashier\Http\Response;
 

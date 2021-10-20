@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Config\Payments;
+namespace CashierProvider\Manager\Facades\Config\Payments;
 
-use Helldar\Cashier\Config\Payments\Map as Config;
+use CashierProvider\Manager\Config\Payments\Map as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**

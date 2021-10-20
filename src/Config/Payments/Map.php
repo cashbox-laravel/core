@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Config\Payments;
+namespace CashierProvider\Manager\Config\Payments;
 
 use Helldar\Contracts\Cashier\Config\Payments\Map as MapContract;
 use Helldar\SimpleDataTransferObject\DataTransferObject;

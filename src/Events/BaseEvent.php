@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events;
+namespace CashierProvider\Manager\Events;
 
-use Helldar\Cashier\Concerns\Validators;
+use CashierProvider\Manager\Concerns\Validators;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;

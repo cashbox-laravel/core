@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Concerns;
+namespace CashierProvider\Manager\Concerns;
 
 /**
  * @property int $default_status_code

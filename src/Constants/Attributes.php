@@ -32,7 +32,7 @@ declare(strict_types=1);
  * @see https://github.com/andrey-helldar/cashier
  */
 
-namespace Helldar\Cashier\Constants;
+namespace CashierProvider\Manager\Constants;
 
 class Attributes
 {

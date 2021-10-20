@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Concerns\Migrations\PublicMigration;
+use CashierProvider\Manager\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 

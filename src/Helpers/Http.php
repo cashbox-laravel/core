@@ -17,15 +17,15 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Manager\Helpers;
 
+use CashierProvider\Manager\Concerns\FailedEvent;
+use CashierProvider\Manager\Concerns\Logs;
+use CashierProvider\Manager\Exceptions\Http\UnauthorizedException;
+use CashierProvider\Manager\Exceptions\Logic\EmptyResponseException;
+use CashierProvider\Manager\Facades\Helpers\JSON as JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
-use Helldar\Cashier\Concerns\FailedEvent;
-use Helldar\Cashier\Concerns\Logs;
-use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
-use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
-use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Exceptions\Http\ClientException;
 use Helldar\Contracts\Exceptions\Manager as ExceptionManagerContract;

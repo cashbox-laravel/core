@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions;
+namespace CashierProvider\Manager\Exceptions;
 
-use Helldar\Cashier\Concerns\FailedEvent;
-use Helldar\Cashier\Exceptions\Http\BadRequestClientException;
+use CashierProvider\Manager\Concerns\FailedEvent;
+use CashierProvider\Manager\Exceptions\Http\BadRequestClientException;
 use Helldar\Contracts\Exceptions\Manager as Contract;
 use Helldar\Contracts\Http\Builder;
 use Helldar\Support\Facades\Helpers\Arr;

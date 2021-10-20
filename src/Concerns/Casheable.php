@@ -17,17 +17,17 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Concerns;
+namespace CashierProvider\Manager\Concerns;
 
-use Helldar\Cashier\Models\CashierDetail;
-use Helldar\Cashier\Models\CashierLog;
+use CashierProvider\Manager\Models\CashierDetail;
+use CashierProvider\Manager\Models\CashierLog;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property \Helldar\Cashier\Models\CashierDetail $cashier
+ * @property \CashierProvider\Manager\Models\CashierDetail $cashier
  */
 trait Casheable
 {

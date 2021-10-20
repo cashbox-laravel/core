@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime;
+namespace CashierProvider\Manager\Exceptions\Runtime;
 
 /** @method MethodNotAllowedException __construct(string $method) */
 class MethodNotAllowedException extends BaseException

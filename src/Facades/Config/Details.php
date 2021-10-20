@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Config;
+namespace CashierProvider\Manager\Facades\Config;
 
-use Helldar\Cashier\Config\Details as Config;
+use CashierProvider\Manager\Config\Details as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**

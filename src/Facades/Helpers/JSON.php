@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Helpers;
+namespace CashierProvider\Manager\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\JSON as Helper;
+use CashierProvider\Manager\Helpers\JSON as Helper;
 use Illuminate\Support\Facades\Facade;
 
 /**

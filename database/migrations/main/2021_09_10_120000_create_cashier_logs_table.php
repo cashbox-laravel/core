@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Facades\Config\Details;
-use Helldar\Cashier\Facades\Config\Logs;
-use Helldar\Cashier\Support\Migration;
+use CashierProvider\Manager\Facades\Config\Details;
+use CashierProvider\Manager\Facades\Config\Logs;
+use CashierProvider\Manager\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 

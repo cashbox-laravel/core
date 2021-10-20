@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Observers;
+namespace CashierProvider\Manager\Observers;
 
-use Helldar\Cashier\Concerns\Events;
-use Helldar\Cashier\Facades\Helpers\Access;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Manager\Concerns\Events;
+use CashierProvider\Manager\Facades\Helpers\Access;
+use CashierProvider\Manager\Services\Jobs;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,7 +48,7 @@ class PaymentsObserver extends BaseObserver
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     public function deleting(Model $payment)
     {

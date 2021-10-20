@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Manager\Helpers;
 
 use Illuminate\Support\Carbon;
 

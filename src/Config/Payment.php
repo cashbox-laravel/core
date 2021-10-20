@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Config;
+namespace CashierProvider\Manager\Config;
 
-use Helldar\Cashier\Config\Payments\Attributes;
-use Helldar\Cashier\Config\Payments\Map;
-use Helldar\Cashier\Config\Payments\Statuses;
+use CashierProvider\Manager\Config\Payments\Attributes;
+use CashierProvider\Manager\Config\Payments\Map;
+use CashierProvider\Manager\Config\Payments\Statuses;
 use Helldar\Contracts\Cashier\Config\Payment as PaymentContract;
 use Helldar\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
 use Helldar\Contracts\Cashier\Config\Payments\Map as MapContract;

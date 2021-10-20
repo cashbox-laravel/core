@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Console\Commands;
+namespace CashierProvider\Manager\Console\Commands;
 
-use Helldar\Cashier\Models\CashierDetail;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Manager\Models\CashierDetail;
+use CashierProvider\Manager\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

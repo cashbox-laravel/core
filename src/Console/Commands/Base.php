@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Console\Commands;
+namespace CashierProvider\Manager\Console\Commands;
 
-use Helldar\Cashier\Concerns\Driverable;
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Manager\Concerns\Driverable;
+use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Manager\Facades\Config\Payment;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 

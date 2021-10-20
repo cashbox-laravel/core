@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Config;
+namespace CashierProvider\Manager\Config;
 
 abstract class Base
 {

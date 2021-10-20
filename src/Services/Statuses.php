@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Services;
+namespace CashierProvider\Manager\Services;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Manager\Concerns\Relations;
+use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Manager\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Helpers\Statuses as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -43,7 +43,7 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
+    /** @var \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     protected $model;
 
     public function __construct(Model $model)

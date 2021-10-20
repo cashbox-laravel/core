@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Http;
+namespace CashierProvider\Manager\Exceptions\Http;
 
-use Helldar\Cashier\Concerns\Exceptionable;
+use CashierProvider\Manager\Concerns\Exceptionable;
 use Helldar\Contracts\Exceptions\Http\ClientException;
 use Helldar\Contracts\Http\Builder;
 use Symfony\Component\HttpKernel\Exception\HttpException;

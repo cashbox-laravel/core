@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Jobs;
+namespace CashierProvider\Manager\Jobs;
 
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Events\Processes\Refunded;
-use Helldar\Cashier\Exceptions\Logic\AlreadyRefundedException;
-use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
-use Helldar\Cashier\Facades\Config\Main;
+use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Manager\Events\Processes\Refunded;
+use CashierProvider\Manager\Exceptions\Logic\AlreadyRefundedException;
+use CashierProvider\Manager\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Manager\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
@@ -32,7 +32,7 @@ class Refund extends Base
     protected $event = Refunded::class;
 
     /**
-     * @throws \Helldar\Cashier\Exceptions\Logic\EmptyResponseException
+     * @throws \CashierProvider\Manager\Exceptions\Logic\EmptyResponseException
      */
     public function handle()
     {

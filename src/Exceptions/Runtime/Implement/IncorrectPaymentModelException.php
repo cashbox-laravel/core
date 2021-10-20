@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime\Implement;
+namespace CashierProvider\Manager\Exceptions\Runtime\Implement;
 
-use Helldar\Cashier\Concerns\Casheable;
+use CashierProvider\Manager\Concerns\Casheable;
 
 class IncorrectPaymentModelException extends BaseImplementException
 {

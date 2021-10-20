@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Events\Payments;
+namespace CashierProvider\Manager\Events\Payments;
 
-use Helldar\Cashier\Events\BaseEvent;
+use CashierProvider\Manager\Events\BaseEvent;
 
 class FailedEvent extends BaseEvent
 {

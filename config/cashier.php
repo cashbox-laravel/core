@@ -17,8 +17,8 @@
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Constants\Attributes;
-use Helldar\Cashier\Constants\Status;
+use CashierProvider\Manager\Constants\Attributes;
+use CashierProvider\Manager\Constants\Status;
 
 return [
     /*
@@ -409,13 +409,13 @@ return [
 
     'drivers' => [
         // 'foo' => [
-        //     \Helldar\Cashier\Constants\Driver::DRIVER => \Helldar\CashierDriver\BankName\PaymentType\Driver::class,
+        //     \CashierProvider\Manager\Constants\Driver::DRIVER => \CashierProvider\ManagerDriver\BankName\PaymentType\Driver::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::DETAILS => \App\Payments\BankName::class,
+        //     \CashierProvider\Manager\Constants\Driver::DETAILS => \App\Payments\BankName::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //     \CashierProvider\Manager\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //     \CashierProvider\Manager\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
     ],
 ];

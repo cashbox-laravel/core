@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime;
+namespace CashierProvider\Manager\Exceptions\Runtime;
 
 /** @method UnknownMethodException __construct(string $class, string $method) */
 class UnknownMethodException extends BaseException

@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Logic;
+namespace CashierProvider\Manager\Exceptions\Logic;
 
+use CashierProvider\Manager\Concerns\Exceptionable;
 use Exception;
-use Helldar\Cashier\Concerns\Exceptionable;
 use Helldar\Contracts\Exceptions\LogicException;
 
 abstract class BaseException extends Exception implements LogicException

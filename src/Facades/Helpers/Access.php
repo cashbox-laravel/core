@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Helpers;
+namespace CashierProvider\Manager\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\Access as Helper;
+use CashierProvider\Manager\Helpers\Access as Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 

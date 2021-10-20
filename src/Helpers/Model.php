@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Manager\Helpers;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Concerns\Validators;
+use CashierProvider\Manager\Concerns\Relations;
+use CashierProvider\Manager\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
@@ -29,7 +29,7 @@ class Model
     use Validators;
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
@@ -42,7 +42,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function create(EloquentModel $payment, array $data): void
@@ -53,7 +53,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function update(EloquentModel $payment, array $data): void
@@ -66,7 +66,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return bool
      */

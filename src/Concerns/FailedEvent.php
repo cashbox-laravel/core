@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Concerns;
+namespace CashierProvider\Manager\Concerns;
 
-use Helldar\Cashier\Events\Http\ExceptionEvent;
+use CashierProvider\Manager\Events\Http\ExceptionEvent;
 use Throwable;
 
 trait FailedEvent

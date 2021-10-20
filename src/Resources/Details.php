@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Resources;
+namespace CashierProvider\Manager\Resources;
 
-use Helldar\Cashier\Concerns\Jsonable;
+use CashierProvider\Manager\Concerns\Jsonable;
 use Helldar\Contracts\Cashier\Resources\Details as DetailsContract;
 use Helldar\SimpleDataTransferObject\DataTransferObject;
 

@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Observers;
+namespace CashierProvider\Manager\Observers;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\DriverManager;
-use Helldar\Cashier\Models\CashierDetail;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Manager\Concerns\Relations;
+use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Manager\Facades\Helpers\DriverManager;
+use CashierProvider\Manager\Models\CashierDetail;
+use CashierProvider\Manager\Services\Jobs;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver extends BaseObserver

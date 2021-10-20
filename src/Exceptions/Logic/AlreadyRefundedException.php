@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Logic;
+namespace CashierProvider\Manager\Exceptions\Logic;
 
 class AlreadyRefundedException extends BaseException
 {

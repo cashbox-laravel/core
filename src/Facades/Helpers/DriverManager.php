@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Helpers;
+namespace CashierProvider\Manager\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\DriverManager as Helper;
+use CashierProvider\Manager\Helpers\DriverManager as Helper;
 use Helldar\Contracts\Cashier\Driver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;

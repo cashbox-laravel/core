@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Helldar\Cashier\Providers\ObserverServiceProvider;
-use Helldar\Cashier\Providers\ServiceProvider;
+use CashierProvider\Manager\Providers\ObserverServiceProvider;
+use CashierProvider\Manager\Providers\ServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Fixtures\Models\Payment;

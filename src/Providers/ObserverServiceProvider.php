@@ -17,12 +17,12 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Providers;
+namespace CashierProvider\Manager\Providers;
 
-use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Models\CashierDetail;
-use Helldar\Cashier\Observers\DetailsObserver;
-use Helldar\Cashier\Observers\PaymentsObserver as PaymentsObserver;
+use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Manager\Models\CashierDetail;
+use CashierProvider\Manager\Observers\DetailsObserver;
+use CashierProvider\Manager\Observers\PaymentsObserver as PaymentsObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider

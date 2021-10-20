@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Config\Payments;
 
-use Helldar\Cashier\Config\Payments\Attributes;
+use CashierProvider\Manager\Config\Payments\Attributes;
 use Tests\TestCase;
 
 class AttributesTest extends TestCase

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Runtime;
+namespace CashierProvider\Manager\Exceptions\Runtime;
 
-use Helldar\Cashier\Concerns\Exceptionable;
+use CashierProvider\Manager\Concerns\Exceptionable;
 use Helldar\Contracts\Exceptions\RuntimeException;
 
 abstract class BaseException extends \RuntimeException implements RuntimeException

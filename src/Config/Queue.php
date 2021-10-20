@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Config;
+namespace CashierProvider\Manager\Config;
 
 use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
 use Helldar\Contracts\Cashier\Config\Queues\Names;

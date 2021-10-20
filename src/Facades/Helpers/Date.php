@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Facades\Helpers;
+namespace CashierProvider\Manager\Facades\Helpers;
 
-use Helldar\Cashier\Helpers\Date as Helper;
+use CashierProvider\Manager\Helpers\Date as Helper;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 

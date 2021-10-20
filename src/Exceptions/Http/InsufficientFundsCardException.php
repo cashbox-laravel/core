@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Exceptions\Http;
+namespace CashierProvider\Manager\Exceptions\Http;
 
 class InsufficientFundsCardException extends BaseException
 {

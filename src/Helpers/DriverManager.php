@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Manager\Helpers;
 
-use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Facades\Config\Main;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Manager\Concerns\Validators;
+use CashierProvider\Manager\Facades\Config\Main;
+use CashierProvider\Manager\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +31,7 @@ class DriverManager
     use Validators;
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return \Helldar\Contracts\Cashier\Driver
      */

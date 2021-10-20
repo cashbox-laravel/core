@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Providers;
+namespace CashierProvider\Manager\Providers;
 
-use Helldar\Cashier\Console\Commands\Check;
-use Helldar\Cashier\Console\Commands\Refund;
+use CashierProvider\Manager\Console\Commands\Check;
+use CashierProvider\Manager\Console\Commands\Refund;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
