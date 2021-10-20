@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Manager\Concerns\Migrations\PublicMigration;
+use CashierProvider\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\Http as Helper;
+use CashierProvider\Core\Helpers\Http as Helper;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Exceptions\Manager as ExceptionManager;
 use Illuminate\Support\Facades\Facade;

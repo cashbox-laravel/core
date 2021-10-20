@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Jobs;
+namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Manager\Events\Processes\Started;
-use CashierProvider\Manager\Facades\Config\Main;
+use CashierProvider\Core\Events\Processes\Started;
+use CashierProvider\Core\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Start extends Base

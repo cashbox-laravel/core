@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Config;
+namespace CashierProvider\Core\Facades\Config;
 
-use CashierProvider\Manager\Config\Main as Config;
+use CashierProvider\Core\Config\Main as Config;
 use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Config\Queue;
 use Illuminate\Support\Facades\Facade;

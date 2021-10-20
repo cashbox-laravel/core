@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Jobs;
+namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Manager\Concerns\Driverable;
-use CashierProvider\Manager\Concerns\Relations;
-use CashierProvider\Manager\Exceptions\Logic\EmptyResponseException;
-use CashierProvider\Manager\Facades\Config\Main;
-use CashierProvider\Manager\Facades\Config\Payment;
-use CashierProvider\Manager\Facades\Helpers\Model as ModelHelper;
+use CashierProvider\Core\Concerns\Driverable;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
+use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
 use Helldar\Contracts\Cashier\Driver;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Contracts\Cashier\Http\Response;
@@ -54,7 +54,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
      */
     public $tries;
 
-    /** @var \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
+    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;
 
     public $force_break;

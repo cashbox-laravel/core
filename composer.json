@@ -1,5 +1,5 @@
 {
-    "name": "cashier-provider/manager",
+    "name": "cashier-provider/core",
     "description": "Cashier provides an expressive, fluent interface to manage billing services.",
     "type": "library",
     "license": "MIT",
@@ -16,8 +16,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/cashier-provider/manager/issues",
-        "source": "https://github.com/cashier-provider/manager"
+        "issues": "https://github.com/cashier-provider/core/issues",
+        "source": "https://github.com/cashier-provider/core"
     },
     "require": {
         "php": "^7.3|^8.0",
@@ -45,7 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "CashierProvider\\Manager\\": "src"
+            "CashierProvider\\Core\\": "src"
         },
         "classmap": ["polyfill"]
     },
@@ -67,8 +67,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CashierProvider\\Manager\\Providers\\ServiceProvider",
-                "CashierProvider\\Manager\\Providers\\ObserverServiceProvider"
+                "CashierProvider\\Core\\Providers\\ServiceProvider",
+                "CashierProvider\\Core\\Providers\\ObserverServiceProvider"
             ]
         }
     }

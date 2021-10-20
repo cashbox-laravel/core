@@ -17,8 +17,8 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Manager\Constants\Attributes;
-use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Core\Constants\Attributes;
+use CashierProvider\Core\Constants\Status;
 
 return [
     /*
@@ -409,13 +409,13 @@ return [
 
     'drivers' => [
         // 'foo' => [
-        //     \CashierProvider\Manager\Constants\Driver::DRIVER => \CashierProvider\ManagerDriver\BankName\PaymentType\Driver::class,
+        //     \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //     \CashierProvider\Manager\Constants\Driver::DETAILS => \App\Payments\BankName::class,
+        //     \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName::class,
         //
-        //     \CashierProvider\Manager\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //     \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
-        //     \CashierProvider\Manager\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
     ],
 ];

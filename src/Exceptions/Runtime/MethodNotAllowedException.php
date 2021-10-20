@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Runtime;
+namespace CashierProvider\Core\Exceptions\Runtime;
 
 /** @method MethodNotAllowedException __construct(string $method) */
 class MethodNotAllowedException extends BaseException

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Runtime\Implement;
+namespace CashierProvider\Core\Exceptions\Runtime\Implement;
 
-use CashierProvider\Manager\Concerns\Casheable;
+use CashierProvider\Core\Concerns\Casheable;
 
 class IncorrectPaymentModelException extends BaseImplementException
 {

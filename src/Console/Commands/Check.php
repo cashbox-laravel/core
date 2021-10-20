@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Console\Commands;
+namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Manager\Models\CashierDetail;
-use CashierProvider\Manager\Services\Jobs;
+use CashierProvider\Core\Models\CashierDetail;
+use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

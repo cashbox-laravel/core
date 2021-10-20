@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Events\Http\ExceptionEvent;
+use CashierProvider\Core\Events\Http\ExceptionEvent;
 use Throwable;
 
 trait FailedEvent

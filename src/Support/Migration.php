@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Support;
+namespace CashierProvider\Core\Support;
 
-use CashierProvider\Manager\Facades\Config\Details;
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config\Details;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 

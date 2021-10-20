@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Config\Payments;
 
-use CashierProvider\Manager\Config\Payments\Attributes;
+use CashierProvider\Core\Config\Payments\Attributes;
 use Tests\TestCase;
 
 class AttributesTest extends TestCase

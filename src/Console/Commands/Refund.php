@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Console\Commands;
+namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Manager\Services\Jobs;
+use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

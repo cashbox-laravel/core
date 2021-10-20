@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns\Migrations;
+namespace CashierProvider\Core\Concerns\Migrations;
 
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
 

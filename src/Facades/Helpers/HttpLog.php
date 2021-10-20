@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\HttpLog as Helper;
+use CashierProvider\Core\Helpers\HttpLog as Helper;
 use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
 use Helldar\Contracts\Http\Builder;
 use Illuminate\Support\Facades\Facade;

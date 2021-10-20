@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Helpers;
+namespace CashierProvider\Core\Helpers;
 
 use Illuminate\Support\Carbon;
 

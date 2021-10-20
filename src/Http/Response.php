@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Http;
+namespace CashierProvider\Core\Http;
 
 use Helldar\Contracts\Cashier\Http\Response as ResponseContract;
 use Helldar\Support\Concerns\Makeable;

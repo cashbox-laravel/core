@@ -17,12 +17,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Models;
+namespace CashierProvider\Core\Models;
 
-use CashierProvider\Manager\Concerns\Relations;
-use CashierProvider\Manager\Facades\Config\Details;
-use CashierProvider\Manager\Facades\Helpers\DriverManager;
-use CashierProvider\Manager\Facades\Helpers\JSON;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Facades\Config\Details;
+use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Facades\Helpers\JSON;
 use Helldar\Contracts\Cashier\Resources\Details as DetailsCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Manager\Concerns\Relations;
-use CashierProvider\Manager\Concerns\Validators;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
@@ -29,7 +29,7 @@ class Model
     use Validators;
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
@@ -42,7 +42,7 @@ class Model
     }
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function create(EloquentModel $payment, array $data): void
@@ -53,7 +53,7 @@ class Model
     }
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function update(EloquentModel $payment, array $data): void
@@ -66,7 +66,7 @@ class Model
     }
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return bool
      */

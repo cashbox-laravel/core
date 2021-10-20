@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Manager\Facades\Config\Details;
-use CashierProvider\Manager\Facades\Config\Logs;
-use CashierProvider\Manager\Support\Migration;
+use CashierProvider\Core\Facades\Config\Details;
+use CashierProvider\Core\Facades\Config\Logs;
+use CashierProvider\Core\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 

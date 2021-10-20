@@ -17,14 +17,14 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Services;
+namespace CashierProvider\Core\Services;
 
-use CashierProvider\Manager\Facades\Config\Main;
-use CashierProvider\Manager\Facades\Helpers\Access;
-use CashierProvider\Manager\Facades\Helpers\DriverManager;
-use CashierProvider\Manager\Jobs\Check;
-use CashierProvider\Manager\Jobs\Refund;
-use CashierProvider\Manager\Jobs\Start;
+use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Helpers\Access;
+use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Jobs\Check;
+use CashierProvider\Core\Jobs\Refund;
+use CashierProvider\Core\Jobs\Start;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Support\Concerns\Makeable;
@@ -76,7 +76,7 @@ class Jobs
     }
 
     /**
-     * @param  \CashierProvider\Manager\Jobs\Base|string  $job
+     * @param  \CashierProvider\Core\Jobs\Base|string  $job
      * @param  bool  $force_break
      * @param  int|null  $delay
      */

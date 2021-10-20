@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Providers;
+namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Manager\Console\Commands\Check;
-use CashierProvider\Manager\Console\Commands\Refund;
+use CashierProvider\Core\Console\Commands\Check;
+use CashierProvider\Core\Console\Commands\Refund;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider

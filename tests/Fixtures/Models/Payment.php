@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures\Models;
 
-use CashierProvider\Manager\Concerns\Casheable;
+use CashierProvider\Core\Concerns\Casheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model

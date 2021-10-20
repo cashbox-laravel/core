@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Config\Payments;
+namespace CashierProvider\Core\Facades\Config\Payments;
 
-use CashierProvider\Manager\Config\Payments\Attributes as Config;
+use CashierProvider\Core\Config\Payments\Attributes as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**

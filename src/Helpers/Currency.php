@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Manager\Constants\Currency as CurrencyConstants;
-use CashierProvider\Manager\Exceptions\Runtime\UnknownCurrencyCodeException;
-use CashierProvider\Manager\Resources\Currency as Resource;
+use CashierProvider\Core\Constants\Currency as CurrencyConstants;
+use CashierProvider\Core\Exceptions\Runtime\UnknownCurrencyCodeException;
+use CashierProvider\Core\Resources\Currency as Resource;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Reflection;
 use Helldar\Support\Facades\Helpers\Str;
@@ -33,7 +33,7 @@ class Currency
      *
      * @param  int|string  $currency
      *
-     * @return \CashierProvider\Manager\Resources\Currency
+     * @return \CashierProvider\Core\Resources\Currency
      */
     public function get($currency): Resource
     {

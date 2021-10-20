@@ -32,7 +32,7 @@ declare(strict_types=1);
  * @see https://github.com/andrey-helldar/cashier
  */
 
-namespace CashierProvider\Manager\Exceptions\Http;
+namespace CashierProvider\Core\Exceptions\Http;
 
 class TooManyRequestsException extends BaseException
 {

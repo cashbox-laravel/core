@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Console\Commands;
+namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Manager\Concerns\Driverable;
-use CashierProvider\Manager\Constants\Status;
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Concerns\Driverable;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Facades\Config\Payment;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 

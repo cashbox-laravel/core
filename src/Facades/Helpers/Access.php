@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\Access as Helper;
+use CashierProvider\Core\Helpers\Access as Helper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 

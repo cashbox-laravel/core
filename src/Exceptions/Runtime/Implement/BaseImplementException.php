@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Runtime\Implement;
+namespace CashierProvider\Core\Exceptions\Runtime\Implement;
 
-use CashierProvider\Manager\Exceptions\Runtime\BaseException;
+use CashierProvider\Core\Exceptions\Runtime\BaseException;
 
 /** @method BaseImplementException __construct(string $class) */
 abstract class BaseImplementException extends BaseException

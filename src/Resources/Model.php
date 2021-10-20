@@ -17,12 +17,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Resources;
+namespace CashierProvider\Core\Resources;
 
-use CashierProvider\Manager\Concerns\Relations;
-use CashierProvider\Manager\Facades\Helpers\Currency as CurrencyHelper;
-use CashierProvider\Manager\Facades\Helpers\Date;
-use CashierProvider\Manager\Facades\Helpers\Unique;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Facades\Helpers\Currency as CurrencyHelper;
+use CashierProvider\Core\Facades\Helpers\Date;
+use CashierProvider\Core\Facades\Helpers\Unique;
 use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Resources\Model as Contract;
 use Helldar\Support\Concerns\Makeable;
@@ -45,7 +45,7 @@ abstract class Model implements Contract
     }
 
     /**
-     * @return \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
+     * @return \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
      */
     public function getPaymentModel(): EloquentModel
     {

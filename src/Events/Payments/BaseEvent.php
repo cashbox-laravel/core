@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Events\Payments;
+namespace CashierProvider\Core\Events\Payments;
 
-use CashierProvider\Manager\Concerns\Validators;
+use CashierProvider\Core\Concerns\Validators;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;

@@ -17,15 +17,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Models;
+namespace CashierProvider\Core\Models;
 
-use CashierProvider\Manager\Facades\Config\Logs;
+use CashierProvider\Core\Facades\Config\Logs;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
+ * @property \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
  * @property array $extra
  * @property array $request
  * @property array $response

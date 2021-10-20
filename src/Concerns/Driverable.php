@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Facades\Helpers\DriverManager;
 use Helldar\Contracts\Cashier\Driver;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,7 +29,7 @@ trait Driverable
     protected $driver;
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      *
      * @return \Helldar\Contracts\Cashier\Driver
      */

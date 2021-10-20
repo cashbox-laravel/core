@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Exceptions\Runtime\Implement\IncorrectDriverException;
-use CashierProvider\Manager\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
-use CashierProvider\Manager\Exceptions\Runtime\Implement\UnknownResponseException;
-use CashierProvider\Manager\Exceptions\Runtime\UnknownMethodException;
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectDriverException;
+use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
+use CashierProvider\Core\Exceptions\Runtime\Implement\UnknownResponseException;
+use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Facades\Helpers\Instance;

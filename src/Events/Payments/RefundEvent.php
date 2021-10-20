@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Events\Payments;
+namespace CashierProvider\Core\Events\Payments;
 
-use CashierProvider\Manager\Events\BaseEvent;
+use CashierProvider\Core\Events\BaseEvent;
 
 class RefundEvent extends BaseEvent
 {

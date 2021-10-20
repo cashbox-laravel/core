@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Observers;
+namespace CashierProvider\Core\Observers;
 
-use CashierProvider\Manager\Concerns\Attributes;
+use CashierProvider\Core\Concerns\Attributes;
 
 abstract class BaseObserver
 {

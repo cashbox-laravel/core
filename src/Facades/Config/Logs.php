@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Config;
+namespace CashierProvider\Core\Facades\Config;
 
-use CashierProvider\Manager\Config\Logs as Config;
+use CashierProvider\Core\Config\Logs as Config;
 use Illuminate\Support\Facades\Facade;
 
 /**

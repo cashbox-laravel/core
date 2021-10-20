@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Constants\Status;
-use CashierProvider\Manager\Events\Payments\FailedEvent;
-use CashierProvider\Manager\Events\Payments\RefundEvent;
-use CashierProvider\Manager\Events\Payments\SuccessEvent;
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Events\Payments\FailedEvent;
+use CashierProvider\Core\Events\Payments\RefundEvent;
+use CashierProvider\Core\Events\Payments\SuccessEvent;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 

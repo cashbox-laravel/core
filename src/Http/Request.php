@@ -17,10 +17,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Http;
+namespace CashierProvider\Core\Http;
 
-use CashierProvider\Manager\Concerns\Validators;
-use CashierProvider\Manager\Facades\Config\Main;
+use CashierProvider\Core\Concerns\Validators;
+use CashierProvider\Core\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Auth\Auth;
 use Helldar\Contracts\Cashier\Http\Request as Contract;
 use Helldar\Contracts\Cashier\Resources\Model;

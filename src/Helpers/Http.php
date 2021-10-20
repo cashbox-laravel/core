@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Manager\Concerns\FailedEvent;
-use CashierProvider\Manager\Concerns\Logs;
-use CashierProvider\Manager\Exceptions\Http\UnauthorizedException;
-use CashierProvider\Manager\Exceptions\Logic\EmptyResponseException;
-use CashierProvider\Manager\Facades\Helpers\JSON as JsonDecoder;
+use CashierProvider\Core\Concerns\FailedEvent;
+use CashierProvider\Core\Concerns\Logs;
+use CashierProvider\Core\Exceptions\Http\UnauthorizedException;
+use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
+use CashierProvider\Core\Facades\Helpers\JSON as JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use Helldar\Contracts\Cashier\Http\Request;

@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\Date as Helper;
+use CashierProvider\Core\Helpers\Date as Helper;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 

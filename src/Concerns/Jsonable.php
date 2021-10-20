@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Facades\Helpers\JSON;
+use CashierProvider\Core\Facades\Helpers\JSON;
 use Helldar\Support\Facades\Helpers\Arr;
 
 /** @mixin \Helldar\Contracts\Support\Arrayable */

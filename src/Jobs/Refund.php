@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Jobs;
+namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Manager\Constants\Status;
-use CashierProvider\Manager\Events\Processes\Refunded;
-use CashierProvider\Manager\Exceptions\Logic\AlreadyRefundedException;
-use CashierProvider\Manager\Exceptions\Logic\UnknownExternalIdException;
-use CashierProvider\Manager\Facades\Config\Main;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Events\Processes\Refunded;
+use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
+use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Core\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
@@ -32,7 +32,7 @@ class Refund extends Base
     protected $event = Refunded::class;
 
     /**
-     * @throws \CashierProvider\Manager\Exceptions\Logic\EmptyResponseException
+     * @throws \CashierProvider\Core\Exceptions\Logic\EmptyResponseException
      */
     public function handle()
     {

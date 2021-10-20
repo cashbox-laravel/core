@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Config\Queues;
+namespace CashierProvider\Core\Config\Queues;
 
 use Helldar\Contracts\Cashier\Config\Queues\Names as Contract;
 use Helldar\SimpleDataTransferObject\DataTransferObject;

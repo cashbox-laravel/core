@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use CashierProvider\Manager\Providers\ObserverServiceProvider;
-use CashierProvider\Manager\Providers\ServiceProvider;
+use CashierProvider\Core\Providers\ObserverServiceProvider;
+use CashierProvider\Core\Providers\ServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Fixtures\Models\Payment;

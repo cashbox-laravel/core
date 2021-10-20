@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Logic;
+namespace CashierProvider\Core\Exceptions\Logic;
 
-use CashierProvider\Manager\Concerns\Exceptionable;
+use CashierProvider\Core\Concerns\Exceptionable;
 use Exception;
 use Helldar\Contracts\Exceptions\LogicException;
 

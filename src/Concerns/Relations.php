@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Models\CashierDetail;
+use CashierProvider\Core\Models\CashierDetail;
 use Illuminate\Database\Eloquent\Model;
 
 trait Relations
@@ -34,7 +34,7 @@ trait Relations
     }
 
     /**
-     * @param  \CashierProvider\Manager\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     protected function resolveCashier(Model $payment): void
     {

@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Http;
+namespace CashierProvider\Core\Exceptions\Http;
 
 class SumException extends BaseException
 {

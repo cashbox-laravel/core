@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\JSON as Helper;
+use CashierProvider\Core\Helpers\JSON as Helper;
 use Illuminate\Support\Facades\Facade;
 
 /**

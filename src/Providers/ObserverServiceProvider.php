@@ -17,12 +17,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Providers;
+namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Manager\Facades\Config\Payment;
-use CashierProvider\Manager\Models\CashierDetail;
-use CashierProvider\Manager\Observers\DetailsObserver;
-use CashierProvider\Manager\Observers\PaymentsObserver as PaymentsObserver;
+use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Models\CashierDetail;
+use CashierProvider\Core\Observers\DetailsObserver;
+use CashierProvider\Core\Observers\PaymentsObserver as PaymentsObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider

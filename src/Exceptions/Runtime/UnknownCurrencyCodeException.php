@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Runtime;
+namespace CashierProvider\Core\Exceptions\Runtime;
 
 /** @method UnknownCurrencyCodeException __construct(string $currency) */
 class UnknownCurrencyCodeException extends BaseException

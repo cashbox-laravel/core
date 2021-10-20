@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Manager\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config\Payment;
 
 trait Attributes
 {

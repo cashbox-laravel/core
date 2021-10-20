@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Config;
+namespace CashierProvider\Core\Config;
 
 abstract class Base
 {

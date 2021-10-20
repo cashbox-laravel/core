@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Exceptions\Logic;
+namespace CashierProvider\Core\Exceptions\Logic;
 
 class AlreadyRefundedException extends BaseException
 {

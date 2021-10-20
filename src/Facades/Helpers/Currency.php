@@ -17,13 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Facades\Helpers;
+namespace CashierProvider\Core\Facades\Helpers;
 
-use CashierProvider\Manager\Helpers\Currency as Helper;
+use CashierProvider\Core\Helpers\Currency as Helper;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \CashierProvider\Manager\Resources\Currency get(int|string $currency)
+ * @method static \CashierProvider\Core\Resources\Currency get(int|string $currency)
  */
 class Currency extends Facade
 {

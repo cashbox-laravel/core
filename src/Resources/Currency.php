@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Resources;
+namespace CashierProvider\Core\Resources;
 
 use Helldar\SimpleDataTransferObject\DataTransferObject;
 

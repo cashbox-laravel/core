@@ -17,9 +17,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Manager\Events\Processes;
+namespace CashierProvider\Core\Events\Processes;
 
-use CashierProvider\Manager\Events\BaseEvent;
+use CashierProvider\Core\Events\BaseEvent;
 
 class Checked extends BaseEvent
 {

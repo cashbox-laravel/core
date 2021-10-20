@@ -12,7 +12,7 @@ Cashier provides an expressive, fluent interface to manage billing services.
 To get the latest version of `Laravel Cashier Provider`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require cashier-provider/manager
+$ composer require cashier-provider/core
 ```
 
 Or manually update `require` block of `composer.json` and run `composer update`.
@@ -20,7 +20,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/manager": "^1.0"
+        "cashier-provider/core": "^1.0"
     }
 }
 ```
@@ -28,7 +28,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 You should publish the config file and migrations with:
 
 ```bash
-php artisan vendor:publish --provider="CashierProvider\Manager\ServiceProvider"
+php artisan vendor:publish --provider="CashierProvider\Core\ServiceProvider"
 ```
 
 Further, if necessary, edit the migration file copied to your application and run the command to apply migrations:
@@ -39,19 +39,19 @@ php artisan migrate
 
 ## Using
 
-> [`Cashier`](https://github.com/cashier-provider/manager) allows you to connect any payment driver compatible with your application.
+> [`Cashier`](https://github.com/cashier-provider/core) allows you to connect any payment driver compatible with your application.
 >
 > Depending on the type of payment, Cashier will automatically call the required driver to work with the bank's API.
 
 
 ### Configuration
 
-Before starting, edit the [config/cashier.php](https://github.com/cashier-provider/manager/blob/main/config/cashier.php) file:
+Before starting, edit the [config/cashier.php](https://github.com/cashier-provider/core/blob/main/config/cashier.php) file:
 
 ```php
 use App\Models\Payment as Model;
-use CashierProvider\Manager\Constants\Attributes;
-use CashierProvider\Manager\Constants\Status;
+use CashierProvider\Core\Constants\Attributes;
+use CashierProvider\Core\Constants\Status;
 
 return [
     'payment' => [
@@ -136,7 +136,7 @@ Add the necessary trait to your Payment model:
 ```php
 namespace App\Models;
 
-use CashierProvider\Manager\Concerns\Casheable;
+use CashierProvider\Core\Concerns\Casheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -213,7 +213,7 @@ stdout_logfile = /var/www/storage/logs/queue-payments-refund.log
 
 ```php
 use App\Models\Payment;
-use CashierProvider\Manager\Services\Jobs;
+use CashierProvider\Core\Services\Jobs;
 
 $model = Payment::findOrfail(1234);
 
@@ -247,14 +247,14 @@ Create main classes with the following inheritance:
 
 | Class | Extends | Description
 |:---|:---|:---|
-| `Driver` | `CashierProvider\Manager\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
-| `Exceptions\Manager` | `CashierProvider\Manager\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |
-| `Helpers\Statuses` | `CashierProvider\Manager\Services\Statuses` | Types of statuses. Groups the statuses returned by the bank by type. |
-| `Resources\Details` | `CashierProvider\Manager\Resources\Details` | Details cast. Contains information for working with the bank. For example, in the [`cashier-provider/sber-qr`](https://github.com/cashier-provider/sber-qr) driver, it contains a link to generate a QR code. In your driver, you are free to specify the methods you need. |
-| `Requests\Create` | `CashierProvider\Manager\Http\Request` | Request to the bank to initiate a payment session. |
-| `Requests\Status` | `CashierProvider\Manager\Http\Request` | Request to the bank to check the status of the payment. |
-| `Requests\Cancel` | `CashierProvider\Manager\Http\Request` | Request to the bank to cancel the payment and return the funds to the client if he has already paid for the services. |
-| `Responses\Created`, `Responses\Refund`, `Responses\Status` | `CashierProvider\Manager\Http\Response` | Classes for processing responses from the bank. |
+| `Driver` | `CashierProvider\Core\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
+| `Exceptions\Manager` | `CashierProvider\Core\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |
+| `Helpers\Statuses` | `CashierProvider\Core\Services\Statuses` | Types of statuses. Groups the statuses returned by the bank by type. |
+| `Resources\Details` | `CashierProvider\Core\Resources\Details` | Details cast. Contains information for working with the bank. For example, in the [`cashier-provider/sber-qr`](https://github.com/cashier-provider/sber-qr) driver, it contains a link to generate a QR code. In your driver, you are free to specify the methods you need. |
+| `Requests\Create` | `CashierProvider\Core\Http\Request` | Request to the bank to initiate a payment session. |
+| `Requests\Status` | `CashierProvider\Core\Http\Request` | Request to the bank to check the status of the payment. |
+| `Requests\Cancel` | `CashierProvider\Core\Http\Request` | Request to the bank to cancel the payment and return the funds to the client if he has already paid for the services. |
+| `Responses\Created`, `Responses\Refund`, `Responses\Status` | `CashierProvider\Core\Http\Response` | Classes for processing responses from the bank. |
 
 ```php
 namespace CashierProvider\BankName\BankTechnology;
@@ -268,7 +268,7 @@ use CashierProvider\BankName\BankTechnology\Resources\Details;
 use CashierProvider\BankName\BankTechnology\Responses\Created;
 use CashierProvider\BankName\BankTechnology\Responses\Refund;
 use CashierProvider\BankName\BankTechnology\Responses\Status as StatusResponse;
-use CashierProvider\Manager\Services\Driver as BaseDriver;
+use CashierProvider\Core\Services\Driver as BaseDriver;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Driver extends BaseDriver
@@ -308,14 +308,14 @@ For convenience, we have created a [`Cashier Driver Template`](https://github.co
 the [`Cashier Authorization Driver Template`](https://github.com/cashier-provider/driver-auth-template).
 
 
-[badge_downloads]:      https://img.shields.io/packagist/dt/cashier-provider/manager.svg?style=flat-square
+[badge_downloads]:      https://img.shields.io/packagist/dt/cashier-provider/core.svg?style=flat-square
 
-[badge_license]:        https://img.shields.io/packagist/l/cashier-provider/manager.svg?style=flat-square
+[badge_license]:        https://img.shields.io/packagist/l/cashier-provider/core.svg?style=flat-square
 
-[badge_stable]:         https://img.shields.io/github/v/release/cashier-provider/manager?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/cashier-provider/core?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [link_license]:         LICENSE
 
-[link_packagist]:       https://packagist.org/packages/cashier-provider/manager
+[link_packagist]:       https://packagist.org/packages/cashier-provider/core
