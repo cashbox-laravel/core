@@ -247,6 +247,10 @@ $jobs->retry();
 
 ### Development
 
+> Note
+>
+> You can join our team, create a driver repository and maintain it.
+
 Create main classes with the following inheritance:
 
 | Class | Extends | Description
