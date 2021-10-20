@@ -9,6 +9,10 @@ Cashier provides an expressive, fluent interface to manage billing services.
 
 ## Installation
 
+> Note
+>
+> Drivers will usually automatically install the correct `Cashier Provider Core` version, but you can do this manually.
+
 To get the latest version of `Laravel Cashier Provider`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
