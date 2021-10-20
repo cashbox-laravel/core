@@ -284,8 +284,8 @@ class Driver extends BaseDriver
 
 These are the main files for driver development.
 
-For convenience, we have created a [`Cashier Driver template`](https://github.com/andrey-helldar/cashier-driver), on the basis of which you can create your own driver. And also
-the [`authorization driver template`](https://github.com/andrey-helldar/cashier-driver-auth).
+For convenience, we have created a [`Cashier Driver Template`](https://github.com/CashierProvider/driver-template), on the basis of which you can create your own driver. And also
+the [`Cashier Authorization Driver Template`](https://github.com/CashierProvider/driver-auth-template).
 
 
 ## For Enterprise
