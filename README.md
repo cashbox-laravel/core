@@ -52,8 +52,9 @@ php artisan migrate
 ### For driver developers
 
 1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
-2. Replace the `Helldar\Cashier` namespace with `CashierProvider\Core` in all files.
-3. Call the `composer update` command.
+2. Replace the `Helldar\CashierDriver` namespace with `CashierProvider` in all files.
+3. Replace the `Helldar\Cashier` namespace with `CashierProvider\Core` in all files.
+4. Call the `composer update` command.
 
 ## Using
 
