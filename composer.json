@@ -55,6 +55,7 @@
         }
     },
     "suggest": {
+        "cashier-provider/cash": "Driver for managing cash payments in the Cashier Provider ecosystem",
         "cashier-provider/sber-qr": "Driver for payment with QR codes via Sber",
         "cashier-provider/tinkoff-qr": "Driver for payment with QR codes via Tinkoff"
     },
