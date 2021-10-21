@@ -27,20 +27,24 @@ class Unique
 
     public function id(bool $unique = true): string
     {
+        $value = md5($this->uuid());
+
+        return $this->get($value, $unique);
+    }
+
+    public function uuid(bool $unique = true): string
+    {
+        $value = Uuid::uuid4()->toString();
+
+        return $this->get($value, $unique);
+    }
+
+    protected function get(string $value, bool $unique): string
+    {
         if (! $unique && $this->value) {
             return $this->value;
         }
 
-        return $this->value = $this->hash();
-    }
-
-    protected function hash(): string
-    {
-        return md5($this->uuid());
-    }
-
-    protected function uuid(): string
-    {
-        return Uuid::uuid4()->toString();
+        return $this->value = $value;
     }
 }

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string id(bool $unique = true)
+ * @method static string uuid(bool $unique = true)
  */
 class Unique extends Facade
 {
