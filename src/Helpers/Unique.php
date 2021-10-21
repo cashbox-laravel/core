@@ -23,28 +23,30 @@ use Ramsey\Uuid\Uuid;
 
 class Unique
 {
-    protected $value;
+    protected $id;
+
+    protected $uuid;
 
     public function id(bool $unique = true): string
     {
-        $value = md5($this->uuid());
-
-        return $this->get($value, $unique);
+        return $this->get($this->id, function () {
+            return md5($this->uuid());
+        }, $unique);
     }
 
     public function uuid(bool $unique = true): string
     {
-        $value = Uuid::uuid4()->toString();
-
-        return $this->get($value, $unique);
+        return $this->get($this->uuid, static function () {
+            return Uuid::uuid4()->toString();
+        }, $unique);
     }
 
-    protected function get(string $value, bool $unique): string
+    protected function get(?string &$attribute, callable $callback, bool $unique): string
     {
-        if (! $unique && $this->value) {
-            return $this->value;
+        if (! $unique && $attribute) {
+            return $attribute;
         }
 
-        return $this->value = $value;
+        return $attribute = $callback();
     }
 }
