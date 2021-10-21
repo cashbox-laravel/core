@@ -13,7 +13,7 @@ Cashier provides an expressive, fluent interface to manage billing services.
 >
 > Drivers will usually automatically install the correct `Cashier Provider Core` version, but you can do this manually.
 
-To get the latest version of `Laravel Cashier Provider`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Cashier Provider Core`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
 $ composer require cashier-provider/core
@@ -312,8 +312,8 @@ class Driver extends BaseDriver
 
 These are the main files for driver development.
 
-For convenience, we have created a [`Cashier Driver Template`](https://github.com/cashier-provider/driver-template), on the basis of which you can create your own driver. And also
-the [`Cashier Authorization Driver Template`](https://github.com/cashier-provider/driver-auth-template).
+For convenience, we have created a [`Cashier Provider Driver Template`](https://github.com/cashier-provider/driver), on the basis of which you can create your own driver. And also
+the [`Cashier Provider Authorization Driver Template`](https://github.com/cashier-provider/driver-auth).
 
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/cashier-provider/core.svg?style=flat-square
