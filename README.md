@@ -41,6 +41,20 @@ Further, if necessary, edit the migration file copied to your application and ru
 php artisan migrate
 ```
 
+## Upgrade from `andrey-helldar/cashier`
+
+### For application
+
+1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
+2. In the `config/cashier.php` file replace the `Helldar\Cashier` namespace with `CashierProvider\Core`.
+3. Call the `composer update` command.
+
+### For driver developers
+
+1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
+2. Replace the `Helldar\Cashier` namespace with `CashierProvider\Core` in all files.
+3. Call the `composer update` command.
+
 ## Using
 
 > [`Cashier`](https://github.com/cashier-provider/core) allows you to connect any payment driver compatible with your application.
