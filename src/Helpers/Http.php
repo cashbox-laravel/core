@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,20 +12,20 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Core\Helpers;
 
+use CashierProvider\Core\Concerns\FailedEvent;
+use CashierProvider\Core\Concerns\Logs;
+use CashierProvider\Core\Exceptions\Http\UnauthorizedException;
+use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
+use CashierProvider\Core\Facades\Helpers\JSON as JsonDecoder;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
-use Helldar\Cashier\Concerns\FailedEvent;
-use Helldar\Cashier\Concerns\Logs;
-use Helldar\Cashier\Exceptions\Http\UnauthorizedException;
-use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
-use Helldar\Cashier\Facades\Helpers\JSON as JsonDecoder;
 use Helldar\Contracts\Cashier\Http\Request;
 use Helldar\Contracts\Exceptions\Http\ClientException;
 use Helldar\Contracts\Exceptions\Manager as ExceptionManagerContract;

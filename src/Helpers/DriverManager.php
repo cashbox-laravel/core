@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,16 +12,16 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use Helldar\Cashier\Concerns\Validators;
-use Helldar\Cashier\Facades\Config\Main;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Core\Concerns\Validators;
+use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +31,7 @@ class DriverManager
     use Validators;
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return \Helldar\Contracts\Cashier\Driver
      */

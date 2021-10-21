@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,17 +12,17 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Resources;
+namespace CashierProvider\Core\Resources;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Facades\Helpers\Currency as CurrencyHelper;
-use Helldar\Cashier\Facades\Helpers\Date;
-use Helldar\Cashier\Facades\Helpers\Unique;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Facades\Helpers\Currency as CurrencyHelper;
+use CashierProvider\Core\Facades\Helpers\Date;
+use CashierProvider\Core\Facades\Helpers\Unique;
 use Helldar\Contracts\Cashier\Config\Driver;
 use Helldar\Contracts\Cashier\Resources\Model as Contract;
 use Helldar\Support\Concerns\Makeable;
@@ -45,7 +45,7 @@ abstract class Model implements Contract
     }
 
     /**
-     * @return \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
+     * @return \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
      */
     public function getPaymentModel(): EloquentModel
     {

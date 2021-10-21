@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,16 +12,16 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Config;
+namespace CashierProvider\Core\Config;
 
-use Helldar\Cashier\Config\Payments\Attributes;
-use Helldar\Cashier\Config\Payments\Map;
-use Helldar\Cashier\Config\Payments\Statuses;
+use CashierProvider\Core\Config\Payments\Attributes;
+use CashierProvider\Core\Config\Payments\Map;
+use CashierProvider\Core\Config\Payments\Statuses;
 use Helldar\Contracts\Cashier\Config\Payment as PaymentContract;
 use Helldar\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
 use Helldar\Contracts\Cashier\Config\Payments\Map as MapContract;

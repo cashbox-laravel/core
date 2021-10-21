@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,16 +12,16 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Observers;
+namespace CashierProvider\Core\Observers;
 
-use Helldar\Cashier\Concerns\Events;
-use Helldar\Cashier\Facades\Helpers\Access;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Core\Concerns\Events;
+use CashierProvider\Core\Facades\Helpers\Access;
+use CashierProvider\Core\Services\Jobs;
 use Helldar\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,7 +48,7 @@ class PaymentsObserver extends BaseObserver
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     public function deleting(Model $payment)
     {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,19 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Observers;
+namespace CashierProvider\Core\Observers;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\DriverManager;
-use Helldar\Cashier\Models\CashierDetail;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Models\CashierDetail;
+use CashierProvider\Core\Services\Jobs;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver extends BaseObserver

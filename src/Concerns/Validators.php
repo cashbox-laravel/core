@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,18 +12,18 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectDriverException;
-use Helldar\Cashier\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
-use Helldar\Cashier\Exceptions\Runtime\Implement\UnknownResponseException;
-use Helldar\Cashier\Exceptions\Runtime\UnknownMethodException;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectDriverException;
+use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
+use CashierProvider\Core\Exceptions\Runtime\Implement\UnknownResponseException;
+use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Driver as Contract;
 use Helldar\Contracts\Cashier\Http\Response;
 use Helldar\Support\Facades\Helpers\Instance;

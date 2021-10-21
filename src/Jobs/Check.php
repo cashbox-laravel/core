@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,17 +12,17 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Jobs;
+namespace CashierProvider\Core\Jobs;
 
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Events\Processes\Checked;
-use Helldar\Cashier\Exceptions\Logic\UnknownExternalIdException;
-use Helldar\Cashier\Facades\Config\Main;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Events\Processes\Checked;
+use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Core\Facades\Config\Main;
 use Helldar\Contracts\Cashier\Http\Response;
 
 class Check extends Base

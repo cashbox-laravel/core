@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,20 +12,20 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Models;
+namespace CashierProvider\Core\Models;
 
-use Helldar\Cashier\Facades\Config\Logs;
+use CashierProvider\Core\Facades\Config\Logs;
 use Helldar\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
+ * @property \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
  * @property array $extra
  * @property array $request
  * @property array $response

@@ -9,10 +9,14 @@ Cashier provides an expressive, fluent interface to manage billing services.
 
 ## Installation
 
-To get the latest version of `Laravel Cashier Provider`, simply require the project using [Composer](https://getcomposer.org):
+> Note
+>
+> Drivers will usually automatically install the correct `Cashier Provider Core` version, but you can do this manually.
+
+To get the latest version of `Cashier Provider Core`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
-$ composer require andrey-helldar/cashier
+$ composer require cashier-provider/core
 ```
 
 Or manually update `require` block of `composer.json` and run `composer update`.
@@ -20,7 +24,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "andrey-helldar/cashier": "^1.0"
+        "cashier-provider/core": "^1.0"
     }
 }
 ```
@@ -28,7 +32,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 You should publish the config file and migrations with:
 
 ```bash
-php artisan vendor:publish --provider="Helldar\Cashier\ServiceProvider"
+php artisan vendor:publish --provider="CashierProvider\Core\ServiceProvider"
 ```
 
 Further, if necessary, edit the migration file copied to your application and run the command to apply migrations:
@@ -37,21 +41,35 @@ Further, if necessary, edit the migration file copied to your application and ru
 php artisan migrate
 ```
 
+## Upgrade from `andrey-helldar/cashier`
+
+### For application
+
+1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
+2. In the `config/cashier.php` file replace the `Helldar\Cashier` namespace with `CashierProvider\Core`.
+3. Call the `composer update` command.
+
+### For driver developers
+
+1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
+2. Replace the `Helldar\Cashier` namespace with `CashierProvider\Core` in all files.
+3. Call the `composer update` command.
+
 ## Using
 
-> [`Cashier`](https://github.com/andrey-helldar/cashier) allows you to connect any payment driver compatible with your application.
+> [`Cashier`](https://github.com/cashier-provider/core) allows you to connect any payment driver compatible with your application.
 >
 > Depending on the type of payment, Cashier will automatically call the required driver to work with the bank's API.
 
 
 ### Configuration
 
-Before starting, edit the [config/cashier.php](https://github.com/andrey-helldar/cashier/blob/main/config/cashier.php) file:
+Before starting, edit the [config/cashier.php](https://github.com/cashier-provider/core/blob/main/config/cashier.php) file:
 
 ```php
 use App\Models\Payment as Model;
-use Helldar\Cashier\Constants\Attributes;
-use Helldar\Cashier\Constants\Status;
+use CashierProvider\Core\Constants\Attributes;
+use CashierProvider\Core\Constants\Status;
 
 return [
     'payment' => [
@@ -136,7 +154,7 @@ Add the necessary trait to your Payment model:
 ```php
 namespace App\Models;
 
-use Helldar\Cashier\Concerns\Casheable;
+use CashierProvider\Core\Concerns\Casheable;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -178,22 +196,42 @@ This must be done if you give it your connection and names.
 For example:
 
 ```ini
-[program:queue-payments]
+[program:queue-payments-start]
 process_name = %(process_num)02d
-command = php /var/www/artisan queue:work database --queue=payments_start,payments_check,payments_refund
+command = php /var/www/artisan queue:work database --queue=payments_start --tries=100
 autostart = true
 autorestart = true
 numprocs = 4
 user = www-data
 redirect_stderr = true
-stdout_logfile = /var/www/storage/logs/queue-payments.log
+stdout_logfile = /var/www/storage/logs/queue-payments-start.log
+
+[program:queue-payments-check]
+process_name = %(process_num)02d
+command = php /var/www/artisan queue:work database --queue=payments_check --tries=100
+autostart = true
+autorestart = true
+numprocs = 4
+user = www-data
+redirect_stderr = true
+stdout_logfile = /var/www/storage/logs/queue-payments-check.log
+
+[program:queue-payments-refund]
+process_name = %(process_num)02d
+command = php /var/www/artisan queue:work database --queue=payments_refund --tries=100
+autostart = true
+autorestart = true
+numprocs = 1
+user = www-data
+redirect_stderr = true
+stdout_logfile = /var/www/storage/logs/queue-payments-refund.log
 ```
 
 ### Manual
 
 ```php
 use App\Models\Payment;
-use Helldar\Cashier\Services\Jobs;
+use CashierProvider\Core\Services\Jobs;
 
 $model = Payment::findOrfail(1234);
 
@@ -211,45 +249,49 @@ $jobs->retry();
 
 | Driver | Description |
 |:---|:---|
-| [andrey-helldar/cashier-sber-qr](https://github.com/andrey-helldar/cashier-sber-qr) | Driver for payment with QR codes via Sber |
-| [andrey-helldar/cashier-tinkoff-qr](https://github.com/andrey-helldar/cashier-tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
+| [cashier-provider/sber-qr](https://github.com/cashier-provider/sber-qr) | Driver for payment with QR codes via Sber |
+| [cashier-provider/tinkoff-qr](https://github.com/cashier-provider/tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
 
 #### Authorization drivers
 
 | Driver | Description |
 |:---|:---|
-| [andrey-helldar/cashier-sber-auth](https://github.com/andrey-helldar/cashier-sber-auth) | Sber API Authorization Driver |
-| [andrey-helldar/cashier-tinkoff-auth](https://github.com/andrey-helldar/cashier-tinkoff-auth) | Tinkoff API Authorization Driver |
+| [cashier-provider/sber-auth](https://github.com/cashier-provider/sber-auth) | Sber API Authorization Driver |
+| [cashier-provider/tinkoff-auth](https://github.com/cashier-provider/tinkoff-auth) | Tinkoff API Authorization Driver |
 
 ### Development
+
+> Note
+>
+> You can join our team, create a driver repository and maintain it.
 
 Create main classes with the following inheritance:
 
 | Class | Extends | Description
 |:---|:---|:---|
-| `Driver` | `Helldar\Cashier\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
-| `Exceptions\Manager` | `Helldar\Cashier\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |
-| `Helpers\Statuses` | `Helldar\Cashier\Services\Statuses` | Types of statuses. Groups the statuses returned by the bank by type. |
-| `Resources\Details` | `Helldar\Cashier\Resources\Details` | Details cast. Contains information for working with the bank. For example, in the [`andrey-helldar/cashier-sber-qr`](https://github.com/andrey-helldar/cashier-sber-qr) driver, it contains a link to generate a QR code. In your driver, you are free to specify the methods you need. |
-| `Requests\Create` | `Helldar\Cashier\Http\Request` | Request to the bank to initiate a payment session. |
-| `Requests\Status` | `Helldar\Cashier\Http\Request` | Request to the bank to check the status of the payment. |
-| `Requests\Cancel` | `Helldar\Cashier\Http\Request` | Request to the bank to cancel the payment and return the funds to the client if he has already paid for the services. |
-| `Responses\Created`, `Responses\Refund`, `Responses\Status` | `Helldar\Cashier\Http\Response` | Classes for processing responses from the bank. |
+| `Driver` | `CashierProvider\Core\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
+| `Exceptions\Manager` | `CashierProvider\Core\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |
+| `Helpers\Statuses` | `CashierProvider\Core\Services\Statuses` | Types of statuses. Groups the statuses returned by the bank by type. |
+| `Resources\Details` | `CashierProvider\Core\Resources\Details` | Details cast. Contains information for working with the bank. For example, in the [`cashier-provider/sber-qr`](https://github.com/cashier-provider/sber-qr) driver, it contains a link to generate a QR code. In your driver, you are free to specify the methods you need. |
+| `Requests\Create` | `CashierProvider\Core\Http\Request` | Request to the bank to initiate a payment session. |
+| `Requests\Status` | `CashierProvider\Core\Http\Request` | Request to the bank to check the status of the payment. |
+| `Requests\Cancel` | `CashierProvider\Core\Http\Request` | Request to the bank to cancel the payment and return the funds to the client if he has already paid for the services. |
+| `Responses\Created`, `Responses\Refund`, `Responses\Status` | `CashierProvider\Core\Http\Response` | Classes for processing responses from the bank. |
 
 ```php
-namespace YourName\CashierDriver\BankName\BankTechnology;
+namespace CashierProvider\BankName\BankTechnology;
 
-use Helldar\Cashier\Services\Driver as BaseDriver;
+use CashierProvider\BankName\BankTechnology\Exceptions\Manager;
+use CashierProvider\BankName\BankTechnology\Helpers\Statuses;
+use CashierProvider\BankName\BankTechnology\Requests\Cancel;
+use CashierProvider\BankName\BankTechnology\Requests\Create;
+use CashierProvider\BankName\BankTechnology\Requests\Status;
+use CashierProvider\BankName\BankTechnology\Resources\Details;
+use CashierProvider\BankName\BankTechnology\Responses\Created;
+use CashierProvider\BankName\BankTechnology\Responses\Refund;
+use CashierProvider\BankName\BankTechnology\Responses\Status as StatusResponse;
+use CashierProvider\Core\Services\Driver as BaseDriver;
 use Helldar\Contracts\Cashier\Http\Response;
-use YourName\CashierDriver\BankName\BankTechnology\Exceptions\Manager;
-use YourName\CashierDriver\BankName\BankTechnology\Helpers\Statuses;
-use YourName\CashierDriver\BankName\BankTechnology\Requests\Cancel;
-use YourName\CashierDriver\BankName\BankTechnology\Requests\Create;
-use YourName\CashierDriver\BankName\BankTechnology\Requests\Status;
-use YourName\CashierDriver\BankName\BankTechnology\Resources\Details;
-use YourName\CashierDriver\BankName\BankTechnology\Responses\Created;
-use YourName\CashierDriver\BankName\BankTechnology\Responses\Refund;
-use YourName\CashierDriver\BankName\BankTechnology\Responses\Status as StatusResponse;
 
 class Driver extends BaseDriver
 {
@@ -284,27 +326,18 @@ class Driver extends BaseDriver
 
 These are the main files for driver development.
 
-For convenience, we have created a [`Cashier Driver Template`](https://github.com/cashier-provider/driver-template), on the basis of which you can create your own driver. And also
-the [`Cashier Authorization Driver Template`](https://github.com/cashier-provider/driver-auth-template).
+For convenience, we have created a [`Cashier Provider Driver Template`](https://github.com/cashier-provider/driver), on the basis of which you can create your own driver. And also
+the [`Cashier Provider Authorization Driver Template`](https://github.com/cashier-provider/driver-auth).
 
 
-## For Enterprise
+[badge_downloads]:      https://img.shields.io/packagist/dt/cashier-provider/core.svg?style=flat-square
 
-Available as part of the Tidelift Subscription.
+[badge_license]:        https://img.shields.io/packagist/l/cashier-provider/core.svg?style=flat-square
 
-The maintainers of `andrey-helldar/cashier` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source packages you
-use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact packages you
-use. [Learn more](https://tidelift.com/subscription/pkg/packagist-andrey-helldar-cashier?utm_source=packagist-andrey-helldar-cashier&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
-.
-
-[badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/cashier.svg?style=flat-square
-
-[badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/cashier.svg?style=flat-square
-
-[badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/cashier?label=stable&style=flat-square
+[badge_stable]:         https://img.shields.io/github/v/release/cashier-provider/core?label=stable&style=flat-square
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
 [link_license]:         LICENSE
 
-[link_packagist]:       https://packagist.org/packages/andrey-helldar/cashier
+[link_packagist]:       https://packagist.org/packages/cashier-provider/core

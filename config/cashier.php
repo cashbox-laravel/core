@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,13 +12,13 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-use Helldar\Cashier\Constants\Attributes;
-use Helldar\Cashier\Constants\Status;
+use CashierProvider\Core\Constants\Attributes;
+use CashierProvider\Core\Constants\Status;
 
 return [
     /*
@@ -409,13 +409,13 @@ return [
 
     'drivers' => [
         // 'foo' => [
-        //     \Helldar\Cashier\Constants\Driver::DRIVER => \Helldar\CashierDriver\BankName\PaymentType\Driver::class,
+        //     \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::DETAILS => \App\Payments\BankName::class,
+        //     \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName::class,
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //     \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
-        //     \Helldar\Cashier\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
     ],
 ];

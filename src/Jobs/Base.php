@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,19 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Jobs;
+namespace CashierProvider\Core\Jobs;
 
-use Helldar\Cashier\Concerns\Driverable;
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Exceptions\Logic\EmptyResponseException;
-use Helldar\Cashier\Facades\Config\Main;
-use Helldar\Cashier\Facades\Config\Payment;
-use Helldar\Cashier\Facades\Helpers\Model as ModelHelper;
+use CashierProvider\Core\Concerns\Driverable;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
+use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
 use Helldar\Contracts\Cashier\Driver;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Contracts\Cashier\Http\Response;
@@ -54,7 +54,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
      */
     public $tries;
 
-    /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
+    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     public $model;
 
     public $force_break;

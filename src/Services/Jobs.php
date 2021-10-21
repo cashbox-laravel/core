@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,19 +12,19 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Services;
+namespace CashierProvider\Core\Services;
 
-use Helldar\Cashier\Facades\Config\Main;
-use Helldar\Cashier\Facades\Helpers\Access;
-use Helldar\Cashier\Facades\Helpers\DriverManager;
-use Helldar\Cashier\Jobs\Check;
-use Helldar\Cashier\Jobs\Refund;
-use Helldar\Cashier\Jobs\Start;
+use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Helpers\Access;
+use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Jobs\Check;
+use CashierProvider\Core\Jobs\Refund;
+use CashierProvider\Core\Jobs\Start;
 use Helldar\Contracts\Cashier\Driver as DriverContract;
 use Helldar\Contracts\Cashier\Helpers\Statuses;
 use Helldar\Support\Concerns\Makeable;
@@ -76,7 +76,7 @@ class Jobs
     }
 
     /**
-     * @param  \Helldar\Cashier\Jobs\Base|string  $job
+     * @param  \CashierProvider\Core\Jobs\Base|string  $job
      * @param  bool  $force_break
      * @param  int|null  $delay
      */

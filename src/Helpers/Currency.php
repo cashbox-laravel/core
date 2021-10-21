@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,16 +12,16 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use Helldar\Cashier\Constants\Currency as CurrencyConstants;
-use Helldar\Cashier\Exceptions\Runtime\UnknownCurrencyCodeException;
-use Helldar\Cashier\Resources\Currency as Resource;
+use CashierProvider\Core\Constants\Currency as CurrencyConstants;
+use CashierProvider\Core\Exceptions\Runtime\UnknownCurrencyCodeException;
+use CashierProvider\Core\Resources\Currency as Resource;
 use Helldar\Support\Facades\Helpers\Arr;
 use Helldar\Support\Facades\Helpers\Reflection;
 use Helldar\Support\Facades\Helpers\Str;
@@ -33,7 +33,7 @@ class Currency
      *
      * @param  int|string  $currency
      *
-     * @return \Helldar\Cashier\Resources\Currency
+     * @return \CashierProvider\Core\Resources\Currency
      */
     public function get($currency): Resource
     {

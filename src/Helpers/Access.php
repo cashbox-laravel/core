@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,15 +12,15 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use Helldar\Cashier\Concerns\Casheable;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Core\Concerns\Casheable;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Support\Facades\Helpers\Instance;
 use Illuminate\Database\Eloquent\Model;
 

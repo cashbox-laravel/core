@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,16 +12,16 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Services;
+namespace CashierProvider\Core\Services;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Contracts\Cashier\Helpers\Statuses as Contract;
 use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Arr;
@@ -43,7 +43,7 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    /** @var \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
+    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     protected $model;
 
     public function __construct(Model $model)

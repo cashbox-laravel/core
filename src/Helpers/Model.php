@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,15 +12,15 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Helpers;
+namespace CashierProvider\Core\Helpers;
 
-use Helldar\Cashier\Concerns\Relations;
-use Helldar\Cashier\Concerns\Validators;
+use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
@@ -29,7 +29,7 @@ class Model
     use Validators;
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
@@ -42,7 +42,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function create(EloquentModel $payment, array $data): void
@@ -53,7 +53,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      * @param  array  $data
      */
     public function update(EloquentModel $payment, array $data): void
@@ -66,7 +66,7 @@ class Model
     }
 
     /**
-     * @param  \Helldar\Cashier\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      *
      * @return bool
      */

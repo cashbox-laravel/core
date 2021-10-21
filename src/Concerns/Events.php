@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "andrey-helldar/cashier" project.
+ * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,18 +12,18 @@
  *
  * @license MIT
  *
- * @see https://github.com/andrey-helldar/cashier
+ * @see https://github.com/cashier-provider/core
  */
 
 declare(strict_types=1);
 
-namespace Helldar\Cashier\Concerns;
+namespace CashierProvider\Core\Concerns;
 
-use Helldar\Cashier\Constants\Status;
-use Helldar\Cashier\Events\Payments\FailedEvent;
-use Helldar\Cashier\Events\Payments\RefundEvent;
-use Helldar\Cashier\Events\Payments\SuccessEvent;
-use Helldar\Cashier\Facades\Config\Payment;
+use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Events\Payments\FailedEvent;
+use CashierProvider\Core\Events\Payments\RefundEvent;
+use CashierProvider\Core\Events\Payments\SuccessEvent;
+use CashierProvider\Core\Facades\Config\Payment;
 use Helldar\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
