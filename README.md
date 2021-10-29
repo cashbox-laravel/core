@@ -2,6 +2,8 @@
 
 Cashier provides an expressive, fluent interface to manage billing services.
 
+<img src="https://preview.dragon-code.pro/cashier-provider/core.svg?brand=laravel" alt="Cashier Provider Core"/>
+
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
@@ -258,8 +260,8 @@ $jobs->retry();
 
 | Driver | Description |
 |:---|:---|
-| [cashier-provider/sber-auth](https://github.com/cashier-provider/sber-auth) | Sber API Authorization Driver |
-| [cashier-provider/tinkoff-auth](https://github.com/cashier-provider/tinkoff-auth) | Tinkoff API Authorization Driver |
+| [cashier-provider/sber-auth](https://github.com/cashier-provider/sber-auth) | Sber Cashier Authorization Driver |
+| [cashier-provider/tinkoff-auth](https://github.com/cashier-provider/tinkoff-auth) | Tinkoff Cashier Authorization Driver |
 
 ### Development
 
