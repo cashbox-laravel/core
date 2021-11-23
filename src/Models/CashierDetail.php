@@ -23,12 +23,12 @@ use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Facades\Config\Details;
 use CashierProvider\Core\Facades\Helpers\DriverManager;
 use CashierProvider\Core\Facades\Helpers\JSON;
-use Helldar\Contracts\Cashier\Resources\Details as DetailsCast;
+use DragonCode\Contracts\Cashier\Resources\Details as DetailsCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property \Helldar\Contracts\Cashier\Resources\Details $details
+ * @property \DragonCode\Contracts\Cashier\Resources\Details $details
  * @property \Illuminate\Database\Eloquent\Model $parent
  * @property array|null $extra
  * @property string $external_id

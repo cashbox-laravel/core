@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 class JSON
 {

@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Payments;
 
-use Helldar\Contracts\Cashier\Config\Payments\Map as MapContract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\Cashier\Config\Payments\Map as MapContract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 class Map extends DataTransferObject implements MapContract
 {

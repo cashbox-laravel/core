@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Helpers;
 
 use CashierProvider\Core\Helpers\HttpLog as Helper;
-use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
-use Helldar\Contracts\Http\Builder;
+use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
+use DragonCode\Contracts\Http\Builder;
 use Illuminate\Support\Facades\Facade;
 
 /**

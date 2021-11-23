@@ -3,7 +3,7 @@ on: [ push ]
 
 jobs:
     build:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
 
         strategy:
             fail-fast: true
@@ -11,6 +11,16 @@ jobs:
                 php: [ "7.3", "7.4", "8.0" ]
 
         name: PHP ${{ matrix.php }}
+
+        services:
+            mysql:
+                image: mysql:5.7
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: default
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
         steps:
             -   name: Checkout code
@@ -28,3 +38,5 @@ jobs:
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
+                env:
+                    MYSQL_HOST: 127.0.0.1

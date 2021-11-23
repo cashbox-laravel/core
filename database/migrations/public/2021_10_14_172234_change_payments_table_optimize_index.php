@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Schema;
 class ChangePaymentsTableOptimizeIndex extends PublicMigration
 {
     /**
-     * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
+     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function up()

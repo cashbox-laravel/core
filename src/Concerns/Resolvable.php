@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use Helldar\Support\Concerns\Resolvable as BaseResolvable;
+use DragonCode\Support\Concerns\Resolvable as BaseResolvable;
 
 trait Resolvable
 {

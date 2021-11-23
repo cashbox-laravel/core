@@ -25,9 +25,9 @@ use CashierProvider\Core\Facades\Helpers\DriverManager;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Helpers\Statuses;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Helpers\Statuses;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
