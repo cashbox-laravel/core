@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Models;
 
 use CashierProvider\Core\Facades\Config\Logs;
-use Helldar\LaravelSupport\Traits\InitModelHelper;
+use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

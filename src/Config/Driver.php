@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
-use Helldar\Contracts\Cashier\Config\Driver as DriverContract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Config\Driver as DriverContract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Driver extends DataTransferObject implements DriverContract
 {

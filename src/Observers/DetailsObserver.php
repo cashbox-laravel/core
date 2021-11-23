@@ -25,7 +25,7 @@ use CashierProvider\Core\Facades\Config\Payment;
 use CashierProvider\Core\Facades\Helpers\DriverManager;
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Services\Jobs;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver extends BaseObserver
 {

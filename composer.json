@@ -22,11 +22,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "dragon-code/contracts": "^1.22",
-        "andrey-helldar/laravel-support": "^2.0",
-        "andrey-helldar/simple-data-transfer-object": "^1.0",
-        "andrey-helldar/support": "^4.6",
         "doctrine/dbal": "^2.6|^3.0",
+        "dragon-code/contracts": "^2.8",
+        "dragon-code/laravel-support": "^3.1",
+        "dragon-code/simple-data-transfer-object": "^2.0",
+        "dragon-code/support": "^5.2",
         "guzzlehttp/guzzle": "^6.5|^7.0",
         "illuminate/broadcasting": "^6.0|^7.0|^8.0",
         "illuminate/console": "^6.0|^7.0|^8.0",
@@ -36,12 +36,12 @@
         "illuminate/support": "^6.0|^7.0|^8.0",
         "psr/http-message": "^1.0",
         "ramsey/uuid": "^3.7|^4.0",
-        "symfony/http-kernel": "^4.3.4|^5.0"
+        "symfony/http-kernel": "^4.0|^5.0"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0|^5.0|^6.0",
         "phpunit/phpunit": "^9.0",
-        "symfony/var-dumper": "^4.3.4|^5.0"
+        "symfony/var-dumper": "^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {

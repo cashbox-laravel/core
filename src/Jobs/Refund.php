@@ -24,7 +24,7 @@ use CashierProvider\Core\Events\Processes\Refunded;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base

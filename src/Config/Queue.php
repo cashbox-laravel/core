@@ -19,10 +19,10 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
-use Helldar\Contracts\Cashier\Config\Queue as QueueContract;
-use Helldar\Contracts\Cashier\Config\Queues\Names;
-use Helldar\Contracts\Cashier\Config\Queues\Unique;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Config\Queue as QueueContract;
+use DragonCode\Contracts\Cashier\Config\Queues\Names;
+use DragonCode\Contracts\Cashier\Config\Queues\Unique;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Queue extends DataTransferObject implements QueueContract
 {

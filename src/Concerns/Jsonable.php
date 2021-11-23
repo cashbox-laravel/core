@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Concerns;
 
 use CashierProvider\Core\Facades\Helpers\JSON;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 
-/** @mixin \Helldar\Contracts\Support\Arrayable */
+/** @mixin \DragonCode\Contracts\Support\Arrayable */
 trait Jsonable
 {
     public function toJson(int $options = 0): string

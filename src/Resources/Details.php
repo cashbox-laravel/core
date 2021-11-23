@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Resources;
 
 use CashierProvider\Core\Concerns\Jsonable;
-use Helldar\Contracts\Cashier\Resources\Details as DetailsContract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Resources\Details as DetailsContract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 abstract class Details extends DataTransferObject implements DetailsContract
 {

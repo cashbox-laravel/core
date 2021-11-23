@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Helpers;
 
 use CashierProvider\Core\Helpers\DriverManager as Helper;
-use Helldar\Contracts\Cashier\Driver;
+use DragonCode\Contracts\Cashier\Driver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
 

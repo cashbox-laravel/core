@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Payments;
 
-use Helldar\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Attributes extends DataTransferObject implements AttributesContract
 {

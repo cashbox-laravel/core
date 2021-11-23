@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Events\Processes\Started;
 use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Start extends Base
 {

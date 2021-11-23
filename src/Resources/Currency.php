@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Resources;
 
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Currency extends DataTransferObject
 {

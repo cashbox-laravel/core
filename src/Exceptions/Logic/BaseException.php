@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 use CashierProvider\Core\Concerns\Exceptionable;
 use Exception;
-use Helldar\Contracts\Exceptions\LogicException;
+use DragonCode\Contracts\Exceptions\LogicException;
 
 abstract class BaseException extends Exception implements LogicException
 {

@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
-use Helldar\Contracts\Cashier\Config\Logs as Contract;
+use DragonCode\Contracts\Cashier\Config\Logs as Contract;
 
 class Logs implements Contract
 {

@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Queues;
 
-use Helldar\Contracts\Cashier\Config\Queues\Names as Contract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Config\Queues\Names as Contract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Names extends DataTransferObject implements Contract
 {

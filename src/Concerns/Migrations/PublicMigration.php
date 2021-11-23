@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Concerns\Migrations;
 
 use CashierProvider\Core\Facades\Config\Payment;
-use Helldar\LaravelSupport\Traits\InitModelHelper;
+use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
 
 abstract class PublicMigration extends Migration
@@ -28,7 +28,7 @@ abstract class PublicMigration extends Migration
     use InitModelHelper;
 
     /**
-     * @throws \Helldar\LaravelSupport\Exceptions\IncorrectModelException
+     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function table(): string

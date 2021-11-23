@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Helpers;
 
 use CashierProvider\Core\Helpers\Http as Helper;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Exceptions\Manager as ExceptionManager;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
