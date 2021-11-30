@@ -1,4 +1,4 @@
-name: phpunit
+name: "Laravel 6-8"
 on: [ push ]
 
 jobs:
