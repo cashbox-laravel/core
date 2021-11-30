@@ -21,12 +21,12 @@ namespace CashierProvider\Core\Http;
 
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Support\URI;
 use DragonCode\Contracts\Cashier\Auth\Auth;
 use DragonCode\Contracts\Cashier\Http\Request as Contract;
 use DragonCode\Contracts\Cashier\Resources\Model;
 use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Http\Builder as HttpBuilder;
 
 /**
  * @method static Contract make(Model $model)
@@ -73,9 +73,7 @@ abstract class Request implements Contract
 
     public function uri(): HttpBuilderContract
     {
-        $host = $this->getHost();
-
-        return HttpBuilder::parse($host)->withPath($this->path);
+        return $this->getUriBuilder()->getWithPath($this->path);
     }
 
     public function headers(): array
@@ -111,11 +109,9 @@ abstract class Request implements Contract
         return $model;
     }
 
-    protected function getHost(): string
+    protected function getUriBuilder(): URI
     {
-        return ! Main::isProduction() && $this->dev_host
-            ? $this->dev_host
-            : $this->production_host;
+        return URI::make($this->production_host, $this->dev_host, Main::isProduction());
     }
 
     /**
