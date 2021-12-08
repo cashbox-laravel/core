@@ -255,6 +255,7 @@ $jobs->retry();
 | [cashier-provider/cash](https://github.com/cashier-provider/cash) | Driver for managing cash payments in the Cashier Provider ecosystem |
 | [cashier-provider/sber-qr](https://github.com/cashier-provider/sber-qr) | Driver for payment with QR codes via Sber |
 | [cashier-provider/tinkoff-qr](https://github.com/cashier-provider/tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
+| [cashier-provider/tinkoff-online](https://github.com/cashier-provider/tinkoff-online) | Driver for online payments via Tinkoff |
 
 #### Authorization drivers
 
