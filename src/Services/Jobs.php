@@ -84,9 +84,7 @@ class Jobs
      */
     protected function send($job, bool $force_break = false, int $delay = null): void
     {
-        $instance = $job::make($this->model, $force_break);
-
-        $instance->delay($delay);
+        $instance = $job::make($this->model, $force_break)->delay($delay);
 
         if ($this->cacheAllow($instance)) {
             dispatch($instance)->onConnection($this->onConnection());
