@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Cacheable;
+use CashierProvider\Core\Concerns\Unique;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Helpers\Access;
 use CashierProvider\Core\Facades\Helpers\DriverManager;
@@ -36,8 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Jobs
 {
-    use Cacheable;
     use Makeable;
+    use Unique;
 
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
@@ -86,10 +86,10 @@ class Jobs
     {
         $instance = $job::make($this->model, $force)->delay($delay);
 
-        if ($force || $this->cacheAllow($instance)) {
+        if ($force || $this->uniqueAllow($instance)) {
             dispatch($instance)->onConnection($this->onConnection());
 
-            $this->cacheStore($instance);
+            $this->uniqueStore($instance);
         }
     }
 

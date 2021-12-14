@@ -7,14 +7,14 @@ namespace CashierProvider\Core\Concerns;
 use CashierProvider\Core\Facades\Support\Cache;
 use CashierProvider\Core\Jobs\Base;
 
-trait Cacheable
+trait Unique
 {
-    protected function cacheStore(Base $job): void
+    protected function uniqueStore(Base $job): void
     {
         Cache::store($job);
     }
 
-    protected function cacheAllow(Base $job): bool
+    protected function uniqueAllow(Base $job): bool
     {
         return Cache::doesntHave($job);
     }
