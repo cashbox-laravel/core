@@ -89,6 +89,13 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         return $this->model->getKey();
     }
 
+    /**
+     * Cache::driver() is correct.
+     *
+     * @see https://laravel.com/docs/8.x/queues#unique-job-locks
+     *
+     * @return mixed
+     */
     public function uniqueVia()
     {
         $driver = Main::getQueue()->getUnique()->getDriver();
