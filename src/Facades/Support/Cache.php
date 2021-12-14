@@ -9,7 +9,7 @@ use CashierProvider\Core\Support\Cache as Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static bool isUnique(Base $job)
+ * @method static bool doesntHave(Base $job)
  * @method static void put(Base $job)
  */
 class Cache extends Facade

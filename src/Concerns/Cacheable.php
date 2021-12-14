@@ -9,13 +9,13 @@ use CashierProvider\Core\Jobs\Base;
 
 trait Cacheable
 {
-    protected function cachePut(Base $job): void
+    protected function cacheStore(Base $job): void
     {
         Cache::put($job);
     }
 
-    protected function cacheHasUnique(Base $job): bool
+    protected function cacheAllow(Base $job): bool
     {
-        return Cache::isUnique($job);
+        return Cache::doesntHave($job);
     }
 }
