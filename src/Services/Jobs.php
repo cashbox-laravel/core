@@ -22,6 +22,8 @@ namespace CashierProvider\Core\Services;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Helpers\Access;
 use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Facades\Support\Cache;
+use CashierProvider\Core\Jobs\Base;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
@@ -86,7 +88,14 @@ class Jobs
 
         $instance->delay($delay);
 
-        dispatch($instance)->onConnection($this->onConnection());
+        if ($this->hasUnique($instance)) {
+            dispatch($instance)->onConnection($this->onConnection());
+        }
+    }
+
+    protected function hasUnique(Base $job): bool
+    {
+        return Cache::hasUniqueJob($job);
     }
 
     protected function hasStart(Model $model): bool

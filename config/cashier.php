@@ -319,11 +319,11 @@ return [
             | The number of seconds after which the job's unique lock will be
             | released.
             |
-            | By default, 300.
+            | By default, 60.
             |
             */
 
-            'seconds' => 300,
+            'seconds' => 60,
         ],
     ],
 

@@ -24,6 +24,7 @@
         "ext-json": "*",
         "doctrine/dbal": "^2.6 || ^3.0",
         "dragon-code/contracts": "^2.10",
+        "dragon-code/laravel-cache": "^2.5",
         "dragon-code/laravel-support": "^3.1",
         "dragon-code/simple-data-transfer-object": "^2.0",
         "dragon-code/support": "^5.2",
