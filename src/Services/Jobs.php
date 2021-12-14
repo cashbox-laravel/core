@@ -67,7 +67,7 @@ class Jobs
 
     public function check(bool $force = false, int $delay = null)
     {
-        if ($this->hasCheck($this->model) || $force) {
+        if ($force || $this->hasCheck($this->model)) {
             $this->send(Check::class, $force, $delay);
         }
     }
@@ -79,14 +79,14 @@ class Jobs
 
     /**
      * @param  \CashierProvider\Core\Jobs\Base|string  $job
-     * @param  bool  $force_break
+     * @param  bool  $force
      * @param  int|null  $delay
      */
-    protected function send(string $job, bool $force_break = false, int $delay = null): void
+    protected function send(string $job, bool $force = false, int $delay = null): void
     {
-        $instance = $job::make($this->model, $force_break)->delay($delay);
+        $instance = $job::make($this->model, $force)->delay($delay);
 
-        if ($this->cacheAllow($instance)) {
+        if ($force || $this->cacheAllow($instance)) {
             dispatch($instance)->onConnection($this->onConnection());
 
             $this->cacheStore($instance);
