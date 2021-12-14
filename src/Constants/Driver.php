@@ -28,4 +28,6 @@ class Driver
     public const CLIENT_ID = 'client_id';
 
     public const CLIENT_SECRET = 'client_secret';
+
+    public const QUEUE = 'queue';
 }
