@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Config;
 
 use CashierProvider\Core\Config\Driver as Config;
+use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -27,10 +28,11 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getDetails()
  * @method static string|null getClientId()
  * @method static string|null getClientSecret()
+ * @method static Names getQueue()
  */
 class Driver extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Config::class;
     }

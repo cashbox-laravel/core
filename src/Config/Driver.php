@@ -19,7 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
+use CashierProvider\Core\Facades\Config\Main as MainConfig;
 use DragonCode\Contracts\Cashier\Config\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Driver extends DataTransferObject implements DriverContract
@@ -31,6 +33,8 @@ class Driver extends DataTransferObject implements DriverContract
     protected $client_id;
 
     protected $client_secret;
+
+    protected $queue;
 
     public function getDriver(): string
     {
@@ -50,5 +54,14 @@ class Driver extends DataTransferObject implements DriverContract
     public function getClientSecret(): ?string
     {
         return $this->client_secret;
+    }
+
+    public function getQueue(): Names
+    {
+        if ($this->queue) {
+            return Queues\Names::make($this->queue);
+        }
+
+        return MainConfig::getQueue()->getNames();
     }
 }
