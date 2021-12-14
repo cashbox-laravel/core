@@ -88,10 +88,10 @@ class Jobs
 
         $instance->delay($delay);
 
-        if ($this->cacheHasUnique($instance)) {
+        if ($this->cacheAllow($instance)) {
             dispatch($instance)->onConnection($this->onConnection());
 
-            $this->cachePut($instance);
+            $this->cacheStore($instance);
         }
     }
 

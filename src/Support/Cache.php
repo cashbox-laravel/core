@@ -14,7 +14,7 @@ class Cache
         $this->instance($job)->put($job->uniqueId());
     }
 
-    public function isUnique(Base $job): bool
+    public function doesntHave(Base $job): bool
     {
         return $this->instance($job)->doesntHave();
     }
