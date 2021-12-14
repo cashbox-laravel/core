@@ -23,6 +23,7 @@ use CashierProvider\Core\Concerns\Resolvable;
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Helpers\Http;
 use DragonCode\Contracts\Cashier\Config\Driver as DriverConfig;
+use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use DragonCode\Contracts\Cashier\Driver as Contract;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
@@ -80,6 +81,11 @@ abstract class Driver implements Contract
         $cast = $this->details;
 
         return $cast::make($details);
+    }
+
+    public function queue(): Names
+    {
+        return $this->config->getQueue();
     }
 
     /**

@@ -80,6 +80,10 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     abstract public function handle();
 
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function uniqueId()
     {
         return $this->model->getKey();
@@ -98,10 +102,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     protected function hasBreak(): bool
     {
