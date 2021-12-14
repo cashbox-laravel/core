@@ -82,7 +82,7 @@ class Jobs
      * @param  bool  $force_break
      * @param  int|null  $delay
      */
-    protected function send($job, bool $force_break = false, int $delay = null): void
+    protected function send(string $job, bool $force_break = false, int $delay = null): void
     {
         $instance = $job::make($this->model, $force_break)->delay($delay);
 

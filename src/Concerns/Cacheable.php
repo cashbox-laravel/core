@@ -11,7 +11,7 @@ trait Cacheable
 {
     protected function cacheStore(Base $job): void
     {
-        Cache::put($job);
+        Cache::store($job);
     }
 
     protected function cacheAllow(Base $job): bool

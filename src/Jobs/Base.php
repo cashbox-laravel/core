@@ -30,15 +30,13 @@ use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Response;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 
-abstract class Base implements ShouldQueue, ShouldBeUnique
+abstract class Base implements ShouldQueue
 {
     use Driverable;
     use InteractsWithQueue;
@@ -59,8 +57,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     public $force_break;
 
-    public $uniqueFor;
-
     protected $event;
 
     public function __construct(Model $model, bool $force_break = false)
@@ -72,8 +68,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         $this->afterCommit = Main::getQueue()->afterCommit();
 
         $this->tries = Main::getQueue()->getTries();
-
-        $this->uniqueFor = Main::getQueue()->getUnique()->getSeconds();
 
         $this->queue = $this->queueName();
     }
@@ -87,20 +81,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public function uniqueId()
     {
         return $this->model->getKey();
-    }
-
-    /**
-     * Cache::driver() is correct.
-     *
-     * @see https://laravel.com/docs/8.x/queues#unique-job-locks
-     *
-     * @return mixed
-     */
-    public function uniqueVia()
-    {
-        $driver = Main::getQueue()->getUnique()->getDriver();
-
-        return Cache::driver($driver);
     }
 
     public function retryUntil(): Carbon
