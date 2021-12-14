@@ -37,6 +37,6 @@ class Unique extends DataTransferObject implements Contract
     {
         $value = abs($this->seconds);
 
-        return $value > 0 ? $value : 300;
+        return $value > 0 ? $value : 60;
     }
 }
