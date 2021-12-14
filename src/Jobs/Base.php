@@ -28,6 +28,7 @@ use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
 use DragonCode\Contracts\Cashier\Driver;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Queue\ShouldBeUnique;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,7 +37,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 
-abstract class Base implements ShouldQueue
+abstract class Base implements ShouldQueue, ShouldBeUnique
 {
     use Driverable;
     use InteractsWithQueue;
@@ -81,6 +82,11 @@ abstract class Base implements ShouldQueue
     public function uniqueId()
     {
         return $this->model->getKey();
+    }
+
+    public function uniqueFor(): int
+    {
+        return Main::getQueue()->getUnique()->getSeconds();
     }
 
     public function retryUntil(): Carbon

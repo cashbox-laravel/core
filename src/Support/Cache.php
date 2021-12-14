@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Support;
 
-use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Jobs\Base;
 use DragonCode\Cache\Services\Cache as Service;
 
@@ -23,13 +22,7 @@ class Cache
     protected function instance(Base $job): Service
     {
         return Service::make()
-            ->ttl($this->getTtl(), false)
-            ->key($job, $job->uniqueId())
-            ->tags('cashier');
-    }
-
-    protected function getTtl(): int
-    {
-        return Main::getQueue()->getUnique()->getSeconds();
+            ->ttl($job->uniqueFor(), false)
+            ->key($job, $job->uniqueId());
     }
 }
