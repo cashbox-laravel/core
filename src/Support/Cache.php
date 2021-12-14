@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Support;
 
-use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Jobs\Base;
 use DragonCode\Cache\Services\Cache as Service;
 
 class Cache
 {
-    public function hasUniqueJob(Base $job): bool
+    public function put(Base $job): void
     {
-        return $this->instance(get_class($job), $job->uniqueId())->doesntHave();
+        $this->instance($job)->put($job->uniqueId());
     }
 
-    protected function instance(string $job, string $id): Service
+    public function isUnique(Base $job): bool
+    {
+        return $this->instance($job)->doesntHave();
+    }
+
+    protected function instance(Base $job): Service
     {
         return Service::make()
-            ->ttl($this->ttl())
-            ->key(self::class, $job, $id);
-    }
-
-    protected function ttl(): int
-    {
-        return Main::getQueue()->getUnique()->getSeconds();
+            ->ttl($job->uniqueFor)
+            ->key(self::class, get_class($job), $job->uniqueId());
     }
 }
