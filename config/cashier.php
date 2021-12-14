@@ -23,6 +23,7 @@ use CashierProvider\Core\Constants\Queue;
 use CashierProvider\Core\Constants\Status;
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Cashier Environment
@@ -47,6 +48,7 @@ return [
     */
 
     'payment' => [
+
         /*
         |--------------------------------------------------------------------------
         | Payment Model
@@ -122,6 +124,7 @@ return [
     */
 
     'details' => [
+
         /*
         |--------------------------------------------------------------------------
         | Cashier Details table settings
@@ -144,6 +147,7 @@ return [
     */
 
     'logs' => [
+
         /*
         |--------------------------------------------------------------------------
         | Enabling Logging
@@ -193,6 +197,7 @@ return [
     */
 
     'queue' => [
+
         /*
         |--------------------------------------------------------------------------
         | Queue Connection Name
@@ -219,6 +224,7 @@ return [
         */
 
         'names' => [
+
             /*
             |--------------------------------------------------------------------------
             | Initialize Queue Name
@@ -298,26 +304,13 @@ return [
         */
 
         'unique' => [
-            /*
-            |--------------------------------------------------------------------------
-            | Lock's Driver
-            |--------------------------------------------------------------------------
-            |
-            | Set the cache driver for the unique job lock.
-            |
-            | By default, `CACHE_DRIVER` value.
-            |
-            */
-
-            'driver' => env('CACHE_DRIVER'),
 
             /*
             |--------------------------------------------------------------------------
             | Lock's Timeout
             |--------------------------------------------------------------------------
             |
-            | The number of seconds after which the job's unique lock will be
-            | released.
+            | The number of seconds after which the job's unique lock will be released.
             |
             | By default, 60.
             |
@@ -337,6 +330,7 @@ return [
     */
 
     'check' => [
+
         /*
         |--------------------------------------------------------------------------
         | Delay
@@ -372,6 +366,7 @@ return [
     */
 
     'auto_refund' => [
+
         /*
         |--------------------------------------------------------------------------
         | Allow Refund

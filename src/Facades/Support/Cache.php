@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static bool doesntHave(Base $job)
- * @method static void put(Base $job)
+ * @method static void store(Base $job)
  */
 class Cache extends Facade
 {
