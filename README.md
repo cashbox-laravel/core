@@ -272,7 +272,7 @@ $jobs->retry();
 
 Create main classes with the following inheritance:
 
-| Class | Extends | Description
+| Class | Extends | Description |
 |:---|:---|:---|
 | `Driver` | `CashierProvider\Core\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
 | `Exceptions\Manager` | `CashierProvider\Core\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |
