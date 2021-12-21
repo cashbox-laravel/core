@@ -182,7 +182,7 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-* `cashier:check` - Launching a re-verification of payments with a long processing cycle.
+* `cashier:check` - Launching a re-verification of payments with a long processing cycle. Payments created for the previous day and earlier will be checked 1 time per hour.
 * `cashier:refund` - Launching the command to check payments for refunds.
 
 You can specify any start time for the `cashier:check` command, but we recommend using the call every thirty minutes.
