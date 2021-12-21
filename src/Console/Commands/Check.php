@@ -30,6 +30,8 @@ class Check extends Base
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
 
+    protected $delay = 3599;
+
     public function handle()
     {
         $this->cleanup();
@@ -47,13 +49,30 @@ class Check extends Base
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
             $payments->each(function (Model $payment) {
-                $this->check($payment);
+                $delay = $this->delay($payment);
+
+                $this->check($payment, $delay);
             });
         });
     }
 
-    protected function check(Model $model): void
+    protected function check(Model $model, ?int $delay): void
     {
-        Jobs::make($model)->check(true);
+        Jobs::make($model)->check(true, $delay);
+    }
+
+    protected function delay(Model $model): ?int
+    {
+        return $this->isToday($model) ? null : $this->delay;
+    }
+
+    protected function isToday(Model $model): bool
+    {
+        $field = $this->attributeCreatedAt();
+
+        /** @var \Carbon\Carbon $value */
+        $value = $model->getAttribute($field);
+
+        return $value->isToday();
     }
 }
