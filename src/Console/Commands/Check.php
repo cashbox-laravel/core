@@ -21,7 +21,6 @@ namespace CashierProvider\Core\Console\Commands;
 
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Services\Jobs;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -51,15 +50,6 @@ class Check extends Base
                 $this->check($payment);
             });
         });
-    }
-
-    protected function payments(): Builder
-    {
-        $model = $this->model();
-
-        return $model::query()
-            ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), $this->getStatus());
     }
 
     protected function check(Model $model): void
