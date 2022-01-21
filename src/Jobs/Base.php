@@ -190,6 +190,8 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function resolveDriver(): Driver
     {
+        $this->resolveCashier($this->model);
+
         return $this->driver($this->model);
     }
 
