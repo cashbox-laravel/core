@@ -63,6 +63,9 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        },
         "preferred-install": "dist",
         "sort-packages": true
     },
