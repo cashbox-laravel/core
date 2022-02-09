@@ -60,6 +60,12 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected $event;
 
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function __construct(Model $model, bool $force_break = false)
     {
         $this->model = $model;
@@ -72,12 +78,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $this->queue = $this->queueName();
     }
-
-    abstract public function handle();
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     public function uniqueId()
     {
@@ -151,7 +151,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
 
-        if ($this->model->getAttribute($attribute) !== $status) {
+        if ($status !== $this->model->getAttribute($attribute)) {
             $this->model->update([
                 $attribute => $status,
             ]);

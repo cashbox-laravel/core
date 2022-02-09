@@ -115,7 +115,7 @@ abstract class Request implements Contract
     }
 
     /**
-     * @param  \DragonCode\Contracts\Cashier\Resources\Model  $model
+     * @param \DragonCode\Contracts\Cashier\Resources\Model $model
      *
      * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
      */

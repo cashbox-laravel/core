@@ -38,6 +38,14 @@ abstract class Model implements Contract
 
     protected $config;
 
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
+
     public function __construct(EloquentModel $model, Driver $config)
     {
         $this->model  = $model;
@@ -116,14 +124,6 @@ abstract class Model implements Contract
     {
         return null;
     }
-
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {

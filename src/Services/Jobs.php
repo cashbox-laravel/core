@@ -65,24 +65,24 @@ class Jobs
         }
     }
 
-    public function check(bool $force = false, int $delay = null)
+    public function check(bool $force = false, ?int $delay = null)
     {
         if ($force || $this->hasCheck($this->model)) {
             $this->send(Check::class, $force, $delay);
         }
     }
 
-    public function refund(int $delay = null): void
+    public function refund(?int $delay = null): void
     {
         $this->send(Refund::class, false, $delay);
     }
 
     /**
-     * @param  \CashierProvider\Core\Jobs\Base|string  $job
-     * @param  bool  $force
-     * @param  int|null  $delay
+     * @param \CashierProvider\Core\Jobs\Base|string $job
+     * @param bool $force
+     * @param int|null $delay
      */
-    protected function send(string $job, bool $force = false, int $delay = null): void
+    protected function send(string $job, bool $force = false, ?int $delay = null): void
     {
         $instance = $job::make($this->model, $force)->delay($delay);
 
@@ -103,11 +103,7 @@ class Jobs
             return false;
         }
 
-        if ($this->hasRequested($model)) {
-            return false;
-        }
-
-        return true;
+        return ! ($this->hasRequested($model));
     }
 
     protected function hasCheck(Model $model): bool
@@ -116,11 +112,7 @@ class Jobs
             return false;
         }
 
-        if (! $this->status($model)->inProgress()) {
-            return false;
-        }
-
-        return true;
+        return ! (! $this->status($model)->inProgress());
     }
 
     protected function hasType(Model $model): bool

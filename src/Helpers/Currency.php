@@ -31,7 +31,7 @@ class Currency
     /**
      * Get the currency resource instance.
      *
-     * @param  int|string  $currency
+     * @param int|string $currency
      *
      * @return \CashierProvider\Core\Resources\Currency
      */

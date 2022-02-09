@@ -31,7 +31,7 @@ class DriverManager
     use Validators;
 
     /**
-     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $model
      *
      * @return \DragonCode\Contracts\Cashier\Driver
      */

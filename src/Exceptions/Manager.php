@@ -42,9 +42,9 @@ abstract class Manager implements Contract
     public function validateResponse(Builder $uri, array $response, int $status_code): void
     {
         if (
-            $this->isFailedCode($status_code) ||
-            $this->isFailedContentCode($response) ||
-            $this->isFailedContent($response)
+            $this->isFailedCode($status_code)
+            || $this->isFailedContentCode($response)
+            || $this->isFailedContent($response)
         ) {
             $this->throw($uri, $status_code, $response);
         }

@@ -24,7 +24,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 class JSON
 {
     /**
-     * @param  mixed  $value
+     * @param mixed $value
      *
      * @return string
      */

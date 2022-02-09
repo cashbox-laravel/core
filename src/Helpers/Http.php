@@ -24,13 +24,13 @@ use CashierProvider\Core\Concerns\Logs;
 use CashierProvider\Core\Exceptions\Http\UnauthorizedException;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Helpers\JSON as JsonDecoder;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use DragonCode\Contracts\Cashier\Http\Request;
 use DragonCode\Contracts\Exceptions\Http\ClientException;
 use DragonCode\Contracts\Exceptions\Manager as ExceptionManagerContract;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException as GuzzleClientException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -51,8 +51,8 @@ class Http
     }
 
     /**
-     * @param  \DragonCode\Contracts\Cashier\Http\Request  $request
-     * @param  \DragonCode\Contracts\Exceptions\Manager  $manager
+     * @param \DragonCode\Contracts\Cashier\Http\Request $request
+     * @param \DragonCode\Contracts\Exceptions\Manager $manager
      *
      * @throws \DragonCode\Contracts\Exceptions\Http\ClientException
      *
@@ -117,7 +117,7 @@ class Http
 
         beginning:
         $attempts++;
-        $times--;
+        --$times;
 
         try {
             return $callback($attempts);

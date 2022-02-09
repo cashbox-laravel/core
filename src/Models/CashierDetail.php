@@ -56,7 +56,7 @@ class CashierDetail extends Model
         return $this->morphTo('item');
     }
 
-    protected function setDetailsAttribute(DetailsCast $details = null): void
+    protected function setDetailsAttribute(?DetailsCast $details = null): void
     {
         $this->attributes['details'] = $details ? $details->toJson() : null;
     }

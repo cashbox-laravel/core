@@ -34,7 +34,7 @@ trait Relations
     }
 
     /**
-     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
      */
     protected function resolveCashier(Model $payment): void
     {
