@@ -73,7 +73,7 @@ abstract class Request implements Contract
 
     public function uri(): HttpBuilderContract
     {
-        return $this->getUriBuilder()->getWithPath($this->path);
+        return $this->getUriBuilder()->getWithPath($this->getPath());
     }
 
     public function headers(): array
@@ -112,6 +112,11 @@ abstract class Request implements Contract
     protected function getUriBuilder(): URI
     {
         return URI::make($this->production_host, $this->dev_host, Main::isProduction());
+    }
+
+    protected function getPath(): ?string
+    {
+        return $this->path;
     }
 
     /**
