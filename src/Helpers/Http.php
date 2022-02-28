@@ -31,6 +31,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use Lmc\HttpConstants\Header;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -149,7 +150,7 @@ class Http
     {
         $headers = $this->lowerKeys($headers);
 
-        if (Arr::get($headers, 'content-type') === 'application/x-www-form-urlencoded') {
+        if (Arr::get($headers, Header::CONTENT_TYPE) === 'application/x-www-form-urlencoded') {
             return ['form_params' => $data];
         }
 
