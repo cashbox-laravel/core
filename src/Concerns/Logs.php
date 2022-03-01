@@ -33,9 +33,9 @@ trait Logs
         HttpLog::info($model, $method, $url, $request, $response, $status_code, $model->getExtra());
     }
 
-    protected function logError(ModelResource $model, string $method, Request $request, Throwable $exception): void
+    protected function logError(ModelResource $model, Request $request, Throwable $exception): void
     {
-        $this->logInfo($model, $method, $request->uri(), $request->getRawBody(), [
+        $this->logInfo($model, $request->method(), $request->uri(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
         ], $this->getStatusCode($exception));
     }
