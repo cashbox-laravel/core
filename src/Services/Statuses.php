@@ -25,6 +25,7 @@ use CashierProvider\Core\Facades\Config\Payment;
 use DragonCode\Contracts\Cashier\Helpers\Statuses as Contract;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Database\Eloquent\Model;
 
 /** @method static Statuses make(Model $model) */
@@ -70,44 +71,44 @@ abstract class Statuses implements Contract
         ];
 
         return ! $this->hasCashier($bank, $status)
-            && ! $this->hasModel($model, $status);
+               && ! $this->hasModel($model, $status);
     }
 
     public function hasCreated($status = null): bool
     {
         return $this->hasCashier(static::NEW, $status)
-            || $this->hasModel([Status::NEW], $status);
+               || $this->hasModel([Status::NEW], $status);
     }
 
     public function hasFailed($status = null): bool
     {
         return $this->hasCashier(static::FAILED, $status)
-            || $this->hasModel([Status::FAILED], $status);
+               || $this->hasModel([Status::FAILED], $status);
     }
 
     public function hasRefunding($status = null): bool
     {
         return $this->hasCashier(static::REFUNDING, $status)
-            || $this->hasModel([Status::WAIT_REFUND], $status);
+               || $this->hasModel([Status::WAIT_REFUND], $status);
     }
 
     public function hasRefunded($status = null): bool
     {
         return $this->hasCashier(static::REFUNDED, $status)
-            || $this->hasModel([Status::REFUND], $status);
+               || $this->hasModel([Status::REFUND], $status);
     }
 
     public function hasSuccess($status = null): bool
     {
         return $this->hasCashier(static::SUCCESS, $status)
-            || $this->hasModel([Status::SUCCESS], $status);
+               || $this->hasModel([Status::SUCCESS], $status);
     }
 
     public function inProgress($status = null): bool
     {
         return ! $this->hasSuccess($status)
-            && ! $this->hasFailed($status)
-            && ! $this->hasRefunded($status);
+               && ! $this->hasFailed($status)
+               && ! $this->hasRefunded($status);
     }
 
     protected function hasCashier(array $statuses, $status = null): bool
@@ -130,7 +131,7 @@ abstract class Statuses implements Contract
 
     protected function has(array $statuses, $status = null): bool
     {
-        return ! is_null($status) && in_array($status, $statuses, true);
+        return ! is_null($status) && in_array($this->resolveStatus($status), $this->resolveStatus($statuses), true);
     }
 
     protected function cashierStatus(): ?string
@@ -149,5 +150,21 @@ abstract class Statuses implements Contract
         $field = Payment::getAttributes()->getStatus();
 
         return $this->model->getAttribute($field);
+    }
+
+    /**
+     * @param array|string $status
+     *
+     * @return array|string
+     */
+    protected function resolveStatus($status)
+    {
+        if (is_array($status)) {
+            return array_map(function ($value) {
+                return $this->resolveStatus($value);
+            }, $status);
+        }
+
+        return Str::upper($status);
     }
 }
