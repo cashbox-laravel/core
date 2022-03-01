@@ -70,8 +70,7 @@ abstract class Driver implements Contract
     public function statuses(): Statuses
     {
         return $this->resolveDynamicCallback($this->statuses, function (string $statuses) {
-            // @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string $statuses
-
+            /** @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string $statuses */
             return $statuses::make($this->payment);
         });
     }
@@ -98,7 +97,7 @@ abstract class Driver implements Contract
     {
         $manager = $this->resolveExceptionManager();
 
-        $content = Http::post($request, $manager);
+        $content = Http::request($request, $manager);
 
         return $response::make($content);
     }

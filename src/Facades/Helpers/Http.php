@@ -25,11 +25,11 @@ use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static array post(Request $request, ExceptionManager $manager)
+ * @method static array request(Request $request, ExceptionManager $manager)
  */
 class Http extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Helper::class;
     }

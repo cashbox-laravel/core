@@ -27,6 +27,7 @@ use DragonCode\Contracts\Cashier\Http\Request as Contract;
 use DragonCode\Contracts\Cashier\Resources\Model;
 use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
 use DragonCode\Support\Concerns\Makeable;
+use Fig\Http\Message\RequestMethodInterface;
 
 /**
  * @method static Contract make(Model $model)
@@ -38,6 +39,9 @@ abstract class Request implements Contract
 
     /** @var \DragonCode\Contracts\Cashier\Resources\Model */
     protected $model;
+
+    /** @var string HTTP Request method */
+    protected $method = RequestMethodInterface::METHOD_POST;
 
     /** @var string */
     protected $production_host;
@@ -69,6 +73,11 @@ abstract class Request implements Contract
     public function model(): Model
     {
         return $this->model;
+    }
+
+    public function method(): string
+    {
+        return $this->method;
     }
 
     public function uri(): HttpBuilderContract
