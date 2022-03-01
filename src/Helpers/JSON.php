@@ -41,6 +41,18 @@ class JSON
             return [];
         }
 
-        return json_decode($encoded, true) ?: [];
+        $decoded = json_decode($encoded, true) ?: [];
+
+        return $this->doesntError() ? $decoded : $this->parseErrors($encoded);
+    }
+
+    protected function doesntError(): bool
+    {
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
+    protected function parseErrors(?string $encoded): array
+    {
+        return is_string($encoded) && ! empty($encoded) ? [$encoded] : [];
     }
 }
