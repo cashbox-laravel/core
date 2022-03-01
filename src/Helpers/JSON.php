@@ -43,7 +43,7 @@ class JSON
 
         $decoded = json_decode($encoded, true) ?: [];
 
-        return $this->doesntError() ? $decoded : $this->parseErrors($encoded);
+        return $this->doesntError() ? (array) $decoded : $this->parseErrors($encoded);
     }
 
     protected function doesntError(): bool
