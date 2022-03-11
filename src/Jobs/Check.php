@@ -22,7 +22,9 @@ namespace CashierProvider\Core\Jobs;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Core\Facades\Config\Main;
 use DragonCode\Contracts\Cashier\Http\Response;
+use Illuminate\Support\Carbon;
 
 class Check extends Base
 {
@@ -60,6 +62,13 @@ class Check extends Base
 
                 $this->returnToQueue();
         }
+    }
+
+    public function retryUntil(): Carbon
+    {
+        $timeout = Main::getCheckTimeout();
+
+        return Carbon::now()->addSeconds($timeout);
     }
 
     protected function process(): Response
