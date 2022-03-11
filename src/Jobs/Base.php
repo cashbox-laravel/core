@@ -35,7 +35,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Carbon;
 
 abstract class Base implements ShouldQueue, ShouldBeUnique
 {
@@ -87,13 +86,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public function uniqueFor(): int
     {
         return Main::getQueue()->getUnique()->getSeconds();
-    }
-
-    public function retryUntil(): Carbon
-    {
-        $timeout = Main::getCheckTimeout();
-
-        return Carbon::now()->addSeconds($timeout);
     }
 
     protected function hasBreak(): bool
