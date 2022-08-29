@@ -76,13 +76,15 @@ class Http
 
                 return $content;
             }, $request);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             $this->failedEvent($e);
 
             $this->logError($request->model(), $request, $e);
 
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
@@ -90,7 +92,8 @@ class Http
             $this->logError($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             $this->logError($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $e->getCode(), [
@@ -109,7 +112,8 @@ class Http
 
         try {
             return $callback($attempts);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             if ($times < 1) {
                 throw $e;
             }
