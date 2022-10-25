@@ -208,19 +208,11 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
             $callback();
         }
         catch (Throwable $e) {
-            if (! $this->doneInsteadThrow) {
-                throw $e;
-            }
-
-            if ($this->retryUntil() && $this->retryUntil() <= Carbon::now()) {
-                $this->delete();
-
+            if ($this->doneInsteadThrow && $this->retryUntil() && $this->retryUntil() <= Carbon::now()) {
                 return;
             }
 
-            if (! $this->retryUntil() && $this->maxTries() > 0 && $this->attempts() >= $this->maxTries()) {
-                $this->delete();
-
+            if ($this->doneInsteadThrow && ! $this->retryUntil() && $this->maxTries() > 0 && $this->attempts() >= $this->maxTries()) {
                 return;
             }
 
