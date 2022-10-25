@@ -28,9 +28,11 @@ class Start extends Base
 
     public function handle()
     {
-        $data = $this->process();
+        $this->call(function () {
+            $data = $this->process();
 
-        $this->store($data);
+            $this->store($data);
+        });
     }
 
     protected function process(): Response

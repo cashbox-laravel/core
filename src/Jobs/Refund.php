@@ -32,13 +32,25 @@ class Refund extends Base
 
     public function handle()
     {
-        $this->checkExternalId();
+        $this->call(function () {
+            $this->checkExternalId();
 
-        $this->runCheckJob();
+            $this->runCheckJob();
 
-        $this->checkStatus();
+            $this->checkStatus();
 
-        $this->ran();
+            $this->ran();
+        });
+    }
+
+    protected function process(): Response
+    {
+        return $this->resolveDriver()->refund();
+    }
+
+    protected function queueName(): ?string
+    {
+        return $this->resolveDriver()->queue()->getRefund();
     }
 
     protected function ran()
@@ -56,11 +68,6 @@ class Refund extends Base
         $this->updateParentStatus(Status::REFUND);
 
         $this->store($response, false);
-    }
-
-    protected function process(): Response
-    {
-        return $this->resolveDriver()->refund();
     }
 
     protected function paymentId()
@@ -93,10 +100,5 @@ class Refund extends Base
                 new AlreadyRefundedException($this->model->getKey())
             );
         }
-    }
-
-    protected function queueName(): ?string
-    {
-        return $this->resolveDriver()->queue()->getRefund();
     }
 }

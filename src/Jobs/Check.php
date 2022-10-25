@@ -30,45 +30,42 @@ class Check extends Base
 {
     protected $event = Checked::class;
 
+    protected $doneInsteadThrow = true;
+
     public function handle()
     {
-        $this->checkExternalId();
+        $this->call(function () {
+            $this->checkExternalId();
 
-        $response = $this->process();
+            $response = $this->process();
 
-        $status = $response->getStatus();
+            $status = $response->getStatus();
 
-        switch (true) {
-            case $this->hasFailed($status):
-                $this->update($response, Status::FAILED);
-                break;
+            switch (true) {
+                case $this->hasFailed($status):
+                    $this->update($response, Status::FAILED);
+                    break;
 
-            case $this->hasRefunding($status):
-                $this->update($response, Status::WAIT_REFUND);
-                break;
+                case $this->hasRefunding($status):
+                    $this->update($response, Status::WAIT_REFUND);
+                    break;
 
-            case $this->hasRefunded($status):
-                $this->update($response, Status::REFUND);
-                break;
+                case $this->hasRefunded($status):
+                    $this->update($response, Status::REFUND);
+                    break;
 
-            case $this->hasSuccess($status):
-                $this->update($response, Status::SUCCESS);
-                break;
+                case $this->hasSuccess($status):
+                    $this->update($response, Status::SUCCESS);
+                    break;
 
-            default:
-                if ($this->hasBreak()) {
-                    return;
-                }
+                default:
+                    if ($this->hasBreak()) {
+                        return;
+                    }
 
-                $this->returnToQueue();
-        }
-    }
-
-    public function retryUntil(): Carbon
-    {
-        $timeout = Main::getCheckTimeout();
-
-        return Carbon::now()->addSeconds($timeout);
+                    $this->returnToQueue();
+            }
+        });
     }
 
     protected function process(): Response
@@ -76,15 +73,22 @@ class Check extends Base
         return $this->resolveDriver()->check();
     }
 
+    protected function queueName(): ?string
+    {
+        return $this->resolveDriver()->queue()->getCheck();
+    }
+
+    public function retryUntil(): ?Carbon
+    {
+        $timeout = Main::getCheckTimeout();
+
+        return Carbon::now()->addSeconds($timeout);
+    }
+
     protected function update(Response $response, string $status): void
     {
         $this->updateParentStatus($status);
         $this->store($response, false);
-    }
-
-    protected function queueName(): ?string
-    {
-        return $this->resolveDriver()->queue()->getCheck();
     }
 
     protected function checkExternalId(): void
