@@ -25,6 +25,7 @@ use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Config\Payment;
 use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
+use Closure;
 use DragonCode\Contracts\Cashier\Driver;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Response;
@@ -35,6 +36,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Carbon;
+use Throwable;
 
 abstract class Base implements ShouldQueue, ShouldBeUnique
 {
@@ -59,11 +62,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected $event;
 
-    abstract public function handle();
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
+    protected $doneInsteadThrow = false;
 
     public function __construct(Model $model, bool $force_break = false)
     {
@@ -78,6 +77,12 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         $this->queue = $this->queueName();
     }
 
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function uniqueId()
     {
         return $this->model->getKey();
@@ -86,6 +91,11 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public function uniqueFor(): int
     {
         return Main::getQueue()->getUnique()->getSeconds();
+    }
+
+    public function retryUntil(): ?Carbon
+    {
+        return null;
     }
 
     protected function hasBreak(): bool
@@ -190,5 +200,36 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     protected function resolveStatuses(): Statuses
     {
         return $this->resolveDriver()->statuses();
+    }
+
+    protected function call(Closure $callback): void
+    {
+        try {
+            $callback();
+        }
+        catch (Throwable $e) {
+            if (! $this->doneInsteadThrow) {
+                throw $e;
+            }
+
+            if ($this->retryUntil() && $this->retryUntil() <= Carbon::now()) {
+                $this->delete();
+
+                return;
+            }
+
+            if (! $this->retryUntil() && $this->maxTries() > 0 && $this->attempts() >= $this->maxTries()) {
+                $this->delete();
+
+                return;
+            }
+
+            throw $e;
+        }
+    }
+
+    protected function maxTries(): int
+    {
+        return $this->job->maxTries() ?: config('cashier.queue.tries', 100);
     }
 }
