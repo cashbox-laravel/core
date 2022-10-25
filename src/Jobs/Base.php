@@ -64,6 +64,12 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected $doneInsteadThrow = false;
 
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function __construct(Model $model, bool $force_break = false)
     {
         $this->model = $model;
@@ -76,12 +82,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $this->queue = $this->queueName();
     }
-
-    abstract public function handle();
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     public function uniqueId()
     {
