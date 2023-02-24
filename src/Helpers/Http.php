@@ -21,18 +21,16 @@ namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Concerns\FailedEvent;
 use CashierProvider\Core\Concerns\Logs;
-use CashierProvider\Core\Exceptions\Http\UnauthorizedException;
-use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
-use CashierProvider\Core\Facades\Helpers\JSON as JsonDecoder;
-use DragonCode\Contracts\Cashier\Http\Request;
-use DragonCode\Contracts\Exceptions\Http\ClientException;
-use DragonCode\Contracts\Exceptions\Manager as ExceptionManagerContract;
+use CashierProvider\Core\Exceptions\Manager;
+use CashierProvider\Core\Http\Request;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use DragonCode\Support\Http\Builder;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http as HttpClient;
 use Lmc\HttpConstants\Header;
-use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
 class Http
@@ -40,35 +38,21 @@ class Http
     use FailedEvent;
     use Logs;
 
-    protected Client $client;
-
     protected int $tries = 10;
 
-    protected int $sleep = 300;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
-    public function request(Request $request, ExceptionManagerContract $exception): array
+    public function request(Request $request, Manager $exception): array
     {
         try {
-            return $this->retry($this->tries, function () use ($request, $exception) {
+            return retry($this->tries, function () use ($request, $exception) {
                 $method  = $request->method();
                 $uri     = $request->uri();
                 $headers = $request->headers();
                 $data    = $request->body();
 
-                $options = $request->getHttpOptions();
+                $response = $this->send($request, $method, $uri, $data, $headers);
 
-                $params = compact('headers') + $options + $this->body($data, $headers);
-
-                $response = $this->client->request($method, $uri, $params);
-
-                $content = $this->decode($response);
-
-                $status_code = $response->getStatusCode();
+                $content     = $response->json();
+                $status_code = $response->status();
 
                 $exception->validateResponse($uri, $content, $status_code);
 
@@ -77,23 +61,16 @@ class Http
                 return $content;
             }, $request);
         }
-        catch (ClientException $e) {
+        catch (RequestException $e) {
             $this->failedEvent($e);
 
             $this->logError($request->model(), $request, $e);
 
-            throw $e;
-        }
-        catch (GuzzleClientException $e) {
-            $response = $e->getResponse();
-
-            $content = $this->decode($response);
-
-            $this->logError($request->model(), $request, $e);
-
-            $exception->throw($request->uri(), $response->getStatusCode(), $content);
+            $exception->throw($request->uri(), $e->response->status(), $e->response->json());
         }
         catch (Throwable $e) {
+            $this->failedEvent($e);
+
             $this->logError($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $e->getCode(), [
@@ -102,50 +79,23 @@ class Http
         }
     }
 
-    protected function retry(int $times, callable $callback, Request $request): array
+    protected function send(Request $request, string $method, Builder $uri, array $data, array $headers): Response
     {
-        $attempts = 0;
-
-        beginning:
-        $attempts++;
-        --$times;
-
-        try {
-            return $callback($attempts);
-        }
-        catch (Throwable $e) {
-            if ($times < 1) {
-                throw $e;
-            }
-
-            if ($e instanceof UnauthorizedException) {
-                $request->refreshAuth();
-            }
-
-            $this->sleep($attempts);
-
-            goto beginning;
-        }
+        return HttpClient::withHeaders($headers)
+            ->when($this->isJson($headers), fn (PendingRequest $request) => $request->asJson())
+            ->when($this->doesntJson($headers), fn (PendingRequest $request) => $request->asMultipart())
+            ->send($method, $uri->toUrl(), $data + $request->getHttpOptions())
+            ->throw();
     }
 
-    protected function decode(ResponseInterface $response): array
+    protected function isJson(array $headers): bool
     {
-        if ($content = JsonDecoder::decode($response->getBody()->getContents())) {
-            return $content;
-        }
-
-        throw new EmptyResponseException('');
+        return Arr::get($this->lowerKeys($headers), Header::CONTENT_TYPE) === 'application/x-www-form-urlencoded';
     }
 
-    protected function body(array $data, array $headers): array
+    protected function doesntJson(array $headers): bool
     {
-        $headers = $this->lowerKeys($headers);
-
-        if (Arr::get($headers, Header::CONTENT_TYPE) === 'application/x-www-form-urlencoded') {
-            return ['form_params' => $data];
-        }
-
-        return ['json' => $data];
+        return ! $this->isJson($headers);
     }
 
     protected function lowerKeys(array $items): array
@@ -153,10 +103,5 @@ class Http
         return Arr::renameKeys($items, static function (string $key) {
             return Str::lower($key);
         });
-    }
-
-    protected function sleep(int $attempts): void
-    {
-        usleep(value($this->sleep, $attempts) * 1000);
     }
 }

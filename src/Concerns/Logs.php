@@ -22,8 +22,8 @@ namespace CashierProvider\Core\Concerns;
 use CashierProvider\Core\Facades\HttpLog;
 use CashierProvider\Core\Http\Request;
 use CashierProvider\Core\Resources\Model;
-use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Facades\Instances\Call;
+use DragonCode\Support\Http\Builder;
 use Throwable;
 
 trait Logs
