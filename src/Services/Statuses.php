@@ -20,10 +20,10 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Attributes;
+use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Database\Eloquent\Model;
 
 /** @method static Statuses make(Model $model) */
@@ -49,7 +49,7 @@ abstract class Statuses
         $this->model = $model;
     }
 
-    public function hasUnknown(?string $status = null): bool
+    public function hasUnknown(mixed $status = null): bool
     {
         $bank = array_merge(
             static::NEW,
@@ -60,85 +60,79 @@ abstract class Statuses
         );
 
         $model = [
-            StatusType::new,
-            StatusType::waitRefund,
-            StatusType::refund,
-            StatusType::failed,
-            StatusType::success,
+            Status::new,
+            Status::waitRefund,
+            Status::refund,
+            Status::failed,
+            Status::success,
         ];
 
         return ! $this->hasCashier($bank, $status)
             && ! $this->hasModel($model, $status);
     }
 
-    public function hasCreated(?string $status = null): bool
+    public function hasCreated(mixed $status = null): bool
     {
         return $this->hasCashier(static::NEW, $status)
-            || $this->hasModel([StatusType::new], $status);
+            || $this->hasModel([Status::new], $status);
     }
 
-    public function hasFailed(?string $status = null): bool
+    public function hasFailed(mixed $status = null): bool
     {
         return $this->hasCashier(static::FAILED, $status)
-            || $this->hasModel([StatusType::failed], $status);
+            || $this->hasModel([Status::failed], $status);
     }
 
-    public function hasRefunding(?string $status = null): bool
+    public function hasRefunding(mixed $status = null): bool
     {
         return $this->hasCashier(static::REFUNDING, $status)
-            || $this->hasModel([StatusType::waitRefund], $status);
+            || $this->hasModel([Status::waitRefund], $status);
     }
 
-    public function hasRefunded(?string $status = null): bool
+    public function hasRefunded(mixed $status = null): bool
     {
         return $this->hasCashier(static::REFUNDED, $status)
-            || $this->hasModel([StatusType::refund], $status);
+            || $this->hasModel([Status::refund], $status);
     }
 
-    public function hasSuccess(?string $status = null): bool
+    public function hasSuccess(mixed $status = null): bool
     {
         return $this->hasCashier(static::SUCCESS, $status)
-            || $this->hasModel([StatusType::success], $status);
+            || $this->hasModel([Status::success], $status);
     }
 
-    public function inProgress(?string $status = null): bool
+    public function inProgress(mixed $status = null): bool
     {
         return ! $this->hasSuccess($status)
             && ! $this->hasFailed($status)
             && ! $this->hasRefunded($status);
     }
 
-    /**
-     * @param array<string> $statuses
-     * @param string|null $status
-     *
-     * @return bool
-     */
-    protected function hasCashier(array $statuses, ?string $status): bool
+    protected function hasCashier(array $statuses, mixed $status): bool
     {
-        $status = ! is_null($status) ? $status : $this->resolveCashierStatus();
+        $status = $status ?: $this->resolveCashierStatus();
 
         return $this->has($statuses, $status);
     }
 
     /**
-     * @param array<StatusType> $statuses
-     * @param $status
+     * @param array<Status> $statuses
+     * @param mixed $status
      *
      * @return bool
      */
-    protected function hasModel(array $statuses, $status = null): bool
+    protected function hasModel(array $statuses, mixed $status): bool
     {
-        $statuses = Arr::map($statuses, static fn (StatusType $type) => Config::payment()->status->get($type));
+        $statuses = Arr::map($statuses, static fn (Status $type) => Config::payment()->status->get($type));
 
         $status = $status ?: $this->modelStatus();
 
         return $this->has($statuses, $status);
     }
 
-    protected function has(array $statuses, $status = null): bool
+    protected function has(array $statuses, mixed $status): bool
     {
-        return ! is_null($status) && in_array($this->resolveStatus($status), $this->resolveStatus($statuses), true);
+        return ! is_null($status) && in_array($status, $statuses, true);
     }
 
     protected function resolveCashierStatus(): ?string
@@ -146,19 +140,10 @@ abstract class Statuses
         return $this->model?->cashier?->details?->status ?? null;
     }
 
-    protected function modelStatus()
+    protected function modelStatus(): mixed
     {
         return $this->model->getAttribute(
             $this->attributeStatus()
         );
-    }
-
-    protected function resolveStatus(array|string $status): array|string
-    {
-        if (is_array($status)) {
-            return array_map(fn (array|string $value) => $this->resolveStatus($value), $status);
-        }
-
-        return Str::upper($status);
     }
 }

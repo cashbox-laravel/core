@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
+use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Facades\Instances\Instance;
@@ -26,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Access
 {
+    use Attributes;
+
     public function allow(Model $model): bool
     {
         return $this->allowModel($model)
@@ -36,7 +39,7 @@ class Access
     protected function type(Model $model)
     {
         return $model->getAttribute(
-            Config::payment()->attribute->type
+            $this->attributeType()
         );
     }
 

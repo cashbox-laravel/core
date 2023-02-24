@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Events\Processes\Refunded;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
@@ -65,7 +65,7 @@ class Refund extends Base
             return;
         }
 
-        $this->updateParentStatus(Status::REFUND);
+        $this->updateParentStatus(Status::refund);
 
         $this->store($response, false);
     }

@@ -19,8 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
-use BackedEnum;
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Models\CashierDetail;
@@ -42,17 +41,17 @@ class DetailsObserver extends BaseObserver
         if ($model->isDirty('details')) {
             switch (true) {
                 case $statuses->hasSuccess($status):
-                    $this->updateStatus($model, Status::SUCCESS);
+                    $this->updateStatus($model, Status::success);
 
                     return;
 
                 case $statuses->hasRefunded($status):
-                    $this->updateStatus($model, Status::REFUND);
+                    $this->updateStatus($model, Status::refund);
 
                     return;
 
                 case $statuses->hasFailed($status):
-                    $this->updateStatus($model, Status::FAILED);
+                    $this->updateStatus($model, Status::failed);
 
                     return;
             }
@@ -66,7 +65,7 @@ class DetailsObserver extends BaseObserver
         return DriverManager::fromModel($model->parent);
     }
 
-    protected function updateStatus(CashierDetail $model, string $status): void
+    protected function updateStatus(CashierDetail $model, Status $status): void
     {
         $value = $this->status($status);
 
@@ -75,7 +74,7 @@ class DetailsObserver extends BaseObserver
         $model->parent->update([$field => $value]);
     }
 
-    protected function status(string $status): BackedEnum|int|string
+    protected function status(Status $status): mixed
     {
         return Config::payment()->status->get($status);
     }

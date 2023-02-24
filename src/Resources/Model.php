@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Resources;
 
 use CashierProvider\Core\Data\Config\Driver;
-use CashierProvider\Core\Helpers\Currency;
+use CashierProvider\Core\Enums\Currency;
 use CashierProvider\Core\Helpers\Date;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -33,7 +33,6 @@ abstract class Model
     public function __construct(
         protected EloquentModel $model,
         protected Driver        $config,
-        protected Currency      $currency,
         protected Date          $date
     ) {
     }
@@ -63,7 +62,7 @@ abstract class Model
 
     public function getCurrency(): string
     {
-        return (string) $this->currency->get($this->currency())->value;
+        return (string) Currency::from($this->currency())->value;
     }
 
     public function getCreatedAt(): string

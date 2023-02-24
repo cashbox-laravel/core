@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Facades\Config;
@@ -43,19 +43,19 @@ class Check extends Base
 
             switch (true) {
                 case $this->hasFailed($status):
-                    $this->update($response, Status::FAILED);
+                    $this->update($response, Status::failed);
                     break;
 
                 case $this->hasRefunding($status):
-                    $this->update($response, Status::WAIT_REFUND);
+                    $this->update($response, Status::waitRefund);
                     break;
 
                 case $this->hasRefunded($status):
-                    $this->update($response, Status::REFUND);
+                    $this->update($response, Status::refund);
                     break;
 
                 case $this->hasSuccess($status):
-                    $this->update($response, Status::SUCCESS);
+                    $this->update($response, Status::success);
                     break;
 
                 default:
@@ -85,7 +85,7 @@ class Check extends Base
         );
     }
 
-    protected function update(Response $response, string $status): void
+    protected function update(Response $response, Status $status): void
     {
         $this->updateParentStatus($status);
         $this->store($response, false);

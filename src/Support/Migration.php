@@ -22,6 +22,7 @@ namespace CashierProvider\Core\Support;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Illuminate\Support\Str;
 
 abstract class Migration extends BaseMigration
 {
@@ -33,7 +34,7 @@ abstract class Migration extends BaseMigration
             Config::payment()->model
         );
 
-        return in_array($type, ['int', 'integer']);
+        return in_array(Str::lower($type), ['int', 'integer']);
     }
 
     protected function detailsTable(): string

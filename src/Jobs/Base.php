@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use BackedEnum;
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Driverable;
+use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Facades\Model as ModelHelper;
@@ -123,7 +123,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         );
     }
 
-    protected function updateParentStatus(string $status): void
+    protected function updateParentStatus(Status $status): void
     {
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
@@ -135,7 +135,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         }
     }
 
-    protected function status(string $status): BackedEnum|int|string
+    protected function status(Status $status): mixed
     {
         return Config::payment()->status->get($status);
     }

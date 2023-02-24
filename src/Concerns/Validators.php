@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Validators
 {
-    protected function validateModel($model): Model
+    protected function validateModel($model): Model|string
     {
         return $this->validate($model, Casheable::class, IncorrectPaymentModelException::class);
     }
