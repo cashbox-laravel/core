@@ -56,7 +56,7 @@ class CashierLog extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setConnection(Config::logs()->connection);
+        $this->setConnection(Config::queue()->connection);
         $this->setTable(Config::logs()->table);
 
         parent::__construct($attributes);

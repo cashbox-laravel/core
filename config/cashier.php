@@ -81,11 +81,11 @@ return [
         */
 
         'status' => [
-            Status::NEW         => 0,
-            Status::SUCCESS     => 1,
-            Status::FAILED      => 2,
-            Status::REFUND      => 3,
-            Status::WAIT_REFUND => 4,
+            Status::NEW         => 'new',
+            Status::SUCCESS     => 'success',
+            Status::FAILED      => 'failed',
+            Status::REFUND      => 'refund',
+            Status::WAIT_REFUND => 'wait_refund',
         ],
 
         /*
@@ -162,18 +162,6 @@ return [
         */
 
         'enabled' => (bool) env('CASHIER_REQUESTS_LOGS_ENABLED', true),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Connection Name
-        |--------------------------------------------------------------------------
-        |
-        | This value defines the name of the connection for accessing the
-        | database with the logging table.
-        |
-        */
-
-        'connection' => env('DB_CONNECTION'),
 
         /*
         |--------------------------------------------------------------------------

@@ -10,7 +10,5 @@ class Logs extends Data
 {
     public bool $enabled;
 
-    public ?string $connection;
-
     public string $table;
 }
