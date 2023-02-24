@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Attributes;
-use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
@@ -50,79 +49,89 @@ abstract class Statuses
         $this->model = $model;
     }
 
-    public function hasUnknown($status = null): bool
+    public function hasUnknown(?string $status = null): bool
     {
-        $bank = array_merge([
+        $bank = array_merge(
             static::NEW,
             static::REFUNDING,
             static::REFUNDED,
             static::FAILED,
             static::SUCCESS,
-        ]);
+        );
 
         $model = [
-            Status::NEW,
-            Status::WAIT_REFUND,
-            Status::REFUND,
-            Status::FAILED,
-            Status::SUCCESS,
+            StatusType::new,
+            StatusType::waitRefund,
+            StatusType::refund,
+            StatusType::failed,
+            StatusType::success,
         ];
 
         return ! $this->hasCashier($bank, $status)
             && ! $this->hasModel($model, $status);
     }
 
-    public function hasCreated($status = null): bool
+    public function hasCreated(?string $status = null): bool
     {
         return $this->hasCashier(static::NEW, $status)
-            || $this->hasModel([Status::NEW], $status);
+            || $this->hasModel([StatusType::new], $status);
     }
 
-    public function hasFailed($status = null): bool
+    public function hasFailed(?string $status = null): bool
     {
         return $this->hasCashier(static::FAILED, $status)
-            || $this->hasModel([Status::FAILED], $status);
+            || $this->hasModel([StatusType::failed], $status);
     }
 
-    public function hasRefunding($status = null): bool
+    public function hasRefunding(?string $status = null): bool
     {
         return $this->hasCashier(static::REFUNDING, $status)
-            || $this->hasModel([Status::WAIT_REFUND], $status);
+            || $this->hasModel([StatusType::waitRefund], $status);
     }
 
-    public function hasRefunded($status = null): bool
+    public function hasRefunded(?string $status = null): bool
     {
         return $this->hasCashier(static::REFUNDED, $status)
-            || $this->hasModel([Status::REFUND], $status);
+            || $this->hasModel([StatusType::refund], $status);
     }
 
-    public function hasSuccess($status = null): bool
+    public function hasSuccess(?string $status = null): bool
     {
         return $this->hasCashier(static::SUCCESS, $status)
-            || $this->hasModel([Status::SUCCESS], $status);
+            || $this->hasModel([StatusType::success], $status);
     }
 
-    public function inProgress($status = null): bool
+    public function inProgress(?string $status = null): bool
     {
         return ! $this->hasSuccess($status)
             && ! $this->hasFailed($status)
             && ! $this->hasRefunded($status);
     }
 
-    protected function hasCashier(array $statuses, $status = null): bool
+    /**
+     * @param array<string> $statuses
+     * @param string|null $status
+     *
+     * @return bool
+     */
+    protected function hasCashier(array $statuses, ?string $status): bool
     {
-        $status = ! is_null($status) ? $status : $this->cashierStatus();
+        $status = ! is_null($status) ? $status : $this->resolveCashierStatus();
 
         return $this->has($statuses, $status);
     }
 
+    /**
+     * @param array<StatusType> $statuses
+     * @param $status
+     *
+     * @return bool
+     */
     protected function hasModel(array $statuses, $status = null): bool
     {
-        $statuses = Arr::map($statuses, static function (string $status) {
-            return Config::payment()->status->get($status);
-        });
+        $statuses = Arr::map($statuses, static fn (StatusType $type) => Config::payment()->status->get($type));
 
-        $status = ! is_null($status) ? $status : $this->modelStatus();
+        $status = $status ?: $this->modelStatus();
 
         return $this->has($statuses, $status);
     }
@@ -132,13 +141,9 @@ abstract class Statuses
         return ! is_null($status) && in_array($this->resolveStatus($status), $this->resolveStatus($statuses), true);
     }
 
-    protected function cashierStatus(): ?string
+    protected function resolveCashierStatus(): ?string
     {
-        if ($this->model->cashier && $this->model->cashier->details) {
-            return $this->model->cashier->details->status;
-        }
-
-        return null;
+        return $this->model?->cashier?->details?->status ?? null;
     }
 
     protected function modelStatus()
@@ -148,17 +153,10 @@ abstract class Statuses
         );
     }
 
-    /**
-     * @param array|string $status
-     *
-     * @return array|string
-     */
     protected function resolveStatus(array|string $status): array|string
     {
         if (is_array($status)) {
-            return array_map(function ($value) {
-                return $this->resolveStatus($value);
-            }, $status);
+            return array_map(fn (array|string $value) => $this->resolveStatus($value), $status);
         }
 
         return Str::upper($status);

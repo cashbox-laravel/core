@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
+use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
@@ -32,12 +33,17 @@ class Check extends Base
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
 
-    protected int $delay = 3599;
+    protected int $delay = 3600;
 
     public function handle()
     {
         $this->cleanup();
         $this->checkPayments();
+    }
+
+    protected function getStatuses(): ?array
+    {
+        return Config::payment()->status->inProgress();
     }
 
     protected function cleanup(): void
@@ -49,11 +55,9 @@ class Check extends Base
 
     protected function checkPayments(): void
     {
-        $this->payments()->chunk($this->count, function (Collection $payments) {
-            $payments->each(
-                fn (Model $payment) => $this->check($payment, $this->delay($payment))
-            );
-        });
+        $this->payments()->chunk($this->chunk, fn (Collection $payments) => $payments->each(
+            fn (Model $payment) => $this->check($payment, $this->delay($payment))
+        ));
     }
 
     protected function check(Model $model, ?int $delay): void

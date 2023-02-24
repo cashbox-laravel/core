@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
+use BackedEnum;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Facades\DriverManager;
@@ -74,7 +75,7 @@ class DetailsObserver extends BaseObserver
         $model->parent->update([$field => $value]);
     }
 
-    protected function status(string $status)
+    protected function status(string $status): BackedEnum|int|string
     {
         return Config::payment()->status->get($status);
     }

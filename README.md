@@ -71,8 +71,6 @@ Before starting, edit the [config/cashier.php](https://github.com/cashier-provid
 
 ```php
 use App\Models\Payment as Model;
-use CashierProvider\Core\Constants\Attributes;
-use CashierProvider\Core\Constants\Status;
 
 return [
     'payment' => [
@@ -84,25 +82,19 @@ return [
         // the required driver will be loaded, the status identifier and
         // the entry creation date fields.
         'attributes' => [
-            Attributes::TYPE => 'type_id',
-
-            Attributes::STATUS => 'status_id',
-
-            Attributes::CREATED_AT => 'created_at',
+            \CashierProvider\Core\Enums\AttributeField::type->value => 'type_id',
+            \CashierProvider\Core\Enums\AttributeField::status->value => 'status_id',
+            \CashierProvider\Core\Enums\AttributeField::createdAt->value => 'created_at',
         ],
 
         // Indicate the correspondence of statuses in your system.
         // Values can be either integer or string.
         'statuses' => [
-            Status::NEW => Model::STATUS_NEW,
-
-            Status::SUCCESS => Model::STATUS_SUCCESS,
-
-            Status::FAILED => Model::STATUS_FAILED,
-
-            Status::REFUND => Model::STATUS_REFUND,
-
-            Status::WAIT_REFUND => Model::STATUS_WAIT_REFUND,
+            \CashierProvider\Core\Enums\StatusType::new->value => Model::STATUS_NEW,
+            \CashierProvider\Core\Enums\StatusType::success->value => Model::STATUS_SUCCESS,
+            \CashierProvider\Core\Enums\StatusType::failed->value  => Model::STATUS_FAILED,
+            \CashierProvider\Core\Enums\StatusType::refund->value  => Model::STATUS_REFUND,
+            \CashierProvider\Core\Enums\StatusType::waitRefund->value  => Model::STATUS_WAIT_REFUND,
         ],
 
         // Here you need to specify the name of the drivers called
@@ -145,8 +137,8 @@ return [
             // Here you need to fill in the data of the connected payment driver
             // Connection information is usually found in the driver documentation.
 
-        ]
-    ]
+        ],
+    ],
 ];
 ```
 

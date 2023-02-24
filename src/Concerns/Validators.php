@@ -23,7 +23,6 @@ use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectDriverException;
 use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
 use CashierProvider\Core\Exceptions\Runtime\Implement\UnknownResponseException;
 use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
-use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Http\Response;
 use CashierProvider\Core\Services\Driver;
 use DragonCode\Support\Facades\Instances\Instance;
@@ -33,7 +32,7 @@ trait Validators
 {
     protected function validateModel($model): Model
     {
-        return $this->validate($model, Config::payment()->model, IncorrectPaymentModelException::class);
+        return $this->validate($model, Casheable::class, IncorrectPaymentModelException::class);
     }
 
     protected function validateDriver(string $driver): string

@@ -24,7 +24,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;
 
-class BaseEvent
+abstract class BaseEvent
 {
     use InteractsWithSockets;
     use SerializesModels;

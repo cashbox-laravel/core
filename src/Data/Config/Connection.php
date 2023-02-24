@@ -6,11 +6,9 @@ namespace CashierProvider\Core\Data\Config;
 
 use Spatie\LaravelData\Data;
 
-class QueueName extends Data
+class Connection extends Data
 {
-    public ?string $start;
+    public ?string $name;
 
-    public ?string $check;
-
-    public ?string $refund;
+    public string $table;
 }

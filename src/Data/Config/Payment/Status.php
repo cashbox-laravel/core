@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Payment;
 
-use CashierProvider\Core\Constants\Status as StatusConstant;
+use BackedEnum;
+use CashierProvider\Core\Constants\Status as StatusConst;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
@@ -22,14 +23,30 @@ class Status extends Data
 
     public mixed $waitRefund;
 
-    public function get(string $status): mixed
+    public function get(string $status): string|int|BackedEnum
     {
         return match ($status) {
-            StatusConstant::NEW         => $this->new,
-            StatusConstant::SUCCESS     => $this->success,
-            StatusConstant::FAILED      => $this->failed,
-            StatusConstant::REFUND      => $this->refund,
-            StatusConstant::WAIT_REFUND => $this->waitRefund,
+            StatusConst::NEW         => $this->new,
+            StatusConst::SUCCESS     => $this->success,
+            StatusConst::FAILED      => $this->failed,
+            StatusConst::REFUND      => $this->refund,
+            StatusConst::WAIT_REFUND => $this->waitRefund
         };
+    }
+
+    public function inProgress(): array
+    {
+        return [
+            $this->new,
+            $this->waitRefund,
+        ];
+    }
+
+    public function toRefund(): array
+    {
+        return [
+            $this->success,
+            $this->failed,
+        ];
     }
 }

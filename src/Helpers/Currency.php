@@ -19,27 +19,13 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Core\Constants\Currency as CurrencyConstants;
-use CashierProvider\Core\Data\Currency as CurrencyData;
-use CashierProvider\Core\Exceptions\Runtime\UnknownCurrencyCodeException;
-use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Instances\Reflection;
-use Illuminate\Support\Str;
+use CashierProvider\Core\Enums\Currency as CurrencyEnum;
 
 class Currency
 {
-    /**
-     * Get the currency resource instance.
-     *
-     * @param int|string $currency
-     *
-     * @return CurrencyData
-     */
-    public function get(string|int $currency): CurrencyData
+    public function get(string|int $currency): CurrencyEnum
     {
-        return is_string($currency)
-            ? $this->findByString($this->prepare($currency))
-            : $this->findByNumeric($currency);
+        return CurrencyEnum::from($currency);
     }
 
     /**
@@ -49,40 +35,6 @@ class Currency
      */
     public function all(): array
     {
-        return Reflection::getConstants(CurrencyConstants::class);
-    }
-
-    protected function findByString(string $value): CurrencyData
-    {
-        $items = $this->all();
-
-        if (array_key_exists($value, $items)) {
-            $code = Arr::get($items, $value);
-
-            return $this->resource($code, $value);
-        }
-
-        throw new UnknownCurrencyCodeException($value);
-    }
-
-    protected function findByNumeric(int $code): CurrencyData
-    {
-        $items = $this->all();
-
-        if ($value = array_search($code, $items, true)) {
-            return $this->resource($code, $value);
-        }
-
-        throw new UnknownCurrencyCodeException($value);
-    }
-
-    protected function prepare(string $currency): string
-    {
-        return Str::upper($currency);
-    }
-
-    protected function resource(int $numeric, string $alphabetic): CurrencyData
-    {
-        return CurrencyData::from(compact('numeric', 'alphabetic'));
+        return CurrencyEnum::options();
     }
 }

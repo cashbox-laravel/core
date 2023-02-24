@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Data\Config\Driver as DriverConfig;
-use CashierProvider\Core\Data\Config\QueueName;
+use CashierProvider\Core\Data\Config\Queue\Name;
 use CashierProvider\Core\Exceptions\Manager;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Helpers\Http;
@@ -76,9 +76,9 @@ abstract class Driver
         return $cast::make($details);
     }
 
-    public function queue(): QueueName
+    public function queue(): Name
     {
-        return $this->config?->queue ?? Config::queue()->names;
+        return $this->config?->queue ?? Config::queue()->name;
     }
 
     protected function request(Request $request, \CashierProvider\Core\Http\Response|string $response): Response

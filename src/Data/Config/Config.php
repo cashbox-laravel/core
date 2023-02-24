@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Data\Config;
 
 use CashierProvider\Core\Data\Config\Payment\Payment;
+use CashierProvider\Core\Data\Config\Queue\Queue;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
@@ -17,7 +18,7 @@ class Config extends Data
 
     public Payment $payment;
 
-    public Details $details;
+    public Connection $connection;
 
     public Logs $logs;
 
@@ -36,9 +37,9 @@ class Config extends Data
         return $this->payment;
     }
 
-    public function details(): Details
+    public function connection(): Connection
     {
-        return $this->details;
+        return $this->connection;
     }
 
     public function logs(): Logs

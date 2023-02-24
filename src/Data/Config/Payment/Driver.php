@@ -7,7 +7,7 @@ namespace CashierProvider\Core\Data\Config\Payment;
 use Illuminate\Support\Arr;
 use Spatie\LaravelData\Data;
 
-class DriverNames extends Data
+class Driver extends Data
 {
     protected array $items;
 

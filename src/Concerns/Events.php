@@ -19,53 +19,41 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Data\Config\Payment\Status;
 use CashierProvider\Core\Events\Payments\FailedEvent;
 use CashierProvider\Core\Events\Payments\RefundEvent;
 use CashierProvider\Core\Events\Payments\SuccessEvent;
 use CashierProvider\Core\Facades\Config;
-use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 trait Events
 {
-    protected array $events = [
-        Status::SUCCESS => SuccessEvent::class,
-        Status::REFUND  => RefundEvent::class,
-        Status::FAILED  => FailedEvent::class,
-    ];
-
     protected function event(Model $payment): void
     {
-        $status = $this->getStatusCode($payment);
+        $field = $this->attributeStatus();
 
-        if ($event = Arr::get($this->events, $status)) {
+        if ($payment->wasChanged($field) && $event = $this->getEvent($payment, $field)) {
             event(new $event($payment));
         }
     }
 
-    protected function getStatusCode(Model $payment): ?string
+    protected function getEvent(Model $payment, string $field): ?string
     {
-        $key = $this->attributeStatus();
-
-        if (! $payment->wasChanged($key)) {
-            return null;
-        }
-
-        $value = $payment->getAttribute($key);
-
-        return $this->getStatus($value);
+        return $this->getEventClass($this->getStatus(), $payment->getAttribute($field));
     }
 
-    protected function getStatus($status): ?string
+    protected function getEventClass(Status $data, string|int $status): ?string
     {
-        return Arr::get($this->getAvailableStatuses(), $status);
+        return match ($status) {
+            $data->success    => SuccessEvent::class,
+            $data->refund     => RefundEvent::class,
+            $data->waitRefund => FailedEvent::class,
+            default           => null
+        };
     }
 
-    protected function getAvailableStatuses(): array
+    protected function getStatus(): Status
     {
-        return array_flip(
-            Config::payment()->status->toArray()
-        );
+        return Config::payment()->status;
     }
 }

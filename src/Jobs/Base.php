@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
+use BackedEnum;
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
@@ -59,6 +60,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     ) {
         $this->afterCommit();
 
+        $this->onConnection(Config::queue()->connection);
         $this->onQueue($this->queueName());
 
         $this->tries = Config::queue()->tries;
@@ -73,11 +75,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public function uniqueId(): string
     {
         return $this->modelId();
-    }
-
-    public function retryUntil(): ?Carbon
-    {
-        return null;
     }
 
     protected function hasBreak(): bool
@@ -138,7 +135,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         }
     }
 
-    protected function status(string $status)
+    protected function status(string $status): BackedEnum|int|string
     {
         return Config::payment()->status->get($status);
     }

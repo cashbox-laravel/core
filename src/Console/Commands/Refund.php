@@ -19,6 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
+use Carbon\Carbon;
+use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -33,24 +35,30 @@ class Refund extends Base
 
     public function handle()
     {
-        $this->payments()->chunk($this->count, function (Collection $payments) {
-            $payments->each(function (Model $payment) {
-                if ($this->allowCancelByStatus($payment)) {
-                    $this->cancel($payment);
-                }
-            });
-        });
+        $this->payments()->chunk($this->chunk, fn (Collection $payments) => $payments->each(
+            fn (Model $payment) => $this->cancel($payment)
+        ));
+    }
+
+    protected function getStatuses(): array
+    {
+        return Config::payment()->status->toRefund();
+    }
+
+    protected function getCreatedAt(): ?Carbon
+    {
+        return now()->subMinutes(
+            Config::refund()->delay
+        );
+    }
+
+    public function isEnabled(): bool
+    {
+        return Config::refund()->enabled;
     }
 
     protected function cancel(Model $payment): void
     {
         Jobs::make($payment)->refund();
-    }
-
-    protected function allowCancelByStatus(Model $payment): bool
-    {
-        $statuses = $this->driver($payment)->statuses();
-
-        return $statuses->inProgress();
     }
 }

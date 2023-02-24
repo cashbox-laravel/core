@@ -63,7 +63,7 @@ abstract class Model
 
     public function getCurrency(): string
     {
-        return (string) $this->currency->get($this->currency());
+        return (string) $this->currency->get($this->currency())->value;
     }
 
     public function getCreatedAt(): string

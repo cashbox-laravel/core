@@ -14,5 +14,5 @@ class Payment extends Data
 
     public Status $status;
 
-    public DriverNames $drivers;
+    public Driver $drivers;
 }

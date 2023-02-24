@@ -17,8 +17,6 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Constants\Attributes;
-use CashierProvider\Core\Constants\Queue;
 use CashierProvider\Core\Constants\Status;
 
 return [
@@ -46,6 +44,7 @@ return [
     */
 
     'payment' => [
+
         /*
         |--------------------------------------------------------------------------
         | Payment Model
@@ -67,11 +66,9 @@ return [
         */
 
         'attribute' => [
-            Attributes::TYPE => 'type_id',
-
-            Attributes::STATUS => 'status_id',
-
-            Attributes::CREATED_AT => 'created_at',
+            'type'       => 'type_id',
+            'status'     => 'status_id',
+            'created_at' => 'created_at',
         ],
 
         /*
@@ -84,14 +81,10 @@ return [
         */
 
         'status' => [
-            Status::NEW => 0,
-
-            Status::SUCCESS => 1,
-
-            Status::FAILED => 2,
-
-            Status::REFUND => 3,
-
+            Status::NEW         => 0,
+            Status::SUCCESS     => 1,
+            Status::FAILED      => 2,
+            Status::REFUND      => 3,
             Status::WAIT_REFUND => 4,
         ],
 
@@ -106,8 +99,8 @@ return [
         */
 
         'drivers' => [
-            // 'payment_type_1' => 'foo',
-            // 'payment_type_2' => 'bar',
+            // 'app_payment_type_1' => 'driver_name_foo',
+            // 'app_payment_type_2' => 'driver_name_bar',
         ],
     ],
 
@@ -120,8 +113,19 @@ return [
     |
     */
 
-    'details' => [
-        'connection' => null,
+    'connection' => [
+
+        /*
+        |--------------------------------------------------------------------------
+        | Connection Name
+        |--------------------------------------------------------------------------
+        |
+        | This value defines the name of the connection for accessing the
+        | database with the cashier table.
+        |
+        */
+
+        'name' => env('DB_CONNECTION'),
 
         /*
         |--------------------------------------------------------------------------
@@ -169,7 +173,7 @@ return [
         |
         */
 
-        'connection' => null,
+        'connection' => env('DB_CONNECTION'),
 
         /*
         |--------------------------------------------------------------------------
@@ -211,6 +215,20 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | Max Attempts
+        |--------------------------------------------------------------------------
+        |
+        | This value determines the number of attempts to execute the job
+        | before logging it failed.
+        |
+        | By default, 100.
+        |
+        */
+
+        'tries' => 100,
+
+        /*
+        |--------------------------------------------------------------------------
         | Queue Names
         |--------------------------------------------------------------------------
         |
@@ -219,7 +237,7 @@ return [
         |
         */
 
-        'names' => [
+        'name' => [
             /*
             |--------------------------------------------------------------------------
             | Initialize Queue Name
@@ -231,7 +249,7 @@ return [
             |
             */
 
-            Queue::START => env('CASHIER_QUEUE'),
+            'start' => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -244,7 +262,7 @@ return [
             |
             */
 
-            Queue::CHECK => env('CASHIER_QUEUE'),
+            'check' => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -257,22 +275,8 @@ return [
             |
             */
 
-            Queue::REFUND => env('CASHIER_QUEUE'),
+            'refund' => env('CASHIER_QUEUE'),
         ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Max Attempts
-        |--------------------------------------------------------------------------
-        |
-        | This value determines the number of attempts to execute the job
-        | before logging it failed.
-        |
-        | By default, 100.
-        |
-        */
-
-        'tries' => 100,
     ],
 
     /*
@@ -363,13 +367,13 @@ return [
     */
 
     'drivers' => [
-        //'foo' => [
+        //'driver_name_foo' => [
         //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,
         //],
         //
-        //'bar' => [
+        //'driver_name_bar' => [
         //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,

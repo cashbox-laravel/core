@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
+use Carbon\Carbon;
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Driverable;
-use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,7 +32,7 @@ abstract class Base extends Command
     use Attributes;
     use Driverable;
 
-    protected int $count = 1000;
+    protected int $chunk = 1000;
 
     abstract public function handle();
 
@@ -47,7 +47,12 @@ abstract class Base extends Command
 
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), $this->getStatus());
+            ->when($this->getStatuses(), fn (Builder $builder, array $statuses) => $builder
+                ->whereIn($this->attributeStatus(), $statuses)
+            )
+            ->when($this->getCreatedAt(), fn (Builder $builder, Carbon $createdAt) => $builder
+                ->where($this->attributeCreatedAt(), '<', $createdAt)
+            );
     }
 
     protected function attributeTypes(): array
@@ -55,8 +60,13 @@ abstract class Base extends Command
         return Config::payment()->drivers->types();
     }
 
-    protected function getStatus(): mixed
+    protected function getStatuses(): ?array
     {
-        return Config::payment()->status->get(Status::NEW);
+        return null;
+    }
+
+    protected function getCreatedAt(): ?Carbon
+    {
+        return null;
     }
 }
