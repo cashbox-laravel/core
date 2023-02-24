@@ -23,7 +23,7 @@ use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Refunded;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
-use DragonCode\Contracts\Cashier\Http\Response;
+use CashierProvider\Core\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base

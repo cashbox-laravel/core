@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Models;
 
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Facades\DriverManager;
-use DragonCode\Contracts\Cashier\Resources\Details as DetailsCast;
+use CashierProvider\Core\Resources\Details;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -53,12 +53,12 @@ class CashierDetail extends Model
         return $this->morphTo('item');
     }
 
-    protected function setDetailsAttribute(?DetailsCast $details = null): void
+    protected function setDetailsAttribute(?Details $details = null): void
     {
         $this->attributes['details'] = $details?->toJson();
     }
 
-    protected function getDetailsAttribute(): ?DetailsCast
+    protected function getDetailsAttribute(): ?Details
     {
         return DriverManager::fromModel($this->parent)->details(
             json_decode($this->attributes['details'])

@@ -23,7 +23,7 @@ use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Facades\Config;
-use DragonCode\Contracts\Cashier\Http\Response;
+use CashierProvider\Core\Http\Response;
 use Illuminate\Support\Carbon;
 
 class Check extends Base

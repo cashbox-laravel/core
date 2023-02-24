@@ -21,11 +21,10 @@ namespace CashierProvider\Core\Exceptions;
 
 use CashierProvider\Core\Concerns\FailedEvent;
 use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
-use DragonCode\Contracts\Exceptions\Manager as Contract;
-use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Http\Builder;
 
-abstract class Manager implements Contract
+abstract class Manager
 {
     use FailedEvent;
 

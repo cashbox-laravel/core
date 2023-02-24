@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Runtime;
 
 use CashierProvider\Core\Concerns\Exceptionable;
-use DragonCode\Contracts\Exceptions\RuntimeException;
+use RuntimeException;
 
-abstract class BaseException extends \RuntimeException implements RuntimeException
+abstract class BaseException extends RuntimeException
 {
     use Exceptionable;
 

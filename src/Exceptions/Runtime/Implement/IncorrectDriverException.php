@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Exceptions\Runtime\Implement;
 
-use DragonCode\Contracts\Cashier\Driver;
+use CashierProvider\Core\Services\Driver;
 
 class IncorrectDriverException extends BaseImplementException
 {

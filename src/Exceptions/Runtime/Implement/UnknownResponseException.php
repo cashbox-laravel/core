@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Exceptions\Runtime\Implement;
 
-use DragonCode\Contracts\Cashier\Http\Response;
+use CashierProvider\Core\Http\Response;
 
 class UnknownResponseException extends BaseImplementException
 {
-    protected $needle = Response::class;
+    protected string|int|float $needle = Response::class;
 }

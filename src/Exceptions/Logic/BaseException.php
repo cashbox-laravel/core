@@ -20,10 +20,9 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Logic;
 
 use CashierProvider\Core\Concerns\Exceptionable;
-use DragonCode\Contracts\Exceptions\LogicException;
 use Exception;
 
-abstract class BaseException extends Exception implements LogicException
+abstract class BaseException extends Exception
 {
     use Exceptionable;
 

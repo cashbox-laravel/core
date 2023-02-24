@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Events\Processes\Started;
-use DragonCode\Contracts\Cashier\Http\Response;
+use CashierProvider\Core\Http\Response;
 
 class Start extends Base
 {

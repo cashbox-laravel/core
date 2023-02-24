@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Http;
 
-use DragonCode\Contracts\Cashier\Http\Response as ResponseContract;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Support\Arr;
@@ -27,7 +26,7 @@ use Illuminate\Support\Arr;
 /**
  * @method static Response make(array $items = [], bool $mapping = true)
  */
-abstract class Response implements ResponseContract
+abstract class Response
 {
     use Makeable;
 

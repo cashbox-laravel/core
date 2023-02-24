@@ -25,11 +25,10 @@ use CashierProvider\Core\Data\Config\QueueName;
 use CashierProvider\Core\Exceptions\Manager;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Helpers\Http;
+use CashierProvider\Core\Http\Request;
+use CashierProvider\Core\Http\Response;
+use CashierProvider\Core\Resources\Details;
 use CashierProvider\Core\Resources\Model as ResourceModel;
-use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
-use DragonCode\Contracts\Cashier\Http\Response;
-use DragonCode\Contracts\Cashier\Resources\Details;
-use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Concerns\Resolvable;
 use Illuminate\Database\Eloquent\Model;
@@ -42,7 +41,7 @@ abstract class Driver
 
     protected ResourceModel $model;
 
-    protected ExceptionManager $exceptions;
+    protected Manager $exceptions;
 
     protected Statuses|string $statuses;
 
@@ -82,7 +81,7 @@ abstract class Driver
         return $this->config?->queue ?? Config::queue()->names;
     }
 
-    protected function request(RequestResource $request, \CashierProvider\Core\Http\Response|string $response): Response
+    protected function request(Request $request, \CashierProvider\Core\Http\Response|string $response): Response
     {
         $manager = $this->resolveExceptionManager();
 

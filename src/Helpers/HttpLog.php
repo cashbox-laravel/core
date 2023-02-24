@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Resources\Model as ResourceModel;
-use DragonCode\Contracts\Http\Builder;
+use DragonCode\Support\Http\Builder;
 
 class HttpLog
 {

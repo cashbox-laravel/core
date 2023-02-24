@@ -23,9 +23,8 @@ use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Resources\Model;
 use CashierProvider\Core\Support\URI;
-use DragonCode\Contracts\Cashier\Auth\Auth;
-use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Http\Builder;
 use Fig\Http\Message\RequestMethodInterface;
 
 /**
@@ -50,7 +49,6 @@ abstract class Request
     /** @var string|null */
     protected ?string $path;
 
-    /** @var \DragonCode\Contracts\Cashier\Auth\Auth|null */
     protected ?Auth $auth;
 
     /** @var array */
@@ -82,7 +80,7 @@ abstract class Request
         return $this->method;
     }
 
-    public function uri(): HttpBuilderContract
+    public function uri(): Builder
     {
         return $this->getUriBuilder()->getWithPath($this->getPath());
     }
@@ -130,11 +128,6 @@ abstract class Request
         return $this->path;
     }
 
-    /**
-     * @param \CashierProvider\Core\Resources\Model $model
-     *
-     * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
-     */
     protected function resolveAuth(Model $model): ?Auth
     {
         if (empty($this->auth)) {

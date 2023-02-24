@@ -20,11 +20,10 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Http;
 
 use CashierProvider\Core\Concerns\Exceptionable;
-use DragonCode\Contracts\Exceptions\Http\ClientException;
-use DragonCode\Contracts\Http\Builder;
+use DragonCode\Support\Http\Builder;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-abstract class BaseException extends HttpException implements ClientException
+abstract class BaseException extends HttpException
 {
     use Exceptionable;
 

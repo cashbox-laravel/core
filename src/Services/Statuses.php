@@ -22,14 +22,13 @@ namespace CashierProvider\Core\Services;
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config;
-use DragonCode\Contracts\Cashier\Helpers\Statuses as Contract;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Database\Eloquent\Model;
 
 /** @method static Statuses make(Model $model) */
-abstract class Statuses implements Contract
+abstract class Statuses
 {
     use Attributes;
     use Makeable;

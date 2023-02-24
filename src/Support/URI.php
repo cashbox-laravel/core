@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Support;
 
-use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Http\Builder as HttpBuilder;
+use DragonCode\Support\Http\Builder;
 
 class URI
 {
