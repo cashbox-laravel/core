@@ -19,12 +19,14 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Migrations;
 
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Concerns\Attributes;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
 
 abstract class PublicMigration extends Migration
 {
+    use Attributes;
     use InitModelHelper;
 
     /**
@@ -38,23 +40,8 @@ abstract class PublicMigration extends Migration
         );
     }
 
-    protected function attributeType(): string
-    {
-        return Payment::getAttributes()->type;
-    }
-
-    protected function attributeStatus(): string
-    {
-        return Payment::getAttributes()->status;
-    }
-
-    protected function attributeCreatedAt(): string
-    {
-        return Payment::getAttributes()->createdAt;
-    }
-
     protected function getModel(): string
     {
-        return Payment::getModel();
+        return Config::payment()->model;
     }
 }

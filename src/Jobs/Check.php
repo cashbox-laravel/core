@@ -22,7 +22,7 @@ namespace CashierProvider\Core\Jobs;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
-use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\Contracts\Cashier\Http\Response;
 use Illuminate\Support\Carbon;
 
@@ -80,9 +80,9 @@ class Check extends Base
 
     public function retryUntil(): ?Carbon
     {
-        $timeout = Main::getCheckTimeout();
-
-        return Carbon::now()->addSeconds($timeout);
+        return Carbon::now()->addSeconds(
+            Config::check()->timeout
+        );
     }
 
     protected function update(Response $response, string $status): void
@@ -93,8 +93,6 @@ class Check extends Base
 
     protected function checkExternalId(): void
     {
-        $this->resolveCashier($this->model);
-
         if (empty($this->model->cashier->external_id)) {
             $this->fail(
                 new UnknownExternalIdException($this->model->getKey())

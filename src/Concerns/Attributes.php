@@ -19,22 +19,22 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 
 trait Attributes
 {
-    public function attributeType(): string
+    protected function attributeType(): string
     {
-        return Payment::getAttributes()->type;
+        return Config::payment()->attribute->type;
     }
 
-    public function attributeStatus(): string
+    protected function attributeStatus(): string
     {
-        return Payment::getAttributes()->status;
+        return Config::payment()->attribute->status;
     }
 
-    public function attributeCreatedAt(): string
+    protected function attributeCreatedAt(): string
     {
-        return Payment::getAttributes()->createdAt;
+        return Config::payment()->attribute->createdAt;
     }
 }

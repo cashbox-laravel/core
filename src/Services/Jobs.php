@@ -19,14 +19,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Facades\Config\Main;
-use CashierProvider\Core\Facades\Helpers\Access;
-use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Facades\Access;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
-use DragonCode\Contracts\Cashier\Driver as DriverContract;
-use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,14 +43,14 @@ class Jobs
         $this->model = $model;
     }
 
-    public function start()
+    public function start(): void
     {
         if ($this->hasStart($this->model)) {
             $this->retry();
         }
     }
 
-    public function retry()
+    public function retry(): void
     {
         $this->send(Start::class);
 
@@ -63,7 +61,7 @@ class Jobs
         }
     }
 
-    public function check(bool $force = false, ?int $delay = null)
+    public function check(bool $force = false, ?int $delay = null): void
     {
         if ($force || $this->hasCheck($this->model)) {
             $this->send(Check::class, $force, $delay);
@@ -116,25 +114,25 @@ class Jobs
 
     protected function hasRequested(Model $model): bool
     {
-        return $model->cashier()->exists();
+        return ! empty($model->cashier) || $model->cashier()->exists();
     }
 
     protected function hasAutoRefund(): bool
     {
-        return Main::getAutoRefundEnabled();
+        return Config::refund()->enabled;
     }
 
     protected function autoRefundDelay(): int
     {
-        return Main::getAutoRefundDelay();
+        return Config::refund()->delay;
     }
 
     protected function onConnection(): ?string
     {
-        return Main::getQueue()->connection;
+        return Config::queue()->connection;
     }
 
-    protected function driver(Model $model): DriverContract
+    protected function driver(Model $model): Driver
     {
         return DriverManager::fromModel($model);
     }

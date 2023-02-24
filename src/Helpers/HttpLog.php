@@ -19,19 +19,20 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Core\Facades\Config\Logs;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Resources\Model as ResourceModel;
 use DragonCode\Contracts\Http\Builder;
 
 class HttpLog
 {
-    public function info(\CashierProvider\Core\Resources\Model $model, string $method, Builder $url, array $request, array $response, int $status_code, ?array $extra = []): void
+    public function info(ResourceModel $model, string $method, Builder $url, array $request, array $response, int $status_code, ?array $extra = []): void
     {
         if ($this->enabled()) {
             $this->store($model, $method, $url->toUrl(), $request, $response, $status_code, $extra);
         }
     }
 
-    protected function store(\CashierProvider\Core\Resources\Model $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
+    protected function store(ResourceModel $model, string $method, string $url, array $request, array $response, int $status_code, ?array $extra = []): void
     {
         $model->getPaymentModel()->cashierLogs()->create([
             'external_id' => $model->getExternalId(),
@@ -48,6 +49,6 @@ class HttpLog
 
     protected function enabled(): bool
     {
-        return Logs::isEnabled();
+        return Config::logs()->enabled;
     }
 }

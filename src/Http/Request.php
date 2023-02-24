@@ -20,23 +20,23 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Http;
 
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Facades\Config\Main;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Resources\Model;
 use CashierProvider\Core\Support\URI;
 use DragonCode\Contracts\Cashier\Auth\Auth;
-use DragonCode\Contracts\Cashier\Http\Request as Contract;
 use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
 use DragonCode\Support\Concerns\Makeable;
 use Fig\Http\Message\RequestMethodInterface;
 
 /**
- * @method static Contract make(\CashierProvider\Core\Resources\Model $model)
+ * @method static Request make(Model $model)
  */
-abstract class Request implements Contract
+abstract class Request
 {
     use Makeable;
     use Validators;
 
-    protected \CashierProvider\Core\Resources\Model $model;
+    protected Model $model;
 
     /** @var string HTTP Request method */
     protected string $method = RequestMethodInterface::METHOD_POST;
@@ -62,13 +62,17 @@ abstract class Request implements Contract
     /** @var bool */
     protected bool $reload_relations = false;
 
-    public function __construct(\CashierProvider\Core\Resources\Model $model)
+    public function __construct(Model $model)
     {
         $this->model = $this->reloadRelations($model);
         $this->auth  = $this->resolveAuth($model);
     }
 
-    public function model(): \CashierProvider\Core\Resources\Model
+    abstract public function getRawBody(): array;
+
+    abstract public function getRawHeaders(): array;
+
+    public function model(): Model
     {
         return $this->model;
     }
@@ -107,7 +111,7 @@ abstract class Request implements Contract
         $this->auth->refresh();
     }
 
-    protected function reloadRelations(\CashierProvider\Core\Resources\Model $model): \CashierProvider\Core\Resources\Model
+    protected function reloadRelations(Model $model): Model
     {
         if ($this->reload_relations) {
             $model->getPaymentModel()->refresh();
@@ -118,7 +122,7 @@ abstract class Request implements Contract
 
     protected function getUriBuilder(): URI
     {
-        return URI::make($this->production_host, $this->dev_host, Main::isProduction());
+        return URI::make($this->production_host, $this->dev_host, Config::isProduction());
     }
 
     protected function getPath(): ?string
@@ -131,7 +135,7 @@ abstract class Request implements Contract
      *
      * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
      */
-    protected function resolveAuth(\CashierProvider\Core\Resources\Model $model): ?Auth
+    protected function resolveAuth(Model $model): ?Auth
     {
         if (empty($this->auth)) {
             return null;

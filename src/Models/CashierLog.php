@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
-use CashierProvider\Core\Facades\Config\Logs;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -56,9 +56,8 @@ class CashierLog extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setConnection(Logs::getConnection());
-
-        $this->setTable(Logs::getTable());
+        $this->setConnection(Config::logs()->connection);
+        $this->setTable(Config::logs()->table);
 
         parent::__construct($attributes);
     }

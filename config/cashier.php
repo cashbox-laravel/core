@@ -66,7 +66,7 @@ return [
         |
         */
 
-        'attributes' => [
+        'attribute' => [
             Attributes::TYPE => 'type_id',
 
             Attributes::STATUS => 'status_id',
@@ -83,7 +83,7 @@ return [
         |
         */
 
-        'statuses' => [
+        'status' => [
             Status::NEW => 0,
 
             Status::SUCCESS => 1,
@@ -105,7 +105,7 @@ return [
         |
         */
 
-        'map' => [
+        'drivers' => [
             // 'payment_type_1' => 'foo',
             // 'payment_type_2' => 'bar',
         ],
@@ -121,6 +121,8 @@ return [
     */
 
     'details' => [
+        'connection' => null,
+
         /*
         |--------------------------------------------------------------------------
         | Cashier Details table settings
@@ -260,21 +262,6 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Database Transactions
-        |--------------------------------------------------------------------------
-        |
-        | This configuration option determines if your data will only be synced
-        | with your search indexes after every open database transaction has
-        | been committed, thus preventing any discarded data from syncing.
-        |
-        | By default, true.
-        |
-        */
-
-        'after_commit' => true,
-
-        /*
-        |--------------------------------------------------------------------------
         | Max Attempts
         |--------------------------------------------------------------------------
         |
@@ -376,29 +363,26 @@ return [
     */
 
     'drivers' => [
-        // 'foo' => [
-        //     \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        //'foo' => [
+        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //     \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName::class,
-        //
-        //     \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
-        //
-        //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
-        // ],
+        //    'details' => \App\Payments\BankName::class,
+        //],
         //
         //'bar' => [
-        //    \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //    \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName,
+        //    'details' => \App\Payments\BankName::class,
         //
-        //    \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //    'credentials' => [
+        //        'client_id'     => env('CASHIER_BANK_CLIENT_ID'),
+        //        'client_secret' => env('CASHIER_BANK_CLIENT_SECRET'),
+        //    ],
         //
-        //    \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
-        //
-        //    \CashierProvider\Core\Constants\Driver::QUEUE => [
-        //        Queue::START  => env('CASHIER_QUEUE'),
-        //        Queue::CHECK  => env('CASHIER_QUEUE'),
-        //        Queue::REFUND => env('CASHIER_QUEUE'),
+        //    'queue' => [
+        //        'start'  => env('CASHIER_QUEUE'),
+        //        'check'  => env('CASHIER_QUEUE'),
+        //        'refund' => env('CASHIER_QUEUE'),
         //    ],
         //],
     ],

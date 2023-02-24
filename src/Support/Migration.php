@@ -19,8 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Support;
 
-use CashierProvider\Core\Facades\Config\Details;
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 
@@ -30,15 +29,15 @@ abstract class Migration extends BaseMigration
 
     protected function isNumericPrimaryKey(): bool
     {
-        $model = Payment::getModel();
-
-        $type = $this->model()->primaryKeyType($model);
+        $type = $this->model()->primaryKeyType(
+            Config::payment()->model
+        );
 
         return in_array($type, ['int', 'integer']);
     }
 
     protected function detailsTable(): string
     {
-        return Details::getTable();
+        return Config::details()->table;
     }
 }

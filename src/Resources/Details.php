@@ -19,13 +19,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Resources;
 
-use CashierProvider\Core\Concerns\Jsonable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Spatie\LaravelData\Data;
 
 abstract class Details extends Data
 {
-    use Jsonable;
-
     public ?string $status;
 
     public function toArray(): array
@@ -33,5 +31,10 @@ abstract class Details extends Data
         return [
             'status' => $this->status,
         ];
+    }
+
+    public function toJson($options = 0): string
+    {
+        return json_encode(Arr::filter($this->toArray()), $options);
     }
 }

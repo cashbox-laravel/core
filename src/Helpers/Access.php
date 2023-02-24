@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Concerns\Casheable;
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,16 +33,11 @@ class Access
             && $this->allowMethod($model);
     }
 
-    protected function types(): array
-    {
-        return Payment::getMap()->getTypes();
-    }
-
     protected function type(Model $model)
     {
-        $name = Payment::getAttributes()->type;
-
-        return $model->getAttribute($name);
+        return $model->getAttribute(
+            Config::payment()->attribute->type
+        );
     }
 
     protected function allowType(Model $model): bool
@@ -55,7 +50,7 @@ class Access
 
     protected function model(): string
     {
-        return Payment::getModel();
+        return Config::payment()->model;
     }
 
     protected function allowModel(Model $model): bool
@@ -66,5 +61,10 @@ class Access
     protected function allowMethod(Model $model): bool
     {
         return Instance::of($model, Casheable::class);
+    }
+
+    protected function types(): array
+    {
+        return Config::payment()->drivers->types();
     }
 }

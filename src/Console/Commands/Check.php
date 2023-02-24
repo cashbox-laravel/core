@@ -23,7 +23,9 @@ use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Symfony\Component\Console\Attribute\AsCommand;
 
+#[AsCommand('cashier:check')]
 class Check extends Base
 {
     protected $signature = 'cashier:check';
@@ -48,11 +50,9 @@ class Check extends Base
     protected function checkPayments(): void
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
-            $payments->each(function (Model $payment) {
-                $delay = $this->delay($payment);
-
-                $this->check($payment, $delay);
-            });
+            $payments->each(
+                fn (Model $payment) => $this->check($payment, $this->delay($payment))
+            );
         });
     }
 

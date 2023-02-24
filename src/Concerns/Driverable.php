@@ -19,19 +19,14 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Facades\Helpers\DriverManager;
-use DragonCode\Contracts\Cashier\Driver;
+use CashierProvider\Core\Facades\DriverManager;
+use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
 
 trait Driverable
 {
-    protected Driver $driver;
+    protected ?Driver $driver = null;
 
-    /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     *
-     * @return \DragonCode\Contracts\Cashier\Driver
-     */
     protected function driver(Model $payment): Driver
     {
         if (! empty($this->driver)) {

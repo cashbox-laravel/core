@@ -19,20 +19,21 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Facades\Helpers\HttpLog;
-use DragonCode\Contracts\Cashier\Http\Request;
+use CashierProvider\Core\Facades\HttpLog;
+use CashierProvider\Core\Http\Request;
+use CashierProvider\Core\Resources\Model;
 use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Facades\Instances\Call;
 use Throwable;
 
 trait Logs
 {
-    protected function logInfo(\CashierProvider\Core\Resources\Model $model, string $method, Builder $url, array $request, array $response, int $status_code): void
+    protected function logInfo(Model $model, string $method, Builder $url, array $request, array $response, int $status_code): void
     {
         HttpLog::info($model, $method, $url, $request, $response, $status_code, $model->getExtra());
     }
 
-    protected function logError(\CashierProvider\Core\Resources\Model $model, Request $request, Throwable $exception): void
+    protected function logError(Model $model, Request $request, Throwable $exception): void
     {
         $this->logInfo($model, $request->method(), $request->uri(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
@@ -41,6 +42,6 @@ trait Logs
 
     protected function getStatusCode(Throwable $e): int
     {
-        return (int) Call::runMethods($e, ['getStatusCode', 'getCode']) ?: 0;
+        return (int) Call::runMethods($e, ['getStatusCode', 'getCode']);
     }
 }

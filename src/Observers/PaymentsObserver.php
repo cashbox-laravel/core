@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Concerns\Events;
-use CashierProvider\Core\Facades\Helpers\Access;
+use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Services\Jobs;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
@@ -47,12 +47,11 @@ class PaymentsObserver extends BaseObserver
         }
     }
 
-    /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     */
     public function deleting(Model $payment)
     {
-        $payment->cashier()->delete();
+        $payment->relationLoaded('cashier')
+            ? $payment->cashier->delete()
+            : $payment->cashier()->delete();
     }
 
     protected function allow(Model $payment): bool

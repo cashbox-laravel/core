@@ -17,19 +17,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Facades\Config\Payments;
+namespace CashierProvider\Core\Data;
 
-use CashierProvider\Core\Config\Payments\Statuses as Config;
-use Illuminate\Support\Facades\Facade;
+use Spatie\LaravelData\Data;
 
-/**
- * @method static array getAll()
- * @method static string|int getStatus(string $status)
- */
-class Statuses extends Facade
+class Currency extends Data
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return Config::class;
-    }
+    public int $numeric;
+
+    public string $alphabetic;
 }

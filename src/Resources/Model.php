@@ -19,11 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Resources;
 
-use CashierProvider\Core\Concerns\Relations;
-use CashierProvider\Core\Facades\Helpers\Currency as CurrencyHelper;
-use CashierProvider\Core\Facades\Helpers\Date;
-use CashierProvider\Core\Facades\Helpers\Unique;
-use DragonCode\Contracts\Cashier\Config\Driver;
+use CashierProvider\Core\Data\Config\Driver;
+use CashierProvider\Core\Helpers\Currency;
+use CashierProvider\Core\Helpers\Date;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
@@ -31,106 +29,62 @@ use Illuminate\Support\Carbon;
 abstract class Model
 {
     use Makeable;
-    use Relations;
 
-    protected EloquentModel $model;
-
-    protected \CashierProvider\Core\Config\Driver $config;
-
-    public function __construct(EloquentModel $model, \CashierProvider\Core\Config\Driver $config)
-    {
-        $this->model  = $model;
-        $this->config = $config;
+    public function __construct(
+        protected EloquentModel $model,
+        protected Driver        $config,
+        protected Currency      $currency,
+        protected Date          $date
+    ) {
     }
 
     abstract protected function createdAt(): Carbon;
 
-    abstract protected function currency();
+    abstract protected function currency(): int|string;
 
-    abstract protected function paymentId();
+    abstract protected function paymentId(): string;
 
-    abstract protected function sum();
+    abstract protected function sum(): int;
 
-    /**
-     * @return \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
-     */
     public function getPaymentModel(): EloquentModel
     {
         return $this->model;
     }
 
-    public function getClientId(): string
+    public function clientId(): ?string
     {
-        return $this->clientId();
+        return $this->config->credentials?->clientId;
     }
 
-    public function getClientSecret(): string
+    public function clientSecret(): string
     {
-        return $this->clientSecret();
-    }
-
-    public function getUniqueId(bool $every = false): string
-    {
-        return Unique::id($every);
-    }
-
-    public function getPaymentId(): string
-    {
-        return (string) $this->paymentId();
-    }
-
-    public function getSum(): int
-    {
-        $sum = (float) $this->sum();
-
-        return (int) ($sum * 100);
+        return $this->config->credentials?->clientSecret;
     }
 
     public function getCurrency(): string
     {
-        $currency = CurrencyHelper::get($this->currency());
-
-        return (string) $currency->numeric;
+        return (string) $this->currency->get($this->currency());
     }
 
     public function getCreatedAt(): string
     {
-        $date = $this->createdAt();
-
-        return Date::toString($date);
+        return $this->date->toString(
+            $this->createdAt()
+        );
     }
 
     public function getExternalId(): ?string
     {
-        $this->resolveCashier($this->model);
-
-        return $this->model->cashier->external_id ?? null;
+        return $this->model->cashier?->external_id ?? null;
     }
 
     public function getOperationId(): ?string
     {
-        $this->resolveCashier($this->model);
-
-        return $this->model->cashier->operation_id ?? null;
-    }
-
-    public function getConfig(): Driver
-    {
-        return $this->config;
+        return $this->model->cashier?->operation_id ?? null;
     }
 
     public function getExtra(): ?array
     {
         return null;
-    }
-
-    protected function clientId(): string
-    {
-        return $this->config->client_id;
-    }
-
-    protected function clientSecret(): string
-    {
-        return $this->config->client_secret;
     }
 }

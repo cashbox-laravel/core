@@ -19,18 +19,15 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
-use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Constants\Status;
-use CashierProvider\Core\Facades\Config\Payment;
-use CashierProvider\Core\Facades\Helpers\DriverManager;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Models\CashierDetail;
+use CashierProvider\Core\Services\Driver;
 use CashierProvider\Core\Services\Jobs;
-use DragonCode\Contracts\Cashier\Driver as DriverContract;
 
 class DetailsObserver extends BaseObserver
 {
-    use Relations;
-
     public function saved(CashierDetail $model)
     {
         if ($model->isClean()) {
@@ -60,36 +57,25 @@ class DetailsObserver extends BaseObserver
             }
         }
 
-        $this->resolvePayment($model);
-
         Jobs::make($model->parent)->check();
     }
 
-    protected function driver(CashierDetail $model): DriverContract
+    protected function driver(CashierDetail $model): Driver
     {
-        $this->resolvePayment($model);
-
         return DriverManager::fromModel($model->parent);
     }
 
     protected function updateStatus(CashierDetail $model, string $status): void
     {
-        $this->resolvePayment($model);
-
         $value = $this->status($status);
 
-        $field = $this->statusField();
+        $field = $this->attributeStatus();
 
         $model->parent->update([$field => $value]);
     }
 
     protected function status(string $status)
     {
-        return Payment::getStatuses()->getStatus($status);
-    }
-
-    protected function statusField(): string
-    {
-        return Payment::getAttributes()->status;
+        return Config::payment()->status->get($status);
     }
 }

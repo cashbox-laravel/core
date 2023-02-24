@@ -23,7 +23,7 @@ use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Payments\FailedEvent;
 use CashierProvider\Core\Events\Payments\RefundEvent;
 use CashierProvider\Core\Events\Payments\SuccessEvent;
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,7 +65,7 @@ trait Events
     protected function getAvailableStatuses(): array
     {
         return array_flip(
-            Payment::getStatuses()->statuses
+            Config::payment()->status->toArray()
         );
     }
 }

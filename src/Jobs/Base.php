@@ -19,15 +19,13 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Concerns\Casheable;
+use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Driverable;
-use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
-use CashierProvider\Core\Facades\Config\Main;
-use CashierProvider\Core\Facades\Config\Payment;
-use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Facades\Model as ModelHelper;
+use CashierProvider\Core\Services\Driver;
 use Closure;
-use DragonCode\Contracts\Cashier\Driver;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Response;
 use DragonCode\Support\Concerns\Makeable;
@@ -42,40 +40,28 @@ use Throwable;
 
 abstract class Base implements ShouldQueue, ShouldBeUnique
 {
+    use Attributes;
     use Driverable;
     use InteractsWithQueue;
     use Makeable;
     use Queueable;
-    use Relations;
     use SerializesModels;
 
-    /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
     public int $tries;
-
-    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    public Casheable|Model $model;
-
-    public bool $force_break;
 
     protected string $event;
 
     protected bool $doneInsteadThrow = false;
 
-    public function __construct(Model $model, bool $force_break = false)
-    {
-        $this->model = $model;
+    public function __construct(
+        public Model $model,
+        public bool  $force_break = false
+    ) {
+        $this->afterCommit();
 
-        $this->force_break = $force_break;
+        $this->onQueue($this->queueName());
 
-        $this->afterCommit = Main::getQueue()->after_commit;
-
-        $this->tries = Main::getQueue()->getTries();
-
-        $this->queue = $this->queueName();
+        $this->tries = Config::queue()->tries;
     }
 
     abstract public function handle();
@@ -84,9 +70,9 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     abstract protected function queueName(): ?string;
 
-    public function uniqueId()
+    public function uniqueId(): string
     {
-        return $this->model->getKey();
+        return $this->modelId();
     }
 
     public function retryUntil(): ?Carbon
@@ -102,17 +88,13 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     protected function store(Response $response, bool $save_details = true): void
     {
         if ($response->isEmpty()) {
-            $this->fail(
-                new EmptyResponseException('')
-            );
+            $this->fail(new EmptyResponseException(''));
         }
 
         $external_id  = $response->getExternalId();
         $operation_id = $response->getOperationId();
 
         $content = $response->toArray();
-
-        $this->resolveCashier($this->model);
 
         if ($save_details && ! empty($this->model->cashier)) {
             $saved = $this->model->cashier->details->toArray();
@@ -139,9 +121,9 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function returnToQueue(): void
     {
-        $delay = Main::getCheckDelay();
-
-        $this->release($delay);
+        $this->release(
+            Config::check()->delay
+        );
     }
 
     protected function updateParentStatus(string $status): void
@@ -156,14 +138,9 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         }
     }
 
-    protected function attributeStatus(): string
-    {
-        return Payment::getAttributes()->status;
-    }
-
     protected function status(string $status)
     {
-        return Payment::getStatuses()->getStatus($status);
+        return Config::payment()->status->get($status);
     }
 
     protected function hasSuccess(string $status): bool
@@ -188,8 +165,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function resolveDriver(): Driver
     {
-        $this->resolveCashier($this->model);
-
         return $this->driver($this->model);
     }
 
@@ -218,6 +193,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function maxTries(): int
     {
-        return $this->job->maxTries() ?: config('cashier.queue.tries', 100);
+        return $this->job->maxTries() ?? Config::queue()->tries;
     }
 }

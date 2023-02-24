@@ -19,10 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
-use CashierProvider\Core\Concerns\Relations;
-use CashierProvider\Core\Facades\Config\Details;
-use CashierProvider\Core\Facades\Helpers\DriverManager;
-use CashierProvider\Core\Facades\Helpers\JSON;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Facades\DriverManager;
 use DragonCode\Contracts\Cashier\Resources\Details as DetailsCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -38,15 +36,14 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class CashierDetail extends Model
 {
-    use Relations;
-
     protected $fillable = ['item_type', 'item_id', 'external_id', 'operation_id', 'details'];
 
     protected $touches = ['parent'];
 
     public function __construct(array $attributes = [])
     {
-        $this->setTable(Details::getTable());
+        $this->setConnection(Config::details()->connection);
+        $this->setTable(Config::details()->table);
 
         parent::__construct($attributes);
     }
@@ -63,10 +60,8 @@ class CashierDetail extends Model
 
     protected function getDetailsAttribute(): ?DetailsCast
     {
-        $this->resolvePayment($this);
-
-        $decoded = JSON::decode($this->attributes['details']);
-
-        return DriverManager::fromModel($this->parent)->details($decoded);
+        return DriverManager::fromModel($this->parent)->details(
+            json_decode($this->attributes['details'])
+        );
     }
 }

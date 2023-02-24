@@ -57,12 +57,12 @@
         "psr/http-message": "^1.0",
         "ramsey/uuid": "^4.7",
         "spatie/laravel-data": "^3.1",
-        "symfony/http-kernel": "^6.0"
+        "symfony/http-kernel": "^6.2"
     },
     "require-dev": {
         "orchestra/testbench": "^7.0 || ^8.0",
         "phpunit/phpunit": "^10.0",
-        "symfony/var-dumper": "^6.0"
+        "symfony/var-dumper": "^6.2"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,

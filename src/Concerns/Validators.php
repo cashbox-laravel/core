@@ -23,9 +23,9 @@ use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectDriverException;
 use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectPaymentModelException;
 use CashierProvider\Core\Exceptions\Runtime\Implement\UnknownResponseException;
 use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
-use CashierProvider\Core\Facades\Config\Payment;
-use DragonCode\Contracts\Cashier\Driver as Contract;
-use DragonCode\Contracts\Cashier\Http\Response;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Http\Response;
+use CashierProvider\Core\Services\Driver;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,14 +33,12 @@ trait Validators
 {
     protected function validateModel($model): Model
     {
-        $needle = Payment::getModel();
-
-        return $this->validate($model, $needle, IncorrectPaymentModelException::class);
+        return $this->validate($model, Config::payment()->model, IncorrectPaymentModelException::class);
     }
 
     protected function validateDriver(string $driver): string
     {
-        return $this->validate($driver, Contract::class, IncorrectDriverException::class);
+        return $this->validate($driver, Driver::class, IncorrectDriverException::class);
     }
 
     protected function validateResponse(?string $response): ?string
@@ -53,7 +51,7 @@ trait Validators
         throw new UnknownMethodException($haystack, $method);
     }
 
-    protected function validate($haystack, string $needle, string $exception)
+    protected function validate($haystack, string $needle, string $exception): mixed
     {
         if (! Instance::of($haystack, $needle)) {
             throw new $exception($haystack);

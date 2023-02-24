@@ -19,26 +19,26 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
+use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Constants\Status;
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class Base extends Command
 {
+    use Attributes;
     use Driverable;
 
     protected int $count = 1000;
 
     abstract public function handle();
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|string
-     */
-    protected function model(): string
+    protected function model(): Model|string
     {
-        return Payment::getModel();
+        return Config::payment()->model;
     }
 
     protected function payments(): Builder
@@ -50,28 +50,13 @@ abstract class Base extends Command
             ->where($this->attributeStatus(), $this->getStatus());
     }
 
-    protected function attributeType(): string
-    {
-        return Payment::getAttributes()->type;
-    }
-
     protected function attributeTypes(): array
     {
-        return Payment::getMap()->getTypes();
+        return Config::payment()->drivers->types();
     }
 
-    protected function attributeStatus(): string
+    protected function getStatus(): mixed
     {
-        return Payment::getAttributes()->status;
-    }
-
-    protected function attributeCreatedAt(): string
-    {
-        return Payment::getAttributes()->createdAt;
-    }
-
-    protected function getStatus()
-    {
-        return Payment::getStatuses()->getStatus(Status::NEW);
+        return Config::payment()->status->get(Status::NEW);
     }
 }

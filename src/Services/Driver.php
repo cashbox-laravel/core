@@ -19,57 +19,53 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Casheable;
-use CashierProvider\Core\Concerns\Resolvable;
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Config\Queues\Names;
-use CashierProvider\Core\Facades\Helpers\Http;
-use DragonCode\Contracts\Cashier\Config\Driver as DriverConfig;
-use DragonCode\Contracts\Cashier\Driver as Contract;
-use DragonCode\Contracts\Cashier\Helpers\Statuses;
+use CashierProvider\Core\Data\Config\Driver as DriverConfig;
+use CashierProvider\Core\Data\Config\QueueName;
+use CashierProvider\Core\Exceptions\Manager;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Helpers\Http;
+use CashierProvider\Core\Resources\Model as ResourceModel;
 use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
 use DragonCode\Contracts\Cashier\Http\Response;
 use DragonCode\Contracts\Cashier\Resources\Details;
 use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Resolvable;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Driver implements Contract
+abstract class Driver
 {
     use Makeable;
     use Resolvable;
     use Validators;
 
-    protected \CashierProvider\Core\Config\Driver $config;
+    protected ResourceModel $model;
 
-    /** @var \CashierProvider\Core\Concerns\Casheable|Model */
-    protected Casheable|Model $payment;
-
-    /** @var \CashierProvider\Core\Resources\Model */
-    protected \CashierProvider\Core\Resources\Model $model;
-
-    /** @var ExceptionManager */
     protected ExceptionManager $exceptions;
 
-    /** @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string */
     protected Statuses|string $statuses;
 
-    /** @var \DragonCode\Contracts\Cashier\Resources\Details */
     protected Details $details;
 
-    public function __construct(DriverConfig $config, Model $payment)
-    {
-        $this->config = $config;
-
+    public function __construct(
+        protected DriverConfig $config,
+        protected Model        $payment,
+        protected Http         $client
+    ) {
         $this->payment = $this->validateModel($payment);
-
-        $this->model = $this->resolveModel($payment);
+        $this->model   = $this->resolveModel($payment);
     }
+
+    abstract public function check(): Response;
+
+    abstract public function refund(): Response;
+
+    abstract public function start(): Response;
 
     public function statuses(): Statuses
     {
-        return $this->resolveDynamicCallback($this->statuses, function (string $statuses) {
-            // @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string $statuses
+        return $this->resolveCallback($this->statuses, function (string $statuses) {
             return $statuses::make($this->payment);
         });
     }
@@ -81,34 +77,26 @@ abstract class Driver implements Contract
         return $cast::make($details);
     }
 
-    public function queue(): Names
+    public function queue(): QueueName
     {
-        return $this->config->getQueue();
+        return $this->config?->queue ?? Config::queue()->names;
     }
 
-    /**
-     * @param \DragonCode\Contracts\Cashier\Http\Request $request
-     * @param \DragonCode\Contracts\Cashier\Http\Response|string $response
-     *
-     * @return \DragonCode\Contracts\Cashier\Http\Response
-     */
-    protected function request(RequestResource $request, string $response): Response
+    protected function request(RequestResource $request, \CashierProvider\Core\Http\Response|string $response): Response
     {
         $manager = $this->resolveExceptionManager();
 
-        $content = Http::request($request, $manager);
-
-        return $response::make($content);
+        return $response::make($this->client->request($request, $manager));
     }
 
-    protected function resolveModel(Model $payment): \CashierProvider\Core\Resources\Model
+    protected function resolveModel(Model $payment): ResourceModel
     {
         $resource = $this->config->details;
 
         return $resource::make($payment, $this->config);
     }
 
-    protected function resolveExceptionManager(): ExceptionManager
+    protected function resolveExceptionManager(): Manager
     {
         return self::resolveInstance($this->exceptions);
     }

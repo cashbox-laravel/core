@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Relations;
+use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Constants\Status;
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use DragonCode\Contracts\Cashier\Helpers\Statuses as Contract;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Model;
 /** @method static Statuses make(Model $model) */
 abstract class Statuses implements Contract
 {
+    use Attributes;
     use Makeable;
-    use Relations;
 
     public const FAILED = [];
 
@@ -44,8 +44,7 @@ abstract class Statuses implements Contract
 
     public const SUCCESS = [];
 
-    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    protected \CashierProvider\Core\Concerns\Casheable|Model $model;
+    protected Model $model;
 
     public function __construct(Model $model)
     {
@@ -121,7 +120,7 @@ abstract class Statuses implements Contract
     protected function hasModel(array $statuses, $status = null): bool
     {
         $statuses = Arr::map($statuses, static function (string $status) {
-            return Payment::getStatuses()->getStatus($status);
+            return Config::payment()->status->get($status);
         });
 
         $status = ! is_null($status) ? $status : $this->modelStatus();
@@ -136,8 +135,6 @@ abstract class Statuses implements Contract
 
     protected function cashierStatus(): ?string
     {
-        $this->resolveCashier($this->model);
-
         if ($this->model->cashier && $this->model->cashier->details) {
             return $this->model->cashier->details->status;
         }
@@ -147,9 +144,9 @@ abstract class Statuses implements Contract
 
     protected function modelStatus()
     {
-        $field = Payment::getAttributes()->status;
-
-        return $this->model->getAttribute($field);
+        return $this->model->getAttribute(
+            $this->attributeStatus()
+        );
     }
 
     /**
@@ -157,7 +154,7 @@ abstract class Statuses implements Contract
      *
      * @return array|string
      */
-    protected function resolveStatus($status)
+    protected function resolveStatus(array|string $status): array|string
     {
         if (is_array($status)) {
             return array_map(function ($value) {

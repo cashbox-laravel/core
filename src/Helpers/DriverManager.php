@@ -19,23 +19,19 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
+use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Facades\Config\Main;
-use CashierProvider\Core\Facades\Config\Payment;
-use DragonCode\Contracts\Cashier\Config\Driver;
-use DragonCode\Contracts\Cashier\Driver as Contract;
+use CashierProvider\Core\Data\Config\Driver as DriverData;
+use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
 
 class DriverManager
 {
+    use Attributes;
     use Validators;
 
-    /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $model
-     *
-     * @return \DragonCode\Contracts\Cashier\Driver
-     */
-    public function fromModel(Model $model): Contract
+    public function fromModel(Model $model): Driver
     {
         $this->validateModel($model);
 
@@ -50,32 +46,26 @@ class DriverManager
 
     protected function type(Model $model)
     {
-        $type = $this->getTypeAttribute();
-
-        return $model->getAttribute($type);
+        return $model->getAttribute(
+            $this->attributeType()
+        );
     }
 
-    protected function getTypeAttribute(): string
+    protected function getDriverName($type): string|int
     {
-        return Payment::getAttributes()->type;
+        return Config::payment()->drivers->get($type);
     }
 
-    protected function getDriverName($type): string
+    protected function getDriver(string|int $name): DriverData
     {
-        return Payment::getMap()->get($type);
+        return Config::getDriver($name);
     }
 
-    protected function getDriver(string $name): Driver
-    {
-        return Main::getDriver($name);
-    }
-
-    protected function resolve(\CashierProvider\Core\Config\Driver $config, Model $payment): Contract
+    protected function resolve(DriverData $config, Model $payment): Driver
     {
         $driver = $config->driver;
 
         $this->validateDriver($driver);
-        $this->validateModel($payment);
 
         return $driver::make($config, $payment);
     }

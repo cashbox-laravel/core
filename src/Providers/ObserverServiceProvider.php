@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Core\Facades\Config\Payment;
+use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Observers\DetailsObserver;
 use CashierProvider\Core\Observers\PaymentsObserver;
@@ -48,6 +48,6 @@ class ObserverServiceProvider extends BaseServiceProvider
 
     protected function model(): Model|string
     {
-        return Payment::getModel();
+        return Config::payment()->model;
     }
 }

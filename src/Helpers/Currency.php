@@ -20,11 +20,11 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Constants\Currency as CurrencyConstants;
+use CashierProvider\Core\Data\Currency as CurrencyData;
 use CashierProvider\Core\Exceptions\Runtime\UnknownCurrencyCodeException;
-use CashierProvider\Core\Resources\Currency as Resource;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Facades\Instances\Reflection;
+use Illuminate\Support\Str;
 
 class Currency
 {
@@ -33,17 +33,13 @@ class Currency
      *
      * @param int|string $currency
      *
-     * @return \CashierProvider\Core\Resources\Currency
+     * @return CurrencyData
      */
-    public function get($currency): Resource
+    public function get(string|int $currency): CurrencyData
     {
-        if (is_string($currency)) {
-            $value = $this->prepare($currency);
-
-            return $this->findByString($value);
-        }
-
-        return $this->findByNumeric($currency);
+        return is_string($currency)
+            ? $this->findByString($this->prepare($currency))
+            : $this->findByNumeric($currency);
     }
 
     /**
@@ -56,7 +52,7 @@ class Currency
         return Reflection::getConstants(CurrencyConstants::class);
     }
 
-    protected function findByString(string $value): Resource
+    protected function findByString(string $value): CurrencyData
     {
         $items = $this->all();
 
@@ -69,7 +65,7 @@ class Currency
         throw new UnknownCurrencyCodeException($value);
     }
 
-    protected function findByNumeric(int $code): Resource
+    protected function findByNumeric(int $code): CurrencyData
     {
         $items = $this->all();
 
@@ -85,8 +81,8 @@ class Currency
         return Str::upper($currency);
     }
 
-    protected function resource(int $numeric, string $alphabetic): Resource
+    protected function resource(int $numeric, string $alphabetic): CurrencyData
     {
-        return Resource::make(compact('numeric', 'alphabetic'));
+        return CurrencyData::from(compact('numeric', 'alphabetic'));
     }
 }

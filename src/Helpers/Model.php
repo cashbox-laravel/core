@@ -19,13 +19,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 class Model
 {
-    use Relations;
     use Validators;
 
     /**
@@ -60,8 +58,6 @@ class Model
     {
         $this->validateModel($payment);
 
-        $this->resolveCashier($payment);
-
         $payment->cashier->update($data);
     }
 
@@ -74,6 +70,6 @@ class Model
     {
         $this->validateModel($model);
 
-        return $model->cashier()->exists();
+        return ! empty($model->cashier) || $model->cashier()->exists();
     }
 }
