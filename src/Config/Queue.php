@@ -26,15 +26,15 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Queue extends DataTransferObject implements QueueContract
 {
-    protected $connection;
+    protected ?string $connection;
 
-    protected $names = [];
+    protected array $names = [];
 
-    protected $after_commit = true;
+    protected bool $after_commit = true;
 
-    protected $tries = 100;
+    protected int $tries = 100;
 
-    protected $unique = [];
+    protected array $unique = [];
 
     public function getConnection(): ?string
     {

@@ -40,11 +40,11 @@ class Http
     use FailedEvent;
     use Logs;
 
-    protected $client;
+    protected Client $client;
 
-    protected $tries = 10;
+    protected int $tries = 10;
 
-    protected $sleep = 300;
+    protected int $sleep = 300;
 
     public function __construct(Client $client)
     {

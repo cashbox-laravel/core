@@ -25,8 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Driverable
 {
-    /** @var \DragonCode\Contracts\Cashier\Driver */
-    protected $driver;
+    protected Driver $driver;
 
     /**
      * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment

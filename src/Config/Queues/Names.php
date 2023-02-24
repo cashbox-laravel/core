@@ -24,11 +24,11 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Names extends DataTransferObject implements Contract
 {
-    protected $start;
+    protected ?string $start = null;
 
-    protected $check;
+    protected ?string $check = null;
 
-    protected $refund;
+    protected ?string $refund = null;
 
     public function getStart(): ?string
     {

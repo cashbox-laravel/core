@@ -53,22 +53,16 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
      *
      * @var int
      */
-    public $tries;
+    public int $tries;
 
     /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    public $model;
+    public \CashierProvider\Core\Concerns\Casheable|Model $model;
 
-    public $force_break;
+    public bool $force_break;
 
-    protected $event;
+    protected string $event;
 
-    protected $doneInsteadThrow = false;
-
-    abstract public function handle();
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
+    protected bool $doneInsteadThrow = false;
 
     public function __construct(Model $model, bool $force_break = false)
     {
@@ -82,6 +76,12 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $this->queue = $this->queueName();
     }
+
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
 
     public function uniqueId()
     {

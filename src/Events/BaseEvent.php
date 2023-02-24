@@ -35,7 +35,7 @@ class BaseEvent
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
-    public $payment;
+    public Model $payment;
 
     /**
      * Create a new event instance.

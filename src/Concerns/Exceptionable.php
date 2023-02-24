@@ -24,16 +24,16 @@ namespace CashierProvider\Core\Concerns;
  */
 trait Exceptionable
 {
-    protected $status_code;
+    protected int $status_code;
 
-    protected $reason;
+    protected string $reason;
 
     public function getStatus(): int
     {
         return $this->status_code ?: $this->getDefaultStatusCode();
     }
 
-    public function getReason(...$values): string
+    public function getReason(string|int|float ...$values): string
     {
         return sprintf($this->reason, ...$values);
     }

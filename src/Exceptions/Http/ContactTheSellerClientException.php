@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class ContactTheSellerClientException extends BaseException
 {
-    protected $status_code = 409;
+    protected int $status_code = 409;
 
-    protected $reason = 'Contact The Seller';
+    protected string $reason = 'Contact The Seller';
 }

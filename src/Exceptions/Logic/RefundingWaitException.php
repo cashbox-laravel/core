@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 class RefundingWaitException extends BaseException
 {
-    protected $status_code = 409;
+    protected int $status_code = 409;
 
-    protected $reason = 'The url could not be displayed because a refund is pending for payment #%s';
+    protected string $reason = 'The url could not be displayed because a refund is pending for payment #%s';
 }

@@ -21,5 +21,5 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 class EmptyResponseException extends BaseException
 {
-    protected $reason = 'The bank returned an empty response';
+    protected string $reason = 'The bank returned an empty response';
 }

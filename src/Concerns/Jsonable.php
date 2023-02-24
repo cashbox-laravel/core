@@ -27,8 +27,6 @@ trait Jsonable
 {
     public function toJson(int $options = 0): string
     {
-        $filtered = Arr::filter($this->toArray());
-
-        return JSON::encode($filtered);
+        return JSON::encode(Arr::filter($this->toArray()));
     }
 }

@@ -26,15 +26,15 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Driver extends DataTransferObject implements DriverContract
 {
-    protected $driver;
+    protected string $driver;
 
-    protected $details;
+    protected string $details;
 
-    protected $client_id;
+    protected ?string $client_id;
 
-    protected $client_secret;
+    protected ?string $client_secret;
 
-    protected $queue;
+    protected ?string $queue;
 
     public function getDriver(): string
     {

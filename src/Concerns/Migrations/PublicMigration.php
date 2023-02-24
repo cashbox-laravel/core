@@ -33,9 +33,9 @@ abstract class PublicMigration extends Migration
      */
     protected function table(): string
     {
-        $model = $this->getModel();
-
-        return $this->model()->table($model);
+        return $this->model()->table(
+            $this->getModel()
+        );
     }
 
     protected function attributeType(): string

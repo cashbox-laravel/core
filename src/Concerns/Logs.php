@@ -23,7 +23,7 @@ use CashierProvider\Core\Facades\Helpers\HttpLog;
 use DragonCode\Contracts\Cashier\Http\Request;
 use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
 use DragonCode\Contracts\Http\Builder;
-use DragonCode\Support\Facades\Helpers\Call;
+use DragonCode\Support\Facades\Instances\Call;
 use Throwable;
 
 trait Logs

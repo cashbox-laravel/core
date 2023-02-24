@@ -26,11 +26,7 @@ trait Relations
 {
     protected function resolvePayment(CashierDetail $detail): void
     {
-        if (empty($detail->parent)) {
-            $parent = $detail->parent()->first();
-
-            $detail->setRelation('parent', $parent);
-        }
+        $detail->loadMissing('parent');
     }
 
     /**
@@ -38,10 +34,6 @@ trait Relations
      */
     protected function resolveCashier(Model $payment): void
     {
-        if (empty($payment->cashier)) {
-            $cashier = $payment->cashier()->first();
-
-            $payment->setRelation('cashier', $cashier);
-        }
+        $payment->loadMissing('cashier');
     }
 }

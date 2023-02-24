@@ -24,11 +24,11 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Attributes extends DataTransferObject implements AttributesContract
 {
-    protected $type;
+    protected string $type;
 
-    protected $status;
+    protected string $status;
 
-    protected $created_at;
+    protected string $created_at;
 
     public function getType(): string
     {

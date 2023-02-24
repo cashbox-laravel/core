@@ -40,7 +40,7 @@ class Jobs
     use Unique;
 
     /** @var \Illuminate\Database\Eloquent\Model */
-    protected $model;
+    protected Model $model;
 
     public function __construct(Model $model)
     {

@@ -30,7 +30,7 @@ class Check extends Base
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
 
-    protected $delay = 3599;
+    protected int $delay = 3599;
 
     public function handle()
     {

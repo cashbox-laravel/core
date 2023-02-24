@@ -24,9 +24,9 @@ use CashierProvider\Core\Exceptions\Runtime\BaseException;
 /** @method BaseImplementException __construct(string $class) */
 abstract class BaseImplementException extends BaseException
 {
-    protected $reason = 'The %s class must implement %s';
+    protected string $reason = 'The %s class must implement %s';
 
-    protected $needle;
+    protected string|int|float $needle;
 
     public function getReason(...$values): string
     {

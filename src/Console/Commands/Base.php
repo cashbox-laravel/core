@@ -29,7 +29,7 @@ abstract class Base extends Command
 {
     use Driverable;
 
-    protected $count = 1000;
+    protected int $count = 1000;
 
     abstract public function handle();
 

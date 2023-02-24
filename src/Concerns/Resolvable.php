@@ -25,7 +25,7 @@ trait Resolvable
 {
     use BaseResolvable;
 
-    protected $resolved_dynamic = [];
+    protected array $resolved_dynamic = [];
 
     protected function resolveDynamicCallback(string $value, callable $callback)
     {

@@ -22,5 +22,5 @@ namespace CashierProvider\Core\Exceptions\Runtime;
 /** @method UnknownMethodException __construct(string $class, string $method) */
 class UnknownMethodException extends BaseException
 {
-    protected $reason = 'The %s class does not contain a "%s" method.';
+    protected string $reason = 'The %s class does not contain a "%s" method.';
 }

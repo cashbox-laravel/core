@@ -28,11 +28,9 @@ class JSON
      *
      * @return string
      */
-    public function encode($value): string
+    public function encode(mixed $value): string
     {
-        $data = Arr::toArray($value);
-
-        return json_encode($data);
+        return json_encode(Arr::toArray($value));
     }
 
     public function decode(?string $encoded): array

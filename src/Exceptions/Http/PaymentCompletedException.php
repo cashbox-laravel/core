@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class PaymentCompletedException extends BaseException
 {
-    protected $status_code = 400;
+    protected int $status_code = 400;
 
-    protected $reason = 'Payment has already passed';
+    protected string $reason = 'Payment has already passed';
 }

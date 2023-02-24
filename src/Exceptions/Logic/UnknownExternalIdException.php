@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 class UnknownExternalIdException extends BaseException
 {
-    protected $status_code = 404;
+    protected int $status_code = 404;
 
-    protected $reason = 'External ID cannot be empty for Payment ID: %s';
+    protected string $reason = 'External ID cannot be empty for Payment ID: %s';
 }

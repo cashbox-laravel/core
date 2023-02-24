@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class BankInternalErrorException extends BaseException
 {
-    protected $status_code = 400;
+    protected int $status_code = 400;
 
-    protected $reason = 'Internal error of the bank system';
+    protected string $reason = 'Internal error of the bank system';
 }

@@ -23,9 +23,9 @@ use Ramsey\Uuid\Uuid;
 
 class Unique
 {
-    protected $id;
+    protected mixed $id;
 
-    protected $uuid;
+    protected ?string $uuid;
 
     public function id(bool $unique = true): string
     {

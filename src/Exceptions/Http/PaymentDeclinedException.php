@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class PaymentDeclinedException extends BaseException
 {
-    protected $status_code = 406;
+    protected int $status_code = 406;
 
-    protected $reason = 'Payment declined by the bank';
+    protected string $reason = 'Payment declined by the bank';
 }

@@ -24,7 +24,7 @@ use DragonCode\Contracts\Cashier\Http\Response;
 
 class Start extends Base
 {
-    protected $event = Started::class;
+    protected string $event = Started::class;
 
     public function handle()
     {

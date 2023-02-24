@@ -22,5 +22,5 @@ namespace CashierProvider\Core\Exceptions\Runtime;
 /** @method UnknownPropertyException __construct(string $name) */
 class UnknownPropertyException extends BaseException
 {
-    protected $reason = 'Property "%s" not found';
+    protected string $reason = 'Property "%s" not found';
 }

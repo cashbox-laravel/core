@@ -29,15 +29,15 @@ abstract class Manager implements Contract
 {
     use FailedEvent;
 
-    protected $codes = [];
+    protected array $codes = [];
 
-    protected $default = BadRequestClientException::class;
+    protected string $default = BadRequestClientException::class;
 
-    protected $code_keys = ['StatusCode', 'Code'];
+    protected array $code_keys = ['StatusCode', 'Code'];
 
-    protected $reason_keys = ['Message', 'Data'];
+    protected array $reason_keys = ['Message', 'Data'];
 
-    protected $success_keys = ['Success'];
+    protected array $success_keys = ['Success'];
 
     public function validateResponse(Builder $uri, array $response, int $status_code): void
     {

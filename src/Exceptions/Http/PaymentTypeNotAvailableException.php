@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class PaymentTypeNotAvailableException extends BaseException
 {
-    protected $status_code = 423;
+    protected int $status_code = 423;
 
-    protected $reason = 'Payment type not available';
+    protected string $reason = 'Payment type not available';
 }

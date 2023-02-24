@@ -34,9 +34,9 @@ abstract class Model implements Contract
     use Makeable;
     use Relations;
 
-    protected $model;
+    protected EloquentModel $model;
 
-    protected $config;
+    protected Driver $config;
 
     abstract protected function paymentId();
 

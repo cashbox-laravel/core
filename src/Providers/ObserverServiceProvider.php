@@ -23,6 +23,7 @@ use CashierProvider\Core\Facades\Config\Payment;
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Observers\DetailsObserver;
 use CashierProvider\Core\Observers\PaymentsObserver;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider
@@ -45,10 +46,7 @@ class ObserverServiceProvider extends BaseServiceProvider
         CashierDetail::observe(DetailsObserver::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Model|string
-     */
-    protected function model(): string
+    protected function model(): Model|string
     {
         return Payment::getModel();
     }

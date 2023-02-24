@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class CardHasStolenException extends BaseException
 {
-    protected $status_code = 451;
+    protected int $status_code = 451;
 
-    protected $reason = 'The card has been stolen. Contact the bank that issued the card.';
+    protected string $reason = 'The card has been stolen. Contact the bank that issued the card.';
 }

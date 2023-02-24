@@ -41,22 +41,22 @@ abstract class Driver implements Contract
     use Validators;
 
     /** @var DriverConfig */
-    protected $config;
+    protected DriverConfig $config;
 
     /** @var \CashierProvider\Core\Concerns\Casheable|Model */
-    protected $payment;
+    protected \CashierProvider\Core\Concerns\Casheable|Model $payment;
 
     /** @var ModelResource */
-    protected $model;
+    protected ModelResource $model;
 
     /** @var ExceptionManager */
-    protected $exceptions;
+    protected ExceptionManager $exceptions;
 
     /** @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string */
-    protected $statuses;
+    protected Statuses|string $statuses;
 
     /** @var \DragonCode\Contracts\Cashier\Resources\Details */
-    protected $details;
+    protected Details $details;
 
     public function __construct(DriverConfig $config, Model $payment)
     {

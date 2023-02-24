@@ -23,5 +23,5 @@ use DragonCode\Contracts\Cashier\Driver;
 
 class IncorrectDriverException extends BaseImplementException
 {
-    protected $needle = Driver::class;
+    protected string|int|float $needle = Driver::class;
 }

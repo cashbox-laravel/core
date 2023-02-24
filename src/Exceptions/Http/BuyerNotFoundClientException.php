@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class BuyerNotFoundClientException extends BaseException
 {
-    protected $status_code = 404;
+    protected int $status_code = 404;
 
-    protected $reason = 'Buyer Not Found';
+    protected string $reason = 'Buyer Not Found';
 }

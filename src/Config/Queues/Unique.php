@@ -24,9 +24,9 @@ use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Unique extends DataTransferObject implements Contract
 {
-    protected $driver;
+    protected string $driver;
 
-    protected $seconds;
+    protected int $seconds;
 
     public function getDriver(): string
     {

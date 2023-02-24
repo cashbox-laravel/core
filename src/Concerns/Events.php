@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Events
 {
-    protected $events = [
+    protected array $events = [
         Status::SUCCESS => SuccessEvent::class,
         Status::REFUND  => RefundEvent::class,
         Status::FAILED  => FailedEvent::class,
@@ -39,9 +39,7 @@ trait Events
     {
         $status = $this->getStatusCode($payment);
 
-        if (array_key_exists($status, $this->events)) {
-            $event = Arr::get($this->events, $status);
-
+        if ($event = Arr::get($this->events, $status)) {
             event(new $event($payment));
         }
     }
@@ -66,8 +64,8 @@ trait Events
 
     protected function getAvailableStatuses(): array
     {
-        $statuses = Payment::getStatuses()->getAll();
-
-        return array_flip($statuses);
+        return array_flip(
+            Payment::getStatuses()->getAll()
+        );
     }
 }

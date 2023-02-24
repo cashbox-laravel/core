@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class InsufficientFundsCardException extends BaseException
 {
-    protected $status_code = 402;
+    protected int $status_code = 402;
 
-    protected $reason = 'Insufficient funds on the card.';
+    protected string $reason = 'Insufficient funds on the card.';
 }

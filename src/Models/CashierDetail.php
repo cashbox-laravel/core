@@ -58,7 +58,7 @@ class CashierDetail extends Model
 
     protected function setDetailsAttribute(?DetailsCast $details = null): void
     {
-        $this->attributes['details'] = $details ? $details->toJson() : null;
+        $this->attributes['details'] = $details?->toJson();
     }
 
     protected function getDetailsAttribute(): ?DetailsCast

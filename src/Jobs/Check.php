@@ -28,9 +28,9 @@ use Illuminate\Support\Carbon;
 
 class Check extends Base
 {
-    protected $event = Checked::class;
+    protected string $event = Checked::class;
 
-    protected $doneInsteadThrow = true;
+    protected bool $doneInsteadThrow = true;
 
     public function handle()
     {

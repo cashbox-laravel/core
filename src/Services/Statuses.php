@@ -45,7 +45,7 @@ abstract class Statuses implements Contract
     public const SUCCESS = [];
 
     /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    protected $model;
+    protected \CashierProvider\Core\Concerns\Casheable|Model $model;
 
     public function __construct(Model $model)
     {

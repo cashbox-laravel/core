@@ -38,31 +38,31 @@ abstract class Request implements Contract
     use Validators;
 
     /** @var \DragonCode\Contracts\Cashier\Resources\Model */
-    protected $model;
+    protected Model $model;
 
     /** @var string HTTP Request method */
-    protected $method = RequestMethodInterface::METHOD_POST;
+    protected string $method = RequestMethodInterface::METHOD_POST;
 
     /** @var string */
-    protected $production_host;
+    protected string $production_host;
 
     /** @var string */
-    protected $dev_host;
+    protected string $dev_host;
 
     /** @var string|null */
-    protected $path;
+    protected ?string $path;
 
     /** @var \DragonCode\Contracts\Cashier\Auth\Auth|null */
-    protected $auth;
+    protected ?Auth $auth;
 
     /** @var array */
-    protected $auth_extra = [];
+    protected array $auth_extra = [];
 
     /** @var bool */
-    protected $hash = true;
+    protected bool $hash = true;
 
     /** @var bool */
-    protected $reload_relations = false;
+    protected bool $reload_relations = false;
 
     public function __construct(Model $model)
     {

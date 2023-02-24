@@ -28,7 +28,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
-    protected $event = Refunded::class;
+    protected string $event = Refunded::class;
 
     public function handle()
     {

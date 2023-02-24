@@ -23,9 +23,9 @@ use Illuminate\Support\Carbon;
 
 class Date
 {
-    protected $format = 'Y-m-d\TH:i:s\Z';
+    protected string $format = 'Y-m-d\TH:i:s\Z';
 
-    protected $timezone = 'UTC';
+    protected string $timezone = 'UTC';
 
     public function toString(Carbon $date): string
     {

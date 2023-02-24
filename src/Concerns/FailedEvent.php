@@ -26,8 +26,6 @@ trait FailedEvent
 {
     protected function failedEvent(Throwable $e): void
     {
-        event(
-            new ExceptionEvent($e)
-        );
+        event(new ExceptionEvent($e));
     }
 }

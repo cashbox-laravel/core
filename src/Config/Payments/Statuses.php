@@ -25,7 +25,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 
 class Statuses extends DataTransferObject implements StatusesContract
 {
-    protected $statuses = [];
+    protected array $statuses = [];
 
     public function getAll(): array
     {

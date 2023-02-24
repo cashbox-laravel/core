@@ -25,7 +25,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 
 class Map extends DataTransferObject implements MapContract
 {
-    protected $drivers = [];
+    protected array $drivers = [];
 
     public function getAll(): array
     {

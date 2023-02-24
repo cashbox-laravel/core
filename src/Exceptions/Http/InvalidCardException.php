@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class InvalidCardException extends BaseException
 {
-    protected $status_code = 406;
+    protected int $status_code = 406;
 
-    protected $reason = 'The card is invalid. Contact the bank that issued the card.';
+    protected string $reason = 'The card is invalid. Contact the bank that issued the card.';
 }

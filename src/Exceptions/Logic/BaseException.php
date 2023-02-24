@@ -27,7 +27,7 @@ abstract class BaseException extends Exception implements LogicException
 {
     use Exceptionable;
 
-    public $default_status_code = 400;
+    public int $default_status_code = 400;
 
     /**
      * @param int|string $payment_id

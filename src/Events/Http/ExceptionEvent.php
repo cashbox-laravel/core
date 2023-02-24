@@ -33,7 +33,7 @@ class ExceptionEvent
      *
      * @var Throwable|null
      */
-    public $exception;
+    public ?Throwable $exception;
 
     /**
      * Create a new event instance.

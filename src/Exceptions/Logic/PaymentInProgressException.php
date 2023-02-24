@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 class PaymentInProgressException extends BaseException
 {
-    protected $status_code = 425;
+    protected int $status_code = 425;
 
-    protected $reason = 'Payment #%s is being processed.';
+    protected string $reason = 'Payment #%s is being processed.';
 }
