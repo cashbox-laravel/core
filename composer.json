@@ -43,7 +43,6 @@
         "ext-json": "*",
         "doctrine/dbal": "^3.6",
         "dragon-code/contracts": "^2.18",
-        "dragon-code/laravel-cache": "^3.3",
         "dragon-code/laravel-support": "^3.5",
         "dragon-code/support": "^6.11",
         "fig/http-message-util": "^1.1",

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
+use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
@@ -29,9 +30,9 @@ use Closure;
 use DragonCode\Contracts\Cashier\Driver;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Response;
-use DragonCode\Contracts\Queue\ShouldBeUnique;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
@@ -56,7 +57,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public int $tries;
 
     /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    public \CashierProvider\Core\Concerns\Casheable|Model $model;
+    public Casheable|Model $model;
 
     public bool $force_break;
 
