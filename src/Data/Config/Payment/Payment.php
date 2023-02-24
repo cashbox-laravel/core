@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Data\Config\Payment;
 
 use CashierProvider\Core\Casts\PaymentModelCast;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
@@ -17,5 +18,6 @@ class Payment extends Data
 
     public Status $status;
 
-    public Driver $drivers;
+    /** @var \Illuminate\Support\Collection<string, string> */
+    public Collection $drivers;
 }

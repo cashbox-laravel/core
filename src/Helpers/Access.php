@@ -24,6 +24,7 @@ use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Access
 {
@@ -45,10 +46,9 @@ class Access
 
     protected function allowType(Model $model): bool
     {
-        $types = $this->types();
-        $type  = $this->type($model);
-
-        return in_array($type, $types, true);
+        return $this->types()->containsStrict(
+            $this->type($model)
+        );
     }
 
     protected function model(): string
@@ -66,8 +66,8 @@ class Access
         return Instance::of($model, Casheable::class);
     }
 
-    protected function types(): array
+    protected function types(): Collection
     {
-        return Config::payment()->drivers->types();
+        return Config::payment()->drivers->keys();
     }
 }

@@ -57,7 +57,7 @@ abstract class Base extends Command
 
     protected function attributeTypes(): array
     {
-        return Config::payment()->drivers->types();
+        return Config::payment()->drivers->keys();
     }
 
     protected function getStatuses(): ?array
