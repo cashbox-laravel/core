@@ -19,29 +19,16 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Payments;
 
-use DragonCode\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-class Attributes extends DataTransferObject implements AttributesContract
+#[WithCast(SnakeCaseMapper::class)]
+class Attributes extends Data
 {
-    protected string $type;
+    public string $type;
 
-    protected string $status;
+    public string $status;
 
-    protected string $created_at;
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    public function getCreatedAt(): string
-    {
-        return $this->created_at;
-    }
+    public string $createdAt;
 }

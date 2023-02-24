@@ -40,7 +40,7 @@ class Access
 
     protected function type(Model $model)
     {
-        $name = Payment::getAttributes()->getType();
+        $name = Payment::getAttributes()->type;
 
         return $model->getAttribute($name);
     }

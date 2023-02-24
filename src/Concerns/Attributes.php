@@ -25,16 +25,16 @@ trait Attributes
 {
     public function attributeType(): string
     {
-        return Payment::getAttributes()->getType();
+        return Payment::getAttributes()->type;
     }
 
     public function attributeStatus(): string
     {
-        return Payment::getAttributes()->getStatus();
+        return Payment::getAttributes()->status;
     }
 
     public function attributeCreatedAt(): string
     {
-        return Payment::getAttributes()->getCreatedAt();
+        return Payment::getAttributes()->createdAt;
     }
 }

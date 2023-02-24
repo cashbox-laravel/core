@@ -39,7 +39,7 @@ class DetailsObserver extends BaseObserver
 
         $statuses = $this->driver($model)->statuses();
 
-        $status = $model->details->getStatus();
+        $status = $model->details->status;
 
         if ($model->isDirty('details')) {
             switch (true) {
@@ -90,6 +90,6 @@ class DetailsObserver extends BaseObserver
 
     protected function statusField(): string
     {
-        return Payment::getAttributes()->getStatus();
+        return Payment::getAttributes()->status;
     }
 }

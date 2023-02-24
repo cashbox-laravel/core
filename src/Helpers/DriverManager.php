@@ -57,7 +57,7 @@ class DriverManager
 
     protected function getTypeAttribute(): string
     {
-        return Payment::getAttributes()->getType();
+        return Payment::getAttributes()->type;
     }
 
     protected function getDriverName($type): string
@@ -70,9 +70,9 @@ class DriverManager
         return Main::getDriver($name);
     }
 
-    protected function resolve(Driver $config, Model $payment): Contract
+    protected function resolve(\CashierProvider\Core\Config\Driver $config, Model $payment): Contract
     {
-        $driver = $config->getDriver();
+        $driver = $config->driver;
 
         $this->validateDriver($driver);
         $this->validateModel($payment);

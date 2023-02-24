@@ -52,7 +52,7 @@ abstract class Base extends Command
 
     protected function attributeType(): string
     {
-        return Payment::getAttributes()->getType();
+        return Payment::getAttributes()->type;
     }
 
     protected function attributeTypes(): array
@@ -62,12 +62,12 @@ abstract class Base extends Command
 
     protected function attributeStatus(): string
     {
-        return Payment::getAttributes()->getStatus();
+        return Payment::getAttributes()->status;
     }
 
     protected function attributeCreatedAt(): string
     {
-        return Payment::getAttributes()->getCreatedAt();
+        return Payment::getAttributes()->createdAt;
     }
 
     protected function getStatus()

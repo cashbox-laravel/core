@@ -19,47 +19,25 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
-use DragonCode\Contracts\Cashier\Config\Queue as QueueContract;
-use DragonCode\Contracts\Cashier\Config\Queues\Names;
-use DragonCode\Contracts\Cashier\Config\Queues\Unique;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use CashierProvider\Core\Config\Queues\Names;
+use Spatie\LaravelData\Data;
 
-class Queue extends DataTransferObject implements QueueContract
+class Queue extends Data
 {
-    protected ?string $connection;
+    public ?string $connection;
 
-    protected array $names = [];
+    public Names $names;
 
-    protected bool $after_commit = true;
+    public bool $after_commit = true;
 
-    protected int $tries = 100;
+    public int $tries = 5;
 
-    protected array $unique = [];
-
-    public function getConnection(): ?string
-    {
-        return $this->connection;
-    }
-
-    public function getNames(): Names
-    {
-        return Queues\Names::make($this->names);
-    }
-
-    public function afterCommit(): bool
-    {
-        return $this->after_commit;
-    }
+    public array $unique = [];
 
     public function getTries(): int
     {
         $value = abs($this->tries);
 
         return $value > 0 ? $value : 5;
-    }
-
-    public function getUnique(): Unique
-    {
-        return Queues\Unique::make($this->unique);
     }
 }

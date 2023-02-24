@@ -75,7 +75,7 @@ class Check extends Base
 
     protected function queueName(): ?string
     {
-        return $this->resolveDriver()->queue()->getCheck();
+        return $this->resolveDriver()->queue()->check;
     }
 
     public function retryUntil(): ?Carbon

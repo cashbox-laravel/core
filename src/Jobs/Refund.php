@@ -50,7 +50,7 @@ class Refund extends Base
 
     protected function queueName(): ?string
     {
-        return $this->resolveDriver()->queue()->getRefund();
+        return $this->resolveDriver()->queue()->refund;
     }
 
     protected function ran()

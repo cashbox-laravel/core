@@ -19,49 +19,32 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
+use CashierProvider\Core\Config\Queues\Names;
 use CashierProvider\Core\Facades\Config\Main as MainConfig;
-use DragonCode\Contracts\Cashier\Config\Driver as DriverContract;
-use DragonCode\Contracts\Cashier\Config\Queues\Names;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-class Driver extends DataTransferObject implements DriverContract
+class Driver extends Data
 {
-    protected string $driver;
+    public string $driver;
 
-    protected string $details;
+    public string $details;
 
-    protected ?string $client_id;
+    public ?string $client_id;
 
-    protected ?string $client_secret;
+    public ?string $client_secret;
 
-    protected ?string $queue;
-
-    public function getDriver(): string
-    {
-        return $this->driver;
-    }
-
-    public function getDetails(): string
-    {
-        return $this->details;
-    }
-
-    public function getClientId(): ?string
-    {
-        return $this->client_id;
-    }
-
-    public function getClientSecret(): ?string
-    {
-        return $this->client_secret;
-    }
+    public ?string $queue;
 
     public function getQueue(): Names
     {
         if ($this->queue) {
-            return Queues\Names::make($this->queue);
+            return Names::from([
+                'start'  => $this->queue,
+                'check'  => $this->queue,
+                'refund' => $this->queue,
+            ]);
         }
 
-        return MainConfig::getQueue()->getNames();
+        return MainConfig::getQueue()->names;
     }
 }

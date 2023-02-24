@@ -19,31 +19,20 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Payments;
 
-use DragonCode\Contracts\Cashier\Config\Payments\Map as MapContract;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use DragonCode\Support\Facades\Helpers\Arr;
+use Spatie\LaravelData\Data;
 
-class Map extends DataTransferObject implements MapContract
+class Map extends Data
 {
-    protected array $drivers = [];
-
-    public function getAll(): array
-    {
-        return $this->drivers;
-    }
+    public array $drivers = [];
 
     public function getTypes(): array
     {
         return array_keys($this->drivers);
     }
 
-    public function getNames(): array
+    public function get($type): ?string
     {
-        return array_values($this->drivers);
-    }
-
-    public function get($type): string
-    {
-        return Arr::get($this->getAll(), $type);
+        return Arr::get($this->drivers, $type);
     }
 }

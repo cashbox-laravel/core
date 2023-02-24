@@ -28,9 +28,9 @@ class AttributesTest extends TestCase
     {
         $attributes = $this->attributes();
 
-        $this->assertSame('foo', $attributes->getType());
-        $this->assertSame('bar', $attributes->getStatus());
-        $this->assertSame('baz', $attributes->getCreatedAt());
+        $this->assertSame('foo', $attributes->type);
+        $this->assertSame('bar', $attributes->status);
+        $this->assertSame('baz', $attributes->createdAt);
     }
 
     protected function attributes(): Attributes

@@ -71,7 +71,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $this->force_break = $force_break;
 
-        $this->afterCommit = Main::getQueue()->afterCommit();
+        $this->afterCommit = Main::getQueue()->after_commit;
 
         $this->tries = Main::getQueue()->getTries();
 
@@ -87,11 +87,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
     public function uniqueId()
     {
         return $this->model->getKey();
-    }
-
-    public function uniqueFor(): int
-    {
-        return Main::getQueue()->getUnique()->getSeconds();
     }
 
     public function retryUntil(): ?Carbon
@@ -163,7 +158,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function attributeStatus(): string
     {
-        return Payment::getAttributes()->getStatus();
+        return Payment::getAttributes()->status;
     }
 
     protected function status(string $status)

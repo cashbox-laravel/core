@@ -40,17 +40,17 @@ abstract class PublicMigration extends Migration
 
     protected function attributeType(): string
     {
-        return Payment::getAttributes()->getType();
+        return Payment::getAttributes()->type;
     }
 
     protected function attributeStatus(): string
     {
-        return Payment::getAttributes()->getStatus();
+        return Payment::getAttributes()->status;
     }
 
     protected function attributeCreatedAt(): string
     {
-        return Payment::getAttributes()->getCreatedAt();
+        return Payment::getAttributes()->createdAt;
     }
 
     protected function getModel(): string

@@ -20,19 +20,13 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Resources;
 
 use CashierProvider\Core\Concerns\Jsonable;
-use DragonCode\Contracts\Cashier\Resources\Details as DetailsContract;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-abstract class Details extends DataTransferObject implements DetailsContract
+abstract class Details extends Data
 {
     use Jsonable;
 
-    protected $status;
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
+    public ?string $status;
 
     public function toArray(): array
     {

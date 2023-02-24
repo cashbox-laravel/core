@@ -22,36 +22,32 @@ namespace CashierProvider\Core\Config;
 use CashierProvider\Core\Config\Payments\Attributes;
 use CashierProvider\Core\Config\Payments\Map;
 use CashierProvider\Core\Config\Payments\Statuses;
-use DragonCode\Contracts\Cashier\Config\Payment as PaymentContract;
-use DragonCode\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
-use DragonCode\Contracts\Cashier\Config\Payments\Map as MapContract;
-use DragonCode\Contracts\Cashier\Config\Payments\Statuses as StatusesContract;
 
-class Payment extends Base implements PaymentContract
+class Payment extends Base
 {
     public function getModel(): string
     {
         return config('cashier.payment.model');
     }
 
-    public function getAttributes(): AttributesContract
+    public function getAttributes(): Attributes
     {
         $values = config('cashier.payment.attributes');
 
-        return Attributes::make($values);
+        return Attributes::from($values);
     }
 
-    public function getStatuses(): StatusesContract
+    public function getStatuses(): Statuses
     {
         $statuses = config('cashier.payment.statuses', []);
 
-        return Statuses::make(compact('statuses'));
+        return Statuses::from(compact('statuses'));
     }
 
-    public function getMap(): MapContract
+    public function getMap(): Map
     {
         $drivers = config('cashier.payment.map', []);
 
-        return Map::make(compact('drivers'));
+        return Map::from(compact('drivers'));
     }
 }

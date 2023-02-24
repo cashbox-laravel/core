@@ -19,29 +19,13 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Queues;
 
-use DragonCode\Contracts\Cashier\Config\Queues\Names as Contract;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-class Names extends DataTransferObject implements Contract
+class Names extends Data
 {
-    protected ?string $start = null;
+    public ?string $start = null;
 
-    protected ?string $check = null;
+    public ?string $check = null;
 
-    protected ?string $refund = null;
-
-    public function getStart(): ?string
-    {
-        return $this->start;
-    }
-
-    public function getCheck(): ?string
-    {
-        return $this->check;
-    }
-
-    public function getRefund(): ?string
-    {
-        return $this->refund;
-    }
+    public ?string $refund = null;
 }

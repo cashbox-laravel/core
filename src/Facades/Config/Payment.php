@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Config;
 
 use CashierProvider\Core\Config\Payment as Config;
-use DragonCode\Contracts\Cashier\Config\Payments\Attributes;
-use DragonCode\Contracts\Cashier\Config\Payments\Map;
-use DragonCode\Contracts\Cashier\Config\Payments\Statuses;
+use CashierProvider\Core\Config\Payments\Attributes;
+use CashierProvider\Core\Config\Payments\Map;
+use CashierProvider\Core\Config\Payments\Statuses;
 use Illuminate\Support\Facades\Facade;
 
 /**

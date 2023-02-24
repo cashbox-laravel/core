@@ -21,19 +21,18 @@ namespace CashierProvider\Core\Concerns;
 
 use CashierProvider\Core\Facades\Helpers\HttpLog;
 use DragonCode\Contracts\Cashier\Http\Request;
-use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
 use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Facades\Instances\Call;
 use Throwable;
 
 trait Logs
 {
-    protected function logInfo(ModelResource $model, string $method, Builder $url, array $request, array $response, int $status_code): void
+    protected function logInfo(\CashierProvider\Core\Resources\Model $model, string $method, Builder $url, array $request, array $response, int $status_code): void
     {
         HttpLog::info($model, $method, $url, $request, $response, $status_code, $model->getExtra());
     }
 
-    protected function logError(ModelResource $model, Request $request, Throwable $exception): void
+    protected function logError(\CashierProvider\Core\Resources\Model $model, Request $request, Throwable $exception): void
     {
         $this->logInfo($model, $request->method(), $request->uri(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),

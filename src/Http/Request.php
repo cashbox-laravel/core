@@ -24,21 +24,19 @@ use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Support\URI;
 use DragonCode\Contracts\Cashier\Auth\Auth;
 use DragonCode\Contracts\Cashier\Http\Request as Contract;
-use DragonCode\Contracts\Cashier\Resources\Model;
 use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
 use DragonCode\Support\Concerns\Makeable;
 use Fig\Http\Message\RequestMethodInterface;
 
 /**
- * @method static Contract make(Model $model)
+ * @method static Contract make(\CashierProvider\Core\Resources\Model $model)
  */
 abstract class Request implements Contract
 {
     use Makeable;
     use Validators;
 
-    /** @var \DragonCode\Contracts\Cashier\Resources\Model */
-    protected Model $model;
+    protected \CashierProvider\Core\Resources\Model $model;
 
     /** @var string HTTP Request method */
     protected string $method = RequestMethodInterface::METHOD_POST;
@@ -64,13 +62,13 @@ abstract class Request implements Contract
     /** @var bool */
     protected bool $reload_relations = false;
 
-    public function __construct(Model $model)
+    public function __construct(\CashierProvider\Core\Resources\Model $model)
     {
         $this->model = $this->reloadRelations($model);
         $this->auth  = $this->resolveAuth($model);
     }
 
-    public function model(): Model
+    public function model(): \CashierProvider\Core\Resources\Model
     {
         return $this->model;
     }
@@ -109,7 +107,7 @@ abstract class Request implements Contract
         $this->auth->refresh();
     }
 
-    protected function reloadRelations(Model $model): Model
+    protected function reloadRelations(\CashierProvider\Core\Resources\Model $model): \CashierProvider\Core\Resources\Model
     {
         if ($this->reload_relations) {
             $model->getPaymentModel()->refresh();
@@ -129,11 +127,11 @@ abstract class Request implements Contract
     }
 
     /**
-     * @param \DragonCode\Contracts\Cashier\Resources\Model $model
+     * @param \CashierProvider\Core\Resources\Model $model
      *
      * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
      */
-    protected function resolveAuth(Model $model): ?Auth
+    protected function resolveAuth(\CashierProvider\Core\Resources\Model $model): ?Auth
     {
         if (empty($this->auth)) {
             return null;

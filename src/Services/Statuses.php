@@ -34,13 +34,13 @@ abstract class Statuses implements Contract
     use Makeable;
     use Relations;
 
-    public const NEW = [];
+    public const FAILED = [];
 
-    public const REFUNDING = [];
+    public const NEW = [];
 
     public const REFUNDED = [];
 
-    public const FAILED = [];
+    public const REFUNDING = [];
 
     public const SUCCESS = [];
 
@@ -71,44 +71,44 @@ abstract class Statuses implements Contract
         ];
 
         return ! $this->hasCashier($bank, $status)
-               && ! $this->hasModel($model, $status);
+            && ! $this->hasModel($model, $status);
     }
 
     public function hasCreated($status = null): bool
     {
         return $this->hasCashier(static::NEW, $status)
-               || $this->hasModel([Status::NEW], $status);
+            || $this->hasModel([Status::NEW], $status);
     }
 
     public function hasFailed($status = null): bool
     {
         return $this->hasCashier(static::FAILED, $status)
-               || $this->hasModel([Status::FAILED], $status);
+            || $this->hasModel([Status::FAILED], $status);
     }
 
     public function hasRefunding($status = null): bool
     {
         return $this->hasCashier(static::REFUNDING, $status)
-               || $this->hasModel([Status::WAIT_REFUND], $status);
+            || $this->hasModel([Status::WAIT_REFUND], $status);
     }
 
     public function hasRefunded($status = null): bool
     {
         return $this->hasCashier(static::REFUNDED, $status)
-               || $this->hasModel([Status::REFUND], $status);
+            || $this->hasModel([Status::REFUND], $status);
     }
 
     public function hasSuccess($status = null): bool
     {
         return $this->hasCashier(static::SUCCESS, $status)
-               || $this->hasModel([Status::SUCCESS], $status);
+            || $this->hasModel([Status::SUCCESS], $status);
     }
 
     public function inProgress($status = null): bool
     {
         return ! $this->hasSuccess($status)
-               && ! $this->hasFailed($status)
-               && ! $this->hasRefunded($status);
+            && ! $this->hasFailed($status)
+            && ! $this->hasRefunded($status);
     }
 
     protected function hasCashier(array $statuses, $status = null): bool
@@ -139,7 +139,7 @@ abstract class Statuses implements Contract
         $this->resolveCashier($this->model);
 
         if ($this->model->cashier && $this->model->cashier->details) {
-            return $this->model->cashier->details->getStatus();
+            return $this->model->cashier->details->status;
         }
 
         return null;
@@ -147,7 +147,7 @@ abstract class Statuses implements Contract
 
     protected function modelStatus()
     {
-        $field = Payment::getAttributes()->getStatus();
+        $field = Payment::getAttributes()->status;
 
         return $this->model->getAttribute($field);
     }

@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Config;
 
 use CashierProvider\Core\Config\Main as Config;
+use CashierProvider\Core\Config\Queue;
 use DragonCode\Contracts\Cashier\Config\Driver;
-use DragonCode\Contracts\Cashier\Config\Queue;
 use Illuminate\Support\Facades\Facade;
 
 /**

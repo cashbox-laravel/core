@@ -24,33 +24,32 @@ use CashierProvider\Core\Facades\Helpers\Currency as CurrencyHelper;
 use CashierProvider\Core\Facades\Helpers\Date;
 use CashierProvider\Core\Facades\Helpers\Unique;
 use DragonCode\Contracts\Cashier\Config\Driver;
-use DragonCode\Contracts\Cashier\Resources\Model as Contract;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
 
-abstract class Model implements Contract
+abstract class Model
 {
     use Makeable;
     use Relations;
 
     protected EloquentModel $model;
 
-    protected Driver $config;
+    protected \CashierProvider\Core\Config\Driver $config;
 
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
-
-    public function __construct(EloquentModel $model, Driver $config)
+    public function __construct(EloquentModel $model, \CashierProvider\Core\Config\Driver $config)
     {
         $this->model  = $model;
         $this->config = $config;
     }
+
+    abstract protected function createdAt(): Carbon;
+
+    abstract protected function currency();
+
+    abstract protected function paymentId();
+
+    abstract protected function sum();
 
     /**
      * @return \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model
@@ -91,7 +90,7 @@ abstract class Model implements Contract
     {
         $currency = CurrencyHelper::get($this->currency());
 
-        return (string) $currency->getNumeric();
+        return (string) $currency->numeric;
     }
 
     public function getCreatedAt(): string
@@ -127,11 +126,11 @@ abstract class Model implements Contract
 
     protected function clientId(): string
     {
-        return $this->config->getClientId();
+        return $this->config->client_id;
     }
 
     protected function clientSecret(): string
     {
-        return $this->config->getClientSecret();
+        return $this->config->client_secret;
     }
 }

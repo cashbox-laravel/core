@@ -65,7 +65,7 @@ trait Events
     protected function getAvailableStatuses(): array
     {
         return array_flip(
-            Payment::getStatuses()->getAll()
+            Payment::getStatuses()->statuses
         );
     }
 }

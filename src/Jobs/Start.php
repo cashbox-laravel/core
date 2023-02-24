@@ -42,6 +42,6 @@ class Start extends Base
 
     protected function queueName(): ?string
     {
-        return $this->resolveDriver()->queue()->getStart();
+        return $this->resolveDriver()->queue()->start;
     }
 }

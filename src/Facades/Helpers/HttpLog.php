@@ -20,12 +20,11 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Helpers;
 
 use CashierProvider\Core\Helpers\HttpLog as Helper;
-use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
 use DragonCode\Contracts\Http\Builder;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static void info(ModelResource $model, string $method, Builder $url, array $request, array $response, int $status_code, ?array $extra = [])
+ * @method static void info(\CashierProvider\Core\Resources\Model $model, string $method, Builder $url, array $request, array $response, int $status_code, ?array $extra = [])
  */
 class HttpLog extends Facade
 {

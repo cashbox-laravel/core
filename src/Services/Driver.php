@@ -19,17 +19,17 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
+use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Concerns\Resolvable;
 use CashierProvider\Core\Concerns\Validators;
+use CashierProvider\Core\Config\Queues\Names;
 use CashierProvider\Core\Facades\Helpers\Http;
 use DragonCode\Contracts\Cashier\Config\Driver as DriverConfig;
-use DragonCode\Contracts\Cashier\Config\Queues\Names;
 use DragonCode\Contracts\Cashier\Driver as Contract;
 use DragonCode\Contracts\Cashier\Helpers\Statuses;
 use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
 use DragonCode\Contracts\Cashier\Http\Response;
 use DragonCode\Contracts\Cashier\Resources\Details;
-use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
 use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
@@ -40,14 +40,13 @@ abstract class Driver implements Contract
     use Resolvable;
     use Validators;
 
-    /** @var DriverConfig */
-    protected DriverConfig $config;
+    protected \CashierProvider\Core\Config\Driver $config;
 
     /** @var \CashierProvider\Core\Concerns\Casheable|Model */
-    protected \CashierProvider\Core\Concerns\Casheable|Model $payment;
+    protected Casheable|Model $payment;
 
-    /** @var ModelResource */
-    protected ModelResource $model;
+    /** @var \CashierProvider\Core\Resources\Model */
+    protected \CashierProvider\Core\Resources\Model $model;
 
     /** @var ExceptionManager */
     protected ExceptionManager $exceptions;
@@ -102,9 +101,9 @@ abstract class Driver implements Contract
         return $response::make($content);
     }
 
-    protected function resolveModel(Model $payment): ModelResource
+    protected function resolveModel(Model $payment): \CashierProvider\Core\Resources\Model
     {
-        $resource = $this->config->getDetails();
+        $resource = $this->config->details;
 
         return $resource::make($payment, $this->config);
     }

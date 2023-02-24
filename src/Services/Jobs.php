@@ -131,7 +131,7 @@ class Jobs
 
     protected function onConnection(): ?string
     {
-        return Main::getQueue()->getConnection();
+        return Main::getQueue()->connection;
     }
 
     protected function driver(Model $model): DriverContract

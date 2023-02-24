@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * @property \DragonCode\Contracts\Cashier\Resources\Details $details
+ * @property \CashierProvider\Core\Resources\Details $details
  * @property \Illuminate\Database\Eloquent\Model $parent
  * @property array|null $extra
  * @property string $external_id

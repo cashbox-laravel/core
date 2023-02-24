@@ -19,21 +19,15 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config\Payments;
 
-use DragonCode\Contracts\Cashier\Config\Payments\Statuses as StatusesContract;
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use DragonCode\Support\Facades\Helpers\Arr;
+use Spatie\LaravelData\Data;
 
-class Statuses extends DataTransferObject implements StatusesContract
+class Statuses extends Data
 {
-    protected array $statuses = [];
-
-    public function getAll(): array
-    {
-        return $this->statuses;
-    }
+    public array $statuses = [];
 
     public function getStatus(string $status)
     {
-        return Arr::get($this->getAll(), $status);
+        return Arr::get($this->statuses, $status);
     }
 }

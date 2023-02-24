@@ -19,21 +19,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Resources;
 
-use DragonCode\SimpleDataTransferObject\DataTransferObject;
+use Spatie\LaravelData\Data;
 
-class Currency extends DataTransferObject
+class Currency extends Data
 {
-    protected $numeric;
+    public int $numeric;
 
-    protected $alphabetic;
-
-    public function getNumeric(): int
-    {
-        return $this->numeric;
-    }
-
-    public function getAlphabetic(): string
-    {
-        return $this->alphabetic;
-    }
+    public string $alphabetic;
 }
