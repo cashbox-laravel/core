@@ -17,7 +17,6 @@
 
 declare(strict_types=1);
 
-use App\Payments\BankName;
 use CashierProvider\Core\Constants\Attributes;
 use CashierProvider\Core\Constants\Queue;
 use CashierProvider\Core\Constants\Status;
@@ -156,7 +155,7 @@ return [
         |
         */
 
-        'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
+        'enabled' => (bool) env('CASHIER_REQUESTS_LOGS_ENABLED', true),
 
         /*
         |--------------------------------------------------------------------------
@@ -287,30 +286,6 @@ return [
         */
 
         'tries' => 100,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Unique Lock
-        |--------------------------------------------------------------------------
-        |
-        | This value contains parameters for implementing uniqueness of queues.
-        |
-        */
-
-        'unique' => [
-            /*
-            |--------------------------------------------------------------------------
-            | Lock's Timeout
-            |--------------------------------------------------------------------------
-            |
-            | The number of seconds after which the job's unique lock will be released.
-            |
-            | By default, 60.
-            |
-            */
-
-            'seconds' => 60,
-        ],
     ],
 
     /*
@@ -370,7 +345,7 @@ return [
         |
         */
 
-        'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
+        'enabled' => (bool) env('CASHIER_AUTO_REFUND_ENABLED', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -414,7 +389,7 @@ return [
         //'bar' => [
         //    \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //    \CashierProvider\Core\Constants\Driver::DETAILS => BankName::class,
+        //    \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName,
         //
         //    \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
         //
