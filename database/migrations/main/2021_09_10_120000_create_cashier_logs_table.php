@@ -29,7 +29,7 @@ class CreateCashierLogsTable extends Migration
     {
         Schema::connection($this->logsConnection())
             ->create($this->logsTable(), function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
 
                 $table->string('item_type');
 

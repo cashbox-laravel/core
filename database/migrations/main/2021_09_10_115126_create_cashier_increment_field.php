@@ -26,7 +26,7 @@ class CreateCashierIncrementField extends Migration
     public function up()
     {
         Schema::table($this->detailsTable(), function (Blueprint $table) {
-            $table->bigIncrements('id')->first();
+            $table->id()->first();
         });
     }
 
