@@ -161,7 +161,7 @@ return [
         |
         */
 
-        'enabled' => (bool) env('CASHIER_REQUESTS_LOGS_ENABLED', true),
+        'enabled' => (bool) env('CASHIER_LOGS_ENABLED', true),
 
         /*
         |--------------------------------------------------------------------------
