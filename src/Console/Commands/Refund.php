@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Console\Commands;
 
 use Carbon\Carbon;
 use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Services\Jobs;
+use CashierProvider\Core\Services\Job;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -59,6 +59,6 @@ class Refund extends Base
 
     protected function cancel(Model $payment): void
     {
-        Jobs::make($payment)->refund();
+        Job::make($payment)->refund();
     }
 }

@@ -225,11 +225,11 @@ stdout_logfile = /var/www/storage/logs/queue-payments-refund.log
 
 ```php
 use App\Models\Payment;
-use CashierProvider\Core\Services\Jobs;
+use CashierProvider\Core\Services\Job;
 
 $model = Payment::findOrfail(1234);
 
-$jobs = Jobs::make($model);
+$jobs = Job::make($model);
 
 $jobs->start();
 $jobs->check();

@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
+use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Facades\Config;
@@ -29,9 +30,9 @@ use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method static Jobs make(Model $model)
+ * @method static Job make(Model|Casheable $model)
  */
-class Jobs
+class Job
 {
     use Driverable;
     use Makeable;

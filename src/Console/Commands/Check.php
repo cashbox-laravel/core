@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Console\Commands;
 
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Models\CashierDetail;
-use CashierProvider\Core\Services\Jobs;
+use CashierProvider\Core\Services\Job;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -62,7 +62,7 @@ class Check extends Base
 
     protected function check(Model $model, ?int $delay): void
     {
-        Jobs::make($model)->check(true, $delay);
+        Job::make($model)->check(true, $delay);
     }
 
     protected function delay(Model $model): ?int

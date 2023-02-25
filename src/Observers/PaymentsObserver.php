@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Facades\Access;
-use CashierProvider\Core\Services\Jobs;
+use CashierProvider\Core\Services\Job;
 use DragonCode\Support\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -59,9 +59,9 @@ class PaymentsObserver extends BaseObserver
         return Access::allow($payment);
     }
 
-    protected function jobs(Model $payment): Jobs
+    protected function jobs(Model $payment): Job
     {
-        return Jobs::make($payment);
+        return Job::make($payment);
     }
 
     protected function wasChanged(Model $payment): bool

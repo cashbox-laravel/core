@@ -22,7 +22,7 @@ namespace CashierProvider\Core\Observers;
 use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Models\CashierDetail;
-use CashierProvider\Core\Services\Jobs;
+use CashierProvider\Core\Services\Job;
 
 class DetailsObserver extends BaseObserver
 {
@@ -55,7 +55,7 @@ class DetailsObserver extends BaseObserver
             }
         }
 
-        Jobs::make($model->parent)->check();
+        Job::make($model->parent)->check();
     }
 
     protected function updateStatus(CashierDetail $model, Status $status): void
