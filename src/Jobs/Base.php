@@ -59,8 +59,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         public bool  $force_break = false
     ) {
         $this->afterCommit();
-
-        $this->onConnection(Config::queue()->connection);
         $this->onQueue($this->queueName());
 
         $this->tries = Config::queue()->tries;
