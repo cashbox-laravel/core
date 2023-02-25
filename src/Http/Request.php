@@ -35,8 +35,6 @@ abstract class Request
     use Makeable;
     use Validators;
 
-    protected Model $model;
-
     /** @var string HTTP Request method */
     protected string $method = RequestMethodInterface::METHOD_POST;
 
@@ -60,10 +58,12 @@ abstract class Request
     /** @var bool */
     protected bool $reload_relations = false;
 
-    public function __construct(Model $model)
-    {
-        $this->model = $this->reloadRelations($model);
-        $this->auth  = $this->resolveAuth($model);
+    public function __construct(
+        protected Model $model
+    ) {
+        $this->reloadRelations($this->model);
+
+        $this->auth = $this->resolveAuth($this->model);
     }
 
     abstract public function getRawBody(): array;
@@ -109,13 +109,11 @@ abstract class Request
         $this->auth->refresh();
     }
 
-    protected function reloadRelations(Model $model): Model
+    protected function reloadRelations(Model $model): void
     {
         if ($this->reload_relations) {
             $model->getPaymentModel()->refresh();
         }
-
-        return $model;
     }
 
     protected function getUriBuilder(): URI

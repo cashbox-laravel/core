@@ -22,7 +22,6 @@ namespace CashierProvider\Core\Services;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
@@ -37,12 +36,9 @@ class Jobs
     use Driverable;
     use Makeable;
 
-    /** @var \Illuminate\Database\Eloquent\Model */
-    protected Model $model;
-
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
+    public function __construct(
+        protected Model $model
+    ) {
     }
 
     public function start(): void

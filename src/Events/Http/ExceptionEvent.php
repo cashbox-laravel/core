@@ -29,19 +29,12 @@ class ExceptionEvent
     use SerializesModels;
 
     /**
-     * The exception instance.
-     *
-     * @var Throwable|null
-     */
-    public ?Throwable $exception;
-
-    /**
      * Create a new event instance.
      *
      * @param Throwable|null $exception
      */
-    public function __construct(?Throwable $exception = null)
-    {
-        $this->exception = $exception;
+    public function __construct(
+        public ?Throwable $exception = null
+    ) {
     }
 }

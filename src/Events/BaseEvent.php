@@ -31,21 +31,13 @@ abstract class BaseEvent
     use Validators;
 
     /**
-     * The payment model instance.
-     *
-     * @var \Illuminate\Database\Eloquent\Model
-     */
-    public Model $payment;
-
-    /**
      * Create a new event instance.
      *
      * @param \Illuminate\Database\Eloquent\Model $payment
      */
-    public function __construct(Model $payment)
-    {
-        $this->validateModel($payment);
-
-        $this->payment = $payment;
+    public function __construct(
+        public Model $payment
+    ) {
+        $this->validateModel($this->payment);
     }
 }

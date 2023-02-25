@@ -42,12 +42,9 @@ abstract class Statuses
 
     public const SUCCESS = [];
 
-    /** @var \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable */
-    protected Model $model;
-
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
+    public function __construct(
+        protected Model $model
+    ) {
     }
 
     public function hasUnknown(mixed $status = null): bool
