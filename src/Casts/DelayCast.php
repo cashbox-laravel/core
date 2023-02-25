@@ -11,6 +11,6 @@ class DelayCast implements Cast
 {
     public function cast(DataProperty $property, mixed $value, array $context): int
     {
-        return $value > 0 ? (int) $value : 5;
+        return $value > 0 ? (int) $value : 60;
     }
 }

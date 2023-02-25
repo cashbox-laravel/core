@@ -23,6 +23,7 @@ use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Jobs\Base;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
@@ -30,6 +31,7 @@ use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property Model|Casheable $model
  * @method static Job make(Model|Casheable $model)
  */
 class Job
@@ -54,9 +56,7 @@ class Job
         $this->send(Start::class);
 
         if ($this->hasAutoRefund()) {
-            $delay = $this->autoRefundDelay();
-
-            $this->refund($delay);
+            $this->refund($this->autoRefundDelay());
         }
     }
 
@@ -72,12 +72,7 @@ class Job
         $this->send(Refund::class, false, $delay);
     }
 
-    /**
-     * @param \CashierProvider\Core\Jobs\Base|string $job
-     * @param bool $force
-     * @param int|null $delay
-     */
-    protected function send(string $job, bool $force = false, ?int $delay = null): void
+    protected function send(Base|string $job, bool $force = false, ?int $delay = null): void
     {
         $instance = $job::make($this->model, $force)->delay($delay);
 
@@ -94,7 +89,7 @@ class Job
             return false;
         }
 
-        return ! ($this->hasRequested($model));
+        return ! $this->hasRequested($model);
     }
 
     protected function hasCheck(Model $model): bool
@@ -103,7 +98,7 @@ class Job
             return false;
         }
 
-        return ! (! $this->status($model)->inProgress());
+        return $this->status($model)->inProgress();
     }
 
     protected function hasType(Model $model): bool
@@ -113,7 +108,7 @@ class Job
 
     protected function hasRequested(Model $model): bool
     {
-        return ! empty($model->cashier) || $model->cashier()->exists();
+        return $model->cashier()->exists();
     }
 
     protected function hasAutoRefund(): bool

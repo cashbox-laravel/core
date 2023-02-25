@@ -33,25 +33,8 @@ class Access
     public function allow(Model $model): bool
     {
         return $this->allowModel($model)
-            && $this->allowMethod($model)
+            && $this->allowTrait($model)
             && $this->allowType($model);
-    }
-
-    /**
-     * @param \Illuminate\Database\Eloquent\Model|Casheable $model
-     *
-     * @return mixed
-     */
-    protected function type(Model $model): mixed
-    {
-        return $model->cashierType();
-    }
-
-    protected function allowType(Model $model): bool
-    {
-        return $this->types()->containsStrict(
-            $this->type($model)
-        );
     }
 
     protected function allowModel(Model $model): bool
@@ -59,9 +42,21 @@ class Access
         return Instance::of($model, Config::payment()->model);
     }
 
-    protected function allowMethod(Model $model): bool
+    protected function allowTrait(Model $model): bool
     {
         return Instance::of($model, Casheable::class);
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model|Casheable $model
+     *
+     * @return bool
+     */
+    protected function allowType(Model $model): bool
+    {
+        return $this->types()->containsStrict(
+            $model->cashierType()
+        );
     }
 
     protected function types(): Collection
