@@ -48,6 +48,7 @@ abstract class Base extends Command
         $model = $this->model();
 
         return $model::query()
+            ->has('cashier')
             ->whereIn($this->attributeType(), $this->attributeTypes())
             ->whereIn($this->attributeStatus(), $this->getStatuses())
             ->when($this->getCreatedAt(), fn (Builder $builder, Carbon $createdAt) => $builder
