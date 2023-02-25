@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Enums;
 
+use BackedEnum;
 use CashierProvider\Core\Exceptions\Runtime\UnknownEnumValueException;
 
 trait From
@@ -11,11 +12,16 @@ trait From
     public static function from(string|int $value): static
     {
         foreach (static::cases() as $case) {
-            if ($case->name === $value || $case->value === $value) {
+            if (static::isSame($case, $value)) {
                 return $case;
             }
         }
 
         throw new UnknownEnumValueException($value);
+    }
+
+    protected static function isSame(BackedEnum $case, mixed $value): bool
+    {
+        return $case->name === $value || $case->value === $value;
     }
 }
