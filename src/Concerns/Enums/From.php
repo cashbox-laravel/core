@@ -11,7 +11,7 @@ trait From
     public static function from(string|int $value): static
     {
         foreach (static::cases() as $case) {
-            if ($case->name === $case || $case->value === $case) {
+            if ($case->name === $value || $case->value === $value) {
                 return $case;
             }
         }
