@@ -21,9 +21,7 @@ namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Models\CashierDetail;
-use CashierProvider\Core\Services\Driver;
 use CashierProvider\Core\Services\Jobs;
 
 class DetailsObserver extends BaseObserver
@@ -34,7 +32,7 @@ class DetailsObserver extends BaseObserver
             return;
         }
 
-        $statuses = $this->driver($model)->statuses();
+        $statuses = $this->driver($model->parent)->statuses();
 
         $status = $model->details->status;
 
@@ -58,11 +56,6 @@ class DetailsObserver extends BaseObserver
         }
 
         Jobs::make($model->parent)->check();
-    }
-
-    protected function driver(CashierDetail $model): Driver
-    {
-        return DriverManager::fromModel($model->parent);
     }
 
     protected function updateStatus(CashierDetail $model, Status $status): void

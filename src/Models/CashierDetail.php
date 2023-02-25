@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
+use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Resources\Details;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class CashierDetail extends Model
 {
+    use Driverable;
+
     protected $fillable = ['item_type', 'item_id', 'external_id', 'operation_id', 'details'];
 
     protected $touches = ['parent'];
@@ -60,7 +62,7 @@ class CashierDetail extends Model
 
     protected function getDetailsAttribute(): ?Details
     {
-        return DriverManager::fromModel($this->parent)->details(
+        return $this->driver($this->parent)->details(
             json_decode($this->attributes['details'])
         );
     }

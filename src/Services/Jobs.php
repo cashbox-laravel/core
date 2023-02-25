@@ -19,6 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
+use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Facades\DriverManager;
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Jobs
 {
+    use Driverable;
     use Makeable;
 
     /** @var \Illuminate\Database\Eloquent\Model */
@@ -132,13 +134,8 @@ class Jobs
         return Config::queue()->connection;
     }
 
-    protected function driver(Model $model): Driver
-    {
-        return DriverManager::fromModel($model);
-    }
-
     protected function status(Model $model): Statuses
     {
-        return $this->driver($model)->statuses();
+        return $this->driver($model->parent)->statuses();
     }
 }

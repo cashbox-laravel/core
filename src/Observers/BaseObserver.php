@@ -20,8 +20,10 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Concerns\Attributes;
+use CashierProvider\Core\Concerns\Driverable;
 
 abstract class BaseObserver
 {
     use Attributes;
+    use Driverable;
 }
