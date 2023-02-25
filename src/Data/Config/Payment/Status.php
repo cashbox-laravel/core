@@ -44,6 +44,7 @@ class Status extends Data
     public function toRefund(): array
     {
         return [
+            $this->new,
             $this->success,
             $this->failed,
         ];
