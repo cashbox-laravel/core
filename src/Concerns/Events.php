@@ -30,16 +30,19 @@ trait Events
 {
     protected function event(Model $payment): void
     {
-        $field = $this->attributeStatus();
-
-        if ($payment->wasChanged($field) && $event = $this->getEvent($payment, $field)) {
+        if ($payment->wasChanged($this->attributeStatus()) && $event = $this->getEvent($payment)) {
             event(new $event($payment));
         }
     }
 
-    protected function getEvent(Model $payment, string $field): ?string
+    /**
+     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $payment
+     *
+     * @return string|null
+     */
+    protected function getEvent(Model $payment): ?string
     {
-        return $this->getEventClass($this->getStatus(), $payment->getAttribute($field));
+        return $this->getEventClass($this->getStatus(), $payment->cashierStatus());
     }
 
     protected function getEventClass(Status $data, string|int $status): ?string

@@ -36,6 +36,8 @@ abstract class Base extends Command
 
     abstract public function handle();
 
+    abstract protected function getStatuses(): array;
+
     protected function model(): Model|string
     {
         return Config::payment()->model;
@@ -47,9 +49,7 @@ abstract class Base extends Command
 
         return $model::query()
             ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->when($this->getStatuses(), fn (Builder $builder, array $statuses) => $builder
-                ->whereIn($this->attributeStatus(), $statuses)
-            )
+            ->whereIn($this->attributeStatus(), $this->getStatuses())
             ->when($this->getCreatedAt(), fn (Builder $builder, Carbon $createdAt) => $builder
                 ->where($this->attributeCreatedAt(), '<', $createdAt)
             );
@@ -58,11 +58,6 @@ abstract class Base extends Command
     protected function attributeTypes(): array
     {
         return Config::payment()->drivers->keys();
-    }
-
-    protected function getStatuses(): ?array
-    {
-        return null;
     }
 
     protected function getCreatedAt(): ?Carbon

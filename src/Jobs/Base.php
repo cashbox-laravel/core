@@ -128,7 +128,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
 
-        if ($status !== $this->model->getAttribute($attribute)) {
+        if ($status !== $this->model->cashierStatus()) {
             $this->model->update([
                 $attribute => $status,
             ]);

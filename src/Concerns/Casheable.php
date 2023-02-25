@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  */
 trait Casheable
 {
+    use Attributes;
+
     /**
      * Relation to model with payment status.
      *
@@ -50,5 +52,19 @@ trait Casheable
     public function cashierLogs(): MorphMany
     {
         return $this->morphMany(CashierLog::class, 'item');
+    }
+
+    public function cashierStatus(): mixed
+    {
+        return $this->getAttribute(
+            $this->attributeStatus()
+        );
+    }
+
+    public function cashierType(): mixed
+    {
+        return $this->getAttribute(
+            $this->attributeType()
+        );
     }
 }

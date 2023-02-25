@@ -42,6 +42,7 @@ abstract class Statuses
 
     public const SUCCESS = [];
 
+    /** @var \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable */
     protected Model $model;
 
     public function __construct(Model $model)
@@ -142,8 +143,6 @@ abstract class Statuses
 
     protected function modelStatus(): mixed
     {
-        return $this->model->getAttribute(
-            $this->attributeStatus()
-        );
+        return $this->model->cashierStatus();
     }
 }

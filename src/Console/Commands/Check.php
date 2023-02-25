@@ -41,7 +41,7 @@ class Check extends Base
         $this->checkPayments();
     }
 
-    protected function getStatuses(): ?array
+    protected function getStatuses(): array
     {
         return Config::payment()->status->inProgress();
     }

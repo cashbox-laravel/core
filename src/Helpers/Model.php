@@ -32,8 +32,6 @@ class Model
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
     {
-        $this->validateModel($payment);
-
         $this->exists($payment)
             ? $this->update($payment, $data)
             : $this->create($payment, $data);
@@ -70,6 +68,6 @@ class Model
     {
         $this->validateModel($model);
 
-        return ! empty($model->cashier) || $model->cashier()->exists();
+        return $model->cashier()->exists();
     }
 }

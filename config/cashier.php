@@ -334,9 +334,11 @@ return [
         | This setting determines the period after which it is necessary to carry
         | out an automatic refund.
         |
+        | The value is in minutes.
+        |
         */
 
-        'delay' => env('CASHIER_AUTO_REFUND_DELAY', 600),
+        'delay' => env('CASHIER_AUTO_REFUND_DELAY', 10),
     ],
 
     /*

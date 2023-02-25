@@ -25,14 +25,19 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Driverable
 {
-    protected ?Driver $driver = null;
+    protected array $driver = [];
 
+    /**
+     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $payment
+     *
+     * @return \CashierProvider\Core\Services\Driver
+     */
     protected function driver(Model $payment): Driver
     {
-        if (! empty($this->driver)) {
-            return $this->driver;
+        if (isset($this->driver[$payment->cashierType()])) {
+            return $this->driver[$payment->cashierType()];
         }
 
-        return $this->driver = DriverManager::fromModel($payment);
+        return $this->driver[$payment->cashierType()] = DriverManager::fromModel($payment);
     }
 }

@@ -44,11 +44,14 @@ class DriverManager
         return $this->resolve($driver, $model);
     }
 
-    protected function type(Model $model)
+    /**
+     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
+     *
+     * @return mixed
+     */
+    protected function type(Model $model): mixed
     {
-        return $model->getAttribute(
-            $this->attributeType()
-        );
+        return $model->cashierType();
     }
 
     protected function getDriverName($type): string|int
