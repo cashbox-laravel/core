@@ -74,9 +74,9 @@ class Job
 
     protected function send(Base|string $job, bool $force = false, ?int $delay = null): void
     {
-        $instance = $job::make($this->model, $force)->delay($delay);
-
-        dispatch($instance)->onConnection($this->onConnection());
+        dispatch(new $job($this->model, $force))
+            ->onConnection($this->onConnection())
+            ->delay($delay);
     }
 
     protected function hasStart(Model $model): bool
