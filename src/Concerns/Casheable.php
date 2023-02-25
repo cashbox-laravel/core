@@ -27,7 +27,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property \CashierProvider\Core\Models\CashierDetail $cashier
+ * @property-read \CashierProvider\Core\Models\CashierDetail $cashier
+ * @property-read \Illuminate\Database\Eloquent\Collection<\CashierProvider\Core\Models\CashierLog> $cashierLogs
  */
 trait Casheable
 {
