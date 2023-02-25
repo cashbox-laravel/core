@@ -18,6 +18,6 @@ class Payment extends Data
 
     public Status $status;
 
-    /** @var \Illuminate\Support\Collection<string, string> */
+    /** @var \Illuminate\Support\Collection<string,string> */
     public Collection $drivers;
 }
