@@ -2,7 +2,7 @@
 
 Cashier provides an expressive, fluent interface to manage billing services.
 
-<img src="https://preview.dragon-code.pro/cashier-provider/core.svg?brand=laravel" alt="Cashier Provider Core"/>
+<img src="https://preview.dragon-code.pro/cashier-provider/core.svg?brand=laravel&mode=dark" alt="Cashier Provider Core"/>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
