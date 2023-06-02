@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jobs
 {
     use Makeable;
+
     use Unique;
 
     /** @var \Illuminate\Database\Eloquent\Model */

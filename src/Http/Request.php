@@ -35,6 +35,7 @@ use Fig\Http\Message\RequestMethodInterface;
 abstract class Request implements Contract
 {
     use Makeable;
+
     use Validators;
 
     /** @var \DragonCode\Contracts\Cashier\Resources\Model */

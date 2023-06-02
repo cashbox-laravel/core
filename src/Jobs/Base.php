@@ -42,10 +42,15 @@ use Throwable;
 abstract class Base implements ShouldQueue, ShouldBeUnique
 {
     use Driverable;
+
     use InteractsWithQueue;
+
     use Makeable;
+
     use Queueable;
+
     use Relations;
+
     use SerializesModels;
 
     /**

@@ -27,7 +27,9 @@ use Illuminate\Queue\SerializesModels;
 class BaseEvent
 {
     use InteractsWithSockets;
+
     use SerializesModels;
+
     use Validators;
 
     /**

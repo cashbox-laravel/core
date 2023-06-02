@@ -37,7 +37,9 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Driver implements Contract
 {
     use Makeable;
+
     use Resolvable;
+
     use Validators;
 
     /** @var DriverConfig */

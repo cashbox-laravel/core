@@ -38,6 +38,7 @@ use Throwable;
 class Http
 {
     use FailedEvent;
+
     use Logs;
 
     protected $client;

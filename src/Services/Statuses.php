@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Statuses implements Contract
 {
     use Makeable;
+
     use Relations;
 
     public const NEW = [];
