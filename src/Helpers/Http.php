@@ -36,6 +36,7 @@ use Throwable;
 class Http
 {
     use FailedEvent;
+
     use Logs;
 
     protected int $tries = 10;

@@ -26,6 +26,7 @@ use Throwable;
 class ExceptionEvent
 {
     use InteractsWithSockets;
+
     use SerializesModels;
 
     /**

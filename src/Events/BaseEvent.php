@@ -27,7 +27,9 @@ use Illuminate\Queue\SerializesModels;
 abstract class BaseEvent
 {
     use InteractsWithSockets;
+
     use SerializesModels;
+
     use Validators;
 
     /**

@@ -33,6 +33,7 @@ use Fig\Http\Message\RequestMethodInterface;
 abstract class Request
 {
     use Makeable;
+
     use Validators;
 
     /** @var string HTTP Request method */

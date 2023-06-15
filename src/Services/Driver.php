@@ -36,7 +36,9 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Driver
 {
     use Makeable;
+
     use Resolvable;
+
     use Validators;
 
     protected ResourceModel $model;
