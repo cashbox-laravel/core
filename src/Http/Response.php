@@ -30,11 +30,9 @@ abstract class Response
 {
     use Makeable;
 
-    public const KEY_EXTERNAL_ID = 'external_id';
-
+    public const KEY_EXTERNAL_ID  = 'external_id';
     public const KEY_OPERATION_ID = 'operation_id';
-
-    public const KEY_STATUS = 'status';
+    public const KEY_STATUS       = 'status';
 
     protected array $map = [];
 

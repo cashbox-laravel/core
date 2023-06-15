@@ -33,7 +33,7 @@ trait Exceptionable
         return $this->status_code ?: $this->getDefaultStatusCode();
     }
 
-    public function getReason(string|int|float ...$values): string
+    public function getReason(float|int|string ...$values): string
     {
         return sprintf($this->reason, ...$values);
     }

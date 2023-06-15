@@ -17,7 +17,7 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Enums\Status;
 
 return [
     /*
@@ -44,7 +44,6 @@ return [
     */
 
     'payment' => [
-
         /*
         |--------------------------------------------------------------------------
         | Payment Model
@@ -81,11 +80,11 @@ return [
         */
 
         'status' => [
-            Status::NEW         => 'new',
-            Status::SUCCESS     => 'success',
-            Status::FAILED      => 'failed',
-            Status::REFUND      => 'refund',
-            Status::WAIT_REFUND => 'wait_refund',
+            Status::new()        => 'new',
+            Status::success()    => 'success',
+            Status::waitRefund() => 'wait_refund',
+            Status::refund()     => 'refund',
+            Status::failed()     => 'failed',
         ],
 
         /*
@@ -114,7 +113,6 @@ return [
     */
 
     'connection' => [
-
         /*
         |--------------------------------------------------------------------------
         | Connection Name
@@ -209,11 +207,11 @@ return [
         | This value determines the number of attempts to execute the job
         | before logging it failed.
         |
-        | By default, 100.
+        | By default, 50.
         |
         */
 
-        'tries' => 100,
+        'tries' => 50,
 
         /*
         |--------------------------------------------------------------------------
@@ -357,13 +355,13 @@ return [
     */
 
     'drivers' => [
-        //'driver_name_foo' => [
+        // 'driver_name_foo' => [
         //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,
-        //],
+        // ],
         //
-        //'driver_name_bar' => [
+        // 'driver_name_bar' => [
         //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,
@@ -378,6 +376,6 @@ return [
         //        'check'  => env('CASHIER_QUEUE'),
         //        'refund' => env('CASHIER_QUEUE'),
         //    ],
-        //],
+        // ],
     ],
 ];

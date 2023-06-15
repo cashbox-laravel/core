@@ -27,8 +27,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property-read \CashierProvider\Core\Models\CashierDetail $cashier
- * @property-read \Illuminate\Database\Eloquent\Collection<\CashierProvider\Core\Models\CashierLog> $cashierLogs
+ * @property \CashierProvider\Core\Models\CashierDetail $cashier
+ * @property \Illuminate\Database\Eloquent\Collection<\CashierProvider\Core\Models\CashierLog> $cashierLogs
  */
 trait Casheable
 {
@@ -36,8 +36,6 @@ trait Casheable
 
     /**
      * Relation to model with payment status.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function cashier(): MorphOne
     {
@@ -46,8 +44,6 @@ trait Casheable
 
     /**
      * Relation to model with HTTP logs.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function cashierLogs(): MorphMany
     {

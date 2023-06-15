@@ -9,7 +9,7 @@ use CashierProvider\Core\Exceptions\Runtime\UnknownEnumValueException;
 
 trait From
 {
-    public static function from(string|int $value): static
+    public static function from(int|string $value): static
     {
         foreach (static::cases() as $case) {
             if (static::isSame($case, $value)) {

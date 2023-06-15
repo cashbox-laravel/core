@@ -36,16 +36,14 @@ trait Events
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $payment
-     *
-     * @return string|null
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
      */
     protected function getEvent(Model $payment): ?string
     {
         return $this->getEventClass($this->getStatus(), $payment->cashierStatus());
     }
 
-    protected function getEventClass(Status $data, string|int $status): ?string
+    protected function getEventClass(Status $data, int|string $status): ?string
     {
         return match ($status) {
             $data->success    => SuccessEvent::class,

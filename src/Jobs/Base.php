@@ -39,7 +39,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Throwable;
 
-abstract class Base implements ShouldQueue, ShouldBeUnique
+abstract class Base implements ShouldBeUnique, ShouldQueue
 {
     use Attributes;
     use Driverable;
@@ -54,21 +54,21 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected bool $doneInsteadThrow = false;
 
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
+
     public function __construct(
         public Model $model,
-        public bool  $force_break = false
+        public bool $force_break = false
     ) {
         $this->afterCommit();
         $this->onQueue($this->queueName());
 
         $this->tries = Config::queue()->tries;
     }
-
-    abstract public function handle();
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     public function uniqueId(): string
     {

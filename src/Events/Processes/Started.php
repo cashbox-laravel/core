@@ -21,6 +21,4 @@ namespace CashierProvider\Core\Events\Processes;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class Started extends BaseEvent
-{
-}
+class Started extends BaseEvent {}

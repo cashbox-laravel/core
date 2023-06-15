@@ -45,21 +45,19 @@ class DriverManager
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
-     *
-     * @return mixed
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $model
      */
     protected function type(Model $model): mixed
     {
         return $model->cashierType();
     }
 
-    protected function getDriverName($type): string|int
+    protected function getDriverName($type): int|string
     {
         return Config::payment()->drivers->get($type);
     }
 
-    protected function getDriver(string|int $name): DriverData
+    protected function getDriver(int|string $name): DriverData
     {
         return Config::getDriver($name);
     }

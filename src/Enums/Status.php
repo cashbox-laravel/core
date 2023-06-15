@@ -4,13 +4,22 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Enums;
 
-use CashierProvider\Core\Constants\Status as SC;
+use ArchTech\Enums\Values;
 
-enum Status: string
+/**
+ * @method int failed()
+ * @method int new()
+ * @method int refund()
+ * @method int success()
+ * @method int waitRefund()
+ */
+enum Status: int
 {
-    case failed = SC::FAILED;
-    case new = SC::NEW;
-    case refund = SC::REFUND;
-    case success = SC::SUCCESS;
-    case waitRefund = SC::WAIT_REFUND;
+    use Values;
+
+    case new        = 0;
+    case success    = 1;
+    case waitRefund = 2;
+    case refund     = 3;
+    case failed     = 4;
 }

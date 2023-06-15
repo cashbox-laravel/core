@@ -42,12 +42,10 @@ class DetailsObserver extends BaseObserver
                     $this->updateStatus($model, Status::success);
 
                     return;
-
                 case $statuses->hasRefunded($status):
                     $this->updateStatus($model, Status::refund);
 
                     return;
-
                 case $statuses->hasFailed($status):
                     $this->updateStatus($model, Status::failed);
 

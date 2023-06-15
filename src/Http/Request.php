@@ -33,31 +33,28 @@ use Fig\Http\Message\RequestMethodInterface;
 abstract class Request
 {
     use Makeable;
-
     use Validators;
 
     /** @var string HTTP Request method */
     protected string $method = RequestMethodInterface::METHOD_POST;
 
-    /** @var string */
     protected string $production_host;
 
-    /** @var string */
     protected string $dev_host;
 
-    /** @var string|null */
     protected ?string $path;
 
     protected ?Auth $auth;
 
-    /** @var array */
     protected array $auth_extra = [];
 
-    /** @var bool */
     protected bool $hash = true;
 
-    /** @var bool */
     protected bool $reload_relations = false;
+
+    abstract public function getRawBody(): array;
+
+    abstract public function getRawHeaders(): array;
 
     public function __construct(
         protected Model $model
@@ -66,10 +63,6 @@ abstract class Request
 
         $this->auth = $this->resolveAuth($this->model);
     }
-
-    abstract public function getRawBody(): array;
-
-    abstract public function getRawHeaders(): array;
 
     public function model(): Model
     {

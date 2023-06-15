@@ -11,6 +11,6 @@ class TriesCast implements Cast
 {
     public function cast(DataProperty $property, mixed $value, array $context): int
     {
-        return $value > 1 ? (int) $value : 100;
+        return $value > 1 ? (int) $value : 50;
     }
 }

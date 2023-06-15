@@ -29,7 +29,7 @@ abstract class BaseException extends Exception
     public int $default_status_code = 400;
 
     /**
-     * @param int|string $payment_id
+     * @param  int|string  $payment_id
      */
     public function __construct($payment_id)
     {

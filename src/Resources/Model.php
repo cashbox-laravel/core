@@ -30,13 +30,6 @@ abstract class Model
 {
     use Makeable;
 
-    public function __construct(
-        protected EloquentModel $model,
-        protected Driver        $config,
-        protected Date          $date
-    ) {
-    }
-
     abstract protected function createdAt(): Carbon;
 
     abstract protected function currency(): int|string;
@@ -44,6 +37,12 @@ abstract class Model
     abstract protected function paymentId(): string;
 
     abstract protected function sum(): int;
+
+    public function __construct(
+        protected EloquentModel $model,
+        protected Driver $config,
+        protected Date $date
+    ) {}
 
     public function getPaymentModel(): EloquentModel
     {

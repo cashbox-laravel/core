@@ -23,5 +23,5 @@ use CashierProvider\Core\Services\Driver;
 
 class IncorrectDriverException extends BaseImplementException
 {
-    protected string|int|float $needle = Driver::class;
+    protected float|int|string $needle = Driver::class;
 }

@@ -72,7 +72,7 @@ class Config extends Data
         return $this->environment === 'production';
     }
 
-    public function getDriver(string|int $name): Driver
+    public function getDriver(int|string $name): Driver
     {
         return $this->drivers->offsetGet($name);
     }

@@ -36,9 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Driver
 {
     use Makeable;
-
     use Resolvable;
-
     use Validators;
 
     protected ResourceModel $model;
@@ -49,20 +47,20 @@ abstract class Driver
 
     protected Details $details;
 
-    public function __construct(
-        protected DriverConfig $config,
-        protected Model        $payment,
-        protected Http         $client
-    ) {
-        $this->payment = $this->validateModel($payment);
-        $this->model   = $this->resolveModel($payment);
-    }
-
     abstract public function check(): Response;
 
     abstract public function refund(): Response;
 
     abstract public function start(): Response;
+
+    public function __construct(
+        protected DriverConfig $config,
+        protected Model $payment,
+        protected Http $client
+    ) {
+        $this->payment = $this->validateModel($payment);
+        $this->model   = $this->resolveModel($payment);
+    }
 
     public function statuses(): Statuses
     {

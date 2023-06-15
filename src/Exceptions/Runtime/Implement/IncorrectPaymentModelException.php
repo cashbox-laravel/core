@@ -23,5 +23,5 @@ use CashierProvider\Core\Concerns\Casheable;
 
 class IncorrectPaymentModelException extends BaseImplementException
 {
-    protected string|int|float $needle = Casheable::class;
+    protected float|int|string $needle = Casheable::class;
 }

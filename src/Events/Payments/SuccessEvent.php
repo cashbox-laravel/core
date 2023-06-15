@@ -21,6 +21,4 @@ namespace CashierProvider\Core\Events\Payments;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class SuccessEvent extends BaseEvent
-{
-}
+class SuccessEvent extends BaseEvent {}

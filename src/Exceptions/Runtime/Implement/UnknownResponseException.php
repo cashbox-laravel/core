@@ -23,5 +23,5 @@ use CashierProvider\Core\Http\Response;
 
 class UnknownResponseException extends BaseImplementException
 {
-    protected string|int|float $needle = Response::class;
+    protected float|int|string $needle = Response::class;
 }

@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property Model|Casheable $model
+ *
  * @method static Job make(Model|Casheable $model)
  */
 class Job
@@ -41,8 +42,7 @@ class Job
 
     public function __construct(
         protected Model $model
-    ) {
-    }
+    ) {}
 
     public function start(): void
     {

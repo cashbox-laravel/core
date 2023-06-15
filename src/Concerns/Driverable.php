@@ -28,9 +28,7 @@ trait Driverable
     protected array $driver = [];
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $payment
-     *
-     * @return \CashierProvider\Core\Services\Driver
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
      */
     protected function driver(Model $payment): Driver
     {

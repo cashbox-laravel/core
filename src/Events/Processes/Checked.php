@@ -21,6 +21,4 @@ namespace CashierProvider\Core\Events\Processes;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class Checked extends BaseEvent
-{
-}
+class Checked extends BaseEvent {}

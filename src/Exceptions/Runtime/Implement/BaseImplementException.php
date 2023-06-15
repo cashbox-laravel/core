@@ -26,7 +26,7 @@ abstract class BaseImplementException extends BaseException
 {
     protected string $reason = 'The %s class must implement %s';
 
-    protected string|int|float $needle;
+    protected float|int|string $needle;
 
     public function getReason(...$values): string
     {

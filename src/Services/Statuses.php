@@ -32,20 +32,15 @@ abstract class Statuses
     use Attributes;
     use Makeable;
 
-    public const FAILED = [];
-
-    public const NEW = [];
-
-    public const REFUNDED = [];
-
+    public const FAILED    = [];
+    public const NEW       = [];
+    public const REFUNDED  = [];
     public const REFUNDING = [];
-
-    public const SUCCESS = [];
+    public const SUCCESS   = [];
 
     public function __construct(
         protected Model $model
-    ) {
-    }
+    ) {}
 
     public function hasUnknown(mixed $status = null): bool
     {
@@ -114,10 +109,7 @@ abstract class Statuses
     }
 
     /**
-     * @param array<Status> $statuses
-     * @param mixed $status
-     *
-     * @return bool
+     * @param  array<Status>  $statuses
      */
     protected function hasModel(array $statuses, mixed $status): bool
     {

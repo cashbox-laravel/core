@@ -12,7 +12,6 @@ class URI
 {
     use Makeable;
 
-    /** @var string */
     protected string $uri;
 
     public function __construct(string $production, ?string $development, bool $is_production = true)
