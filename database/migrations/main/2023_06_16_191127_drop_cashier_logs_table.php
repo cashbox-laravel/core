@@ -17,18 +17,20 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Facades\Config\Details;
-use CashierProvider\Core\Facades\Config\Logs;
 use CashierProvider\Core\Support\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierLogsTable extends Migration
-{
+new class extends Migration {
     public function up()
     {
+        Schema::connection($this->logsConnection())->dropIfExists('cashier_logs');
+    }
+
+    public function down()
+    {
         Schema::connection($this->logsConnection())
-            ->create($this->logsTable(), function (Blueprint $table) {
+            ->create('cashier_logs', function (Blueprint $table) {
                 $table->id();
 
                 $table->string('item_type');
@@ -53,20 +55,4 @@ class CreateCashierLogsTable extends Migration
                 $table->index(['item_type', 'item_id']);
             });
     }
-
-    public function down()
-    {
-        Schema::connection($this->logsConnection())
-            ->dropIfExists($this->logsTable());
-    }
-
-    protected function logsTable(): string
-    {
-        return Logs::getTable();
-    }
-
-    protected function detailsTable(): string
-    {
-        return Details::getTable();
-    }
-}
+};

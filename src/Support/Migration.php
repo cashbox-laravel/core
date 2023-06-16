@@ -41,4 +41,9 @@ abstract class Migration extends BaseMigration
     {
         return Config::details()->table;
     }
+
+    protected function logsConnection(): ?string
+    {
+        return Logs::getConnection();
+    }
 }
