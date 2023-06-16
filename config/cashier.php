@@ -112,7 +112,8 @@ return [
     |
     */
 
-    'connection' => [
+    'table' => [
+
         /*
         |--------------------------------------------------------------------------
         | Connection Name
@@ -123,7 +124,7 @@ return [
         |
         */
 
-        'name' => env('DB_CONNECTION'),
+        'connection' => env('DB_CONNECTION'),
 
         /*
         |--------------------------------------------------------------------------
@@ -134,7 +135,7 @@ return [
         |
         */
 
-        'table' => 'cashier_details',
+        'details' => 'cashier_details',
     ],
 
     /*
@@ -149,28 +150,16 @@ return [
     'logs' => [
         /*
         |--------------------------------------------------------------------------
-        | Enabling Logging
+        | Cashier Details Logs Channel
         |--------------------------------------------------------------------------
         |
-        | This parameter indicates the need to save logs of requests and
-        | responses from the bank.
+        | This value contains the name of the channel for storing query logs.
         |
-        | By default, true.
+        | Set `null` to disable.
         |
         */
 
-        'enabled' => (bool) env('CASHIER_LOGS_ENABLED', true),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cashier Details Logs Table
-        |--------------------------------------------------------------------------
-        |
-        | This value contains the name of the table for storing query logs.
-        |
-        */
-
-        'table' => 'cashier_logs',
+        'channel' => env('LOG_CHANNEL'),
     ],
 
     /*
