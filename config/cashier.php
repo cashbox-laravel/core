@@ -62,6 +62,8 @@ return [
         |
         | Correspondence of Cashier attributes to Payment model.
         |
+        | type of field => attribute from payment model 
+        |
         */
 
         'attribute' => [
@@ -77,6 +79,8 @@ return [
         |
         | Correspondence of statuses to the payment model.
         |
+        | internal status => your status name or ID
+        | 
         */
 
         'status' => [
@@ -159,7 +163,7 @@ return [
         |
         */
 
-        'channel' => env('LOG_CHANNEL'),
+        'channel' => env('CASHIER_LOG_CHANNEL'),
     ],
 
     /*
