@@ -50,7 +50,7 @@ class ServiceProvider extends BaseServiceProvider
 
     protected function bootMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/main');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/private');
     }
 
     protected function bootCommands(): void
