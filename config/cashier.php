@@ -117,7 +117,7 @@ return [
     |
     */
 
-    'table' => [
+    'details' => [
         /*
         |--------------------------------------------------------------------------
         | Connection Name
@@ -139,7 +139,7 @@ return [
         |
         */
 
-        'details' => 'cashier_details',
+        'table' => 'cashier_details',
     ],
 
     /*

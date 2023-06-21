@@ -19,12 +19,11 @@ declare(strict_types=1);
 
 use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 new class extends PrivateMigration {
     public function up(): void
     {
-        Schema::create($this->detailsTable(), function (Blueprint $table) {
+        $this->detailsConnection()->create($this->detailsTable(), function (Blueprint $table) {
             $table->string('item_type');
 
             $this->isNumericPrimaryKey()
@@ -43,6 +42,8 @@ new class extends PrivateMigration {
 
     public function down(): void
     {
-        Schema::dropIfExists($this->detailsTable());
+        $this->detailsConnection()->dropIfExists(
+            $this->detailsTable()
+        );
     }
 };

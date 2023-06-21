@@ -19,9 +19,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Migrations;
 
+use CashierProvider\Core\Data\Config\TableData;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Illuminate\Database\Schema\Builder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 abstract class PrivateMigration extends BaseMigration
@@ -37,13 +40,18 @@ abstract class PrivateMigration extends BaseMigration
         return in_array(Str::lower($type), ['int', 'integer']);
     }
 
-    protected function detailsTable(): string
+    protected function details(): TableData
     {
-        return Config::connection()->details;
+        return Config::details();
     }
 
-    protected function logsConnection(): ?string
+    protected function detailsConnection(): Builder
     {
-        return Logs::getConnection();
+        return Schema::connection($this->details()->connection);
+    }
+
+    protected function detailsTable(): string
+    {
+        return $this->details()->table;
     }
 }

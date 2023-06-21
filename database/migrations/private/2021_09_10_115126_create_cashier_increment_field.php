@@ -19,19 +19,18 @@ declare(strict_types=1);
 
 use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 new class extends PrivateMigration {
     public function up(): void
     {
-        Schema::table($this->detailsTable(), function (Blueprint $table) {
+        $this->detailsConnection()->table($this->detailsTable(), function (Blueprint $table) {
             $table->id()->first();
         });
     }
 
     public function down(): void
     {
-        Schema::table($this->detailsTable(), function (Blueprint $table) {
+        $this->detailsConnection()->table($this->detailsTable(), function (Blueprint $table) {
             $table->dropColumn('id');
         });
     }

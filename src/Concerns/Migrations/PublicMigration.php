@@ -23,16 +23,23 @@ use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Builder;
+use Illuminate\Support\Facades\Schema;
 
 abstract class PublicMigration extends Migration
 {
     use Attributes;
     use InitModelHelper;
 
-    /**
-     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
+    protected function schemaConnection(): Builder
+    {
+        $name = $this->model()->connection(
+            $this->getModel()
+        );
+
+        return Schema::connection($name);
+    }
+
     protected function table(): string
     {
         return $this->model()->table(

@@ -13,18 +13,16 @@ use CashierProvider\Core\Data\Config\Queue\QueueData;
 use CashierProvider\Core\Data\Config\RefundData;
 use CashierProvider\Core\Data\Config\TableData;
 use Illuminate\Support\Facades\Facade;
-use Spatie\LaravelData\DataCollection;
 
 /**
  * @method static bool isProduction()
  * @method static CheckData check()
- * @method static TableData connection()
- * @method static DataCollection drivers()
  * @method static DriverData driver(string|int $name)
  * @method static LogsData logs()
  * @method static PaymentData payment()
  * @method static QueueData queue()
  * @method static RefundData refund()
+ * @method static TableData details()
  */
 class Config extends Facade
 {

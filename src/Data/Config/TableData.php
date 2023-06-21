@@ -10,5 +10,5 @@ class TableData extends Data
 {
     public ?string $connection;
 
-    public string $details;
+    public string $table;
 }

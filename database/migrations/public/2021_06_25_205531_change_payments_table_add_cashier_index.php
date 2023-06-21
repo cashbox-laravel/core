@@ -19,19 +19,18 @@ declare(strict_types=1);
 
 use CashierProvider\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 new class extends PublicMigration {
     public function up(): void
     {
-        Schema::table($this->table(), function (Blueprint $table) {
+        $this->schemaConnection()->table($this->table(), function (Blueprint $table) {
             $table->index($this->fields());
         });
     }
 
     public function down(): void
     {
-        Schema::table($this->table(), function (Blueprint $table) {
+        $this->schemaConnection()->table($this->table(), function (Blueprint $table) {
             $table->dropIndex($this->fields());
         });
     }
