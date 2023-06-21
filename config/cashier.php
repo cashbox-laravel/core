@@ -62,7 +62,7 @@ return [
         |
         | Correspondence of Cashier attributes to Payment model.
         |
-        | type of field => attribute from payment model 
+        | type of field => attribute from payment model
         |
         */
 
@@ -80,7 +80,7 @@ return [
         | Correspondence of statuses to the payment model.
         |
         | internal status => your status name or ID
-        | 
+        |
         */
 
         'status' => [
@@ -117,7 +117,6 @@ return [
     */
 
     'table' => [
-
         /*
         |--------------------------------------------------------------------------
         | Connection Name

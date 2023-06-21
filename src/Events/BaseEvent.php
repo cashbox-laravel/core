@@ -32,6 +32,8 @@ abstract class BaseEvent
 
     /**
      * Create a new event instance.
+     *
+     * @param  publicModel  $payment
      */
     public function __construct(
         public Model $payment

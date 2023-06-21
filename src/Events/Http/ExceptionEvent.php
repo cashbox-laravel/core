@@ -30,6 +30,8 @@ class ExceptionEvent
 
     /**
      * Create a new event instance.
+     *
+     * @param null|public?Throwable $exception
      */
     public function __construct(
         public ?Throwable $exception = null
