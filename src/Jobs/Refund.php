@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Enums\Status;
-use CashierProvider\Core\Events\Processes\Refunded;
+use CashierProvider\Core\Events\Processes\RefundedEvent;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Http\Response;
@@ -28,7 +28,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
-    protected string $event = Refunded::class;
+    protected string $event = RefundedEvent::class;
 
     public function handle()
     {

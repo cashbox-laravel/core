@@ -19,12 +19,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Events\Processes\Started;
+use CashierProvider\Core\Events\Processes\StartedEvent;
 use CashierProvider\Core\Http\Response;
 
 class Start extends Base
 {
-    protected string $event = Started::class;
+    protected string $event = StartedEvent::class;
 
     public function handle()
     {

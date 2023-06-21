@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Enums\Status;
-use CashierProvider\Core\Events\Processes\Checked;
+use CashierProvider\Core\Events\Processes\CheckedEvent;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Http\Response;
@@ -28,7 +28,7 @@ use Illuminate\Support\Carbon;
 
 class Check extends Base
 {
-    protected string $event = Checked::class;
+    protected string $event = CheckedEvent::class;
 
     protected bool $doneInsteadThrow = true;
 

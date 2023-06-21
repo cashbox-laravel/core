@@ -21,4 +21,4 @@ namespace CashierProvider\Core\Events\Processes;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class Refunded extends BaseEvent {}
+class RefundedEvent extends BaseEvent { }
