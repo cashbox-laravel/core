@@ -36,7 +36,7 @@ class Check extends Base
     /** @var int Every 30 minutes */
     protected int $delay = 1800;
 
-    public function handle()
+    public function handle(): void
     {
         $this->cleanup();
         $this->checkPayments();
