@@ -45,7 +45,7 @@ class DriverManager
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $model
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
      */
     protected function type(Model $model): mixed
     {

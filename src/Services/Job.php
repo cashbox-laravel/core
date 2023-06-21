@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Casheable;
-use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Jobs\Base;
@@ -37,7 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Job
 {
-    use Driverable;
     use Makeable;
 
     public function __construct(
@@ -128,6 +126,6 @@ class Job
 
     protected function status(Model $model): Statuses
     {
-        return $this->driver($model->parent)->statuses();
+        return $model->parent->cashierDriver()->statuses();
     }
 }

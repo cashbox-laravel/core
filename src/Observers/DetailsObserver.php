@@ -26,13 +26,13 @@ use CashierProvider\Core\Services\Job;
 
 class DetailsObserver extends BaseObserver
 {
-    public function saved(CashierDetail $model)
+    public function saved(CashierDetail $model): void
     {
         if ($model->isClean()) {
             return;
         }
 
-        $statuses = $this->driver($model->parent)->statuses();
+        $statuses = $model->parent->cashierDriver()->statuses();
 
         $status = $model->details->status;
 

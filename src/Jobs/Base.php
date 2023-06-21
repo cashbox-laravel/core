@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Concerns\Attributes;
-use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Enums\Status;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Config;
@@ -42,7 +41,6 @@ use Throwable;
 abstract class Base implements ShouldBeUnique, ShouldQueue
 {
     use Attributes;
-    use Driverable;
     use InteractsWithQueue;
     use Makeable;
     use Queueable;
@@ -60,6 +58,10 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
     abstract protected function queueName(): ?string;
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
+     * @param  bool $force_break
+     */
     public function __construct(
         public Model $model,
         public bool $force_break = false
@@ -160,7 +162,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
     protected function resolveDriver(): Driver
     {
-        return $this->driver($this->model);
+        return $this->model->cashierDriver();
     }
 
     protected function resolveStatuses(): Statuses
@@ -178,7 +180,11 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
                 return;
             }
 
-            if ($this->doneInsteadThrow && ! $this->retryUntil() && $this->maxTries() > 0 && $this->attempts() >= $this->maxTries()) {
+            if (
+                $this->doneInsteadThrow && ! $this->retryUntil() && $this->maxTries() > 0
+                && $this->attempts()
+                >= $this->maxTries()
+            ) {
                 return;
             }
 

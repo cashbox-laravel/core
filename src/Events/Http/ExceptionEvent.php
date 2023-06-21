@@ -19,20 +19,10 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Events\Http;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Queue\SerializesModels;
 use Throwable;
 
 class ExceptionEvent
 {
-    use InteractsWithSockets;
-    use SerializesModels;
-
-    /**
-     * Create a new event instance.
-     *
-     * @param null|public?Throwable $exception
-     */
     public function __construct(
         public ?Throwable $exception = null
     ) {}

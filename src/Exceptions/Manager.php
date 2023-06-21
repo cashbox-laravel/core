@@ -19,14 +19,14 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Exceptions;
 
-use CashierProvider\Core\Concerns\FailedEvent;
+use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Http\Builder;
 
 abstract class Manager
 {
-    use FailedEvent;
+    use Events;
 
     protected array $codes = [];
 

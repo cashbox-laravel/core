@@ -27,7 +27,7 @@ abstract class BaseException extends HttpException
 {
     use Exceptionable;
 
-    public int $default_status_code = 400;
+    public int $defaultStatusCode = 400;
 
     public function __construct(Builder $uri, ?string $reason = null)
     {

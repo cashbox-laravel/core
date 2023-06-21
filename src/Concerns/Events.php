@@ -20,11 +20,15 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Concerns;
 
 use CashierProvider\Core\Data\Config\Payment\StatusData;
+use CashierProvider\Core\Events\Http\ExceptionEvent;
 use CashierProvider\Core\Events\Payments\FailedEvent;
+use CashierProvider\Core\Events\Payments\NewEvent;
 use CashierProvider\Core\Events\Payments\RefundEvent;
 use CashierProvider\Core\Events\Payments\SuccessEvent;
+use CashierProvider\Core\Events\Payments\WaitRefundEvent;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
+use Throwable;
 
 trait Events
 {
@@ -35,8 +39,13 @@ trait Events
         }
     }
 
+    protected function failedEvent(Throwable $e): void
+    {
+        event(new ExceptionEvent($e));
+    }
+
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $payment
      */
     protected function getEvent(Model $payment): ?string
     {
@@ -46,10 +55,12 @@ trait Events
     protected function getEventClass(StatusData $data, int|string $status): ?string
     {
         return match ($status) {
-            $data->success    => SuccessEvent::class,
-            $data->refund     => RefundEvent::class,
-            $data->waitRefund => FailedEvent::class,
-            default           => null
+            $data->new => NewEvent::class,
+            $data->success => SuccessEvent::class,
+            $data->refund => RefundEvent::class,
+            $data->waitRefund => WaitRefundEvent::class,
+            $data->failed => FailedEvent::class,
+            default => null
         };
     }
 

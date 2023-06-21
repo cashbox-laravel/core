@@ -37,7 +37,7 @@ abstract class PrivateMigration extends BaseMigration
             Config::payment()->model
         );
 
-        return in_array(Str::lower($type), ['int', 'integer']);
+        return Str::contains($type, ['int', 'integer'], true);
     }
 
     protected function details(): TableData

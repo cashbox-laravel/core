@@ -21,7 +21,6 @@ namespace CashierProvider\Core\Console\Commands;
 
 use Carbon\Carbon;
 use CashierProvider\Core\Concerns\Attributes;
-use CashierProvider\Core\Concerns\Driverable;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,18 +29,12 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Base extends Command
 {
     use Attributes;
-    use Driverable;
 
     protected int $chunk = 1000;
 
     abstract public function handle();
 
     abstract protected function getStatuses(): array;
-
-    protected function model(): Model|string
-    {
-        return Config::payment()->model;
-    }
 
     protected function payments(): Builder
     {
@@ -54,6 +47,11 @@ abstract class Base extends Command
             ->when($this->getCreatedAt(), fn (Builder $builder, Carbon $createdAt) => $builder
                 ->where($this->attributeCreatedAt(), '<', $createdAt)
             );
+    }
+
+    protected function model(): Model|string
+    {
+        return Config::payment()->model;
     }
 
     protected function attributeTypes(): array

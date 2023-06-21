@@ -19,16 +19,15 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
+use CashierProvider\Core\Facades\DriverManager;
 use CashierProvider\Core\Models\CashierDetail;
-use CashierProvider\Core\Models\CashierLog;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use CashierProvider\Core\Services\Driver;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * @mixin \Illuminate\Database\Eloquent\Model
  *
  * @property \CashierProvider\Core\Models\CashierDetail $cashier
- * @property \Illuminate\Database\Eloquent\Collection<\CashierProvider\Core\Models\CashierLog> $cashierLogs
  */
 trait Casheable
 {
@@ -37,17 +36,9 @@ trait Casheable
     /**
      * Relation to model with payment status.
      */
-    public function cashier(): MorphOne
+    public function cashier(): Relation
     {
         return $this->morphOne(CashierDetail::class, 'item');
-    }
-
-    /**
-     * Relation to model with HTTP logs.
-     */
-    public function cashierLogs(): MorphMany
-    {
-        return $this->morphMany(CashierLog::class, 'item');
     }
 
     public function cashierStatus(): mixed
@@ -62,5 +53,10 @@ trait Casheable
         return $this->getAttribute(
             $this->attributeType()
         );
+    }
+
+    public function cashierDriver(): Driver
+    {
+        return DriverManager::fromModel($this);
     }
 }

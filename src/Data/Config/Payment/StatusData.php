@@ -16,20 +16,20 @@ class StatusData extends Data
 
     public mixed $success;
 
-    public mixed $failed;
-
     public mixed $refund;
 
     public mixed $waitRefund;
+
+    public mixed $failed;
 
     public function get(StatusEnum $status): mixed
     {
         return match ($status) {
             StatusEnum::new => $this->new,
             StatusEnum::success => $this->success,
-            StatusEnum::failed => $this->failed,
             StatusEnum::refund => $this->refund,
             StatusEnum::waitRefund => $this->waitRefund,
+            StatusEnum::failed => $this->failed,
         };
     }
 

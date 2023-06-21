@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Core\Concerns\FailedEvent;
+use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Concerns\Logs;
 use CashierProvider\Core\Exceptions\Manager;
 use CashierProvider\Core\Http\Request;
@@ -35,7 +35,7 @@ use Throwable;
 
 class Http
 {
-    use FailedEvent;
+    use Events;
     use Logs;
 
     protected int $tries = 10;
