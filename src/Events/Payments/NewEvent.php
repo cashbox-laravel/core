@@ -6,4 +6,4 @@ namespace CashierProvider\Core\Events\Payments;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class NewEvent extends BaseEvent { }
+class NewEvent extends BaseEvent {}

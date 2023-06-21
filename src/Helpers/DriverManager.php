@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Data\Config\DriverData as DriverData;
+use CashierProvider\Core\Data\Config\DriverData;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
@@ -45,7 +45,7 @@ class DriverManager
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $model
      */
     protected function type(Model $model): mixed
     {

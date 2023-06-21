@@ -59,8 +59,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
     abstract protected function queueName(): ?string;
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable $model
-     * @param  bool $force_break
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $model
      */
     public function __construct(
         public Model $model,
@@ -182,7 +181,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
             if (
                 $this->doneInsteadThrow && ! $this->retryUntil() && $this->maxTries() > 0
-                && $this->attempts()
+                                        && $this->attempts()
                 >= $this->maxTries()
             ) {
                 return;
