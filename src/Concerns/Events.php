@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Data\Config\Payment\Status;
+use CashierProvider\Core\Data\Config\Payment\StatusData;
 use CashierProvider\Core\Events\Payments\FailedEvent;
 use CashierProvider\Core\Events\Payments\RefundEvent;
 use CashierProvider\Core\Events\Payments\SuccessEvent;
@@ -43,7 +43,7 @@ trait Events
         return $this->getEventClass($this->getStatus(), $payment->cashierStatus());
     }
 
-    protected function getEventClass(Status $data, int|string $status): ?string
+    protected function getEventClass(StatusData $data, int|string $status): ?string
     {
         return match ($status) {
             $data->success    => SuccessEvent::class,
@@ -53,7 +53,7 @@ trait Events
         };
     }
 
-    protected function getStatus(): Status
+    protected function getStatus(): StatusData
     {
         return Config::payment()->status;
     }

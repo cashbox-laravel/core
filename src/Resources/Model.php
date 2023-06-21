@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Resources;
 
-use CashierProvider\Core\Data\Config\Driver;
+use CashierProvider\Core\Data\Config\DriverData;
 use CashierProvider\Core\Enums\Currency;
 use CashierProvider\Core\Helpers\Date;
 use DragonCode\Support\Concerns\Makeable;
@@ -40,7 +40,7 @@ abstract class Model
 
     public function __construct(
         protected EloquentModel $model,
-        protected Driver $config,
+        protected DriverData $config,
         protected Date $date
     ) {}
 

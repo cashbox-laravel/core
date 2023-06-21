@@ -6,7 +6,7 @@ namespace CashierProvider\Core\Data\Config\Queue;
 
 use Spatie\LaravelData\Data;
 
-class Name extends Data
+class QueueNameData extends Data
 {
     public ?string $start;
 

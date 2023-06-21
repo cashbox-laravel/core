@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Queue;
 
-use CashierProvider\Core\Casts\TriesCast;
+use CashierProvider\Core\Casts\NumberCast;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapInputName(SnakeCaseMapper::class)]
-class Queue extends Data
+class QueueData extends Data
 {
     public ?string $connection;
 
-    #[WithCast(TriesCast::class)]
+    #[WithCast(NumberCast::class, min: 1, default: 50)]
     public int $tries;
 
-    public Name $name;
+    public QueueNameData $name;
 }

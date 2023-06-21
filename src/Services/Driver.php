@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Data\Config\Driver as DriverConfig;
-use CashierProvider\Core\Data\Config\Queue\Name;
+use CashierProvider\Core\Data\Config\DriverData as DriverConfig;
+use CashierProvider\Core\Data\Config\Queue\QueueNameData;
 use CashierProvider\Core\Exceptions\Manager;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Helpers\Http;
@@ -76,12 +76,12 @@ abstract class Driver
         return $cast::make($details);
     }
 
-    public function queue(): Name
+    public function queue(): QueueNameData
     {
         return $this->config?->queue ?? Config::queue()->name;
     }
 
-    protected function request(Request $request, \CashierProvider\Core\Http\Response|string $response): Response
+    protected function request(Request $request, Response|string $response): Response
     {
         $manager = $this->resolveExceptionManager();
 

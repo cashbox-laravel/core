@@ -10,7 +10,7 @@ use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapName(SnakeCaseMapper::class)]
-class Status extends Data
+class StatusData extends Data
 {
     public mixed $new;
 
@@ -25,11 +25,11 @@ class Status extends Data
     public function get(StatusEnum $status): mixed
     {
         return match ($status) {
-            StatusEnum::new        => $this->new,
-            StatusEnum::success    => $this->success,
-            StatusEnum::failed     => $this->failed,
-            StatusEnum::refund     => $this->refund,
-            StatusEnum::waitRefund => $this->waitRefund
+            StatusEnum::new => $this->new,
+            StatusEnum::success => $this->success,
+            StatusEnum::failed => $this->failed,
+            StatusEnum::refund => $this->refund,
+            StatusEnum::waitRefund => $this->waitRefund,
         };
     }
 
@@ -41,7 +41,7 @@ class Status extends Data
         ];
     }
 
-    public function toRefund(): array
+    public function allowToRefund(): array
     {
         return [
             $this->new,

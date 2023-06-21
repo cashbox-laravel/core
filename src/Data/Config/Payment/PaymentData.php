@@ -9,14 +9,14 @@ use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
-class Payment extends Data
+class PaymentData extends Data
 {
     #[WithCast(PaymentModelCast::class)]
     public string $model;
 
-    public Attribute $attribute;
+    public AttributeData $attribute;
 
-    public Status $status;
+    public StatusData $status;
 
     /** @var \Illuminate\Support\Collection<string,string> */
     public Collection $drivers;

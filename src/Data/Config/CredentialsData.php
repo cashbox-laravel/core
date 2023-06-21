@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Payment;
+namespace CashierProvider\Core\Data\Config;
 
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapInputName(SnakeCaseMapper::class)]
-class Attribute extends Data
+class CredentialsData extends Data
 {
-    public string $type;
+    public string $clientId;
 
-    public string $status;
-
-    public string $createdAt;
+    public string $clientSecret;
 }

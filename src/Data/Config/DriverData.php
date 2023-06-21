@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config;
 
-use CashierProvider\Core\Data\Config\Queue\Name;
+use CashierProvider\Core\Data\Config\Queue\QueueNameData;
+use CashierProvider\Core\Services\Driver as Service;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapInputName(SnakeCaseMapper::class)]
-class Driver extends Data
+class DriverData extends Data
 {
-    /** @var \CashierProvider\Core\Services\Driver|string */
-    public string $driver;
+    public Service|string $driver;
 
     public string $details;
 
-    public ?Credentials $credentials;
+    public ?CredentialsData $credentials;
 
-    public ?Name $queue;
+    public ?QueueNameData $queue;
 }

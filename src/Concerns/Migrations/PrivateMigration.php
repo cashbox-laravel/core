@@ -39,7 +39,7 @@ abstract class PrivateMigration extends BaseMigration
 
     protected function detailsTable(): string
     {
-        return Config::details()->table;
+        return Config::connection()->details;
     }
 
     protected function logsConnection(): ?string

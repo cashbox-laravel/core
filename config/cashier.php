@@ -17,6 +17,7 @@
 
 declare(strict_types=1);
 
+use CashierProvider\Core\Enums\Attribute;
 use CashierProvider\Core\Enums\Status;
 
 return [
@@ -67,9 +68,9 @@ return [
         */
 
         'attribute' => [
-            'type'       => 'type_id',
-            'status'     => 'status_id',
-            'created_at' => 'created_at',
+            Attribute::type()      => 'type_id',
+            Attribute::status()    => 'status_id',
+            Attribute::createdAt() => 'created_at',
         ],
 
         /*
@@ -151,6 +152,8 @@ return [
     */
 
     'logs' => [
+        'enabled' => (bool) env('CASHIER_LOG_ENABLED', true),
+
         /*
         |--------------------------------------------------------------------------
         | Cashier Details Logs Channel

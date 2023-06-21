@@ -48,7 +48,9 @@ class Access
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model|Casheable  $model
+     * @param  \Illuminate\Database\Eloquent\Model|Casheable $model
+     *
+     * @return bool
      */
     protected function allowType(Model $model): bool
     {

@@ -42,7 +42,7 @@ class Refund extends Base
 
     protected function getStatuses(): array
     {
-        return Config::payment()->status->toRefund();
+        return Config::payment()->status->allowToRefund();
     }
 
     protected function getCreatedAt(): ?Carbon

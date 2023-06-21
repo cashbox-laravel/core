@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Concerns\Attributes;
 use CashierProvider\Core\Concerns\Validators;
-use CashierProvider\Core\Data\Config\Driver as DriverData;
+use CashierProvider\Core\Data\Config\DriverData as DriverData;
 use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
@@ -59,7 +59,7 @@ class DriverManager
 
     protected function getDriver(int|string $name): DriverData
     {
-        return Config::getDriver($name);
+        return Config::driver($name);
     }
 
     protected function resolve(DriverData $config, Model $payment): Driver
