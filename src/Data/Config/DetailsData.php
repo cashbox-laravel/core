@@ -6,7 +6,7 @@ namespace CashierProvider\Core\Data\Config;
 
 use Spatie\LaravelData\Data;
 
-class TableData extends Data
+class DetailsData extends Data
 {
     public ?string $connection;
 

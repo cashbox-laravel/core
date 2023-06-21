@@ -18,7 +18,7 @@ class ConfigData extends Data
 
     public PaymentData $payment;
 
-    public TableData $details;
+    public DetailsData $details;
 
     public LogsData $logs;
 
@@ -37,7 +37,7 @@ class ConfigData extends Data
         return $this->payment;
     }
 
-    public function details(): TableData
+    public function details(): DetailsData
     {
         return $this->details;
     }

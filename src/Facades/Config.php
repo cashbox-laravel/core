@@ -11,7 +11,7 @@ use CashierProvider\Core\Data\Config\LogsData;
 use CashierProvider\Core\Data\Config\Payment\PaymentData;
 use CashierProvider\Core\Data\Config\Queue\QueueData;
 use CashierProvider\Core\Data\Config\RefundData;
-use CashierProvider\Core\Data\Config\TableData;
+use CashierProvider\Core\Data\Config\DetailsData;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static PaymentData payment()
  * @method static QueueData queue()
  * @method static RefundData refund()
- * @method static TableData details()
+ * @method static DetailsData details()
  */
 class Config extends Facade
 {

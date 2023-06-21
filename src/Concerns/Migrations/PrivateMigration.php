@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Migrations;
 
-use CashierProvider\Core\Data\Config\TableData;
+use CashierProvider\Core\Data\Config\DetailsData;
 use CashierProvider\Core\Facades\Config;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
@@ -40,7 +40,7 @@ abstract class PrivateMigration extends BaseMigration
         return Str::contains($type, ['int', 'integer'], true);
     }
 
-    protected function details(): TableData
+    protected function details(): DetailsData
     {
         return Config::details();
     }
