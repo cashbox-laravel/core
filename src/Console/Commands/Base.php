@@ -32,7 +32,7 @@ abstract class Base extends Command
 
     protected int $chunk = 1000;
 
-    abstract public function handle();
+    abstract public function handle(): void;
 
     abstract protected function getStatuses(): array;
 

@@ -56,7 +56,7 @@ class Check extends Base
 
     protected function checkPayments(): void
     {
-        $this->payments()->chunk($this->chunk, fn (Collection $payments) => $payments->each(
+        $this->payments()->chunkById($this->chunk, fn (Collection $payments) => $payments->each(
             fn (Model $payment) => $this->check($payment, $this->delay($payment))
         ));
     }
@@ -73,10 +73,10 @@ class Check extends Base
 
     protected function isToday(Model $model): bool
     {
-        $field = $this->attributeCreatedAt();
-
         /** @var \Carbon\Carbon $value */
-        $value = $model->getAttribute($field);
+        $value = $model->getAttribute(
+            $this->attributeCreatedAt()
+        );
 
         return $value->isToday();
     }

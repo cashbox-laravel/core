@@ -33,9 +33,9 @@ class Refund extends Base
 
     protected $description = 'Launching the command to check payments for refunds';
 
-    public function handle()
+    public function handle(): void
     {
-        $this->payments()->chunk($this->chunk, fn (Collection $payments) => $payments->each(
+        $this->payments()->chunkById($this->chunk, fn (Collection $payments) => $payments->each(
             fn (Model $payment) => $this->cancel($payment)
         ));
     }
