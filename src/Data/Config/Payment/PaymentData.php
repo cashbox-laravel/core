@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Payment;
 
-use CashierProvider\Core\Casts\PaymentModelCast;
+use CashierProvider\Core\Casts\Data\PaymentModelCast;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;

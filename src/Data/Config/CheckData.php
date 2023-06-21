@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config;
 
-use CashierProvider\Core\Casts\NumberCast;
+use CashierProvider\Core\Casts\Data\NumberCast;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 

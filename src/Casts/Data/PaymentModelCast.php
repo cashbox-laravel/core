@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Casts;
+namespace CashierProvider\Core\Casts\Data;
 
 use CashierProvider\Core\Concerns\Validators;
 use Spatie\LaravelData\Casts\Cast;
