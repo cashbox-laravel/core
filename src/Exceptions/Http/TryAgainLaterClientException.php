@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class TryAgainLaterClientException extends BaseException
 {
-    protected int $status_code = 449;
+    protected int $statusCode = 449;
 
-    protected string $reason = 'Please Try Again Later';
+    protected string $reason = 'Please try again later.';
 }

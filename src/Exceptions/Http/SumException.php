@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class SumException extends BaseException
 {
-    protected int $status_code = 406;
+    protected int $statusCode = 406;
 
-    protected string $reason = 'Amount must be greater than 0';
+    protected string $reason = 'Amount must be greater than 1.';
 }

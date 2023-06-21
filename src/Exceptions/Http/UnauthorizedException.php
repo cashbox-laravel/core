@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class UnauthorizedException extends BaseException
 {
-    protected int $status_code = 401;
+    protected int $statusCode = 401;
 
-    protected string $reason = 'Unauthorized';
+    protected string $reason = 'Unauthorized.';
 }

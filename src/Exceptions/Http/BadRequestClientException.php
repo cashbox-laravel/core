@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class BadRequestClientException extends BaseException
 {
-    protected int $status_code = 400;
+    protected int $statusCode = 400;
 
-    protected string $reason = 'Bad Request';
+    protected string $reason = 'Bad request.';
 }

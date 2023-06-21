@@ -6,5 +6,5 @@ namespace CashierProvider\Core\Exceptions\Runtime;
 
 class UnknownEnumValueException extends BaseException
 {
-    protected string $reason = 'Unknown enum value: "%s"';
+    protected string $reason = 'Unknown enum value: "%s".';
 }

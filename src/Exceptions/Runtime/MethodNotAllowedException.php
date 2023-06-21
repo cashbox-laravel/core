@@ -22,5 +22,5 @@ namespace CashierProvider\Core\Exceptions\Runtime;
 /** @method MethodNotAllowedException __construct(string $method) */
 class MethodNotAllowedException extends BaseException
 {
-    protected string $reason = 'Method "%s" not allowed!';
+    protected string $reason = 'Method "%s" not allowed.';
 }

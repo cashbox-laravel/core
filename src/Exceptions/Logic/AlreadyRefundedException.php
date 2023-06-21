@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Logic;
 
 class AlreadyRefundedException extends BaseException
 {
-    protected int $status_code = 409;
+    protected int $statusCode = 409;
 
-    protected string $reason = 'Funds for payment #%s already returned';
+    protected string $reason = 'Funds for payment "%s" already returned.';
 }

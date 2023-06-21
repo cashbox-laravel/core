@@ -36,7 +36,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class TooManyRequestsException extends BaseException
 {
-    protected $status_code = 429;
+    protected int $statusCode = 429;
 
-    protected $reason = 'Too Many Requests';
+    protected string $reason = 'Too many requests.';
 }

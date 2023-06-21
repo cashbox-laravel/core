@@ -24,7 +24,7 @@ use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
 use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Http\Builder;
 
-abstract class Manager
+class Manager
 {
     use Events;
 
@@ -32,11 +32,11 @@ abstract class Manager
 
     protected string $default = BadRequestClientException::class;
 
-    protected array $code_keys = ['StatusCode', 'Code'];
+    protected array $codeKeys = ['StatusCode', 'Code'];
 
-    protected array $reason_keys = ['Message', 'Data'];
+    protected array $reasonKeys = ['Message', 'Data'];
 
-    protected array $success_keys = ['Success'];
+    protected array $successKeys = ['Success'];
 
     public function validateResponse(Builder $uri, array $response, int $status_code): void
     {
@@ -51,11 +51,9 @@ abstract class Manager
 
     public function throw(Builder $uri, int $code, array $response): void
     {
-        $code = $this->getCode($code, $response);
-
+        $code      = $this->getCode($code, $response);
         $exception = $this->getException($code);
-
-        $reason = $this->getReason($response);
+        $reason    = $this->getReason($response);
 
         $e = new $exception($uri, $reason);
 
@@ -71,7 +69,7 @@ abstract class Manager
 
     protected function getCodeByResponseContent(array $response): ?int
     {
-        foreach ($this->code_keys as $key) {
+        foreach ($this->codeKeys as $key) {
             if ($code = Arr::get($response, $key)) {
                 return (int) $code;
             }
@@ -87,7 +85,7 @@ abstract class Manager
 
     protected function getReason(array $response): ?string
     {
-        foreach ($this->reason_keys as $key) {
+        foreach ($this->reasonKeys as $key) {
             if ($value = Arr::get($response, $key)) {
                 if (is_string($value) && ! empty($value)) {
                     return $value;
@@ -105,7 +103,7 @@ abstract class Manager
 
     protected function isFailedContent(array $response): bool
     {
-        foreach ($this->success_keys as $key) {
+        foreach ($this->successKeys as $key) {
             if (Arr::exists($response, $key)) {
                 $value = Arr::get($response, $key);
 

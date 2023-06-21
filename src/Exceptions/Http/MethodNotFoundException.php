@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Exceptions\Http;
 
 class MethodNotFoundException extends BaseException
 {
-    protected int $status_code = 405;
+    protected int $statusCode = 405;
 
-    protected string $reason = 'Method Not Found';
+    protected string $reason = 'Method not found.';
 }

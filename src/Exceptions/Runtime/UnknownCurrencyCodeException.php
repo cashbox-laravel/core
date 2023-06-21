@@ -22,5 +22,5 @@ namespace CashierProvider\Core\Exceptions\Runtime;
 /** @method UnknownCurrencyCodeException __construct(string $currency) */
 class UnknownCurrencyCodeException extends BaseException
 {
-    protected string $reason = 'Unknown currency code: %s';
+    protected string $reason = 'Unknown currency code: "%s".';
 }
