@@ -21,24 +21,15 @@ use CashierProvider\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangePaymentsTableAddCashierIndex extends PublicMigration
-{
-    /**
-     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function up()
+new class extends PublicMigration {
+    public function up(): void
     {
         Schema::table($this->table(), function (Blueprint $table) {
             $table->index($this->fields());
         });
     }
 
-    /**
-     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function down()
+    public function down(): void
     {
         Schema::table($this->table(), function (Blueprint $table) {
             $table->dropIndex($this->fields());
@@ -53,4 +44,4 @@ class ChangePaymentsTableAddCashierIndex extends PublicMigration
             $this->attributeCreatedAt(),
         ];
     }
-}
+};

@@ -17,15 +17,12 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Facades\Config\Details;
-use CashierProvider\Core\Facades\Config\Logs;
-use CashierProvider\Core\Support\Migration;
+use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierLogsTable extends Migration
-{
-    public function up()
+new class extends PrivateMigration {
+    public function up(): void
     {
         Schema::connection($this->logsConnection())
             ->create($this->logsTable(), function (Blueprint $table) {
@@ -54,7 +51,7 @@ class CreateCashierLogsTable extends Migration
             });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::connection($this->logsConnection())
             ->dropIfExists($this->logsTable());
@@ -69,4 +66,4 @@ class CreateCashierLogsTable extends Migration
     {
         return Details::getTable();
     }
-}
+};

@@ -17,13 +17,12 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Support\Migration;
+use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCashierDetailsTable extends Migration
-{
-    public function up()
+new class extends PrivateMigration {
+    public function up(): void
     {
         Schema::create($this->detailsTable(), function (Blueprint $table) {
             $table->string('item_type');
@@ -42,8 +41,8 @@ class CreateCashierDetailsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->detailsTable());
     }
-}
+};

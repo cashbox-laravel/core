@@ -17,14 +17,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Support;
+namespace CashierProvider\Core\Concerns\Migrations;
 
 use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Support\Logs;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 use Illuminate\Support\Str;
 
-abstract class Migration extends BaseMigration
+abstract class PrivateMigration extends BaseMigration
 {
     use InitModelHelper;
 

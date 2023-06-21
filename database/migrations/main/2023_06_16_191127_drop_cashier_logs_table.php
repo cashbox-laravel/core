@@ -17,11 +17,11 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Support\Migration;
+use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-new class extends Migration {
+new class extends PrivateMigration {
     public function up()
     {
         Schema::connection($this->logsConnection())->dropIfExists('cashier_logs');

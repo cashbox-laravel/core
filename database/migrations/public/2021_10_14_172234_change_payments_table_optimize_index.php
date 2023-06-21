@@ -21,13 +21,8 @@ use CashierProvider\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangePaymentsTableOptimizeIndex extends PublicMigration
-{
-    /**
-     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function up()
+new class extends PublicMigration {
+    public function up(): void
     {
         Schema::table($this->table(), function (Blueprint $table) {
             $table->dropIndex($this->oldFields());
@@ -35,7 +30,7 @@ class ChangePaymentsTableOptimizeIndex extends PublicMigration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table($this->table(), function (Blueprint $table) {
             $table->dropIndex($this->newFields());
@@ -59,4 +54,4 @@ class ChangePaymentsTableOptimizeIndex extends PublicMigration
             $this->attributeStatus(),
         ];
     }
-}
+};

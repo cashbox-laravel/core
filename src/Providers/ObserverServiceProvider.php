@@ -28,7 +28,7 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->bootPayment();
         $this->bootPaymentDetails();

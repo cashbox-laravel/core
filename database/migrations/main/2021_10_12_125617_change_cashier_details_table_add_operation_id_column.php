@@ -17,23 +17,22 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Support\Migration;
+use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeCashierDetailsTableAddOperationIdColumn extends Migration
-{
-    public function up()
+new class extends PrivateMigration {
+    public function up(): void
     {
         Schema::table($this->detailsTable(), function (Blueprint $table) {
             $table->string('operation_id')->nullable()->after('external_id');
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table($this->detailsTable(), function (Blueprint $table) {
             $table->dropColumn('operation_id');
         });
     }
-}
+};
