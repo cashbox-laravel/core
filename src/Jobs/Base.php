@@ -33,8 +33,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Carbon;
 use Throwable;
+
+use function array_merge;
+use function compact;
+use function event;
+use function now;
 
 abstract class Base implements ShouldBeUnique, ShouldQueue
 {
@@ -175,7 +179,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
         catch (Throwable $e) {
             $until = $this->retryUntil();
 
-            if ($this->doneInsteadThrow && $until && $until <= Carbon::now()) {
+            if ($this->doneInsteadThrow && $until && $until <= now()) {
                 return;
             }
 

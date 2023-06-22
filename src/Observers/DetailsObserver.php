@@ -36,9 +36,9 @@ class DetailsObserver extends BaseObserver
 
         if ($model->isDirty('details')) {
             match (true) {
-                $statuses->hasSuccess($status)  => $this->updateStatus($model, Status::success),
+                $statuses->hasSuccess($status) => $this->updateStatus($model, Status::success),
                 $statuses->hasRefunded($status) => $this->updateStatus($model, Status::refund),
-                $statuses->hasFailed($status)   => $this->updateStatus($model, Status::failed),
+                $statuses->hasFailed($status) => $this->updateStatus($model, Status::failed),
             };
         }
 

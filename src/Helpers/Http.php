@@ -31,6 +31,8 @@ use Illuminate\Support\Str;
 use Lmc\HttpConstants\Header;
 use Throwable;
 
+use function retry;
+
 class Http
 {
     use Events;

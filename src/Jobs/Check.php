@@ -24,6 +24,8 @@ use CashierProvider\Core\Facades\Config;
 use CashierProvider\Core\Http\Response;
 use Illuminate\Support\Carbon;
 
+use function now;
+
 class Check extends Base
 {
     protected string $event = CheckedEvent::class;
@@ -61,7 +63,7 @@ class Check extends Base
 
     public function retryUntil(): ?Carbon
     {
-        return Carbon::now()->addSeconds(
+        return now()->addSeconds(
             Config::check()->timeout
         );
     }
@@ -69,11 +71,11 @@ class Check extends Base
     protected function findStatus(?string $status): ?Status
     {
         return match (true) {
-            $this->hasFailed($status)    => Status::failed,
+            $this->hasFailed($status) => Status::failed,
             $this->hasRefunding($status) => Status::waitRefund,
-            $this->hasRefunded($status)  => Status::refund,
-            $this->hasSuccess($status)   => Status::success,
-            default                      => null
+            $this->hasRefunded($status) => Status::refund,
+            $this->hasSuccess($status) => Status::success,
+            default => null
         };
     }
 

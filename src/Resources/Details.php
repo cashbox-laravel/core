@@ -20,6 +20,8 @@ namespace CashierProvider\Core\Resources;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Spatie\LaravelData\Data;
 
+use function json_encode;
+
 abstract class Details extends Data
 {
     public ?string $status;

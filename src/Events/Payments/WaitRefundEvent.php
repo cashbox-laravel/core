@@ -19,4 +19,4 @@ namespace CashierProvider\Core\Events\Payments;
 
 use CashierProvider\Core\Events\BaseEvent;
 
-class WaitRefundEvent extends BaseEvent {}
+class WaitRefundEvent extends BaseEvent { }

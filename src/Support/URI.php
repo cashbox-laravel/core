@@ -21,6 +21,9 @@ use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Http\Builder as HttpBuilder;
 use DragonCode\Support\Http\Builder;
 
+use function implode;
+use function trim;
+
 class URI
 {
     use Makeable;

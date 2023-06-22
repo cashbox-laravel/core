@@ -21,6 +21,8 @@ use CashierProvider\Core\Resources\Details;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
+use function json_decode;
+
 class DetailsCast implements CastsAttributes
 {
     public function get(Model $model, string $key, mixed $value, array $attributes): ?Details

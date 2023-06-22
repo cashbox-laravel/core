@@ -27,6 +27,8 @@ use CashierProvider\Core\Jobs\Start;
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
+use function dispatch;
+
 /**
  * @property Model|Casheable $model
  *

@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
 
+use function now;
+
 #[AsCommand('cashier:refund')]
 class Refund extends Base
 {

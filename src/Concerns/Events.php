@@ -28,6 +28,8 @@ use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
 
+use function event;
+
 trait Events
 {
     protected function event(Model $payment): void
@@ -53,12 +55,12 @@ trait Events
     protected function getEventClass(StatusData $data, int|string $status): ?string
     {
         return match ($status) {
-            $data->new        => NewEvent::class,
-            $data->success    => SuccessEvent::class,
-            $data->refund     => RefundEvent::class,
+            $data->new => NewEvent::class,
+            $data->success => SuccessEvent::class,
+            $data->refund => RefundEvent::class,
             $data->waitRefund => WaitRefundEvent::class,
-            $data->failed     => FailedEvent::class,
-            default           => null
+            $data->failed => FailedEvent::class,
+            default => null
         };
     }
 

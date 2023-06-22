@@ -41,6 +41,6 @@ class Config extends Facade
 {
     protected static function getFacadeAccessor(): ConfigData
     {
-        return ConfigData::from(config('cashier'));
+        return ConfigData::from(\config('cashier'));
     }
 }

@@ -17,16 +17,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Events;
 
-use CashierProvider\Core\Concerns\Validators;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseEvent
 {
-    use Validators;
-
     public function __construct(
         public Model $payment
-    ) {
-        $this->validateModel($this->payment);
-    }
+    ) {}
 }

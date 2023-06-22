@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
+use function sprintf;
+
 /**
  * @property int $defaultStatusCode
  */
