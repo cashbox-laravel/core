@@ -17,11 +17,6 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Models\CashierDetail;
-use CashierProvider\Core\Services\Job;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand('cashier:check')]
@@ -30,52 +25,4 @@ class Check extends Base
     protected $signature = 'cashier:check';
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
-
-    /** @var int Every 30 minutes */
-    protected int $delay = 1800;
-
-    public function handle(): void
-    {
-        $this->cleanup();
-        $this->checkPayments();
-    }
-
-    protected function getStatuses(): array
-    {
-        return Config::payment()->status->inProgress();
-    }
-
-    protected function cleanup(): void
-    {
-        CashierDetail::query()
-            ->whereDoesntHaveMorph('parent', $this->model())
-            ->delete();
-    }
-
-    protected function checkPayments(): void
-    {
-        $this->payments()->chunkById($this->chunk, fn (Collection $payments) => $payments->each(
-            fn (Model $payment) => $this->check($payment, $this->delay($payment))
-        ));
-    }
-
-    protected function check(Model $model, ?int $delay): void
-    {
-        Job::make($model)->check(true, $delay);
-    }
-
-    protected function delay(Model $model): ?int
-    {
-        return $this->isToday($model) ? null : $this->delay;
-    }
-
-    protected function isToday(Model $model): bool
-    {
-        /** @var \Carbon\Carbon $value */
-        $value = $model->getAttribute(
-            $this->attributeCreatedAt()
-        );
-
-        return $value->isToday();
-    }
 }
