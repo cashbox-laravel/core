@@ -1,18 +1,16 @@
 <?php
 
-/*
+/**
  * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/core
+ * @see https://github.com/cashier-provider
  */
 
 declare(strict_types=1);
@@ -71,11 +69,11 @@ class Check extends Base
     protected function findStatus(?string $status): ?Status
     {
         return match (true) {
-            $this->hasFailed($status) => Status::failed,
+            $this->hasFailed($status)    => Status::failed,
             $this->hasRefunding($status) => Status::waitRefund,
-            $this->hasRefunded($status) => Status::refund,
-            $this->hasSuccess($status) => Status::success,
-            default => null
+            $this->hasRefunded($status)  => Status::refund,
+            $this->hasSuccess($status)   => Status::success,
+            default                      => null
         };
     }
 
