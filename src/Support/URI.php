@@ -18,10 +18,10 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Support;
 
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Http\Builder as HttpBuilder;
 use DragonCode\Support\Http\Builder;
 
-use function implode;
 use function trim;
 
 class URI
@@ -51,14 +51,10 @@ class URI
 
     protected function resolvePath(?string ...$values): ?string
     {
-        $path = [];
-
-        foreach ($values as $value) {
-            if (! empty($value)) {
-                $path[] = trim($value, '/');
-            }
-        }
-
-        return implode('/', $path);
+        return Arr::of($values)
+            ->filter()
+            ->map(fn (string $value) => trim($value))
+            ->implode(DIRECTORY_SEPARATOR)
+            ->toString();
     }
 }
