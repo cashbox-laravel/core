@@ -28,11 +28,11 @@ use CashierProvider\Core\Http\Response;
 use CashierProvider\Core\Services\Driver;
 use CashierProvider\Core\Services\Statuses;
 use Closure;
-use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
@@ -41,8 +41,8 @@ use Throwable;
 abstract class Base implements ShouldBeUnique, ShouldQueue
 {
     use Attributes;
+    use Dispatchable;
     use InteractsWithQueue;
-    use Makeable;
     use Queueable;
     use SerializesModels;
 
@@ -52,7 +52,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
     protected bool $doneInsteadThrow = false;
 
-    abstract public function handle();
+    abstract public function handle(): void;
 
     abstract protected function process(): Response;
 
@@ -63,7 +63,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
      */
     public function __construct(
         public Model $model,
-        public bool $force_break = false
+        public bool $forceBreak = false
     ) {
         $this->afterCommit();
         $this->onQueue($this->queueName());
@@ -78,10 +78,10 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
     protected function hasBreak(): bool
     {
-        return $this->force_break;
+        return $this->forceBreak;
     }
 
-    protected function store(Response $response, bool $save_details = true): void
+    protected function store(Response $response, bool $saveDetails = true): void
     {
         if ($response->isEmpty()) {
             $this->fail(new EmptyResponseException(''));
@@ -92,7 +92,7 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
 
         $content = $response->toArray();
 
-        if ($save_details && ! empty($this->model->cashier)) {
+        if ($saveDetails && $this->model->cashier) {
             $saved = $this->model->cashier->details->toArray();
 
             $content = array_merge($saved, $content);
@@ -175,14 +175,14 @@ abstract class Base implements ShouldBeUnique, ShouldQueue
             $callback();
         }
         catch (Throwable $e) {
-            if ($this->doneInsteadThrow && $this->retryUntil() && $this->retryUntil() <= Carbon::now()) {
+            $until = $this->retryUntil();
+
+            if ($this->doneInsteadThrow && $until && $until <= Carbon::now()) {
                 return;
             }
 
             if (
-                $this->doneInsteadThrow && ! $this->retryUntil() && $this->maxTries() > 0
-                                        && $this->attempts()
-                >= $this->maxTries()
+                $this->doneInsteadThrow && ! $until && $this->maxTries() > 0 && $this->attempts() >= $this->maxTries()
             ) {
                 return;
             }

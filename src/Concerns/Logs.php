@@ -30,7 +30,7 @@ use Throwable;
 
 trait Logs
 {
-    protected function logInfo(
+    protected function log(
         Model $model,
         string $method,
         Builder $url,
@@ -51,9 +51,9 @@ trait Logs
         }
     }
 
-    protected function logError(Model $model, Request $request, Throwable $exception): void
+    protected function error(Model $model, Request $request, Throwable $exception): void
     {
-        $this->logInfo($model, $request->method(), $request->uri(), $request->getRawBody(), [
+        $this->log($model, $request->method(), $request->uri(), $request->getRawBody(), [
             'Message' => $exception->getMessage(),
         ], $this->getStatusCode($exception), LogLevel::ERROR);
     }

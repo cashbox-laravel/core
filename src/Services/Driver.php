@@ -64,16 +64,14 @@ abstract class Driver
 
     public function statuses(): Statuses
     {
-        return $this->resolveCallback($this->statuses, function (string $statuses) {
-            return $statuses::make($this->payment);
-        });
+        return $this->resolveCallback($this->statuses, fn (string $statuses) => new $statuses($this->payment));
     }
 
     public function details(array $details): Details
     {
         $cast = $this->details;
 
-        return $cast::make($details);
+        return new $cast($details);
     }
 
     public function queue(): QueueNameData
@@ -92,7 +90,7 @@ abstract class Driver
     {
         $resource = $this->config->details;
 
-        return $resource::make($payment, $this->config);
+        return new $resource($payment, $this->config);
     }
 
     protected function resolveExceptionManager(): Manager

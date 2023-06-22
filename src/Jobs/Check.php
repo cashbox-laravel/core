@@ -32,35 +32,21 @@ class Check extends Base
 
     protected bool $doneInsteadThrow = true;
 
-    public function handle()
+    public function handle(): void
     {
         $this->call(function () {
             $this->checkExternalId();
 
             $response = $this->process();
 
-            $status = $response->getStatus();
+            if ($status = $this->findStatus($response->getStatus())) {
+                $this->update($response, $status);
 
-            switch (true) {
-                case $this->hasFailed($status):
-                    $this->update($response, Status::failed);
-                    break;
-                case $this->hasRefunding($status):
-                    $this->update($response, Status::waitRefund);
-                    break;
-                case $this->hasRefunded($status):
-                    $this->update($response, Status::refund);
-                    break;
-                case $this->hasSuccess($status):
-                    $this->update($response, Status::success);
-                    break;
+                return;
+            }
 
-                default:
-                    if ($this->hasBreak()) {
-                        return;
-                    }
-
-                    $this->returnToQueue();
+            if (! $this->hasBreak()) {
+                $this->returnToQueue();
             }
         });
     }
@@ -80,6 +66,17 @@ class Check extends Base
         return Carbon::now()->addSeconds(
             Config::check()->timeout
         );
+    }
+
+    protected function findStatus(?string $status): ?Status
+    {
+        return match (true) {
+            $this->hasFailed($status) => Status::failed,
+            $this->hasRefunding($status) => Status::waitRefund,
+            $this->hasRefunded($status) => Status::refund,
+            $this->hasSuccess($status) => Status::success,
+            default => null
+        };
     }
 
     protected function update(Response $response, Status $status): void

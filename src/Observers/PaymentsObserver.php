@@ -22,21 +22,21 @@ namespace CashierProvider\Core\Observers;
 use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Facades\Access;
 use CashierProvider\Core\Services\Job;
-use DragonCode\Support\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver extends BaseObserver
 {
     use Events;
 
-    public function created(Model $payment)
+    public function created(Model $payment): void
     {
         if ($this->allow($payment)) {
             $this->jobs($payment)->start();
         }
     }
 
-    public function updated(Model $payment)
+    public function updated(Model $payment): void
     {
         if ($this->allow($payment)) {
             $this->event($payment);
@@ -47,11 +47,16 @@ class PaymentsObserver extends BaseObserver
         }
     }
 
-    public function deleting(Model $payment)
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
+     *
+     * @return void
+     */
+    public function deleting(Model $payment): void
     {
         $payment->relationLoaded('cashier')
-            ? $payment->cashier->delete()
-            : $payment->cashier()->delete();
+            ? $payment->cashier?->delete()
+            : $payment->cashier()?->delete();
     }
 
     protected function allow(Model $payment): bool
@@ -66,11 +71,10 @@ class PaymentsObserver extends BaseObserver
 
     protected function wasChanged(Model $payment): bool
     {
-        $attributes = Arrayable::of($payment->getChanges())
-            ->except([
-                $this->attributeStatus(),
-                $this->attributeCreatedAt(),
-            ])->keys()->toArray();
+        $attributes = Arr::of($payment->getChanges())->except([
+            $this->attributeStatus(),
+            $this->attributeCreatedAt(),
+        ])->keys()->toArray();
 
         return $payment->wasChanged($attributes);
     }

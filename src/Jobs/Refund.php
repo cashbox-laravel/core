@@ -24,19 +24,17 @@ use CashierProvider\Core\Events\Processes\RefundedEvent;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
 use CashierProvider\Core\Http\Response;
-use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
     protected string $event = RefundedEvent::class;
 
-    public function handle()
+    public function handle(): void
     {
         $this->call(function () {
             $this->checkExternalId();
 
             $this->runCheckJob();
-
             $this->checkStatus();
 
             $this->ran();
@@ -77,9 +75,7 @@ class Refund extends Base
 
     protected function runCheckJob(): void
     {
-        $job = new Check($this->model, true);
-
-        app(Dispatcher::class)->dispatchNow($job);
+        Check::dispatchSync($this->model, true);
     }
 
     protected function checkExternalId(): void

@@ -24,12 +24,12 @@ use CashierProvider\Core\Concerns\Logs;
 use CashierProvider\Core\Exceptions\Manager;
 use CashierProvider\Core\Http\Request;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Http\Builder;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http as HttpClient;
+use Illuminate\Support\Str;
 use Lmc\HttpConstants\Header;
 use Throwable;
 
@@ -51,12 +51,12 @@ class Http
 
                 $response = $this->send($request, $method, $uri, $data, $headers);
 
-                $content     = $response->json();
-                $status_code = $response->status();
+                $content    = $response->json();
+                $statusCode = $response->status();
 
-                $exception->validateResponse($uri, $content, $status_code);
+                $exception->validateResponse($uri, $content, $statusCode);
 
-                $this->logInfo($request->model(), $method, $uri, $data, $content, $status_code);
+                $this->log($request->model(), $method, $uri, $data, $content, $statusCode);
 
                 return $content;
             }, $request);
@@ -64,14 +64,14 @@ class Http
         catch (RequestException $e) {
             $this->failedEvent($e);
 
-            $this->logError($request->model(), $request, $e);
+            $this->error($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $e->response->status(), $e->response->json());
         }
         catch (Throwable $e) {
             $this->failedEvent($e);
 
-            $this->logError($request->model(), $request, $e);
+            $this->error($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
@@ -100,8 +100,6 @@ class Http
 
     protected function lowerKeys(array $items): array
     {
-        return Arr::renameKeys($items, static function (string $key) {
-            return Str::lower($key);
-        });
+        return Arr::renameKeys($items, static fn (string $key) => Str::lower($key));
     }
 }

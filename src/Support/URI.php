@@ -14,9 +14,9 @@ class URI
 
     protected string $uri;
 
-    public function __construct(string $production, ?string $development, bool $is_production = true)
+    public function __construct(string $production, ?string $development, bool $isProduction = true)
     {
-        $this->uri = ! $is_production && ! empty($development) ? $development : $production;
+        $this->uri = ! $isProduction && ! empty($development) ? $development : $production;
     }
 
     public function getWithPath(?string $path): Builder

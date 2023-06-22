@@ -37,20 +37,11 @@ class DetailsObserver extends BaseObserver
         $status = $model->details->status;
 
         if ($model->isDirty('details')) {
-            switch (true) {
-                case $statuses->hasSuccess($status):
-                    $this->updateStatus($model, Status::success);
-
-                    return;
-                case $statuses->hasRefunded($status):
-                    $this->updateStatus($model, Status::refund);
-
-                    return;
-                case $statuses->hasFailed($status):
-                    $this->updateStatus($model, Status::failed);
-
-                    return;
-            }
+            match (true) {
+                $statuses->hasSuccess($status) => $this->updateStatus($model, Status::success),
+                $statuses->hasRefunded($status) => $this->updateStatus($model, Status::refund),
+                $statuses->hasFailed($status) => $this->updateStatus($model, Status::failed),
+            };
         }
 
         Job::make($model->parent)->check();
@@ -59,7 +50,6 @@ class DetailsObserver extends BaseObserver
     protected function updateStatus(CashierDetail $model, Status $status): void
     {
         $value = $this->status($status);
-
         $field = $this->attributeStatus();
 
         $model->parent->update([$field => $value]);

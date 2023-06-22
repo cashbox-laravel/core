@@ -53,8 +53,10 @@ class CashierDetail extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setConnection(Config::details()->connection);
-        $this->setTable(Config::details()->table);
+        $details = Config::details();
+
+        $this->setConnection($details->connection);
+        $this->setTable($details->table);
 
         parent::__construct($attributes);
     }

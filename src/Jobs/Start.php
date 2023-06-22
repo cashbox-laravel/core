@@ -26,7 +26,7 @@ class Start extends Base
 {
     protected string $event = StartedEvent::class;
 
-    public function handle()
+    public function handle(): void
     {
         $this->call(function () {
             $data = $this->process();

@@ -35,10 +35,8 @@ class DriverManager
     {
         $this->validateModel($model);
 
-        $type = $this->type($model);
-
-        $name = $this->getDriverName($type);
-
+        $type   = $this->type($model);
+        $name   = $this->getDriverName($type);
         $driver = $this->getDriver($name);
 
         return $this->resolve($driver, $model);
