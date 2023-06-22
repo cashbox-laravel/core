@@ -38,11 +38,11 @@ class StatusData extends Data
     public function get(StatusEnum $status): mixed
     {
         return match ($status) {
-            StatusEnum::new => $this->new,
-            StatusEnum::success => $this->success,
-            StatusEnum::refund => $this->refund,
+            StatusEnum::new        => $this->new,
+            StatusEnum::success    => $this->success,
+            StatusEnum::refund     => $this->refund,
             StatusEnum::waitRefund => $this->waitRefund,
-            StatusEnum::failed => $this->failed,
+            StatusEnum::failed     => $this->failed,
         };
     }
 
