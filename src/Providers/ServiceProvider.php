@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Core\Console\Commands\Check;
+use CashierProvider\Core\Console\Commands\Verify;
 use CashierProvider\Core\Console\Commands\Refund;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
@@ -54,7 +54,7 @@ class ServiceProvider extends BaseServiceProvider
     protected function bootCommands(): void
     {
         $this->commands([
-            Check::class,
+            Verify::class,
             Refund::class,
         ]);
     }

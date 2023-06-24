@@ -19,10 +19,10 @@ namespace CashierProvider\Core\Console\Commands;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand('cashier:check')]
-class Check extends Base
+#[AsCommand('cashier:verify')]
+class Verify extends Base
 {
-    protected $signature = 'cashier:check';
+    protected $signature = 'cashier:verify';
 
-    protected $description = 'Launching a re-verification of payments with a long processing cycle';
+    protected $description = 'Verifies the status of a bank transaction';
 }
