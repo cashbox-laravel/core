@@ -17,13 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Core\Concerns\Attributes;
-use CashierProvider\Core\Facades\Config;
 use Illuminate\Console\Command;
 
 abstract class Base extends Command
 {
-    use Attributes;
-
     abstract public function handle(): void;
 }
