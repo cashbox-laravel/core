@@ -24,5 +24,5 @@ class Refund extends Base
 {
     protected $signature = 'cashier:refund';
 
-    protected $description = 'Launching the command to check payments for refunds';
+    protected $description = 'Refunds all payment transactions';
 }
