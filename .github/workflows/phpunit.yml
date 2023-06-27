@@ -1,4 +1,4 @@
-name: phpunit
+name: Tests
 
 on: [ push ]
 
@@ -36,7 +36,7 @@ jobs:
                     coverage: none
 
             -   name: Install dependencies
-                run: composer require --dev laravel/framework:^${{ matrix.laravel }}
+                run: composer require laravel/framework:^${{ matrix.laravel }}
 
             -   name: Execute tests
                 run: sudo vendor/bin/phpunit
