@@ -26,7 +26,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/core": "^3.0"
+        "cashier-provider/core": "^4.0"
     }
 }
 ```
@@ -43,15 +43,26 @@ Further, if necessary, edit the migration file copied to your application and ru
 php artisan migrate
 ```
 
-## Upgrade from `andrey-helldar/cashier`
+## Upgrades
 
-### For application
+### To 4.x From 3.x
+
+You should update the following dependencies in your application's `composer.json` file:
+
+* `cashier-provider/core` to `^4.0`
+* `dragon-code/support` to `^6.18`
+* `dragon-code/laravel-cache` to `^3.8`
+* All the `cashier-provider/*` packages to Core `^4.0` support
+
+### From `andrey-helldar/cashier`
+
+#### For application
 
 1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
 2. In the `config/cashier.php` file replace the `Helldar\Cashier` namespace with `CashierProvider\Core`.
 3. Call the `composer update` command.
 
-### For driver developers
+#### For driver developers
 
 1. Replace `andrey-helldar/cashier` with `cashier-provider/core` in the `composer.json` file;
 2. Replace the `Helldar\CashierDriver` namespace with `CashierProvider` in all files.
