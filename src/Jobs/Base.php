@@ -37,18 +37,13 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
 use Throwable;
 
-abstract class Base implements ShouldQueue, ShouldBeUnique
+abstract class Base implements ShouldBeUnique, ShouldQueue
 {
     use Driverable;
-
     use InteractsWithQueue;
-
     use Makeable;
-
     use Queueable;
-
     use Relations;
-
     use SerializesModels;
 
     /**

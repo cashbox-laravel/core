@@ -30,18 +30,13 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Statuses implements Contract
 {
     use Makeable;
-
     use Relations;
 
-    public const NEW = [];
-
+    public const NEW       = [];
     public const REFUNDING = [];
-
-    public const REFUNDED = [];
-
-    public const FAILED = [];
-
-    public const SUCCESS = [];
+    public const REFUNDED  = [];
+    public const FAILED    = [];
+    public const SUCCESS   = [];
 
     /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
     protected $model;
@@ -152,7 +147,7 @@ abstract class Statuses implements Contract
     }
 
     /**
-     * @param array|string $status
+     * @param  array|string  $status
      *
      * @return array|string
      */

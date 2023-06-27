@@ -29,9 +29,7 @@ class Currency
     /**
      * Get the currency resource instance.
      *
-     * @param int|string $currency
-     *
-     * @return \CashierProvider\Core\Resources\Currency
+     * @param  int|string  $currency
      */
     public function get($currency): Resource
     {
@@ -46,8 +44,6 @@ class Currency
 
     /**
      * Get the available currencies list.
-     *
-     * @return array
      */
     public function all(): array
     {

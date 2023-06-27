@@ -35,9 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Driver implements Contract
 {
     use Makeable;
-
     use Resolvable;
-
     use Validators;
 
     /** @var DriverConfig */
@@ -88,10 +86,7 @@ abstract class Driver implements Contract
     }
 
     /**
-     * @param \DragonCode\Contracts\Cashier\Http\Request $request
-     * @param \DragonCode\Contracts\Cashier\Http\Response|string $response
-     *
-     * @return \DragonCode\Contracts\Cashier\Http\Response
+     * @param  \DragonCode\Contracts\Cashier\Http\Response|string  $response
      */
     protected function request(RequestResource $request, string $response): Response
     {

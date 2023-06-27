@@ -43,15 +43,12 @@ class Check extends Base
                 case $this->hasFailed($status):
                     $this->update($response, Status::FAILED);
                     break;
-
                 case $this->hasRefunding($status):
                     $this->update($response, Status::WAIT_REFUND);
                     break;
-
                 case $this->hasRefunded($status):
                     $this->update($response, Status::REFUND);
                     break;
-
                 case $this->hasSuccess($status):
                     $this->update($response, Status::SUCCESS);
                     break;

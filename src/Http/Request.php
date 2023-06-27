@@ -33,7 +33,6 @@ use Fig\Http\Message\RequestMethodInterface;
 abstract class Request implements Contract
 {
     use Makeable;
-
     use Validators;
 
     /** @var \DragonCode\Contracts\Cashier\Resources\Model */
@@ -127,11 +126,6 @@ abstract class Request implements Contract
         return $this->path;
     }
 
-    /**
-     * @param \DragonCode\Contracts\Cashier\Resources\Model $model
-     *
-     * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
-     */
     protected function resolveAuth(Model $model): ?Auth
     {
         if (empty($this->auth)) {

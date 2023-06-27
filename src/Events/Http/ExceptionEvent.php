@@ -24,7 +24,6 @@ use Throwable;
 class ExceptionEvent
 {
     use InteractsWithSockets;
-
     use SerializesModels;
 
     /**
@@ -36,8 +35,6 @@ class ExceptionEvent
 
     /**
      * Create a new event instance.
-     *
-     * @param Throwable|null $exception
      */
     public function __construct(?Throwable $exception = null)
     {

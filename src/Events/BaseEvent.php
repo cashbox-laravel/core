@@ -25,9 +25,7 @@ use Illuminate\Queue\SerializesModels;
 class BaseEvent
 {
     use InteractsWithSockets;
-
     use SerializesModels;
-
     use Validators;
 
     /**
@@ -39,8 +37,6 @@ class BaseEvent
 
     /**
      * Create a new event instance.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $payment
      */
     public function __construct(Model $payment)
     {

@@ -34,9 +34,7 @@ namespace CashierProvider\Core\Constants;
 
 class Attributes
 {
-    public const TYPE = 'type';
-
-    public const STATUS = 'status';
-
+    public const TYPE       = 'type';
+    public const STATUS     = 'status';
     public const CREATED_AT = 'created_at';
 }

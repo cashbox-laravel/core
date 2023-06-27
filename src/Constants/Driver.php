@@ -19,13 +19,9 @@ namespace CashierProvider\Core\Constants;
 
 class Driver
 {
-    public const DRIVER = 'driver';
-
-    public const DETAILS = 'details';
-
-    public const CLIENT_ID = 'client_id';
-
+    public const DRIVER        = 'driver';
+    public const DETAILS       = 'details';
+    public const CLIENT_ID     = 'client_id';
     public const CLIENT_SECRET = 'client_secret';
-
-    public const QUEUE = 'queue';
+    public const QUEUE         = 'queue';
 }

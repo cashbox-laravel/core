@@ -409,7 +409,7 @@ return [
         //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
         //
-        //'bar' => [
+        // 'bar' => [
         //    \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    \CashierProvider\Core\Constants\Driver::DETAILS => BankName::class,
@@ -423,6 +423,6 @@ return [
         //        Queue::CHECK  => env('CASHIER_QUEUE'),
         //        Queue::REFUND => env('CASHIER_QUEUE'),
         //    ],
-        //],
+        // ],
     ],
 ];

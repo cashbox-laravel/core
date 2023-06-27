@@ -30,7 +30,6 @@ use Illuminate\Support\Carbon;
 abstract class Model implements Contract
 {
     use Makeable;
-
     use Relations;
 
     protected $model;

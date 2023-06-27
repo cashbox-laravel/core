@@ -21,11 +21,6 @@ use DragonCode\Support\Facades\Helpers\Arr;
 
 class JSON
 {
-    /**
-     * @param mixed $value
-     *
-     * @return string
-     */
     public function encode($value): string
     {
         $data = Arr::toArray($value);

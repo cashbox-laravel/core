@@ -31,8 +31,6 @@ trait Casheable
 {
     /**
      * Relation to model with payment status.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
     public function cashier(): MorphOne
     {
@@ -41,8 +39,6 @@ trait Casheable
 
     /**
      * Relation to model with HTTP logs.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function cashierLogs(): MorphMany
     {
