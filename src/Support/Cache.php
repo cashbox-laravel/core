@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Support;
 
 use CashierProvider\Core\Jobs\Base;
-use DragonCode\Cache\Services\Cache as Service;
+use DragonCode\Cache\Services\Cache as DragonCache;
 
 class Cache
 {
@@ -19,9 +19,9 @@ class Cache
         return $this->instance($job)->doesntHave();
     }
 
-    protected function instance(Base $job): Service
+    protected function instance(Base $job): DragonCache
     {
-        return Service::make()
+        return DragonCache::make()
             ->ttl($job->uniqueFor(), false)
             ->key($job, $job->uniqueId());
     }

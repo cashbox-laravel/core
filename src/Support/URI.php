@@ -6,7 +6,7 @@ namespace CashierProvider\Core\Support;
 
 use DragonCode\Contracts\Http\Builder;
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Http\Builder as HttpBuilder;
+use DragonCode\Support\Facades\Http\Url;
 
 class URI
 {
@@ -31,7 +31,7 @@ class URI
 
     protected function parse(): Builder
     {
-        return HttpBuilder::parse($this->uri);
+        return Url::parse($this->uri);
     }
 
     protected function resolvePath(?string ...$values): ?string

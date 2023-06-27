@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Helpers;
 
 use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Facades\Config\Payment;
-use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 
 class Access

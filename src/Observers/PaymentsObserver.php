@@ -22,7 +22,7 @@ namespace CashierProvider\Core\Observers;
 use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Facades\Helpers\Access;
 use CashierProvider\Core\Services\Jobs;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver extends BaseObserver
@@ -67,11 +67,11 @@ class PaymentsObserver extends BaseObserver
 
     protected function wasChanged(Model $payment): bool
     {
-        $attributes = Arrayable::of($payment->getChanges())
+        $attributes = Arr::of($payment->getChanges())
             ->except([
                 $this->attributeStatus(),
                 $this->attributeCreatedAt(),
-            ])->keys()->get();
+            ])->keys()->toArray();
 
         return $payment->wasChanged($attributes);
     }

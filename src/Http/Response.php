@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Http;
 
 use DragonCode\Contracts\Cashier\Http\Response as ResponseContract;
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Arr as DragonArr;
 use Illuminate\Support\Arr;
 
 /**
@@ -76,12 +76,12 @@ abstract class Response implements ResponseContract
     {
         $keys = $this->keys();
 
-        return Arrayable::of($this->items)
+        return DragonArr::of($this->items)
             ->except(self::KEY_EXTERNAL_ID)
             ->filter(function ($value, string $key) use ($keys) {
                 return in_array($key, $keys, true) && ! empty($value);
             }, ARRAY_FILTER_USE_BOTH)
-            ->get();
+            ->toArray();
     }
 
     public function put(string $key, $value): self

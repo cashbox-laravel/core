@@ -26,7 +26,7 @@ use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
 use CashierProvider\Core\Facades\Config\Payment;
 use DragonCode\Contracts\Cashier\Driver as Contract;
 use DragonCode\Contracts\Cashier\Http\Response;
-use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 
 trait Validators

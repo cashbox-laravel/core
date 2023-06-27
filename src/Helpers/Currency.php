@@ -23,8 +23,8 @@ use CashierProvider\Core\Constants\Currency as CurrencyConstants;
 use CashierProvider\Core\Exceptions\Runtime\UnknownCurrencyCodeException;
 use CashierProvider\Core\Resources\Currency as Resource;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Reflection;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Instances\Reflection;
 
 class Currency
 {
