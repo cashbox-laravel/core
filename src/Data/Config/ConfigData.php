@@ -33,8 +33,6 @@ class ConfigData extends Data
 
     public DetailsData $details;
 
-    public LogsData $logs;
-
     public QueueData $queue;
 
     public CheckData $check;
@@ -53,11 +51,6 @@ class ConfigData extends Data
     public function details(): DetailsData
     {
         return $this->details;
-    }
-
-    public function logs(): LogsData
-    {
-        return $this->logs;
     }
 
     public function queue(): QueueData

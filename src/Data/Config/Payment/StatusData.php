@@ -54,12 +54,11 @@ class StatusData extends Data
         ];
     }
 
-    public function allowToRefund(): array
+    public function toRefund(): array
     {
         return [
             $this->new,
             $this->success,
-            $this->failed,
         ];
     }
 }

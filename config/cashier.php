@@ -142,32 +142,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Logs
-    |--------------------------------------------------------------------------
-    |
-    | This setting defines the data for connecting to the logging table.
-    |
-    */
-
-    'logs' => [
-        'enabled' => (bool) env('CASHIER_LOG_ENABLED', true),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cashier Details Logs Channel
-        |--------------------------------------------------------------------------
-        |
-        | This value contains the name of the channel for storing query logs.
-        |
-        | Set `null` to disable.
-        |
-        */
-
-        'channel' => env('CASHIER_LOG_CHANNEL'),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Queue Connections
     |--------------------------------------------------------------------------
     |

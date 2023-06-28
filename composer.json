@@ -43,6 +43,7 @@
         "ext-json": "*",
         "archtechx/enums": "^0.3.2",
         "doctrine/dbal": "^3.6",
+        "dragon-code/laravel-cache": "^3.8",
         "dragon-code/support": "^6.11",
         "fig/http-message-util": "^1.1",
         "illuminate/console": "^10.13",

@@ -15,17 +15,20 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config;
+namespace CashierProvider\Core\Concerns\Enums;
 
-use CashierProvider\Core\Casts\Data\LogChannelCast;
-use Psr\Log\LoggerInterface;
-use Spatie\LaravelData\Attributes\WithCast;
-use Spatie\LaravelData\Data;
+use OutOfBoundsException;
 
-class LogsData extends Data
+trait From
 {
-    public bool $enabled;
+    public static function from(string|int $value): static
+    {
+        foreach (static::cases() as $case) {
+            if ($case->name === $case || $case->value === $case) {
+                return $case;
+            }
+        }
 
-    #[WithCast(LogChannelCast::class)]
-    public LoggerInterface $channel;
+        throw new OutOfBoundsException($value);
+    }
 }
