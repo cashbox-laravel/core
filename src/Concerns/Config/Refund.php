@@ -15,15 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Concerns\Config;
 
-use Spatie\LaravelData\Data;
+use CashierProvider\Core\Data\Config\RefundData;
+use CashierProvider\Core\Facades\Config;
 
-class QueueNameData extends Data
+trait Refund
 {
-    public ?string $start;
-
-    public ?string $verify;
-
-    public ?string $refund;
+    public function autoRefund(): RefundData
+    {
+        return Config::refund();
+    }
 }

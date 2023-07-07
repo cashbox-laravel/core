@@ -15,15 +15,24 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Enums;
 
-use Spatie\LaravelData\Data;
+use ArchTech\Enums\Values;
 
-class QueueNameData extends Data
+/**
+ * @method int failed()
+ * @method int new()
+ * @method int refund()
+ * @method int success()
+ * @method int waitRefund()
+ */
+enum StatusEnum: int
 {
-    public ?string $start;
+    use Values;
 
-    public ?string $verify;
-
-    public ?string $refund;
+    case new        = 0;
+    case success    = 1;
+    case waitRefund = 2;
+    case refund     = 3;
+    case failed     = 4;
 }

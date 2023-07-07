@@ -40,24 +40,17 @@
     ],
     "require": {
         "php": "^8.1",
-        "ext-json": "*",
-        "archtechx/enums": "^0.3.2",
-        "doctrine/dbal": "^3.6",
+        "archtechx/enums": "^0.3",
         "dragon-code/laravel-cache": "^3.8",
-        "dragon-code/support": "^6.11",
-        "fig/http-message-util": "^1.1",
-        "illuminate/console": "^10.13",
-        "illuminate/database": "^10.13",
-        "illuminate/queue": "^10.13",
-        "illuminate/support": "^10.13",
-        "lmc/http-constants": "^1.2",
-        "psr/http-message": "^2.0",
-        "psr/log": "^3.0",
-        "spatie/laravel-data": "^3.6"
+        "illuminate/console": "^10.0",
+        "illuminate/database": "^10.0",
+        "illuminate/support": "^10.0",
+        "spatie/laravel-data": "^3.7",
+        "symfony/console": "^6.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^8.5.8",
-        "phpunit/phpunit": "^10.2.2",
+        "orchestra/testbench": "^8.5",
+        "pestphp/pest": "^2.8",
         "symfony/var-dumper": "^6.3"
     },
     "minimum-stability": "stable",
@@ -76,7 +69,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "dragon-code/codestyler": true,
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "pestphp/pest-plugin": true
         },
         "preferred-install": "dist",
         "sort-packages": true
@@ -85,7 +79,8 @@
         "laravel": {
             "providers": [
                 "CashierProvider\\Core\\Providers\\ServiceProvider",
-                "CashierProvider\\Core\\Providers\\ObserverServiceProvider"
+                "CashierProvider\\Core\\Providers\\ObserverServiceProvider",
+                "CashierProvider\\Core\\Providers\\RateLimiterServiceProvider"
             ]
         }
     }

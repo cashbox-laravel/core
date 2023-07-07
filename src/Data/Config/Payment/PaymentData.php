@@ -17,7 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Payment;
 
-use CashierProvider\Core\Casts\Data\PaymentModelCast;
+use CashierProvider\Core\Data\Casts\PaymentModelCast;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
@@ -25,7 +26,7 @@ use Spatie\LaravelData\Data;
 class PaymentData extends Data
 {
     #[WithCast(PaymentModelCast::class)]
-    public string $model;
+    public Model|string $model;
 
     public AttributeData $attribute;
 

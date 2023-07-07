@@ -15,15 +15,8 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Jobs;
 
-use Spatie\LaravelData\Data;
-
-class QueueNameData extends Data
+class RefundJob extends BaseJob
 {
-    public ?string $start;
-
-    public ?string $verify;
-
-    public ?string $refund;
 }

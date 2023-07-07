@@ -15,15 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Concerns\Config;
 
-use Spatie\LaravelData\Data;
+use CashierProvider\Core\Data\Config\Queue\QueueData;
+use CashierProvider\Core\Facades\Config;
 
-class QueueNameData extends Data
+trait Queue
 {
-    public ?string $start;
-
-    public ?string $verify;
-
-    public ?string $refund;
+    protected function queue(): QueueData
+    {
+        return Config::queue();
+    }
 }

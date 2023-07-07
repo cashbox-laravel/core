@@ -15,15 +15,8 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Exceptions\Internal;
 
-use Spatie\LaravelData\Data;
-
-class QueueNameData extends Data
+class IncorrectPaymentModelException extends BaseException
 {
-    public ?string $start;
-
-    public ?string $verify;
-
-    public ?string $refund;
 }

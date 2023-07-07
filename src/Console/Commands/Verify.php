@@ -18,24 +18,20 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Console\Commands;
 
 use CashierProvider\Core\Models\Details;
-use CashierProvider\Core\Services\Job;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand('cashier:verify')]
-class Verify extends Base
+class Verify extends Command
 {
-    protected $signature = 'cashier:verify';
+    protected $signature = 'cashier:verify {--force}';
 
     protected $description = 'Verifies the status of a bank transaction';
-
-    protected int $delay = 59;
 
     public function handle(): void
     {
         $this->components->task('Cleaning', fn () => $this->clean());
-        $this->components->task('Verifying', fn () => $this->process());
+        $this->components->task('Verifying', fn () => $this->ran());
     }
 
     protected function getStatuses(): array
@@ -43,45 +39,15 @@ class Verify extends Base
         return $this->statuses()->inProgress();
     }
 
+    protected function process(Model $payment): void
+    {
+        $this->job($payment)->verify();
+    }
+
     protected function clean(): void
     {
         Details::query()
-            ->whereDoesntHaveMorph('parent', $this->model())
+            ->whereDoesntHaveMorph('parent', $this->payment()->model)
             ->delete();
-    }
-
-    protected function process(): void
-    {
-        $this->payments(fn (Collection $items) => $items->each(
-            fn (Model $payment) => $this->verify($payment)
-        ));
-    }
-
-    protected function verify(Model $payment): void
-    {
-        if (! $this->isToday($payment) && $this->wasSent($payment)) {
-            return;
-        }
-
-        Job::model($payment)->verify();
-
-        $this->makeSent($payment);
-    }
-
-    protected function wasSent(Model $payment): bool
-    {
-        return $this->cache($payment)->has();
-    }
-
-    protected function makeSent(Model $payment): void
-    {
-        $this->cache($payment)->ttl($this->delay)->put(1);
-    }
-
-    protected function isToday(Model $payment): bool
-    {
-        return $payment->getAttribute(
-            $this->attributeCreatedAt()
-        )->isToday();
     }
 }

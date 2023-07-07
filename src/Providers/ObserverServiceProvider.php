@@ -18,12 +18,15 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Providers;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class ObserverServiceProvider extends BaseServiceProvider
+class ObserverServiceProvider extends BaseProvider
 {
     public function boot(): void
     {
+        if ($this->disabled()) {
+            return;
+        }
+
         $this->bootPayment();
         $this->bootPaymentDetails();
     }

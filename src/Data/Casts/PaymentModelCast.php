@@ -15,15 +15,17 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config\Payment;
+namespace CashierProvider\Core\Data\Casts;
 
-use CashierProvider\Core\Data\Config\Payment\AttributeData;
-use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Helpers\Validator;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelData\Casts\Cast;
+use Spatie\LaravelData\Support\DataProperty;
 
-trait Attributes
+class PaymentModelCast implements Cast
 {
-    protected function attribute(): AttributeData
+    public function cast(DataProperty $property, mixed $value, array $context): Model|string
     {
-        return Config::payment()->attribute;
+        return Validator::model($value);
     }
 }

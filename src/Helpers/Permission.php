@@ -15,15 +15,21 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config\Payment;
+namespace CashierProvider\Core\Helpers;
 
-use CashierProvider\Core\Data\Config\Payment\AttributeData;
 use CashierProvider\Core\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
 
-trait Attributes
+class Permission
 {
-    protected function attribute(): AttributeData
+    public static function allowToStart(Model $payment): bool {}
+
+    public static function allowToVerify(Model $payment): bool {}
+
+    public static function allowToRefund(Model $payment): bool {}
+
+    public static function allowToAutoRefund(): bool
     {
-        return Config::payment()->attribute;
+        return Config::refund()->enabled;
     }
 }

@@ -17,21 +17,19 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Core\Services\Job;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand('cashier:refund')]
-class Refund extends Base
+class Refund extends Command
 {
-    protected $signature = 'cashier:refund';
+    protected $signature = 'cashier:refund {--force}';
 
     protected $description = 'Refunds all payment transactions';
 
     public function handle(): void
     {
-        $this->components->task('Refunding', fn () => $this->process());
+        $this->components->task('Refunding', fn () => $this->ran());
     }
 
     protected function getStatuses(): array
@@ -39,15 +37,8 @@ class Refund extends Base
         return $this->statuses()->toRefund();
     }
 
-    protected function process(): void
+    protected function process(Model $payment): void
     {
-        $this->payments(fn (Collection $items) => $items->each(
-            fn (Model $payment) => $this->refund($payment)
-        ));
-    }
-
-    protected function refund(Model $payment): void
-    {
-        Job::model($payment)->refund();
+        $this->job($payment)->refund();
     }
 }

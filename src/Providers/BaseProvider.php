@@ -15,15 +15,22 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config\Payment;
+namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Core\Data\Config\Payment\AttributeData;
 use CashierProvider\Core\Facades\Config;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-trait Attributes
+use function class_exists;
+
+abstract class BaseProvider extends BaseServiceProvider
 {
-    protected function attribute(): AttributeData
+    protected function disabled(): bool
     {
-        return Config::payment()->attribute;
+        return ! class_exists($this->model());
+    }
+
+    protected function model(): string
+    {
+        return Config::payment()->model;
     }
 }

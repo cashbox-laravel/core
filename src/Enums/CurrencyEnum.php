@@ -21,7 +21,7 @@ use ArchTech\Enums\Options;
 use CashierProvider\Core\Concerns\Enums\From;
 
 /** @see ISO-4217 */
-enum Currency: int
+enum CurrencyEnum: int
 {
     use Options;
     use From;

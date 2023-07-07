@@ -20,18 +20,21 @@ namespace CashierProvider\Core\Console\Commands;
 use CashierProvider\Core\Concerns\Cache;
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
+use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
-use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Services\Job;
 use Closure;
-use Illuminate\Console\Command;
+use Illuminate\Console\Command as BaseCommand;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class Base extends Command
+abstract class Command extends BaseCommand
 {
     use Attributes;
     use Cache;
     use Drivers;
+    use Payments;
     use Statuses;
 
     protected int $size = 1000;
@@ -40,28 +43,44 @@ abstract class Base extends Command
 
     abstract protected function getStatuses(): array;
 
+    abstract protected function process(Model $payment): void;
+
+    protected function ran(): void
+    {
+        $this->payments(fn (Collection $items) => $items->each(
+            fn (Model $payment) => $this->process($payment)
+        ));
+    }
+
     protected function payments(Closure $callback): void
     {
         $this->builder()
-            ->where($this->attributeType(), $this->getDrivers())
-            ->where($this->attributeStatus(), $this->getStatuses())
+            ->where($this->attribute()->type, $this->getTypes())
+            ->where($this->attribute()->status, $this->getStatuses())
             ->chunkById($this->size, $callback);
     }
 
     protected function builder(): Builder
     {
-        $model = $this->model();
+        $model = $this->payment()->model;
 
         return $model::query();
     }
 
-    protected function model(): Model|string
-    {
-        return Config::payment()->model;
-    }
-
-    protected function getDrivers(): array
+    protected function getTypes(): array
     {
         return $this->drivers()->keys()->toArray();
+    }
+
+    protected function job(Model $payment): Job
+    {
+        return Job::model($payment)->force(
+            $this->hasForce()
+        );
+    }
+
+    protected function hasForce(): bool
+    {
+        return $this->hasOption('force') && $this->option('force');
     }
 }

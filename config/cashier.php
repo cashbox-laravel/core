@@ -15,8 +15,8 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Enums\Attribute;
-use CashierProvider\Core\Enums\Status;
+use CashierProvider\Core\Enums\AttributeEnum;
+use CashierProvider\Core\Enums\StatusEnum;
 
 return [
     /*
@@ -61,14 +61,14 @@ return [
         |
         | Correspondence of Cashier attributes to Payment model.
         |
-        | type of field => attribute from payment model
+        | type of field => column name from payment model
         |
         */
 
         'attribute' => [
-            Attribute::type()      => 'type_id',
-            Attribute::status()    => 'status_id',
-            Attribute::createdAt() => 'created_at',
+            AttributeEnum::type()      => 'type_id',
+            AttributeEnum::status()    => 'status_id',
+            AttributeEnum::createdAt() => 'created_at',
         ],
 
         /*
@@ -78,16 +78,16 @@ return [
         |
         | Correspondence of statuses to the payment model.
         |
-        | internal status => your status name or ID
+        | internal status => your status name or ID or enum class.
         |
         */
 
         'status' => [
-            Status::new()        => 'new',
-            Status::success()    => 'success',
-            Status::waitRefund() => 'wait_refund',
-            Status::refund()     => 'refund',
-            Status::failed()     => 'failed',
+            StatusEnum::new()        => 'new',
+            StatusEnum::success()    => 'success',
+            StatusEnum::waitRefund() => 'wait_refund',
+            StatusEnum::refund()     => 'refund',
+            StatusEnum::failed()     => 'failed',
         ],
 
         /*
@@ -206,7 +206,7 @@ return [
 
             /*
             |--------------------------------------------------------------------------
-            | Check Queue Name
+            | Verify Queue Name
             |--------------------------------------------------------------------------
             |
             | This value defines the queue name for payment checking tasks.
@@ -215,7 +215,7 @@ return [
             |
             */
 
-            'check' => env('CASHIER_QUEUE'),
+            'verify' => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------

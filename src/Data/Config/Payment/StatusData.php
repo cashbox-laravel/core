@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Payment;
 
-use CashierProvider\Core\Enums\Status as StatusEnum;
+use CashierProvider\Core\Enums\StatusEnum as StatusEnum;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;

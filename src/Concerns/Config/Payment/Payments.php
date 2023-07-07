@@ -15,24 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Enums;
+namespace CashierProvider\Core\Concerns\Config\Payment;
 
-use ArchTech\Enums\Values;
+use CashierProvider\Core\Data\Config\Payment\PaymentData;
+use CashierProvider\Core\Facades\Config;
 
-/**
- * @method int failed()
- * @method int new()
- * @method int refund()
- * @method int success()
- * @method int waitRefund()
- */
-enum Status: int
+trait Payments
 {
-    use Values;
-
-    case new        = 0;
-    case success    = 1;
-    case waitRefund = 2;
-    case refund     = 3;
-    case failed     = 4;
+    protected function payment(): PaymentData
+    {
+        return Config::payment();
+    }
 }

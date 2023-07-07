@@ -15,15 +15,20 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Enums;
 
-use Spatie\LaravelData\Data;
+use ArchTech\Enums\Values;
 
-class QueueNameData extends Data
+/**
+ * @method string createdAt()
+ * @method string status()
+ * @method string type()
+ */
+enum AttributeEnum: string
 {
-    public ?string $start;
+    use Values;
 
-    public ?string $verify;
-
-    public ?string $refund;
+    case type      = 'type';
+    case status    = 'status';
+    case createdAt = 'created_at';
 }

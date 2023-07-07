@@ -15,15 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace CashierProvider\Core\Concerns;
 
-use Spatie\LaravelData\Data;
-
-class QueueNameData extends Data
+trait Casheable
 {
-    public ?string $start;
-
-    public ?string $verify;
-
-    public ?string $refund;
+    // main trait
 }

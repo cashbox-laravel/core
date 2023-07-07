@@ -17,14 +17,17 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Core\Console\Commands\Verify;
 use CashierProvider\Core\Console\Commands\Refund;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use CashierProvider\Core\Console\Commands\Verify;
 
-class ServiceProvider extends BaseServiceProvider
+class ServiceProvider extends BaseProvider
 {
     public function boot(): void
     {
+        if ($this->disabled()) {
+            return;
+        }
+
         $this->bootMigrations();
         $this->bootPublishes();
         $this->bootCommands();
@@ -32,6 +35,10 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register(): void
     {
+        if ($this->disabled()) {
+            return;
+        }
+
         $this->registerConfig();
     }
 

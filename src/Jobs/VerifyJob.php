@@ -15,20 +15,8 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Enums;
+namespace CashierProvider\Core\Jobs;
 
-use ArchTech\Enums\Values;
-
-/**
- * @method string createdAt()
- * @method string status()
- * @method string type()
- */
-enum Attribute: string
+class VerifyJob extends BaseJob
 {
-    use Values;
-
-    case type      = 'type';
-    case status    = 'status';
-    case createdAt = 'created_at';
 }
