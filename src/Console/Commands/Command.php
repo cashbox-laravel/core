@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Core\Concerns\Cache;
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
@@ -32,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Command extends BaseCommand
 {
     use Attributes;
-    use Cache;
     use Drivers;
     use Payments;
     use Statuses;

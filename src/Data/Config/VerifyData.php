@@ -21,7 +21,7 @@ use CashierProvider\Core\Casts\Data\NumberCast;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
-class CheckData extends Data
+class VerifyData extends Data
 {
     #[WithCast(NumberCast::class, min: 0, default: 60)]
     public int $delay;

@@ -19,7 +19,8 @@ namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Config\Queue;
 use CashierProvider\Core\Concerns\Config\Refund;
-use CashierProvider\Core\Helpers\Permission;
+use CashierProvider\Core\Helpers\Access;
+use CashierProvider\Core\Helpers\Validator;
 use CashierProvider\Core\Jobs\RefundJob;
 use CashierProvider\Core\Jobs\StartJob;
 use CashierProvider\Core\Jobs\VerifyJob;
@@ -34,7 +35,9 @@ class Job
 
     public function __construct(
         protected Model $payment
-    ) {}
+    ) {
+        $this->validateModel($this->payment);
+    }
 
     public static function model(Model $payment): self
     {
@@ -46,7 +49,7 @@ class Job
         if ($this->allowToStart()) {
             $this->dispatch(StartJob::class, $this->queue()->name->start);
 
-            if ($this->allowToAutoRefund()) {
+            if ($this->autoRefund()->enabled) {
                 $this->refund($this->autoRefund()->delay);
             }
         }
@@ -66,6 +69,12 @@ class Job
         }
     }
 
+    public function retry(): void
+    {
+        $this->start();
+        $this->verify();
+    }
+
     public function force(bool $force = true): self
     {
         $this->force = $force;
@@ -78,26 +87,27 @@ class Job
         dispatch(new $job($this->payment, $this->force))
             ->onConnection($this->queue()->connection)
             ->onQueue($queue)
+            ->afterCommit()
             ->delay($delay);
     }
 
     protected function allowToStart(): bool
     {
-        return Permission::allowToStart($this->payment);
+        return Access::toStart($this->payment);
     }
 
     protected function allowToVerify(): bool
     {
-        return Permission::allowToVerify($this->payment);
+        return Access::toVerify($this->payment);
     }
 
     protected function allowToRefund(): bool
     {
-        return Permission::allowToRefund($this->payment);
+        return Access::toRefund($this->payment);
     }
 
-    protected function allowToAutoRefund(): bool
+    protected function validateModel(Model $model): void
     {
-        return Permission::allowToAutoRefund();
+        Validator::model($model);
     }
 }

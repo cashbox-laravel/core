@@ -15,7 +15,6 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Enums\AttributeEnum;
 use CashierProvider\Core\Enums\StatusEnum;
 
 return [
@@ -66,9 +65,9 @@ return [
         */
 
         'attribute' => [
-            AttributeEnum::type()      => 'type_id',
-            AttributeEnum::status()    => 'status_id',
-            AttributeEnum::createdAt() => 'created_at',
+            'type'       => 'type_id',
+            'status'     => 'status_id',
+            'created_at' => 'created_at',
         ],
 
         /*
@@ -234,21 +233,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Check Requests
+    | Verify Requests
     |--------------------------------------------------------------------------
     |
     | This parameter of settings is responsible for the duration of the requests.
     |
     */
 
-    'check' => [
+    'verify' => [
         /*
         |--------------------------------------------------------------------------
         | Delay
         |--------------------------------------------------------------------------
         |
         | This setting determines the number of seconds to pause before
-        | re-checking the payment status.
+        | re-verifying the payment status.
         |
         */
 
@@ -260,7 +259,7 @@ return [
         |--------------------------------------------------------------------------
         |
         | This setting determines the number of seconds after which you need to
-        | stop trying to check the status of the payment.
+        | stop trying to verify the status of the payment.
         |
         */
 
@@ -340,7 +339,7 @@ return [
         //
         //    'queue' => [
         //        'start'  => env('CASHIER_QUEUE'),
-        //        'check'  => env('CASHIER_QUEUE'),
+        //        'verify' => env('CASHIER_QUEUE'),
         //        'refund' => env('CASHIER_QUEUE'),
         //    ],
         // ],
