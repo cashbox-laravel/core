@@ -15,9 +15,19 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\Internal;
+namespace CashierProvider\Core\Services;
 
-class IncorrectPaymentModelException extends BaseException
+use CashierProvider\Core\Data\Config\DriverData;
+use Illuminate\Database\Eloquent\Model;
+
+abstract class Driver
 {
-    protected string $reason = 'No configuration found for "%s" driver.';
+    public function __construct(
+        protected DriverData $data,
+        protected Model $payment
+    ) {}
+
+    public function wasCreated(): bool {}
+
+    public function inProgress(): bool {}
 }

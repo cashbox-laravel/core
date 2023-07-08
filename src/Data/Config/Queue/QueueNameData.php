@@ -17,13 +17,18 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Queue;
 
+use CashierProvider\Core\Data\Casts\FromEnumCast;
+use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
 class QueueNameData extends Data
 {
+    #[WithCast(FromEnumCast::class)]
     public ?string $start;
 
+    #[WithCast(FromEnumCast::class)]
     public ?string $verify;
 
+    #[WithCast(FromEnumCast::class)]
     public ?string $refund;
 }

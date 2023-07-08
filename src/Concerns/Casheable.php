@@ -17,7 +17,14 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
+use CashierProvider\Core\Helpers\DriverManager;
+use CashierProvider\Core\Services\Driver;
+
 trait Casheable
 {
     // main trait
+    public function casheableDriver(): Driver
+    {
+        return DriverManager::find($this);
+    }
 }

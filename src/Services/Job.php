@@ -19,8 +19,8 @@ namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Config\Queue;
 use CashierProvider\Core\Concerns\Config\Refund;
-use CashierProvider\Core\Helpers\Access;
-use CashierProvider\Core\Helpers\Validator;
+use CashierProvider\Core\Concerns\Helpers\Validatable;
+use CashierProvider\Core\Concerns\Permissions\Allowable;
 use CashierProvider\Core\Jobs\RefundJob;
 use CashierProvider\Core\Jobs\StartJob;
 use CashierProvider\Core\Jobs\VerifyJob;
@@ -28,8 +28,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job
 {
+    use Allowable;
     use Queue;
     use Refund;
+    use Validatable;
 
     protected bool $force = false;
 
@@ -89,25 +91,5 @@ class Job
             ->onQueue($queue)
             ->afterCommit()
             ->delay($delay);
-    }
-
-    protected function allowToStart(): bool
-    {
-        return Access::toStart($this->payment);
-    }
-
-    protected function allowToVerify(): bool
-    {
-        return Access::toVerify($this->payment);
-    }
-
-    protected function allowToRefund(): bool
-    {
-        return Access::toRefund($this->payment);
-    }
-
-    protected function validateModel(Model $model): void
-    {
-        Validator::model($model);
     }
 }

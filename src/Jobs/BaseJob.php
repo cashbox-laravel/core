@@ -17,7 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
+use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Enums\RateLimiterEnum;
+use CashierProvider\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +28,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * @property Model|Casheable $payment
+ */
 abstract class BaseJob implements ShouldQueue, ShouldBeUnique
 {
     use InteractsWithQueue;
@@ -47,6 +52,11 @@ abstract class BaseJob implements ShouldQueue, ShouldBeUnique
     public function middleware(): array
     {
         return [new RateLimitedWithRedis($this->getRateLimiter())];
+    }
+
+    protected function driver(): Driver
+    {
+        return $this->payment->casheableDriver();
     }
 
     protected function getRateLimiter(): string

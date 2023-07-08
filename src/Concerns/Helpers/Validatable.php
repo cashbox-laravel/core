@@ -15,9 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\Internal;
+namespace CashierProvider\Core\Concerns\Helpers;
 
-class IncorrectPaymentModelException extends BaseException
+use CashierProvider\Core\Helpers\Validator;
+use Illuminate\Database\Eloquent\Model;
+
+trait Validatable
 {
-    protected string $reason = 'No configuration found for "%s" driver.';
+    protected function validateModel(Model $model): void
+    {
+        Validator::model($model);
+    }
 }

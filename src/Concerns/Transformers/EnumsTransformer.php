@@ -15,9 +15,14 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\Internal;
+namespace CashierProvider\Core\Concerns\Transformers;
 
-class IncorrectPaymentModelException extends BaseException
+use UnitEnum;
+
+trait EnumsTransformer
 {
-    protected string $reason = 'No configuration found for "%s" driver.';
+    protected function transformFromEnum(int|string|UnitEnum $item): int|string
+    {
+        return $item instanceof UnitEnum ? ($item->value ?? $item->name) : $item;
+    }
 }
