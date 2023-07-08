@@ -17,18 +17,14 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Helpers\Validatable;
-use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
 use CashierProvider\Core\Data\Config\DriverData;
 use Illuminate\Database\Eloquent\Model;
 
 class DriverManager
 {
-    use Attributes;
     use Drivers;
-    use EnumsTransformer;
     use Validatable;
 
     public static function find(Model $payment): Driver
@@ -45,15 +41,6 @@ class DriverManager
 
     protected static function data(Model $payment): ?DriverData
     {
-        return static::driver(static::type($payment), $payment);
-    }
-
-    protected static function type(Model $payment): string|int
-    {
-        $type = $payment->getAttribute(
-            static::attribute()->type
-        );
-
-        return static::transformFromEnum($type);
+        return static::driverByModel($payment);
     }
 }

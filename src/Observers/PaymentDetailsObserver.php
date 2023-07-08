@@ -17,17 +17,62 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Drivers;
+use CashierProvider\Core\Concerns\Config\Payment\Payments;
+use CashierProvider\Core\Enums\StatusEnum;
+use CashierProvider\Core\Events\CreatedEvent;
+use CashierProvider\Core\Events\FailedEvent;
+use CashierProvider\Core\Events\RefundedEvent;
+use CashierProvider\Core\Events\SuccessEvent;
+use CashierProvider\Core\Events\WaitRefundEvent;
 use CashierProvider\Core\Models\Details;
+use CashierProvider\Core\Services\Job;
+use Illuminate\Database\Eloquent\Model;
 
 class PaymentDetailsObserver
 {
-    public function created(Details $details): void {}
+    use Attributes;
+    use Drivers;
+    use Payments;
 
-    public function updated(Details $details): void {}
+    public function saving(Details $model): void
+    {
+        if ($model->isDirty('info') && $model->status !== null) {
+            $model->status = $model->info->statusToEnum();
+        }
+    }
 
-    public function deleted(Details $details): void {}
+    public function saved(Details $model): void
+    {
+        if ($model->isClean()) {
+            return;
+        }
 
-    public function restored(Details $details): void {}
+        if ($model->wasChanged('status')) {
+            $this->updateStatus($model->parent, $model->status);
+            $this->event($model->parent, $model->status);
+        }
 
-    public function forceDeleted(Details $details): void {}
+        Job::model($model->parent)->verify();
+    }
+
+    protected function updateStatus(Model $payment, StatusEnum $status): void
+    {
+        $value = static::payment()->status->fromEnum($status);
+        $field = static::attribute()->status;
+
+        $payment->update([$field => $value]);
+    }
+
+    protected function event(Model $payment, StatusEnum $status): void
+    {
+        match ($status) {
+            StatusEnum::new        => event(new CreatedEvent($payment)),
+            StatusEnum::refund     => event(new RefundedEvent($payment)),
+            StatusEnum::waitRefund => event(new WaitRefundEvent($payment)),
+            StatusEnum::success    => event(new SuccessEvent($payment)),
+            StatusEnum::failed     => event(new FailedEvent($payment)),
+        };
+    }
 }

@@ -17,7 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
+use CashierProvider\Core\Casts\InfoCast;
 use CashierProvider\Core\Concerns\Config\Details as DetailsConcern;
+use CashierProvider\Core\Enums\StatusEnum;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -30,11 +32,13 @@ class Details extends Model
         'payment_id',
         'external_id',
         'operation_id',
+        'status',
         'info',
     ];
 
     protected $casts = [
-        'info' => 'json',
+        'info'   => InfoCast::class,
+        'status' => StatusEnum::class,
     ];
 
     protected $touches = [

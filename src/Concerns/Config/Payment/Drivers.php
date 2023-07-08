@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Config\Payment;
 
+use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
 use CashierProvider\Core\Data\Config\DriverData;
 use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
 use CashierProvider\Core\Facades\Config;
@@ -25,6 +26,9 @@ use Illuminate\Support\Collection;
 
 trait Drivers
 {
+    use Attributes;
+    use EnumsTransformer;
+
     protected static function drivers(): Collection
     {
         return Config::payment()->drivers;
@@ -37,5 +41,14 @@ trait Drivers
         }
 
         throw new UnknownDriverConfigException($name, $payment->getKey());
+    }
+
+    protected static function driverByModel(Model $payment): DriverData
+    {
+        $name = $payment->getAttribute(
+            static::attribute()->type
+        );
+
+        return static::driver(static::transformFromEnum($name), $payment);
     }
 }

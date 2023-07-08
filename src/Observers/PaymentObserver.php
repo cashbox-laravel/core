@@ -17,17 +17,41 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Permissions\Allowable;
+use CashierProvider\Core\Services\Job;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentObserver
 {
-    public function created(Model $payment): void {}
+    use Attributes;
+    use Allowable;
 
-    public function updated(Model $payment): void {}
+    public function created(Model $payment): void
+    {
+        Job::model($payment)->start();
+    }
 
-    public function deleted(Model $payment): void {}
+    public function updated(Model $payment): void
+    {
+        if ($this->wasChanged($payment)) {
+            Job::model($payment)->verify();
+        }
+    }
 
-    public function restored(Model $payment): void {}
+    protected function wasChanged(Model $payment): bool
+    {
+        return $payment->wasChanged(
+            $this->exceptFields($payment)
+        );
+    }
 
-    public function forceDeleted(Model $payment): void {}
+    protected function exceptFields(Model $payment): array
+    {
+        return Arr::of($payment->getChanges())->except([
+            static::attribute()->status,
+            static::attribute()->createdAt,
+        ])->keys()->toArray();
+    }
 }

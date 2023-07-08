@@ -35,7 +35,7 @@ class StatusData extends Data
 
     public mixed $failed;
 
-    public function get(StatusEnum $status): mixed
+    public function fromEnum(StatusEnum $status): mixed
     {
         return match ($status) {
             StatusEnum::new        => $this->new,
@@ -43,6 +43,17 @@ class StatusData extends Data
             StatusEnum::refund     => $this->refund,
             StatusEnum::waitRefund => $this->waitRefund,
             StatusEnum::failed     => $this->failed,
+        };
+    }
+
+    public function toEnum(int|string $status): StatusEnum
+    {
+        return match ($status) {
+            $this->new        => StatusEnum::new,
+            $this->success    => StatusEnum::success,
+            $this->refund     => StatusEnum::refund,
+            $this->waitRefund => StatusEnum::waitRefund,
+            $this->failed     => StatusEnum::failed,
         };
     }
 
