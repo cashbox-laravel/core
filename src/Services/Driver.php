@@ -27,7 +27,5 @@ abstract class Driver
         protected Model $payment
     ) {}
 
-    public function wasCreated(): bool {}
-
-    public function inProgress(): bool {}
+    public function statuses() {}
 }

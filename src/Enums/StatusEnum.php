@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Enums;
 
 use ArchTech\Enums\Values;
+use CashierProvider\Core\Concerns\Enums\From;
 
 /**
  * @method int failed()
@@ -29,6 +30,7 @@ use ArchTech\Enums\Values;
 enum StatusEnum: int
 {
     use Values;
+    use From;
 
     case new        = 0;
     case success    = 1;

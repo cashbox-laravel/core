@@ -56,7 +56,7 @@ abstract class BaseJob implements ShouldQueue, ShouldBeUnique
 
     protected function driver(): Driver
     {
-        return $this->payment->casheableDriver();
+        return $this->payment->cashierDriver();
     }
 
     protected function getRateLimiter(): string

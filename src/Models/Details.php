@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
+use CashierProvider\Core\Data\Config\DetailsData;
+use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -38,8 +40,21 @@ class Details extends Model
         'parent',
     ];
 
+    public function __construct(array $attributes = [])
+    {
+        $this->setConnection($this->connectionConfig()->connection);
+        $this->setTable($this->connectionConfig()->table);
+
+        parent::__construct($attributes);
+    }
+
     public function parent(): Relation
     {
         return $this->morphTo('item');
+    }
+
+    protected function connectionConfig(): DetailsData
+    {
+        return Config::details();
     }
 }

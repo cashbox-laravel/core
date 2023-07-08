@@ -18,12 +18,19 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Concerns;
 
 use CashierProvider\Core\Helpers\DriverManager;
+use CashierProvider\Core\Models\Details;
 use CashierProvider\Core\Services\Driver;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait Casheable
 {
+    public function cashier(): MorphOne
+    {
+        return $this->morphOne(Details::class, 'item');
+    }
+
     // main trait
-    public function casheableDriver(): Driver
+    public function cashierDriver(): Driver
     {
         return DriverManager::find($this);
     }

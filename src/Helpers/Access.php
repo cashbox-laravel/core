@@ -23,19 +23,37 @@ use Illuminate\Database\Eloquent\Model;
 
 class Access
 {
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
+     *
+     * @return bool
+     */
     public static function toStart(Model $payment): bool
     {
-        return static::allowType($payment);
+        return static::allowType($payment)
+            && $payment->cashierDriver()->statuses()->hasCreated();
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
+     *
+     * @return bool
+     */
     public static function toVerify(Model $payment): bool
     {
-        return static::allowType($payment);
+        return static::allowType($payment)
+            && $payment->cashierDriver()->statuses()->inProgress();
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
+     *
+     * @return bool
+     */
     public static function toRefund(Model $payment): bool
     {
-        return static::allowType($payment);
+        return static::allowType($payment)
+            && $payment->cashierDriver()->statuses()->inProgress();
     }
 
     protected static function allowType(Model $payment): bool

@@ -23,12 +23,21 @@ trait From
 {
     public static function from(string|int $value): static
     {
+        if ($case = static::tryFrom($value)) {
+            return $case;
+        }
+
+        throw new OutOfBoundsException($value);
+    }
+
+    public static function tryFrom(string|int $value): ?static
+    {
         foreach (static::cases() as $case) {
             if ($case->name === $case || $case->value === $case) {
                 return $case;
             }
         }
 
-        throw new OutOfBoundsException($value);
+        return null;
     }
 }
