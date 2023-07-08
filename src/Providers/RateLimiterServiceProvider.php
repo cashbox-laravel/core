@@ -49,7 +49,7 @@ class RateLimiterServiceProvider extends BaseProvider
     protected function isToday(Model $payment): bool
     {
         return $payment->getAttribute(
-            $this->attribute()->createdAt
+            static::attribute()->createdAt
         )->isToday();
     }
 }

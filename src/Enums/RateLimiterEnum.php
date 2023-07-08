@@ -27,6 +27,6 @@ enum RateLimiterEnum: string
 {
     use Values;
 
-    case disabled = 'disabled';
-    case hourly   = 'hourly';
+    case disabled = 'cashier_disabled';
+    case hourly   = 'cashier_hourly';
 }

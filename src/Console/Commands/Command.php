@@ -23,6 +23,7 @@ use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
 use CashierProvider\Core\Services\Job;
 use Closure;
+use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Console\Command as BaseCommand;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -34,6 +35,7 @@ abstract class Command extends BaseCommand
     use Drivers;
     use Payments;
     use Statuses;
+    use InitModelHelper;
 
     protected int $size = 1000;
 
@@ -53,21 +55,21 @@ abstract class Command extends BaseCommand
     protected function payments(Closure $callback): void
     {
         $this->builder()
-            ->where($this->attribute()->type, $this->getTypes())
-            ->where($this->attribute()->status, $this->getStatuses())
+            ->where(static::attribute()->type, $this->getTypes())
+            ->where(static::attribute()->status, $this->getStatuses())
             ->chunkById($this->size, $callback);
     }
 
     protected function builder(): Builder
     {
-        $model = $this->payment()->model;
-
-        return $model::query();
+        return $this->model()->query(
+            static::payment()->model
+        );
     }
 
     protected function getTypes(): array
     {
-        return $this->drivers()->keys()->toArray();
+        return static::drivers()->keys()->toArray();
     }
 
     protected function job(Model $payment): Job

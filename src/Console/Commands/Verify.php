@@ -36,7 +36,7 @@ class Verify extends Command
 
     protected function getStatuses(): array
     {
-        return $this->statuses()->inProgress();
+        return static::statuses()->inProgress();
     }
 
     protected function process(Model $payment): void
@@ -46,8 +46,6 @@ class Verify extends Command
 
     protected function clean(): void
     {
-        Details::query()
-            ->whereDoesntHaveMorph('parent', $this->payment()->model)
-            ->delete();
+        Details::query()->doesntHave('parent')->delete();
     }
 }

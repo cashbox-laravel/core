@@ -25,7 +25,7 @@ abstract class BaseException extends Exception
 
     protected string $reason = 'The "%s" class must implement "%s".';
 
-    public function __construct(object|string $haystack, string $needle)
+    public function __construct(object|string $haystack, ?string $needle = null)
     {
         parent::__construct($this->reason($haystack, $needle), $this->statusCode);
     }

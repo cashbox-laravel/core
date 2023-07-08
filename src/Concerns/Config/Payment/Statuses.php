@@ -22,7 +22,7 @@ use CashierProvider\Core\Facades\Config;
 
 trait Statuses
 {
-    protected function statuses(): StatusData
+    protected static function statuses(): StatusData
     {
         return Config::payment()->status;
     }

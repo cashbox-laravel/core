@@ -48,7 +48,7 @@ class Job
 
     public function start(): void
     {
-        if ($this->allowToStart()) {
+        if ($this->authorizeToStart()) {
             $this->dispatch(StartJob::class, $this->queue()->name->start);
 
             if ($this->autoRefund()->enabled) {
@@ -59,14 +59,14 @@ class Job
 
     public function verify(): void
     {
-        if ($this->allowToVerify()) {
+        if ($this->authorizeToVerify()) {
             $this->dispatch(VerifyJob::class, $this->queue()->name->verify);
         }
     }
 
     public function refund(?int $delay = null): void
     {
-        if ($this->force || $this->allowToRefund()) {
+        if ($this->force || $this->authorizeToRefund()) {
             $this->dispatch(RefundJob::class, $this->queue()->name->refund, $delay);
         }
     }

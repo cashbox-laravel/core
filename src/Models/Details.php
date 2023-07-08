@@ -25,8 +25,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 class Details extends Model
 {
     protected $fillable = [
-        'item_type',
-        'item_id',
+        'payment_id',
         'external_id',
         'operation_id',
         'info',
@@ -50,7 +49,7 @@ class Details extends Model
 
     public function parent(): Relation
     {
-        return $this->morphTo('item');
+        return $this->belongsTo(Config::payment()->model, 'id', 'payment_id');
     }
 
     protected function connectionConfig(): DetailsData

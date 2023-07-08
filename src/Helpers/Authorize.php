@@ -17,48 +17,41 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Helpers;
 
+use CashierProvider\Core\Concerns\Config\Payment\Statuses;
 use CashierProvider\Core\Data\Config\Payment\AttributeData;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
-class Access
+class Authorize
 {
-    /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
-     *
-     * @return bool
-     */
+    use Statuses;
+
     public static function toStart(Model $payment): bool
     {
-        return static::allowType($payment)
-            && $payment->cashierDriver()->statuses()->hasCreated();
+        return static::acceptType($payment)
+            && static::acceptStatus($payment, static::statuses()->new);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
-     *
-     * @return bool
-     */
     public static function toVerify(Model $payment): bool
     {
-        return static::allowType($payment)
-            && $payment->cashierDriver()->statuses()->inProgress();
+        return static::acceptType($payment)
+            && static::acceptStatus($payment, static::statuses()->inProgress());
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Model|\CashierProvider\Core\Concerns\Casheable  $payment
-     *
-     * @return bool
-     */
     public static function toRefund(Model $payment): bool
     {
-        return static::allowType($payment)
-            && $payment->cashierDriver()->statuses()->inProgress();
+        return static::acceptType($payment)
+            && static::acceptStatus($payment, static::statuses()->toRefund());
     }
 
-    protected static function allowType(Model $payment): bool
+    protected static function acceptType(Model $payment): bool
     {
         return in_array(static::paymentType($payment), static::paymentTypes(), true);
+    }
+
+    protected static function acceptStatus(Model $payment, int|string|array $statuses): bool
+    {
+        return in_array(static::paymentStatus($payment), (array) $statuses, true);
     }
 
     protected static function paymentTypes(): array
@@ -69,6 +62,11 @@ class Access
     protected static function paymentType(Model $payment): mixed
     {
         return $payment->getAttribute(static::attribute()->type);
+    }
+
+    protected static function paymentStatus(Model $payment): mixed
+    {
+        return $payment->getAttribute(static::attribute()->status);
     }
 
     protected static function attribute(): AttributeData

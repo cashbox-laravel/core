@@ -22,7 +22,7 @@ use Illuminate\Support\Collection;
 
 trait Drivers
 {
-    protected function drivers(): Collection
+    protected static function drivers(): Collection
     {
         return Config::payment()->drivers;
     }

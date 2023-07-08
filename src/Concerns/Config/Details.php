@@ -15,14 +15,15 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
-use Illuminate\Database\Schema\Blueprint;
+namespace CashierProvider\Core\Concerns\Config;
 
-new class extends PrivateMigration {
-    public function up(): void
+use CashierProvider\Core\Data\Config\DetailsData;
+use CashierProvider\Core\Facades\Config;
+
+trait Details
+{
+    protected static function details(): DetailsData
     {
-        $this->connection()->table($this->table(), function (Blueprint $table) {
-            $table->id()->first();
-        });
+        return Config::details();
     }
-};
+}

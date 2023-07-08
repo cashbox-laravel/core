@@ -20,13 +20,13 @@ namespace CashierProvider\Core\Concerns;
 use CashierProvider\Core\Helpers\DriverManager;
 use CashierProvider\Core\Models\Details;
 use CashierProvider\Core\Services\Driver;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait Casheable
 {
-    public function cashier(): MorphOne
+    public function cashier(): Relation
     {
-        return $this->morphOne(Details::class, 'item');
+        return $this->hasOne(Details::class, 'payment_id', $this->getKeyName());
     }
 
     // main trait

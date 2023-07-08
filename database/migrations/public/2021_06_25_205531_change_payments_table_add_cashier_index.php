@@ -21,24 +21,17 @@ use Illuminate\Database\Schema\Blueprint;
 new class extends PublicMigration {
     public function up(): void
     {
-        $this->schemaConnection()->table($this->table(), function (Blueprint $table) {
+        $this->connection()->table($this->table(), function (Blueprint $table) {
             $table->index($this->fields());
-        });
-    }
-
-    public function down(): void
-    {
-        $this->schemaConnection()->table($this->table(), function (Blueprint $table) {
-            $table->dropIndex($this->fields());
         });
     }
 
     protected function fields(): array
     {
         return [
-            $this->attributeType(),
-            $this->attributeStatus(),
-            $this->attributeCreatedAt(),
+            static::attribute()->type,
+            static::attribute()->status,
+            static::attribute()->createdAt,
         ];
     }
 };

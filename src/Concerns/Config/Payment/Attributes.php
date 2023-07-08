@@ -22,7 +22,7 @@ use CashierProvider\Core\Facades\Config;
 
 trait Attributes
 {
-    protected function attribute(): AttributeData
+    protected static function attribute(): AttributeData
     {
         return Config::payment()->attribute;
     }

@@ -34,7 +34,7 @@ class Refund extends Command
 
     protected function getStatuses(): array
     {
-        return $this->statuses()->toRefund();
+        return static::statuses()->toRefund();
     }
 
     protected function process(Model $payment): void

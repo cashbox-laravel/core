@@ -41,6 +41,7 @@
     "require": {
         "php": "^8.1",
         "archtechx/enums": "^0.3",
+        "dragon-code/laravel-support": "^3.6",
         "dragon-code/support": "^6.11",
         "illuminate/console": "^10.0",
         "illuminate/database": "^10.0",

@@ -21,12 +21,14 @@ use Illuminate\Database\Schema\Blueprint;
 new class extends PrivateMigration {
     public function up(): void
     {
-        $this->detailsConnection()->create($this->detailsTable(), function (Blueprint $table) {
+        $this->connection()->create($this->table(), function (Blueprint $table) {
             $table->string('item_type');
 
-            $this->isNumericPrimaryKey()
-                ? $table->unsignedBigInteger('item_id')
-                : $table->uuid('item_id');
+            match ($this->primaryType()) {
+                'uuid'  => $table->uuid('item_id')->index()->after('item_type'),
+                'ulid'  => $table->char('item_id', 26)->index()->after('item_type'),
+                default => $table->unsignedBigInteger('item_id')->index()->after('item_type')
+            };
 
             $table->string('external_id')->nullable();
 
@@ -36,12 +38,5 @@ new class extends PrivateMigration {
 
             $table->index(['item_type', 'item_id']);
         });
-    }
-
-    public function down(): void
-    {
-        $this->detailsConnection()->dropIfExists(
-            $this->detailsTable()
-        );
     }
 };

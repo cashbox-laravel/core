@@ -17,39 +17,30 @@ declare(strict_types=1);
 
 use CashierProvider\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 new class extends PublicMigration {
     public function up(): void
     {
-        Schema::table($this->table(), function (Blueprint $table) {
+        $this->connection()->table($this->table(), function (Blueprint $table) {
             $table->dropIndex($this->oldFields());
             $table->index($this->newFields());
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::table($this->table(), function (Blueprint $table) {
-            $table->dropIndex($this->newFields());
-            $table->index($this->oldFields());
         });
     }
 
     protected function oldFields(): array
     {
         return [
-            $this->attributeType(),
-            $this->attributeStatus(),
-            $this->attributeCreatedAt(),
+            static::attribute()->type,
+            static::attribute()->status,
+            static::attribute()->createdAt,
         ];
     }
 
     protected function newFields(): array
     {
         return [
-            $this->attributeType(),
-            $this->attributeStatus(),
+            static::attribute()->type,
+            static::attribute()->status,
         ];
     }
 };

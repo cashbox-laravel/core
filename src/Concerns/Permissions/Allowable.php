@@ -17,22 +17,22 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Permissions;
 
-use CashierProvider\Core\Helpers\Access;
+use CashierProvider\Core\Helpers\Authorize;
 
 trait Allowable
 {
-    protected function allowToStart(): bool
+    protected function authorizeToStart(): bool
     {
-        return Access::toStart($this->payment);
+        return Authorize::toStart($this->payment);
     }
 
-    protected function allowToVerify(): bool
+    protected function authorizeToVerify(): bool
     {
-        return Access::toVerify($this->payment);
+        return Authorize::toVerify($this->payment);
     }
 
-    protected function allowToRefund(): bool
+    protected function authorizeToRefund(): bool
     {
-        return Access::toRefund($this->payment);
+        return Authorize::toRefund($this->payment);
     }
 }

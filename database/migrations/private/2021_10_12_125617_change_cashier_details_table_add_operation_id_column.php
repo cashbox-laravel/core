@@ -21,15 +21,8 @@ use Illuminate\Database\Schema\Blueprint;
 new class extends PrivateMigration {
     public function up(): void
     {
-        $this->detailsConnection()->table($this->detailsTable(), function (Blueprint $table) {
+        $this->connection()->table($this->table(), function (Blueprint $table) {
             $table->string('operation_id')->nullable()->after('external_id');
-        });
-    }
-
-    public function down(): void
-    {
-        $this->detailsConnection()->table($this->detailsTable(), function (Blueprint $table) {
-            $table->dropColumn('operation_id');
         });
     }
 };

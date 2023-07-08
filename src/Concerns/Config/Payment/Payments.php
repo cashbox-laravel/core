@@ -22,7 +22,7 @@ use CashierProvider\Core\Facades\Config;
 
 trait Payments
 {
-    protected function payment(): PaymentData
+    protected static function payment(): PaymentData
     {
         return Config::payment();
     }

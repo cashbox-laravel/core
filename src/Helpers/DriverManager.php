@@ -22,6 +22,7 @@ use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Helpers\Validatable;
 use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
 use CashierProvider\Core\Data\Config\DriverData;
+use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,14 +46,16 @@ class DriverManager
 
     protected function get(): Driver
     {
-        $data = $this->data();
+        if ($data = $this->data()) {
+            return call_user_func([$data->driver, 'make'], $data, $this->payment);
+        }
 
-        return call_user_func([$data->driver, 'make'], $data, $this->payment);
+        throw new UnknownDriverConfigException($this->type(), $this->payment->getKey());
     }
 
     protected function data(): ?DriverData
     {
-        return $this->drivers()->get(
+        return static::drivers()->get(
             $this->type()
         );
     }
@@ -60,7 +63,7 @@ class DriverManager
     protected function type(): string|int
     {
         $type = $this->payment->getAttribute(
-            $this->attribute()->type
+            static::attribute()->type
         );
 
         return $this->transformFromEnum($type);

@@ -22,7 +22,7 @@ new class extends PrivateMigration {
     public function up(): void
     {
         $this->connection()->table($this->table(), function (Blueprint $table) {
-            $table->id()->first();
+            $table->renameColumn('details', 'info');
         });
     }
 };

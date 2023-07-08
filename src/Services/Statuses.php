@@ -107,7 +107,7 @@ abstract class Statuses
     protected function hasModel(array|string $statuses, StatusEnum $status): bool
     {
         $statuses = Arr::of((array) $statuses)
-            ->map(fn (mixed $value) => $this->payment()->status->get($status))
+            ->map(fn (mixed $value) => static::payment()->status->get($status))
             ->toArray();
 
         return $this->has($status, $statuses);
@@ -134,7 +134,7 @@ abstract class Statuses
     protected function modelStatus(): mixed
     {
         return $this->payment->getAttribute(
-            $this->attribute()->status
+            static::attribute()->status
         );
     }
 

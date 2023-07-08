@@ -15,14 +15,9 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Concerns\Migrations\PrivateMigration;
-use Illuminate\Database\Schema\Blueprint;
+namespace CashierProvider\Core\Exceptions\Internal;
 
-new class extends PrivateMigration {
-    public function up(): void
-    {
-        $this->connection()->table($this->table(), function (Blueprint $table) {
-            $table->id()->first();
-        });
-    }
-};
+class UnknownDriverConfigException extends BaseException
+{
+    protected string $reason = 'Driver configuration "%s" for payment ID %s not found.';
+}
