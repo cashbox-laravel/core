@@ -46,8 +46,8 @@ new class extends PrivateMigration {
 
     protected function moveData(string $from, string $to): void
     {
-        DB::connection(static::details()->connection)
-            ->table(static::details()->table)
+        DB::connection(self::details()->connection)
+            ->table(self::details()->table)
             ->update([$to => DB::raw($from)]);
     }
 };

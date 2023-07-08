@@ -34,12 +34,7 @@ class InfoCast implements CastsAttributes
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
      * @param  \Spatie\LaravelData\Data  $value
-     * @param  array  $attributes
-     *
-     * @return string
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): string
     {

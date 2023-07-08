@@ -17,6 +17,4 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Events;
 
-class WaitRefundEvent extends BaseEvent
-{
-}
+class WaitRefundEvent extends BaseEvent {}

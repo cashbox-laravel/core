@@ -31,7 +31,7 @@ use Illuminate\Queue\SerializesModels;
 /**
  * @property Model|Casheable $payment
  */
-abstract class BaseJob implements ShouldQueue, ShouldBeUnique
+abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;

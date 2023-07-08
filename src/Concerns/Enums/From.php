@@ -21,7 +21,7 @@ use OutOfBoundsException;
 
 trait From
 {
-    public static function from(string|int $value): static
+    public static function from(int|string $value): static
     {
         if ($case = static::tryFrom($value)) {
             return $case;
@@ -30,7 +30,7 @@ trait From
         throw new OutOfBoundsException($value);
     }
 
-    public static function tryFrom(string|int $value): ?static
+    public static function tryFrom(int|string $value): ?static
     {
         foreach (static::cases() as $case) {
             if ($case->name === $case || $case->value === $case) {

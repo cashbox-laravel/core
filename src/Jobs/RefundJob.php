@@ -17,6 +17,4 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-class RefundJob extends BaseJob
-{
-}
+class RefundJob extends BaseJob {}

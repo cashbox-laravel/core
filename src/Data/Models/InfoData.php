@@ -26,7 +26,7 @@ abstract class InfoData extends Data
     use EnumsTransformer;
     use Payments;
 
-    public UnitEnum|int|string|null $status;
+    public int|string|UnitEnum|null $status;
 
     public function statusToEnum(): StatusEnum
     {

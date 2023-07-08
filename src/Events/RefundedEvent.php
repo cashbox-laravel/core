@@ -17,6 +17,4 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Events;
 
-class RefundedEvent extends BaseEvent
-{
-}
+class RefundedEvent extends BaseEvent {}

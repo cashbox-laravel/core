@@ -22,7 +22,7 @@ use DateTimeInterface;
 
 trait DateTime
 {
-    protected static function carbon(DateTimeInterface|string|int|null $date): Carbon
+    protected static function carbon(DateTimeInterface|int|string|null $date): Carbon
     {
         return is_numeric($date) ? Carbon::createFromTimestamp($date) : Carbon::parse($date);
     }

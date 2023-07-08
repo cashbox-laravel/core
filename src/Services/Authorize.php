@@ -50,7 +50,7 @@ class Authorize
         return in_array(static::paymentType($payment), static::paymentTypes(), true);
     }
 
-    protected static function acceptStatus(Model $payment, int|string|array $statuses): bool
+    protected static function acceptStatus(Model $payment, array|int|string $statuses): bool
     {
         return in_array(static::paymentStatus($payment), (array) $statuses, true);
     }
