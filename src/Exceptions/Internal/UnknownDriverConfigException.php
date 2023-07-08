@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Exceptions\Internal;
 
+use CashierProvider\Core\Exceptions\BaseException;
+
 class UnknownDriverConfigException extends BaseException
 {
     protected string $reason = 'Driver configuration "%s" for payment ID %s not found.';

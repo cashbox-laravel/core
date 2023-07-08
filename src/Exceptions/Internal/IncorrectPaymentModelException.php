@@ -17,7 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Exceptions\Internal;
 
+use CashierProvider\Core\Exceptions\BaseException;
+
 class IncorrectPaymentModelException extends BaseException
 {
-    protected string $reason = 'No configuration found for "%s" driver.';
+    protected string $reason = 'The "%s" class must implement "%s".';
 }

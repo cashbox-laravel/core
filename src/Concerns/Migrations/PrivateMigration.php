@@ -40,9 +40,23 @@ abstract class PrivateMigration extends Migration
         return static::details()->table;
     }
 
+    protected function primaryTable(): string
+    {
+        return $this->model()->table(
+            static::payment()->model
+        );
+    }
+
     protected function primaryType(): string
     {
         return $this->model()->primaryKeyType(
+            static::payment()->model
+        );
+    }
+
+    protected function primaryKey(): string
+    {
+        return $this->model()->primaryKey(
             static::payment()->model
         );
     }

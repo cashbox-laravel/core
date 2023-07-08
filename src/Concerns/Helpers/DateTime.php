@@ -15,15 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config;
+namespace CashierProvider\Core\Concerns\Helpers;
 
-use CashierProvider\Core\Data\Config\Queue\QueueData;
-use CashierProvider\Core\Facades\Config;
+use Carbon\Carbon;
+use DateTimeInterface;
 
-trait Queue
+trait DateTime
 {
-    protected static function queue(): QueueData
+    protected static function carbon(DateTimeInterface|string|int|null $date): Carbon
     {
-        return Config::queue();
+        return is_numeric($date) ? Carbon::createFromTimestamp($date) : Carbon::parse($date);
     }
 }

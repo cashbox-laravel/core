@@ -17,7 +17,10 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Config\Payment;
 
+use CashierProvider\Core\Data\Config\DriverData;
+use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
 use CashierProvider\Core\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 trait Drivers
@@ -25,5 +28,14 @@ trait Drivers
     protected static function drivers(): Collection
     {
         return Config::payment()->drivers;
+    }
+
+    protected static function driver(int|string $name, Model $payment): DriverData
+    {
+        if ($driver = Config::driver($name)) {
+            return $driver;
+        }
+
+        throw new UnknownDriverConfigException($name, $payment->getKey());
     }
 }

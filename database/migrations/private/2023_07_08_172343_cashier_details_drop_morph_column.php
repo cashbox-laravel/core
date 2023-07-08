@@ -30,11 +30,10 @@ new class extends PrivateMigration {
     protected function createColumn(string $name, string $after): void
     {
         $this->connection()->table($this->table(), function (Blueprint $table) use ($name, $after) {
-            match ($this->primaryType()) {
-                'uuid'  => $table->uuid($name)->index()->after($after),
-                'ulid'  => $table->char($name, 26)->index()->after($after),
-                default => $table->unsignedBigInteger($name)->index()->after($after)
-            };
+            $table->foreignIdFor(static::payment()->model, $name)
+                ->after($after)
+                ->constrained($this->primaryTable(), $this->primaryKey())
+                ->cascadeOnDelete();
         });
     }
 

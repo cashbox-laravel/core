@@ -17,12 +17,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Helpers;
 
-use CashierProvider\Core\Helpers\Validator;
+use CashierProvider\Core\Services\Validator;
 use Illuminate\Database\Eloquent\Model;
 
 trait Validatable
 {
-    protected function validateModel(Model $model): void
+    protected static function validateModel(Model $model): void
     {
         Validator::model($model);
     }

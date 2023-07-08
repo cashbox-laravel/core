@@ -22,7 +22,7 @@ use CashierProvider\Core\Facades\Config;
 
 trait Refund
 {
-    public function autoRefund(): RefundData
+    public static function autoRefund(): RefundData
     {
         return Config::refund();
     }

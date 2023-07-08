@@ -55,6 +55,7 @@ abstract class Command extends BaseCommand
     protected function payments(Closure $callback): void
     {
         $this->builder()
+            ->with('cashier')
             ->where(static::attribute()->type, $this->getTypes())
             ->where(static::attribute()->status, $this->getStatuses())
             ->chunkById($this->size, $callback);

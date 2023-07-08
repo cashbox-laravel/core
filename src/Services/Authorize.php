@@ -15,15 +15,16 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Helpers;
+namespace CashierProvider\Core\Services;
 
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
-use CashierProvider\Core\Data\Config\Payment\AttributeData;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Authorize
 {
+    use Attributes;
     use Statuses;
 
     public static function toStart(Model $payment): bool
@@ -67,10 +68,5 @@ class Authorize
     protected static function paymentStatus(Model $payment): mixed
     {
         return $payment->getAttribute(static::attribute()->status);
-    }
-
-    protected static function attribute(): AttributeData
-    {
-        return Config::payment()->attribute;
     }
 }

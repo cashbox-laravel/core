@@ -17,20 +17,17 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use CashierProvider\Core\Facades\Config;
+use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 use function class_exists;
 
 abstract class BaseProvider extends BaseServiceProvider
 {
+    use Payments;
+
     protected function disabled(): bool
     {
-        return ! class_exists($this->model());
-    }
-
-    protected function model(): string
-    {
-        return Config::payment()->model;
+        return ! class_exists(static::payment()->model);
     }
 }

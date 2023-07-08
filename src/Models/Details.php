@@ -17,13 +17,15 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
-use CashierProvider\Core\Data\Config\DetailsData;
+use CashierProvider\Core\Concerns\Config\Details as DetailsConcern;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Details extends Model
 {
+    use DetailsConcern;
+
     protected $fillable = [
         'payment_id',
         'external_id',
@@ -41,8 +43,8 @@ class Details extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setConnection($this->connectionConfig()->connection);
-        $this->setTable($this->connectionConfig()->table);
+        $this->setConnection(static::details()->connection);
+        $this->setTable(static::details()->table);
 
         parent::__construct($attributes);
     }
@@ -50,10 +52,5 @@ class Details extends Model
     public function parent(): Relation
     {
         return $this->belongsTo(Config::payment()->model, 'id', 'payment_id');
-    }
-
-    protected function connectionConfig(): DetailsData
-    {
-        return Config::details();
     }
 }

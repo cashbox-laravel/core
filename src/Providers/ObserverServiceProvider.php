@@ -17,7 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use Illuminate\Database\Eloquent\Model;
+use CashierProvider\Core\Models\Details;
+use CashierProvider\Core\Observers\PaymentDetailsObserver;
+use CashierProvider\Core\Observers\PaymentObserver;
 
 class ObserverServiceProvider extends BaseProvider
 {
@@ -33,25 +35,13 @@ class ObserverServiceProvider extends BaseProvider
 
     protected function bootPayment(): void
     {
-        if ($model = $this->resolveModel()) {
-            $model::observe(PaymentsObserver::class);
-        }
+        $model = static::payment()->model;
+
+        $model::observe(PaymentObserver::class);
     }
 
     protected function bootPaymentDetails(): void
     {
-        CashierDetail::observe(DetailsObserver::class);
-    }
-
-    protected function resolveModel(): Model|string|null
-    {
-        $model = $this->model();
-
-        return class_exists($model) ? $model : null;
-    }
-
-    protected function model(): string
-    {
-        return Config::payment()->model;
+        Details::observe(PaymentDetailsObserver::class);
     }
 }

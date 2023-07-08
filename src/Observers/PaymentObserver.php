@@ -15,15 +15,19 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config;
+namespace CashierProvider\Core\Observers;
 
-use CashierProvider\Core\Data\Config\Queue\QueueData;
-use CashierProvider\Core\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
 
-trait Queue
+class PaymentObserver
 {
-    protected static function queue(): QueueData
-    {
-        return Config::queue();
-    }
+    public function created(Model $payment): void {}
+
+    public function updated(Model $payment): void {}
+
+    public function deleted(Model $payment): void {}
+
+    public function restored(Model $payment): void {}
+
+    public function forceDeleted(Model $payment): void {}
 }

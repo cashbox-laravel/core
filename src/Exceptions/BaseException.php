@@ -15,15 +15,15 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\Internal;
+namespace CashierProvider\Core\Exceptions;
 
 use Exception;
 
-abstract class BaseException extends Exception
+class BaseException extends Exception
 {
     protected int $statusCode = 500;
 
-    protected string $reason = 'The "%s" class must implement "%s".';
+    protected string $reason;
 
     public function __construct(object|string $haystack, ?string $needle = null)
     {

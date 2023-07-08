@@ -15,15 +15,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Helpers;
+namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Helpers\Validatable;
 use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
 use CashierProvider\Core\Data\Config\DriverData;
-use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
-use CashierProvider\Core\Services\Driver;
 use Illuminate\Database\Eloquent\Model;
 
 class DriverManager
@@ -33,39 +31,29 @@ class DriverManager
     use EnumsTransformer;
     use Validatable;
 
-    public function __construct(
-        protected Model $payment
-    ) {
-        $this->validateModel($this->payment);
-    }
-
     public static function find(Model $payment): Driver
     {
-        return (new static($payment))->get();
+        static::validateModel($payment);
+
+        return static::call(static::data($payment), $payment);
     }
 
-    protected function get(): Driver
+    protected static function call(DriverData $data, Model $payment): Driver
     {
-        if ($data = $this->data()) {
-            return call_user_func([$data->driver, 'make'], $data, $this->payment);
-        }
-
-        throw new UnknownDriverConfigException($this->type(), $this->payment->getKey());
+        return call_user_func([$data->driver, 'make'], $data, $payment);
     }
 
-    protected function data(): ?DriverData
+    protected static function data(Model $payment): ?DriverData
     {
-        return static::drivers()->get(
-            $this->type()
-        );
+        return static::driver(static::type($payment), $payment);
     }
 
-    protected function type(): string|int
+    protected static function type(Model $payment): string|int
     {
-        $type = $this->payment->getAttribute(
+        $type = $payment->getAttribute(
             static::attribute()->type
         );
 
-        return $this->transformFromEnum($type);
+        return static::transformFromEnum($type);
     }
 }

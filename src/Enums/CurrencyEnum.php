@@ -176,6 +176,7 @@ enum CurrencyEnum: int
     case UGX = 800;
     case USD = 840;
     case USN = 997;
+    case USS = 998;
     case UYI = 940;
     case UYU = 858;
     case UYW = 927;

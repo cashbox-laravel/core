@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Data\Config\Queue;
 
-use CashierProvider\Core\Casts\Data\NumberCast;
+use CashierProvider\Core\Data\Casts\NumberCast;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;

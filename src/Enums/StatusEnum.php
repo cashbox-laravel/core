@@ -21,20 +21,20 @@ use ArchTech\Enums\Values;
 use CashierProvider\Core\Concerns\Enums\From;
 
 /**
- * @method int failed()
- * @method int new()
- * @method int refund()
- * @method int success()
- * @method int waitRefund()
+ * @method string failed()
+ * @method string new()
+ * @method string refund()
+ * @method string success()
+ * @method string waitRefund()
  */
-enum StatusEnum: int
+enum StatusEnum: string
 {
     use Values;
     use From;
 
-    case new        = 0;
-    case success    = 1;
-    case waitRefund = 2;
-    case refund     = 3;
-    case failed     = 4;
+    case new        = 'new';
+    case success    = 'success';
+    case waitRefund = 'wait_refund';
+    case refund     = 'refund';
+    case failed     = 'failed';
 }

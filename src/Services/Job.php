@@ -38,7 +38,7 @@ class Job
     public function __construct(
         protected Model $payment
     ) {
-        $this->validateModel($this->payment);
+        static::validateModel($this->payment);
     }
 
     public static function model(Model $payment): self
@@ -49,10 +49,10 @@ class Job
     public function start(): void
     {
         if ($this->authorizeToStart()) {
-            $this->dispatch(StartJob::class, $this->queue()->name->start);
+            $this->dispatch(StartJob::class, static::queue()->name->start);
 
-            if ($this->autoRefund()->enabled) {
-                $this->refund($this->autoRefund()->delay);
+            if (static::autoRefund()->enabled) {
+                $this->refund(static::autoRefund()->delay);
             }
         }
     }
@@ -60,14 +60,14 @@ class Job
     public function verify(): void
     {
         if ($this->authorizeToVerify()) {
-            $this->dispatch(VerifyJob::class, $this->queue()->name->verify);
+            $this->dispatch(VerifyJob::class, static::queue()->name->verify);
         }
     }
 
     public function refund(?int $delay = null): void
     {
         if ($this->force || $this->authorizeToRefund()) {
-            $this->dispatch(RefundJob::class, $this->queue()->name->refund, $delay);
+            $this->dispatch(RefundJob::class, static::queue()->name->refund, $delay);
         }
     }
 
@@ -87,7 +87,7 @@ class Job
     protected function dispatch(string $job, ?string $queue, ?int $delay = null): void
     {
         dispatch(new $job($this->payment, $this->force))
-            ->onConnection($this->queue()->connection)
+            ->onConnection(static::queue()->connection)
             ->onQueue($queue)
             ->afterCommit()
             ->delay($delay);

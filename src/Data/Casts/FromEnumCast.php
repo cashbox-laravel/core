@@ -26,7 +26,7 @@ class FromEnumCast implements Cast
     public function cast(DataProperty $property, mixed $value, array $context): ?string
     {
         if (! empty($value)) {
-            return $this->transformFromEnum($value);
+            return static::transformFromEnum($value);
         }
 
         return null;

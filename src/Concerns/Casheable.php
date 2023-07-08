@@ -17,9 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns;
 
-use CashierProvider\Core\Helpers\DriverManager;
 use CashierProvider\Core\Models\Details;
 use CashierProvider\Core\Services\Driver;
+use CashierProvider\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait Casheable

@@ -32,6 +32,6 @@ class PaymentData extends Data
 
     public StatusData $status;
 
-    /** @var \Illuminate\Support\Collection<string,string> */
+    /** @var \Illuminate\Support\Collection<string,array> */
     public Collection $drivers;
 }

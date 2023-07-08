@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Helpers;
+namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Casheable;
 use CashierProvider\Core\Exceptions\Internal\IncorrectPaymentModelException;

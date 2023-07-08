@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Providers;
 
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Helpers\DateTime;
 use CashierProvider\Core\Enums\RateLimiterEnum;
 use CashierProvider\Core\Jobs\BaseJob;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\RateLimiter;
 class RateLimiterServiceProvider extends BaseProvider
 {
     use Attributes;
+    use DateTime;
 
     public function boot(): void
     {
@@ -34,7 +36,13 @@ class RateLimiterServiceProvider extends BaseProvider
             return;
         }
 
+        $this->bootDisabledLimit();
         $this->bootVerifyLimit();
+    }
+
+    protected function bootDisabledLimit(): void
+    {
+        RateLimiter::for(RateLimiterEnum::disabled(), fn () => Limit::none());
     }
 
     protected function bootVerifyLimit(): void
@@ -48,8 +56,10 @@ class RateLimiterServiceProvider extends BaseProvider
 
     protected function isToday(Model $payment): bool
     {
-        return $payment->getAttribute(
+        $date = $payment->getAttribute(
             static::attribute()->createdAt
-        )->isToday();
+        );
+
+        return static::carbon($date)->isToday();
     }
 }
