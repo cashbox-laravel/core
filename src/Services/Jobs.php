@@ -78,9 +78,7 @@ class Jobs
     }
 
     /**
-     * @param \CashierProvider\Core\Jobs\Base|string $job
-     * @param bool $force
-     * @param int|null $delay
+     * @param  \CashierProvider\Core\Jobs\Base|string  $job
      */
     protected function send(string $job, bool $force = false, ?int $delay = null): void
     {
@@ -103,7 +101,7 @@ class Jobs
             return false;
         }
 
-        return ! ($this->hasRequested($model));
+        return ! $this->hasRequested($model);
     }
 
     protected function hasCheck(Model $model): bool

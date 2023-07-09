@@ -22,44 +22,47 @@ namespace CashierProvider\Core\Jobs;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
+use CashierProvider\Core\Facades\Config\Main;
 use DragonCode\Contracts\Cashier\Http\Response;
+use Illuminate\Support\Carbon;
 
 class Check extends Base
 {
     protected $event = Checked::class;
 
+    protected $doneInsteadThrow = true;
+
     public function handle()
     {
-        $this->checkExternalId();
+        $this->call(function () {
+            $this->checkExternalId();
 
-        $response = $this->process();
+            $response = $this->process();
 
-        $status = $response->getStatus();
+            $status = $response->getStatus();
 
-        switch (true) {
-            case $this->hasFailed($status):
-                $this->update($response, Status::FAILED);
-                break;
+            switch (true) {
+                case $this->hasFailed($status):
+                    $this->update($response, Status::FAILED);
+                    break;
+                case $this->hasRefunding($status):
+                    $this->update($response, Status::WAIT_REFUND);
+                    break;
+                case $this->hasRefunded($status):
+                    $this->update($response, Status::REFUND);
+                    break;
+                case $this->hasSuccess($status):
+                    $this->update($response, Status::SUCCESS);
+                    break;
 
-            case $this->hasRefunding($status):
-                $this->update($response, Status::WAIT_REFUND);
-                break;
+                default:
+                    if ($this->hasBreak()) {
+                        return;
+                    }
 
-            case $this->hasRefunded($status):
-                $this->update($response, Status::REFUND);
-                break;
-
-            case $this->hasSuccess($status):
-                $this->update($response, Status::SUCCESS);
-                break;
-
-            default:
-                if ($this->hasBreak()) {
-                    return;
-                }
-
-                $this->returnToQueue();
-        }
+                    $this->returnToQueue();
+            }
+        });
     }
 
     protected function process(): Response
@@ -67,15 +70,22 @@ class Check extends Base
         return $this->resolveDriver()->check();
     }
 
+    protected function queueName(): ?string
+    {
+        return $this->resolveDriver()->queue()->getCheck();
+    }
+
+    public function retryUntil(): ?Carbon
+    {
+        $timeout = Main::getCheckTimeout();
+
+        return Carbon::now()->addSeconds($timeout);
+    }
+
     protected function update(Response $response, string $status): void
     {
         $this->updateParentStatus($status);
         $this->store($response, false);
-    }
-
-    protected function queueName(): ?string
-    {
-        return $this->resolveDriver()->queue()->getCheck();
     }
 
     protected function checkExternalId(): void

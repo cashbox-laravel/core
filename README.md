@@ -1,4 +1,4 @@
-# Laravel Cashier Provider
+# Cashier Provider for Laravel
 
 Cashier provides an expressive, fluent interface to manage billing services.
 
@@ -26,7 +26,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/core": "^2.0"
+        "cashier-provider/core": "^3.0"
     }
 }
 ```

@@ -31,6 +31,7 @@ use DragonCode\Support\Facades\Helpers\Arr;
 use DragonCode\Support\Facades\Helpers\Str;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
+use Lmc\HttpConstants\Header;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -50,23 +51,11 @@ class Http
         $this->client = $client;
     }
 
-    /**
-     * @param \DragonCode\Contracts\Cashier\Http\Request $request
-     * @param \DragonCode\Contracts\Exceptions\Manager $manager
-     *
-     * @throws \DragonCode\Contracts\Exceptions\Http\ClientException
-     *
-     * @return array
-     */
-    public function post(Request $request, ExceptionManagerContract $manager): array
-    {
-        return $this->request('post', $request, $manager);
-    }
-
-    protected function request(string $method, Request $request, ExceptionManagerContract $exception): array
+    public function request(Request $request, ExceptionManagerContract $exception): array
     {
         try {
-            return $this->retry($this->tries, function () use ($method, $request, $exception) {
+            return $this->retry($this->tries, function () use ($request, $exception) {
+                $method  = $request->method();
                 $uri     = $request->uri();
                 $headers = $request->headers();
                 $data    = $request->body();
@@ -75,8 +64,7 @@ class Http
 
                 $params = compact('headers') + $options + $this->body($data, $headers);
 
-                /** @var \Psr\Http\Message\ResponseInterface $response */
-                $response = $this->client->{$method}($uri, $params);
+                $response = $this->client->request($method, $uri, $params);
 
                 $content = $this->decode($response);
 
@@ -88,22 +76,25 @@ class Http
 
                 return $content;
             }, $request);
-        } catch (ClientException $e) {
+        }
+        catch (ClientException $e) {
             $this->failedEvent($e);
 
-            $this->logError($request->model(), $method, $request, $e);
+            $this->logError($request->model(), $request, $e);
 
             throw $e;
-        } catch (GuzzleClientException $e) {
+        }
+        catch (GuzzleClientException $e) {
             $response = $e->getResponse();
 
             $content = $this->decode($response);
 
-            $this->logError($request->model(), $method, $request, $e);
+            $this->logError($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $response->getStatusCode(), $content);
-        } catch (Throwable $e) {
-            $this->logError($request->model(), $method, $request, $e);
+        }
+        catch (Throwable $e) {
+            $this->logError($request->model(), $request, $e);
 
             $exception->throw($request->uri(), $e->getCode(), [
                 'Message' => $e->getMessage(),
@@ -121,7 +112,8 @@ class Http
 
         try {
             return $callback($attempts);
-        } catch (Throwable $e) {
+        }
+        catch (Throwable $e) {
             if ($times < 1) {
                 throw $e;
             }
@@ -149,7 +141,7 @@ class Http
     {
         $headers = $this->lowerKeys($headers);
 
-        if (Arr::get($headers, 'content-type') === 'application/x-www-form-urlencoded') {
+        if (Arr::get($headers, Header::CONTENT_TYPE) === 'application/x-www-form-urlencoded') {
             return ['form_params' => $data];
         }
 

@@ -12,22 +12,42 @@
     "authors": [
         {
             "name": "Andrey Helldar",
-            "email": "helldar@ai-rus.com"
+            "email": "helldar@dragon-code.pro",
+            "homepage": "https://github.com/andrey-helldar"
         }
     ],
     "support": {
         "issues": "https://github.com/cashier-provider/core/issues",
         "source": "https://github.com/cashier-provider/core"
     },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/TheDragonCode"
+        },
+        {
+            "type": "open_collective",
+            "url": "https://opencollective.com/dragon-code"
+        },
+        {
+            "type": "boosty",
+            "url": "https://boosty.to/dragon-code"
+        },
+        {
+            "type": "yoomoney",
+            "url": "https://yoomoney.ru/to/410012608840929"
+        }
+    ],
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "doctrine/dbal": "^2.6 || ^3.0",
-        "dragon-code/contracts": "^2.16",
-        "dragon-code/laravel-cache": "^2.11.2",
+        "dragon-code/contracts": "^2.18",
+        "dragon-code/laravel-cache": "^2.12",
         "dragon-code/laravel-support": "^3.3.2",
-        "dragon-code/simple-data-transfer-object": "^2.1",
+        "dragon-code/simple-dto": "^2.2",
         "dragon-code/support": "^5.2",
+        "fig/http-message-util": "^1.1",
         "guzzlehttp/guzzle": "^6.5 || ^7.0",
         "illuminate/broadcasting": "^6.0 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/console": "^6.0 || ^7.0 || ^8.0 || ^9.0",
@@ -35,6 +55,7 @@
         "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/queue": "^6.0 || ^7.0 || ^8.0 || ^9.0",
         "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "lmc/http-constants": "^1.2",
         "psr/http-message": "^1.0",
         "ramsey/uuid": "^3.7 || ^4.0",
         "symfony/http-kernel": "^4.0 || ^5.0 || ^6.0"
@@ -58,7 +79,11 @@
     },
     "config": {
         "allow-plugins": {
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "dragon-code/codestyler": true,
+            "ergebnis/composer-normalize": true,
+            "friendsofphp/php-cs-fixer": true,
+            "symfony/thanks": true
         },
         "preferred-install": "dist",
         "sort-packages": true

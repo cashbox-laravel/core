@@ -29,8 +29,7 @@ class Model
     use Validators;
 
     /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     * @param array $data
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     public function updateOrCreate(EloquentModel $payment, array $data): void
     {
@@ -42,8 +41,7 @@ class Model
     }
 
     /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     * @param array $data
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     public function create(EloquentModel $payment, array $data): void
     {
@@ -53,8 +51,7 @@ class Model
     }
 
     /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     * @param array $data
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     public function update(EloquentModel $payment, array $data): void
     {
@@ -66,9 +63,7 @@ class Model
     }
 
     /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $model
-     *
-     * @return bool
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
      */
     public function exists(EloquentModel $model): bool
     {

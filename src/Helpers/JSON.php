@@ -23,11 +23,6 @@ use DragonCode\Support\Facades\Helpers\Arr;
 
 class JSON
 {
-    /**
-     * @param mixed $value
-     *
-     * @return string
-     */
     public function encode($value): string
     {
         $data = Arr::toArray($value);
@@ -41,6 +36,18 @@ class JSON
             return [];
         }
 
-        return json_decode($encoded, true) ?: [];
+        $decoded = json_decode($encoded, true) ?: [];
+
+        return $this->doesntError() ? (array) $decoded : $this->parseErrors($encoded);
+    }
+
+    protected function doesntError(): bool
+    {
+        return json_last_error() === JSON_ERROR_NONE;
+    }
+
+    protected function parseErrors(?string $encoded): array
+    {
+        return is_string($encoded) && ! empty($encoded) ? [$encoded] : [];
     }
 }

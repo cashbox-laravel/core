@@ -29,9 +29,7 @@ trait Driverable
     protected $driver;
 
     /**
-     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
-     *
-     * @return \DragonCode\Contracts\Cashier\Driver
+     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
      */
     protected function driver(Model $payment): Driver
     {
