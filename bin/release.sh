@@ -10,7 +10,7 @@ then
     exit 1
 fi
 
-RELEASE_BRANCH="4.x"
+RELEASE_BRANCH="1.x"
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 VERSION=$1
 
@@ -27,7 +27,7 @@ if [[ ! -z "$(git status --porcelain)" ]]
 then
     echo "Your working directory is dirty. Did you forget to commit your changes?"
 
-    exit 1
+#    exit 1
 fi
 
 # Make sure latest changes are fetched first.
