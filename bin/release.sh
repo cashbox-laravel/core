@@ -60,9 +60,7 @@ for REMOTE in core \
     tinkoff-auth \
     tinkoff-credit \
     tinkoff-online \
-    tinkoff-qr \
-    driver \
-    driver-auth
+    tinkoff-qr
 do
     echo ""
     echo ""
