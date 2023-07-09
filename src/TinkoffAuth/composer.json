@@ -1,0 +1,54 @@
+{
+    "name": "cashier-provider/tinkoff-auth",
+    "description": "Tinkoff API Authorization Driver",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "andrey-helldar",
+        "bank",
+        "billing",
+        "cashier",
+        "tinkoff",
+        "auth"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cashier-provider/tinkoff-auth/issues",
+        "source": "https://github.com/cashier-provider/tinkoff-auth"
+    },
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "dragon-code/contracts": "^1.14",
+        "andrey-helldar/simple-data-transfer-object": "^1.0",
+        "andrey-helldar/support": "^4.0",
+        "cashier-provider/core": "^1.29",
+        "illuminate/support": "^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^4.3.4|^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CashierProvider\\Tinkoff\\Auth\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

@@ -1,0 +1,17 @@
+.idea/
+
+node_modules/
+vendor/
+
+.env
+
+*.p12
+*.pem
+*.crt
+*.key
+
+*.bak
+*.cache
+*.clover
+*.orig
+*.lock

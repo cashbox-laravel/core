@@ -1,0 +1,52 @@
+{
+    "name": "cashier-provider/tinkoff-credit",
+    "description": "Driver for payment with Credit via Tinkoff Bank (see cashier-provider/core)",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "tinkoff",
+        "bank",
+        "billing",
+        "cashier",
+        "credit"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cashier-provider/tinkoff-credit/issues",
+        "source": "https://github.com/cashier-provider/tinkoff-credit"
+    },
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "cashier-provider/core": "^3.4",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "dragon-code/support": "^5.0",
+        "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^4.0 || ^5.0 || ^6.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "CashierProvider\\Tinkoff\\Credit\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}

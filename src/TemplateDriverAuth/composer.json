@@ -1,0 +1,52 @@
+{
+    "name": "cashier-provider/bankname-auth",
+    "description": "BankName API Authorization Driver",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "bank",
+        "billing",
+        "cashier",
+        "auth"
+    ],
+    "authors": [
+        {
+            "name": "Your Name",
+            "email": "your-email@example.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cashier-provider/bankname-auth/issues",
+        "source": "https://github.com/cashier-provider/bankname-auth"
+    },
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "andrey-helldar/contracts": "^1.16",
+        "andrey-helldar/simple-data-transfer-object": "^1.0",
+        "andrey-helldar/support": "^4.6",
+        "cashier-provider/core": "^1.20",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^4.3.4|^5.0|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CashierProvider\\BankName\\Auth\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

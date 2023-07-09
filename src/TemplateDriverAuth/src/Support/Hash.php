@@ -1,0 +1,60 @@
+<?php
+
+namespace CashierProvider\BankName\Auth\Support;
+
+use Helldar\Contracts\Cashier\Resources\Model;
+use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use CashierProvider\BankName\Auth\Constants\Keys;
+use CashierProvider\BankName\Auth\Resources\AccessToken;
+
+class Hash
+{
+    use Makeable;
+
+    public function get(Model $model, array $data, bool $hash = true): AccessToken
+    {
+        return $this->makeToken($model->getClientId(), $model->getClientSecret(), $data, $hash);
+    }
+
+    protected function makeToken(string $client_id, string $secret, array $data, bool $hash): AccessToken
+    {
+        return $hash
+            ? $this->hashed($client_id, $secret, $data)
+            : $this->basic($client_id, $secret);
+    }
+
+    protected function basic(string $client_id, string $secret): AccessToken
+    {
+        return $this->items($client_id, $secret);
+    }
+
+    protected function hashed(string $client_id, string $secret, array $data): AccessToken
+    {
+        $hash = $this->hash($client_id, $secret, $data);
+
+        return $this->items($client_id, $hash);
+    }
+
+    protected function hash(string $client_id, string $secret, array $data): string
+    {
+        $items = $this->prepare($client_id, $secret, $data);
+
+        return hash('sha256', implode('', $items));
+    }
+
+    protected function prepare(string $client_id, string $secret, array $data): array
+    {
+        return Arrayable::of($data)
+            ->set(Keys::TERMINAL, $client_id)
+            ->set(Keys::PASSWORD, $secret)
+            ->ksort()
+            ->values()
+            ->get();
+    }
+
+    protected function items(string $client_id, string $access_token): AccessToken
+    {
+        return AccessToken::make(compact('client_id', 'access_token'));
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "name": "cashier-provider/tinkoff-online",
+    "description": "Driver for online payments via Tinkoff (see cashier-provider/core)",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "andrey-helldar",
+        "helldar",
+        "bank",
+        "billing",
+        "cashier",
+        "tinkoff",
+        "online",
+        "payment",
+        "payments"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@ai-rus.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/cashier-provider/tinkoff-online/issues",
+        "source": "https://github.com/cashier-provider/tinkoff-online"
+    },
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "cashier-provider/core": "^2.5",
+        "cashier-provider/tinkoff-auth": "^2.1",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "dragon-code/support": "^5.0",
+        "illuminate/database": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+        "orchestra/testbench": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "phpunit/phpunit": "^9.0",
+        "symfony/var-dumper": "^4.0 || ^5.0 || ^6.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "CashierProvider\\Tinkoff\\Online\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}

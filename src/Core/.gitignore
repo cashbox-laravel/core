@@ -1,0 +1,13 @@
+.idea/
+
+node_modules/
+vendor/
+
+.env
+
+*.bak
+*.cache
+*.clover
+*.orig
+*.log
+*.lock

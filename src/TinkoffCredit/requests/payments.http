@@ -1,0 +1,43 @@
+POST https://forma.tinkoff.ru/api/partners/v2/orders/create-demo
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic {{showCaseId}} {{password}}
+
+{
+    "shopId": "{{shopId}}",
+    "showcaseId": "{{showCaseId}}",
+    "promoCode": "{{promoCode}}",
+    "sum": 6000,
+    "orderNumber": "{{$uuid}}",
+    "values": {
+        "contact": {
+            "fio": {
+                "lastName": "Иванов",
+                "firstName": "Иван",
+                "middleName": "Иванович"
+            },
+            "mobilePhone": "79123456789"
+        }
+    },
+    "items": [
+        {
+            "name": "Main Good",
+            "quantity": 1,
+            "price": 6000
+        }
+    ]
+}
+
+
+###
+GET https://forma.tinkoff.ru/api/partners/v2/orders/{{orderNumber}}/info
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic {{showCaseId}} {{password}}
+
+
+###
+POST https://forma.tinkoff.ru/api/partners/v2/orders/{{orderNumber}}/cancel
+Accept: application/json
+Content-Type: application/json
+Authorization: Basic {{showCaseId}} {{password}}
