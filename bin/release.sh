@@ -66,7 +66,7 @@ do
     echo ""
     echo "Releasing $REMOTE";
 
-    TMP_DIR="./tmp/cashier-split"
+    TMP_DIR="/tmp/cashier-split"
     REMOTE_URL="git@github.com:cashier-provider/$REMOTE.git"
 
     rm -rf $TMP_DIR;
