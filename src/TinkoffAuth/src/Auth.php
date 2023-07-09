@@ -22,20 +22,20 @@ namespace CashierProvider\Tinkoff\Auth;
 use CashierProvider\Tinkoff\Auth\Constants\Keys;
 use CashierProvider\Tinkoff\Auth\Resources\AccessToken;
 use CashierProvider\Tinkoff\Auth\Support\Hash;
-use Helldar\Contracts\Cashier\Auth\Auth as AuthContract;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Auth\Auth as AuthContract;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\Support\Concerns\Makeable;
 
 /** @method static Auth make(Model $model, Request $request, bool $hash = true) */
 class Auth implements AuthContract
 {
     use Makeable;
 
-    /** @var \Helldar\Contracts\Cashier\Resources\Model */
+    /** @var \DragonCode\Contracts\Cashier\Resources\Model */
     protected $model;
 
-    /** @var \Helldar\Contracts\Cashier\Http\Request */
+    /** @var \DragonCode\Contracts\Cashier\Http\Request */
     protected $request;
 
     /** @var bool */

@@ -24,13 +24,13 @@ use CashierProvider\Core\Concerns\Logs;
 use CashierProvider\Core\Exceptions\Http\UnauthorizedException;
 use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Helpers\JSON as JsonDecoder;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Exceptions\Http\ClientException;
+use DragonCode\Contracts\Exceptions\Manager as ExceptionManagerContract;
+use DragonCode\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Str;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException as GuzzleClientException;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Exceptions\Http\ClientException;
-use Helldar\Contracts\Exceptions\Manager as ExceptionManagerContract;
-use Helldar\Support\Facades\Helpers\Arr;
-use Helldar\Support\Facades\Helpers\Str;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -51,10 +51,10 @@ class Http
     }
 
     /**
-     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
-     * @param  \Helldar\Contracts\Exceptions\Manager  $manager
+     * @param \DragonCode\Contracts\Cashier\Http\Request $request
+     * @param \DragonCode\Contracts\Exceptions\Manager $manager
      *
-     * @throws \Helldar\Contracts\Exceptions\Http\ClientException
+     * @throws \DragonCode\Contracts\Exceptions\Http\ClientException
      *
      * @return array
      */
@@ -117,7 +117,7 @@ class Http
 
         beginning:
         $attempts++;
-        $times--;
+        --$times;
 
         try {
             return $callback($attempts);

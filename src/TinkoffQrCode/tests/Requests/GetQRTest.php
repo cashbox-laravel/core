@@ -19,8 +19,8 @@ namespace Tests\Requests;
 
 use CashierProvider\Core\Http\Request;
 use CashierProvider\Tinkoff\QrCode\Requests\GetQR;
-use Helldar\Contracts\Cashier\Http\Request as RequestContract;
-use Helldar\Contracts\Http\Builder;
+use DragonCode\Contracts\Cashier\Http\Request as RequestContract;
+use DragonCode\Contracts\Http\Builder;
 use Tests\TestCase;
 
 class GetQRTest extends TestCase

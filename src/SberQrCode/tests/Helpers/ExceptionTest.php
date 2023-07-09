@@ -21,8 +21,8 @@ use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
 use CashierProvider\Core\Exceptions\Http\BankInternalErrorException;
 use CashierProvider\Core\Exceptions\Http\BaseException;
 use CashierProvider\Sber\QrCode\Exceptions\Manager;
-use Helldar\Contracts\Http\Builder as HttpBuilder;
-use Helldar\Support\Facades\Http\Builder;
+use DragonCode\Contracts\Http\Builder as HttpBuilder;
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\TestCase;
 
 class ExceptionTest extends TestCase

@@ -20,8 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Events\Processes\Started;
-use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Start extends Base
 {
@@ -41,6 +40,6 @@ class Start extends Base
 
     protected function queueName(): ?string
     {
-        return Main::getQueue()->getNames()->getStart();
+        return $this->resolveDriver()->queue()->getStart();
     }
 }

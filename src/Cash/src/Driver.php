@@ -26,8 +26,8 @@ use CashierProvider\Cash\Responses\Created;
 use CashierProvider\Cash\Responses\Refund;
 use CashierProvider\Cash\Responses\State;
 use CashierProvider\Core\Services\Driver as BaseDriver;
-use Helldar\Contracts\Cashier\Http\Request as RequestResource;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Driver extends BaseDriver
 {
@@ -57,10 +57,10 @@ class Driver extends BaseDriver
     }
 
     /**
-     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
-     * @param  \Helldar\Contracts\Cashier\Http\Response|string  $response
+     * @param \DragonCode\Contracts\Cashier\Http\Request $request
+     * @param \DragonCode\Contracts\Cashier\Http\Response|string $response
      *
-     * @return \Helldar\Contracts\Cashier\Http\Response
+     * @return \DragonCode\Contracts\Cashier\Http\Response
      */
     protected function request(RequestResource $request, string $response): Response
     {

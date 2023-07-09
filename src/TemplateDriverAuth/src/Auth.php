@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace CashierProvider\BankName\Auth;
 
-use Helldar\Contracts\Cashier\Auth\Auth as AuthContract;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Support\Concerns\Makeable;
 use CashierProvider\BankName\Auth\Constants\Keys;
 use CashierProvider\BankName\Auth\Resources\AccessToken;
 use CashierProvider\BankName\Auth\Support\Hash;
+use DragonCode\Contracts\Cashier\Auth\Auth as AuthContract;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\Support\Concerns\Makeable;
 
 /** @method static Auth make(Model $model, Request $request, bool $hash = true) */
 class Auth implements AuthContract
 {
     use Makeable;
 
-    /** @var \Helldar\Contracts\Cashier\Resources\Model */
+    /** @var \DragonCode\Contracts\Cashier\Resources\Model */
     protected $model;
 
-    /** @var \Helldar\Contracts\Cashier\Http\Request */
+    /** @var \DragonCode\Contracts\Cashier\Http\Request */
     protected $request;
 
     /** @var bool */

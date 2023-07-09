@@ -23,17 +23,13 @@ use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Refunded;
 use CashierProvider\Core\Exceptions\Logic\AlreadyRefundedException;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
-use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 class Refund extends Base
 {
     protected $event = Refunded::class;
 
-    /**
-     * @throws \CashierProvider\Core\Exceptions\Logic\EmptyResponseException
-     */
     public function handle()
     {
         $this->checkExternalId();
@@ -101,6 +97,6 @@ class Refund extends Base
 
     protected function queueName(): ?string
     {
-        return Main::getQueue()->getNames()->getRefund();
+        return $this->resolveDriver()->queue()->getRefund();
     }
 }

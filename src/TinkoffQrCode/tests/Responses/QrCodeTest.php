@@ -18,7 +18,7 @@
 namespace Tests\Responses;
 
 use CashierProvider\Tinkoff\QrCode\Responses\QrCode;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Tests\TestCase;
 
 class QrCodeTest extends TestCase
@@ -67,7 +67,7 @@ class QrCodeTest extends TestCase
     }
 
     /**
-     * @return \CashierProvider\Tinkoff\QrCode\Responses\QrCode|\Helldar\Contracts\Cashier\Http\Response
+     * @return \CashierProvider\Tinkoff\QrCode\Responses\QrCode|\DragonCode\Contracts\Cashier\Http\Response
      */
     protected function response(): Response
     {

@@ -19,7 +19,7 @@ namespace Tests\Responses;
 
 use CashierProvider\Cash\Responses\Created;
 use CashierProvider\Core\Http\Response as BaseResponse;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Tests\TestCase;
 
 class InitTest extends TestCase

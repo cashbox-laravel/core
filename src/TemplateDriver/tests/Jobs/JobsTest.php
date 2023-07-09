@@ -5,7 +5,7 @@ namespace Tests\Jobs;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config\Payment as PaymentConfig;
 use CashierProvider\Core\Services\Jobs;
-use Helldar\Support\Facades\Http\Url;
+use DragonCode\Support\Facades\Http\Url;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\Fixtures\Models\RequestPayment;

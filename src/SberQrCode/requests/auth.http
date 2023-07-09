@@ -1,8 +1,0 @@
-POST {{host}}/ru/prod/tokens/v2/oauth
-Accept: application/json
-Content-Type: application/x-www-form-urlencoded
-X-IBM-Client-Id: {{client_id}}
-RqUID: {{unique_id}}
-Authorization: Basic {{client_hash}}
-
-grant_type=client_credentials&scope=https://api.sberbank.ru/order.create

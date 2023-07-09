@@ -18,7 +18,7 @@
 namespace Tests\Support\Cache;
 
 use CashierProvider\Sber\Auth\Support\Hash;
-use Helldar\Support\Facades\Http\Builder;
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\TestCase;
 
 class GetTest extends TestCase

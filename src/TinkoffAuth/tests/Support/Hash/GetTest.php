@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace Tests\Support\Hash;
 
 use Carbon\Carbon as BaseCarbon;
-use DateTimeInterface;
 use CashierProvider\Tinkoff\Auth\Support\Hash;
-use Helldar\Contracts\Cashier\Resources\AccessToken;
+use DateTimeInterface;
+use DragonCode\Contracts\Cashier\Resources\AccessToken;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 

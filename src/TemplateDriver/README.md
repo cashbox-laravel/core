@@ -1,6 +1,6 @@
 # BankName Technology Cashier Driver
 
-<img src="https://preview.dragon-code.pro/cashier-provider/driver-template.svg?brand=laravel" alt="Cashier Driver Template"/>
+![cashier provider driver template](https://preview.dragon-code.pro/cashier-provider/driver-template.svg?brand=laravel)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -21,7 +21,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/bankname-technology": "^1.0"
+        "cashier-provider/bankname-technology": "^2.0"
     }
 }
 ```

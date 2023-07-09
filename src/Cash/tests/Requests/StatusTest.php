@@ -19,7 +19,7 @@ namespace Tests\Requests;
 
 use CashierProvider\Cash\Requests\Status;
 use CashierProvider\Core\Http\Request;
-use Helldar\Contracts\Cashier\Http\Request as RequestContract;
+use DragonCode\Contracts\Cashier\Http\Request as RequestContract;
 use Tests\TestCase;
 
 class StatusTest extends TestCase

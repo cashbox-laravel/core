@@ -21,7 +21,7 @@ namespace CashierProvider\Sber\Auth\Http;
 
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Http\Request as BaseRequest;
-use Helldar\Contracts\Cashier\Resources\Model;
+use DragonCode\Contracts\Cashier\Resources\Model;
 
 /**
  * @method static Request make(Model $model)

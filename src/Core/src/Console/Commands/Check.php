@@ -21,7 +21,6 @@ namespace CashierProvider\Core\Console\Commands;
 
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Services\Jobs;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -30,6 +29,8 @@ class Check extends Base
     protected $signature = 'cashier:check';
 
     protected $description = 'Launching a re-verification of payments with a long processing cycle';
+
+    protected $delay = 3599;
 
     public function handle()
     {
@@ -48,22 +49,30 @@ class Check extends Base
     {
         $this->payments()->chunk($this->count, function (Collection $payments) {
             $payments->each(function (Model $payment) {
-                $this->check($payment);
+                $delay = $this->delay($payment);
+
+                $this->check($payment, $delay);
             });
         });
     }
 
-    protected function payments(): Builder
+    protected function check(Model $model, ?int $delay): void
     {
-        $model = $this->model();
-
-        return $model::query()
-            ->whereIn($this->attributeType(), $this->attributeTypes())
-            ->where($this->attributeStatus(), $this->getStatus());
+        Jobs::make($model)->check(true, $delay);
     }
 
-    protected function check(Model $model): void
+    protected function delay(Model $model): ?int
     {
-        Jobs::make($model)->check(true);
+        return $this->isToday($model) ? null : $this->delay;
+    }
+
+    protected function isToday(Model $model): bool
+    {
+        $field = $this->attributeCreatedAt();
+
+        /** @var \Carbon\Carbon $value */
+        $value = $model->getAttribute($field);
+
+        return $value->isToday();
     }
 }

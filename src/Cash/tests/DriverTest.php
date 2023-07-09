@@ -20,8 +20,8 @@ namespace Tests;
 use CashierProvider\Cash\Driver as Technology;
 use CashierProvider\Core\Http\Response;
 use CashierProvider\Core\Services\Jobs;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Http\Response as ResponseContract;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Http\Response as ResponseContract;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Fixtures\Models\RequestPayment;
 

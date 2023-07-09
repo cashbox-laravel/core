@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Support\Hash;
 
-use Tests\TestCase;
 use CashierProvider\BankName\Auth\Support\Hash;
+use Tests\TestCase;
 
 class MakeTest extends TestCase
 {

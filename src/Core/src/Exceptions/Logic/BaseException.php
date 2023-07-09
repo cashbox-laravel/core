@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Logic;
 
 use CashierProvider\Core\Concerns\Exceptionable;
+use DragonCode\Contracts\Exceptions\LogicException;
 use Exception;
-use Helldar\Contracts\Exceptions\LogicException;
 
 abstract class BaseException extends Exception implements LogicException
 {
@@ -30,7 +30,7 @@ abstract class BaseException extends Exception implements LogicException
     public $default_status_code = 400;
 
     /**
-     * @param  int|string  $payment_id
+     * @param int|string $payment_id
      */
     public function __construct($payment_id)
     {

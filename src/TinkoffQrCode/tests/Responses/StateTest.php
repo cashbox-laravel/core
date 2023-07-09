@@ -19,7 +19,7 @@ namespace Tests\Responses;
 
 use CashierProvider\Core\Http\Response as BaseResponse;
 use CashierProvider\Tinkoff\QrCode\Responses\State;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Tests\TestCase;
 
 class StateTest extends TestCase

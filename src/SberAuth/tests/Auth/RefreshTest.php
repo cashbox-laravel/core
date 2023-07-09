@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Auth;
 
 use CashierProvider\Sber\Auth\Auth;
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\TestCase;
 
 class RefreshTest extends TestCase

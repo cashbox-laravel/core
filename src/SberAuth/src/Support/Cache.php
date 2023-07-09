@@ -19,9 +19,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Sber\Auth\Support;
 
-use DateTimeInterface;
 use CashierProvider\Sber\Auth\Objects\Query;
 use CashierProvider\Sber\Auth\Resources\AccessToken;
+use DateTimeInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache as Repository;
 

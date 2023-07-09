@@ -29,7 +29,7 @@ use CashierProvider\Tinkoff\QrCode\Resources\Details;
 use CashierProvider\Tinkoff\QrCode\Responses\QrCode;
 use CashierProvider\Tinkoff\QrCode\Responses\Refund;
 use CashierProvider\Tinkoff\QrCode\Responses\State;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Driver extends BaseDriver
 {

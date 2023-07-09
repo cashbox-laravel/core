@@ -27,7 +27,7 @@ use CashierProvider\Sber\QrCode\Resources\Details;
 use CashierProvider\Sber\QrCode\Responses\Cancel as CancelResponse;
 use CashierProvider\Sber\QrCode\Responses\QrCode;
 use CashierProvider\Sber\QrCode\Responses\Status as StatusResponse;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Driver extends BaseDriver
 {

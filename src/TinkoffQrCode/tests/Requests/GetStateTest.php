@@ -19,8 +19,8 @@ namespace Tests\Requests;
 
 use CashierProvider\Core\Http\Request;
 use CashierProvider\Tinkoff\QrCode\Requests\GetState;
-use Helldar\Contracts\Cashier\Http\Request as RequestContract;
-use Helldar\Contracts\Http\Builder;
+use DragonCode\Contracts\Cashier\Http\Request as RequestContract;
+use DragonCode\Contracts\Http\Builder;
 use Tests\TestCase;
 
 class GetStateTest extends TestCase

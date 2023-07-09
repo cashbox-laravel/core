@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Resources\AccessToken;
 
-use Helldar\Contracts\Cashier\Resources\AccessToken as AccessTokenContract;
-use Tests\TestCase;
 use CashierProvider\BankName\Auth\Resources\AccessToken;
+use DragonCode\Contracts\Cashier\Resources\AccessToken as AccessTokenContract;
+use Tests\TestCase;
 
 class MakeTest extends TestCase
 {

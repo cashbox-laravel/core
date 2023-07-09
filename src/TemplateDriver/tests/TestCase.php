@@ -6,8 +6,8 @@ use CashierProvider\Core\Config\Driver as DriverConfig;
 use CashierProvider\Core\Constants\Driver as DriverConstant;
 use CashierProvider\Core\Facades\Config\Payment as PaymentConfig;
 use CashierProvider\Core\Models\CashierDetail;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Cashier\Resources\Details;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Cashier\Resources\Details;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -101,7 +101,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * @param  \CashierProvider\BankName\Technology\Requests\BaseRequest|string  $request
      *
-     * @return \Helldar\Contracts\Cashier\Http\Request
+     * @return \DragonCode\Contracts\Cashier\Http\Request
      */
     protected function request(string $request): Request
     {

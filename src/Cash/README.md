@@ -1,6 +1,6 @@
 # Cash Driver Provider
 
-<img src="https://preview.dragon-code.pro/cashier-provider/cash.svg?brand=laravel" alt="Cash Driver"/>
+<img src="https://preview.dragon-code.pro/cashier-provider/cash.svg?brand=laravel&mode=dark" alt="Cash Driver"/>
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -21,7 +21,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/cash": "^1.0"
+        "cashier-provider/cash": "^2.0"
     }
 }
 ```

@@ -19,9 +19,9 @@ namespace CashierProvider\Tinkoff\Auth\Support;
 
 use CashierProvider\Tinkoff\Auth\Constants\Keys;
 use CashierProvider\Tinkoff\Auth\Resources\AccessToken;
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 
 class Hash
 {

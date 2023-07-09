@@ -19,7 +19,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Config;
 
-use Helldar\Contracts\Cashier\Config\Details as DetailsContract;
+use DragonCode\Contracts\Cashier\Config\Details as DetailsContract;
 
 class Details extends Base implements DetailsContract
 {

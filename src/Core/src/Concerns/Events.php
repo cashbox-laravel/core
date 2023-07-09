@@ -24,7 +24,7 @@ use CashierProvider\Core\Events\Payments\FailedEvent;
 use CashierProvider\Core\Events\Payments\RefundEvent;
 use CashierProvider\Core\Events\Payments\SuccessEvent;
 use CashierProvider\Core\Facades\Config\Payment;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 trait Events

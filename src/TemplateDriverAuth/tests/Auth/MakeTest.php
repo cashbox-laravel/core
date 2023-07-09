@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Auth;
 
-use Helldar\Contracts\Cashier\Auth\Auth as AuthContract;
-use Tests\TestCase;
 use CashierProvider\BankName\Auth\Auth;
+use DragonCode\Contracts\Cashier\Auth\Auth as AuthContract;
+use Tests\TestCase;
 
 class MakeTest extends TestCase
 {

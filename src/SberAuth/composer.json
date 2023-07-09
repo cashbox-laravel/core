@@ -25,10 +25,10 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "dragon-code/contracts": "^1.14",
-        "andrey-helldar/simple-data-transfer-object": "^1.0",
-        "andrey-helldar/support": "^4.0",
-        "cashier-provider/core": "^1.29",
+        "dragon-code/contracts": "^2.0",
+        "dragon-code/simple-data-transfer-object": "^2.0",
+        "dragon-code/support": "^5.0",
+        "cashier-provider/core": "^2.0",
         "illuminate/support": "^6.0|^7.0|^8.0"
     },
     "require-dev": {

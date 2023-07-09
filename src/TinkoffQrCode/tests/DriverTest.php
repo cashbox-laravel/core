@@ -19,9 +19,9 @@ namespace Tests;
 
 use CashierProvider\Core\Http\Response;
 use CashierProvider\Tinkoff\QrCode\Driver as QR;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Http\Response as ResponseContract;
-use Helldar\Support\Facades\Http\Url;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Http\Response as ResponseContract;
+use DragonCode\Support\Facades\Http\Url;
 use Tests\Fixtures\Models\RequestPayment;
 
 class DriverTest extends TestCase

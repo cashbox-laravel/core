@@ -22,7 +22,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/bankname-auth": "^1.0"
+        "cashier-provider/bankname-auth": "^2.0"
     }
 }
 ```
@@ -37,8 +37,8 @@ parameter must be specified in the request.
 ```php
 namespace CashierProvider\BankName\BankTechnology\Requests;
 
-use Helldar\Cashier\Http\Request;
 use CashierProvider\BankName\Auth\Auth;
+use CashierProvider\Core\Http\Request;
 
 class Init extends Request
 {
@@ -56,8 +56,8 @@ In cases where the request must be signed with a special hashed token, you must 
 ```php
 namespace CashierProvider\BankName\BankTechnology\Requests;
 
-use Helldar\Cashier\Http\Request;
 use CashierProvider\BankName\Auth\Auth;
+use CashierProvider\Core\Http\Request;
 
 class Get extends Request
 {

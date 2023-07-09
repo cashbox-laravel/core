@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Auth;
 
-use Tests\TestCase;
 use CashierProvider\BankName\Auth\Auth;
+use Tests\TestCase;
 
 class HeadersTest extends TestCase
 {

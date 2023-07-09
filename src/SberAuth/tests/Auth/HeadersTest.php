@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace Tests\Auth;
 
 use CashierProvider\Sber\Auth\Auth;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Tests\TestCase;
 
 class HeadersTest extends TestCase

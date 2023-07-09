@@ -6,8 +6,8 @@ use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
 use CashierProvider\Core\Exceptions\Http\BaseException;
 use CashierProvider\Core\Exceptions\Http\BuyerNotFoundClientException;
 use CashierProvider\Core\Exceptions\Http\ContactTheSellerClientException;
-use Helldar\Contracts\Http\Builder as HttpBuilder;
-use Helldar\Support\Facades\Http\Builder;
+use DragonCode\Contracts\Http\Builder as HttpBuilder;
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\TestCase;
 use CashierProvider\BankName\Technology\Exceptions\Manager;
 

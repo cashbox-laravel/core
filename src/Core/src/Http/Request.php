@@ -21,12 +21,12 @@ namespace CashierProvider\Core\Http;
 
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Auth\Auth;
-use Helldar\Contracts\Cashier\Http\Request as Contract;
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\Contracts\Http\Builder as HttpBuilderContract;
-use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Http\Builder as HttpBuilder;
+use CashierProvider\Core\Support\URI;
+use DragonCode\Contracts\Cashier\Auth\Auth;
+use DragonCode\Contracts\Cashier\Http\Request as Contract;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\Contracts\Http\Builder as HttpBuilderContract;
+use DragonCode\Support\Concerns\Makeable;
 
 /**
  * @method static Contract make(Model $model)
@@ -36,7 +36,7 @@ abstract class Request implements Contract
     use Makeable;
     use Validators;
 
-    /** @var \Helldar\Contracts\Cashier\Resources\Model */
+    /** @var \DragonCode\Contracts\Cashier\Resources\Model */
     protected $model;
 
     /** @var string */
@@ -48,7 +48,7 @@ abstract class Request implements Contract
     /** @var string|null */
     protected $path;
 
-    /** @var \Helldar\Contracts\Cashier\Auth\Auth|null */
+    /** @var \DragonCode\Contracts\Cashier\Auth\Auth|null */
     protected $auth;
 
     /** @var array */
@@ -73,9 +73,7 @@ abstract class Request implements Contract
 
     public function uri(): HttpBuilderContract
     {
-        $host = $this->getHost();
-
-        return HttpBuilder::parse($host)->withPath($this->path);
+        return $this->getUriBuilder()->getWithPath($this->path);
     }
 
     public function headers(): array
@@ -111,17 +109,15 @@ abstract class Request implements Contract
         return $model;
     }
 
-    protected function getHost(): string
+    protected function getUriBuilder(): URI
     {
-        return ! Main::isProduction() && $this->dev_host
-            ? $this->dev_host
-            : $this->production_host;
+        return URI::make($this->production_host, $this->dev_host, Main::isProduction());
     }
 
     /**
-     * @param  \Helldar\Contracts\Cashier\Resources\Model  $model
+     * @param \DragonCode\Contracts\Cashier\Resources\Model $model
      *
-     * @return \Helldar\Contracts\Cashier\Auth\Auth|null
+     * @return \DragonCode\Contracts\Cashier\Auth\Auth|null
      */
     protected function resolveAuth(Model $model): ?Auth
     {

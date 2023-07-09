@@ -23,9 +23,9 @@ use CashierProvider\Core\Concerns\Relations;
 use CashierProvider\Core\Facades\Helpers\Currency as CurrencyHelper;
 use CashierProvider\Core\Facades\Helpers\Date;
 use CashierProvider\Core\Facades\Helpers\Unique;
-use Helldar\Contracts\Cashier\Config\Driver;
-use Helldar\Contracts\Cashier\Resources\Model as Contract;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Config\Driver;
+use DragonCode\Contracts\Cashier\Resources\Model as Contract;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Carbon;
 
@@ -37,6 +37,14 @@ abstract class Model implements Contract
     protected $model;
 
     protected $config;
+
+    abstract protected function paymentId();
+
+    abstract protected function sum();
+
+    abstract protected function currency();
+
+    abstract protected function createdAt(): Carbon;
 
     public function __construct(EloquentModel $model, Driver $config)
     {
@@ -116,14 +124,6 @@ abstract class Model implements Contract
     {
         return null;
     }
-
-    abstract protected function paymentId();
-
-    abstract protected function sum();
-
-    abstract protected function currency();
-
-    abstract protected function createdAt(): Carbon;
 
     protected function clientId(): string
     {

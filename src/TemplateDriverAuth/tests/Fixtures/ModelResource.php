@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures;
 
-use Helldar\Cashier\Resources\Model;
+use CashierProvider\Core\Resources\Model;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 

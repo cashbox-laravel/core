@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Resources\AccessToken;
 
-use Tests\TestCase;
 use CashierProvider\BankName\Auth\Resources\AccessToken;
+use Tests\TestCase;
 
 class GetAccessTokenTest extends TestCase
 {

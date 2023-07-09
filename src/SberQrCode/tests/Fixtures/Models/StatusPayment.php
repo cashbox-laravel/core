@@ -18,7 +18,7 @@
 namespace Tests\Fixtures\Models;
 
 use CashierProvider\Core\Concerns\Casheable;
-use Helldar\LaravelSupport\Eloquent\UuidModel;
+use DragonCode\LaravelSupport\Eloquent\UuidModel;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 

@@ -5,7 +5,7 @@ namespace Tests\Observers;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Facades\Config\Payment as PaymentConfig;
 use CashierProvider\Core\Providers\ObserverServiceProvider;
-use Helldar\Support\Facades\Http\Url;
+use DragonCode\Support\Facades\Http\Url;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;

@@ -17,7 +17,9 @@
 
 declare(strict_types=1);
 
+use App\Payments\BankName;
 use CashierProvider\Core\Constants\Attributes;
+use CashierProvider\Core\Constants\Queue;
 use CashierProvider\Core\Constants\Status;
 
 return [
@@ -228,7 +230,7 @@ return [
             |
             */
 
-            'start' => env('CASHIER_QUEUE'),
+            Queue::START => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -241,7 +243,7 @@ return [
             |
             */
 
-            'check' => env('CASHIER_QUEUE'),
+            Queue::CHECK => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -254,7 +256,7 @@ return [
             |
             */
 
-            'refund' => env('CASHIER_QUEUE'),
+            Queue::REFUND => env('CASHIER_QUEUE'),
         ],
 
         /*
@@ -298,30 +300,16 @@ return [
         'unique' => [
             /*
             |--------------------------------------------------------------------------
-            | Lock's Driver
-            |--------------------------------------------------------------------------
-            |
-            | Set the cache driver for the unique job lock.
-            |
-            | By default, `CACHE_DRIVER` value.
-            |
-            */
-
-            'driver' => env('CACHE_DRIVER'),
-
-            /*
-            |--------------------------------------------------------------------------
             | Lock's Timeout
             |--------------------------------------------------------------------------
             |
-            | The number of seconds after which the job's unique lock will be
-            | released.
+            | The number of seconds after which the job's unique lock will be released.
             |
-            | By default, 3600.
+            | By default, 60.
             |
             */
 
-            'seconds' => 3600,
+            'seconds' => 60,
         ],
     ],
 
@@ -405,6 +393,11 @@ return [
     | This setting defines the list of drivers for the implementation of
     | payments.
     |
+    | You can specify your own names for the driver queue.
+    |
+    | This is necessary in order to divide the number of request workers
+    | to banks that have a limit on the number of requests per minute.
+    |
     */
 
     'drivers' => [
@@ -417,5 +410,21 @@ return [
         //
         //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
         // ],
+        //
+        //'bar' => [
+        //    \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        //
+        //    \CashierProvider\Core\Constants\Driver::DETAILS => BankName::class,
+        //
+        //    \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //
+        //    \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //
+        //    \CashierProvider\Core\Constants\Driver::QUEUE => [
+        //        Queue::START  => env('CASHIER_QUEUE'),
+        //        Queue::CHECK  => env('CASHIER_QUEUE'),
+        //        Queue::REFUND => env('CASHIER_QUEUE'),
+        //    ],
+        //],
     ],
 ];

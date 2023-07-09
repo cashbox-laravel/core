@@ -19,9 +19,9 @@ namespace Tests;
 
 use CashierProvider\Core\Config\Driver;
 use CashierProvider\Core\Constants\Driver as DriverConstant;
-use Helldar\Contracts\Cashier\Config\Driver as DriverCotract;
-use Helldar\Contracts\Cashier\Http\Request;
-use Helldar\Contracts\Cashier\Resources\Model;
+use DragonCode\Contracts\Cashier\Config\Driver as DriverCotract;
+use DragonCode\Contracts\Cashier\Http\Request;
+use DragonCode\Contracts\Cashier\Resources\Model;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Fixtures\ModelEloquent;
 use Tests\Fixtures\ModelResource;

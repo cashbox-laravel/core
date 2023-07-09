@@ -19,7 +19,7 @@ namespace Tests\Responses;
 
 use CashierProvider\Core\Http\Response as BaseResponse;
 use CashierProvider\Sber\QrCode\Responses\Status;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Tests\TestCase;
 
 class StatusTest extends TestCase

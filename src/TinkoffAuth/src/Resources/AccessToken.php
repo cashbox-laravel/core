@@ -18,8 +18,8 @@
 namespace CashierProvider\Tinkoff\Auth\Resources;
 
 use CashierProvider\Tinkoff\Auth\Constants\Keys;
-use Helldar\Contracts\Cashier\Resources\AccessToken as AccessTokenContract;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Resources\AccessToken as AccessTokenContract;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 use Illuminate\Support\Carbon;
 
 class AccessToken extends DataTransferObject implements AccessTokenContract

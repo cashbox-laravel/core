@@ -25,18 +25,17 @@ use CashierProvider\Core\Exceptions\Logic\EmptyResponseException;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Config\Payment;
 use CashierProvider\Core\Facades\Helpers\Model as ModelHelper;
-use Helldar\Contracts\Cashier\Driver;
-use Helldar\Contracts\Cashier\Helpers\Statuses;
-use Helldar\Contracts\Cashier\Http\Response;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Driver;
+use DragonCode\Contracts\Cashier\Helpers\Statuses;
+use DragonCode\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Queue\ShouldBeUnique;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Cache;
 
 abstract class Base implements ShouldQueue, ShouldBeUnique
 {
@@ -59,9 +58,13 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     public $force_break;
 
-    public $uniqueFor;
-
     protected $event;
+
+    abstract public function handle();
+
+    abstract protected function process(): Response;
+
+    abstract protected function queueName(): ?string;
 
     public function __construct(Model $model, bool $force_break = false)
     {
@@ -73,23 +76,17 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         $this->tries = Main::getQueue()->getTries();
 
-        $this->uniqueFor = Main::getQueue()->getUnique()->getSeconds();
-
         $this->queue = $this->queueName();
     }
-
-    abstract public function handle();
 
     public function uniqueId()
     {
         return $this->model->getKey();
     }
 
-    public function uniqueVia()
+    public function uniqueFor(): int
     {
-        $driver = Main::getQueue()->getUnique()->getDriver();
-
-        return Cache::driver($driver);
+        return Main::getQueue()->getUnique()->getSeconds();
     }
 
     public function retryUntil(): Carbon
@@ -98,10 +95,6 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
         return Carbon::now()->addSeconds($timeout);
     }
-
-    abstract protected function process(): Response;
-
-    abstract protected function queueName(): ?string;
 
     protected function hasBreak(): bool
     {
@@ -158,7 +151,7 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
         $attribute = $this->attributeStatus();
         $status    = $this->status($status);
 
-        if ($this->model->getAttribute($attribute) !== $status) {
+        if ($status !== $this->model->getAttribute($attribute)) {
             $this->model->update([
                 $attribute => $status,
             ]);
@@ -197,6 +190,8 @@ abstract class Base implements ShouldQueue, ShouldBeUnique
 
     protected function resolveDriver(): Driver
     {
+        $this->resolveCashier($this->model);
+
         return $this->driver($this->model);
     }
 

@@ -20,8 +20,8 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Http;
 
 use CashierProvider\Core\Concerns\Exceptionable;
-use Helldar\Contracts\Exceptions\Http\ClientException;
-use Helldar\Contracts\Http\Builder;
+use DragonCode\Contracts\Exceptions\Http\ClientException;
+use DragonCode\Contracts\Http\Builder;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 abstract class BaseException extends HttpException implements ClientException
@@ -30,7 +30,7 @@ abstract class BaseException extends HttpException implements ClientException
 
     public $default_status_code = 400;
 
-    public function __construct(Builder $uri, string $reason = null)
+    public function __construct(Builder $uri, ?string $reason = null)
     {
         $message = $this->message($uri, $reason);
 

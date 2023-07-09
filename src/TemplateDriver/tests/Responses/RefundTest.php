@@ -3,7 +3,7 @@
 namespace Tests\Responses;
 
 use CashierProvider\Core\Http\Response as BaseResponse;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 use Tests\TestCase;
 use CashierProvider\BankName\Technology\Responses\Refund;
 

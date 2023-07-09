@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Fixtures;
 
-use Helldar\Cashier\Http\Request as BaseRequest;
+use CashierProvider\Core\Http\Request as BaseRequest;
 
 class Request extends BaseRequest
 {

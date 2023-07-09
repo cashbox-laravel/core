@@ -20,9 +20,9 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Facades\Config;
 
 use CashierProvider\Core\Config\Payment as Config;
-use Helldar\Contracts\Cashier\Config\Payments\Attributes;
-use Helldar\Contracts\Cashier\Config\Payments\Map;
-use Helldar\Contracts\Cashier\Config\Payments\Statuses;
+use DragonCode\Contracts\Cashier\Config\Payments\Attributes;
+use DragonCode\Contracts\Cashier\Config\Payments\Map;
+use DragonCode\Contracts\Cashier\Config\Payments\Statuses;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Payment extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Config::class;
     }

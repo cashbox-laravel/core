@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Support\Hash;
 
 use Carbon\Carbon as BaseCarbon;
+use CashierProvider\BankName\Auth\Support\Hash;
 use DateTimeInterface;
-use Helldar\Contracts\Cashier\Resources\AccessToken;
+use DragonCode\Contracts\Cashier\Resources\AccessToken;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
-use CashierProvider\BankName\Auth\Support\Hash;
 
 class GetTest extends TestCase
 {

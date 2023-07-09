@@ -21,7 +21,7 @@ namespace CashierProvider\Core\Support;
 
 use CashierProvider\Core\Facades\Config\Details;
 use CashierProvider\Core\Facades\Config\Payment;
-use Helldar\LaravelSupport\Traits\InitModelHelper;
+use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 
 abstract class Migration extends BaseMigration

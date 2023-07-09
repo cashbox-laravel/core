@@ -20,9 +20,9 @@ namespace Tests;
 use CashierProvider\Core\Http\Response;
 use CashierProvider\Core\Services\Jobs;
 use CashierProvider\Sber\QrCode\Driver as QR;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Http\Response as ResponseContract;
-use Helldar\Support\Facades\Http\Url;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Http\Response as ResponseContract;
+use DragonCode\Support\Facades\Http\Url;
 use Illuminate\Database\Eloquent\Model;
 use Tests\Fixtures\Models\RequestPayment;
 

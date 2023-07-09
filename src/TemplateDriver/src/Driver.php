@@ -12,7 +12,7 @@ use CashierProvider\BankName\Technology\Responses\Created;
 use CashierProvider\BankName\Technology\Responses\Refund;
 use CashierProvider\BankName\Technology\Responses\State;
 use CashierProvider\Core\Services\Driver as BaseDriver;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Driver extends BaseDriver
 {

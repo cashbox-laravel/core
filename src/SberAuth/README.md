@@ -22,7 +22,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/sber-auth": "^1.0"
+        "cashier-provider/sber-auth": "^2.0"
     }
 }
 ```
@@ -39,7 +39,7 @@ use CashierProvider\Sber\QrCode\Constants\Scopes;
 
 class Create extends Request
 {
-    protected $path = '/ru/prod/order/v1/creation';
+    protected $path = '/ru/prod/order/v3/creation';
 
     // You need to provide a link to the authorization class:
     protected $auth = Auth::class;

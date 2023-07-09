@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace Tests\Auth;
 
 use CashierProvider\Sber\Auth\Auth;
-use Helldar\Contracts\Cashier\Auth\Auth as AuthContract;
+use DragonCode\Contracts\Cashier\Auth\Auth as AuthContract;
 use Tests\TestCase;
 
 class MakeTest extends TestCase

@@ -19,8 +19,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Sber\Auth\Objects;
 
-use Helldar\Contracts\Cashier\Resources\Model;
-use Helldar\SimpleDataTransferObject\DataTransferObject;
+use DragonCode\Contracts\Cashier\Resources\Model;
+use DragonCode\SimpleDataTransferObject\DataTransferObject;
 
 class Query extends DataTransferObject
 {

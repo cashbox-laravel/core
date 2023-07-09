@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Resources\AccessToken;
 
 use Carbon\Carbon as BaseCarbon;
+use CashierProvider\BankName\Auth\Resources\AccessToken;
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
-use CashierProvider\BankName\Auth\Resources\AccessToken;
 
 class GetExpiresInTest extends TestCase
 {

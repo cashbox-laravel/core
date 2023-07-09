@@ -19,7 +19,7 @@ namespace Tests\Resources;
 
 use CashierProvider\Core\Resources\Details as BaseDetails;
 use CashierProvider\Tinkoff\QrCode\Resources\Details;
-use Helldar\Contracts\Cashier\Resources\Details as DetailsContract;
+use DragonCode\Contracts\Cashier\Resources\Details as DetailsContract;
 use Tests\TestCase;
 
 class DetailsTest extends TestCase

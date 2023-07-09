@@ -22,8 +22,8 @@ use CashierProvider\Core\Exceptions\Http\BaseException;
 use CashierProvider\Core\Exceptions\Http\BuyerNotFoundClientException;
 use CashierProvider\Core\Exceptions\Http\ContactTheSellerClientException;
 use CashierProvider\Tinkoff\QrCode\Exceptions\Manager;
-use Helldar\Contracts\Http\Builder as HttpBuilder;
-use Helldar\Support\Facades\Http\Builder;
+use DragonCode\Contracts\Http\Builder as HttpBuilder;
+use DragonCode\Support\Facades\Http\Builder;
 use Tests\TestCase;
 
 class ExceptionTest extends TestCase
@@ -118,7 +118,7 @@ class ExceptionTest extends TestCase
         $this->throw(10000, 'Foo Bar');
     }
 
-    protected function throw($code, string $reason = null)
+    protected function throw($code, ?string $reason = null)
     {
         $this->manager()->throw($this->uri(), $code, [
             'Message' => $reason,
