@@ -19,15 +19,16 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
+use CashierProvider\Core\Concerns\Unique;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Helpers\Access;
 use CashierProvider\Core\Facades\Helpers\DriverManager;
 use CashierProvider\Core\Jobs\Check;
 use CashierProvider\Core\Jobs\Refund;
 use CashierProvider\Core\Jobs\Start;
-use Helldar\Contracts\Cashier\Driver as DriverContract;
-use Helldar\Contracts\Cashier\Helpers\Statuses;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Driver as DriverContract;
+use DragonCode\Contracts\Cashier\Helpers\Statuses;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jobs
 {
     use Makeable;
+    use Unique;
 
     /** @var \Illuminate\Database\Eloquent\Model */
     protected $model;
@@ -63,30 +65,32 @@ class Jobs
         }
     }
 
-    public function check(bool $force = false, int $delay = null)
+    public function check(bool $force = false, ?int $delay = null)
     {
-        if ($this->hasCheck($this->model) || $force) {
+        if ($force || $this->hasCheck($this->model)) {
             $this->send(Check::class, $force, $delay);
         }
     }
 
-    public function refund(int $delay = null): void
+    public function refund(?int $delay = null): void
     {
         $this->send(Refund::class, false, $delay);
     }
 
     /**
-     * @param  \CashierProvider\Core\Jobs\Base|string  $job
-     * @param  bool  $force_break
-     * @param  int|null  $delay
+     * @param \CashierProvider\Core\Jobs\Base|string $job
+     * @param bool $force
+     * @param int|null $delay
      */
-    protected function send($job, bool $force_break = false, int $delay = null): void
+    protected function send(string $job, bool $force = false, ?int $delay = null): void
     {
-        $instance = $job::make($this->model, $force_break);
+        $instance = $job::make($this->model, $force)->delay($delay);
 
-        $instance->delay($delay);
+        if ($force || $this->uniqueAllow($instance)) {
+            dispatch($instance)->onConnection($this->onConnection());
 
-        dispatch($instance)->onConnection($this->onConnection());
+            $this->uniqueStore($instance);
+        }
     }
 
     protected function hasStart(Model $model): bool
@@ -99,11 +103,7 @@ class Jobs
             return false;
         }
 
-        if ($this->hasRequested($model)) {
-            return false;
-        }
-
-        return true;
+        return ! ($this->hasRequested($model));
     }
 
     protected function hasCheck(Model $model): bool
@@ -112,11 +112,7 @@ class Jobs
             return false;
         }
 
-        if (! $this->status($model)->inProgress()) {
-            return false;
-        }
-
-        return true;
+        return ! (! $this->status($model)->inProgress());
     }
 
     protected function hasType(Model $model): bool

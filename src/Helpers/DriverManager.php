@@ -22,8 +22,8 @@ namespace CashierProvider\Core\Helpers;
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Config\Main;
 use CashierProvider\Core\Facades\Config\Payment;
-use Helldar\Contracts\Cashier\Config\Driver;
-use Helldar\Contracts\Cashier\Driver as Contract;
+use DragonCode\Contracts\Cashier\Config\Driver;
+use DragonCode\Contracts\Cashier\Driver as Contract;
 use Illuminate\Database\Eloquent\Model;
 
 class DriverManager
@@ -31,9 +31,9 @@ class DriverManager
     use Validators;
 
     /**
-     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $model
+     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $model
      *
-     * @return \Helldar\Contracts\Cashier\Driver
+     * @return \DragonCode\Contracts\Cashier\Driver
      */
     public function fromModel(Model $model): Contract
     {

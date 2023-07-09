@@ -24,9 +24,9 @@ use CashierProvider\Core\Exceptions\Runtime\Implement\IncorrectPaymentModelExcep
 use CashierProvider\Core\Exceptions\Runtime\Implement\UnknownResponseException;
 use CashierProvider\Core\Exceptions\Runtime\UnknownMethodException;
 use CashierProvider\Core\Facades\Config\Payment;
-use Helldar\Contracts\Cashier\Driver as Contract;
-use Helldar\Contracts\Cashier\Http\Response;
-use Helldar\Support\Facades\Helpers\Instance;
+use DragonCode\Contracts\Cashier\Driver as Contract;
+use DragonCode\Contracts\Cashier\Http\Response;
+use DragonCode\Support\Facades\Helpers\Instance;
 use Illuminate\Database\Eloquent\Model;
 
 trait Validators

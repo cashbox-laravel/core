@@ -26,7 +26,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 ```json
 {
     "require": {
-        "cashier-provider/core": "^1.0"
+        "cashier-provider/core": "^2.0"
     }
 }
 ```
@@ -182,7 +182,7 @@ protected function schedule(Schedule $schedule)
 }
 ```
 
-* `cashier:check` - Launching a re-verification of payments with a long processing cycle.
+* `cashier:check` - Launching a re-verification of payments with a long processing cycle. Payments created for the previous day and earlier will be checked 1 time per hour.
 * `cashier:refund` - Launching the command to check payments for refunds.
 
 You can specify any start time for the `cashier:check` command, but we recommend using the call every thirty minutes.
@@ -255,6 +255,7 @@ $jobs->retry();
 | [cashier-provider/cash](https://github.com/cashier-provider/cash) | Driver for managing cash payments in the Cashier Provider ecosystem |
 | [cashier-provider/sber-qr](https://github.com/cashier-provider/sber-qr) | Driver for payment with QR codes via Sber |
 | [cashier-provider/tinkoff-qr](https://github.com/cashier-provider/tinkoff-qr) | Driver for payment with QR codes via Tinkoff |
+| [cashier-provider/tinkoff-online](https://github.com/cashier-provider/tinkoff-online) | Driver for online payments via Tinkoff |
 
 #### Authorization drivers
 
@@ -271,7 +272,7 @@ $jobs->retry();
 
 Create main classes with the following inheritance:
 
-| Class | Extends | Description
+| Class | Extends | Description |
 |:---|:---|:---|
 | `Driver` | `CashierProvider\Core\Services\Driver` | Main driver file. Contains information on exchanging information with the bank via the API. |
 | `Exceptions\Manager` | `CashierProvider\Core\Exceptions\Manager` | Error handling manager. Contains information about error codes returned from the bank. |

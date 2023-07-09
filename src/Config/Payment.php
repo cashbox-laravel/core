@@ -22,10 +22,10 @@ namespace CashierProvider\Core\Config;
 use CashierProvider\Core\Config\Payments\Attributes;
 use CashierProvider\Core\Config\Payments\Map;
 use CashierProvider\Core\Config\Payments\Statuses;
-use Helldar\Contracts\Cashier\Config\Payment as PaymentContract;
-use Helldar\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
-use Helldar\Contracts\Cashier\Config\Payments\Map as MapContract;
-use Helldar\Contracts\Cashier\Config\Payments\Statuses as StatusesContract;
+use DragonCode\Contracts\Cashier\Config\Payment as PaymentContract;
+use DragonCode\Contracts\Cashier\Config\Payments\Attributes as AttributesContract;
+use DragonCode\Contracts\Cashier\Config\Payments\Map as MapContract;
+use DragonCode\Contracts\Cashier\Config\Payments\Statuses as StatusesContract;
 
 class Payment extends Base implements PaymentContract
 {

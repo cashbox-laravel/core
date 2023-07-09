@@ -22,7 +22,7 @@ namespace CashierProvider\Core\Providers;
 use CashierProvider\Core\Facades\Config\Payment;
 use CashierProvider\Core\Models\CashierDetail;
 use CashierProvider\Core\Observers\DetailsObserver;
-use CashierProvider\Core\Observers\PaymentsObserver as PaymentsObserver;
+use CashierProvider\Core\Observers\PaymentsObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ObserverServiceProvider extends BaseServiceProvider

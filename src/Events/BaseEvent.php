@@ -40,7 +40,7 @@ class BaseEvent
     /**
      * Create a new event instance.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $payment
+     * @param \Illuminate\Database\Eloquent\Model $payment
      */
     public function __construct(Model $payment)
     {

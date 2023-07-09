@@ -20,7 +20,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Exceptions\Runtime;
 
 use CashierProvider\Core\Concerns\Exceptionable;
-use Helldar\Contracts\Exceptions\RuntimeException;
+use DragonCode\Contracts\Exceptions\RuntimeException;
 
 abstract class BaseException extends \RuntimeException implements RuntimeException
 {

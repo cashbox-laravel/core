@@ -38,9 +38,9 @@ class ExceptionEvent
     /**
      * Create a new event instance.
      *
-     * @param  \Throwable|null  $exception
+     * @param Throwable|null $exception
      */
-    public function __construct(Throwable $exception = null)
+    public function __construct(?Throwable $exception = null)
     {
         $this->exception = $exception;
     }

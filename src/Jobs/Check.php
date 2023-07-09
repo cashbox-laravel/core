@@ -22,8 +22,7 @@ namespace CashierProvider\Core\Jobs;
 use CashierProvider\Core\Constants\Status;
 use CashierProvider\Core\Events\Processes\Checked;
 use CashierProvider\Core\Exceptions\Logic\UnknownExternalIdException;
-use CashierProvider\Core\Facades\Config\Main;
-use Helldar\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Http\Response;
 
 class Check extends Base
 {
@@ -76,7 +75,7 @@ class Check extends Base
 
     protected function queueName(): ?string
     {
-        return Main::getQueue()->getNames()->getCheck();
+        return $this->resolveDriver()->queue()->getCheck();
     }
 
     protected function checkExternalId(): void

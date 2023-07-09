@@ -21,9 +21,9 @@ namespace CashierProvider\Core\Exceptions;
 
 use CashierProvider\Core\Concerns\FailedEvent;
 use CashierProvider\Core\Exceptions\Http\BadRequestClientException;
-use Helldar\Contracts\Exceptions\Manager as Contract;
-use Helldar\Contracts\Http\Builder;
-use Helldar\Support\Facades\Helpers\Arr;
+use DragonCode\Contracts\Exceptions\Manager as Contract;
+use DragonCode\Contracts\Http\Builder;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 abstract class Manager implements Contract
 {
@@ -42,9 +42,9 @@ abstract class Manager implements Contract
     public function validateResponse(Builder $uri, array $response, int $status_code): void
     {
         if (
-            $this->isFailedCode($status_code) ||
-            $this->isFailedContentCode($response) ||
-            $this->isFailedContent($response)
+            $this->isFailedCode($status_code)
+            || $this->isFailedContentCode($response)
+            || $this->isFailedContent($response)
         ) {
             $this->throw($uri, $status_code, $response);
         }

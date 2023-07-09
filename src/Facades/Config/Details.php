@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Details extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return Config::class;
     }

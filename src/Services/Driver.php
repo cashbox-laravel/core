@@ -22,15 +22,16 @@ namespace CashierProvider\Core\Services;
 use CashierProvider\Core\Concerns\Resolvable;
 use CashierProvider\Core\Concerns\Validators;
 use CashierProvider\Core\Facades\Helpers\Http;
-use Helldar\Contracts\Cashier\Config\Driver as DriverConfig;
-use Helldar\Contracts\Cashier\Driver as Contract;
-use Helldar\Contracts\Cashier\Helpers\Statuses;
-use Helldar\Contracts\Cashier\Http\Request as RequestResource;
-use Helldar\Contracts\Cashier\Http\Response;
-use Helldar\Contracts\Cashier\Resources\Details;
-use Helldar\Contracts\Cashier\Resources\Model as ModelResource;
-use Helldar\Contracts\Exceptions\Manager as ExceptionManager;
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Contracts\Cashier\Config\Driver as DriverConfig;
+use DragonCode\Contracts\Cashier\Config\Queues\Names;
+use DragonCode\Contracts\Cashier\Driver as Contract;
+use DragonCode\Contracts\Cashier\Helpers\Statuses;
+use DragonCode\Contracts\Cashier\Http\Request as RequestResource;
+use DragonCode\Contracts\Cashier\Http\Response;
+use DragonCode\Contracts\Cashier\Resources\Details;
+use DragonCode\Contracts\Cashier\Resources\Model as ModelResource;
+use DragonCode\Contracts\Exceptions\Manager as ExceptionManager;
+use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver implements Contract
@@ -51,10 +52,10 @@ abstract class Driver implements Contract
     /** @var ExceptionManager */
     protected $exceptions;
 
-    /** @var \Helldar\Contracts\Cashier\Helpers\Statuses|string */
+    /** @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string */
     protected $statuses;
 
-    /** @var \Helldar\Contracts\Cashier\Resources\Details */
+    /** @var \DragonCode\Contracts\Cashier\Resources\Details */
     protected $details;
 
     public function __construct(DriverConfig $config, Model $payment)
@@ -69,7 +70,7 @@ abstract class Driver implements Contract
     public function statuses(): Statuses
     {
         return $this->resolveDynamicCallback($this->statuses, function (string $statuses) {
-            /* @var \Helldar\Contracts\Cashier\Helpers\Statuses|string $statuses */
+            // @var \DragonCode\Contracts\Cashier\Helpers\Statuses|string $statuses
 
             return $statuses::make($this->payment);
         });
@@ -82,11 +83,16 @@ abstract class Driver implements Contract
         return $cast::make($details);
     }
 
+    public function queue(): Names
+    {
+        return $this->config->getQueue();
+    }
+
     /**
-     * @param  \Helldar\Contracts\Cashier\Http\Request  $request
-     * @param  \Helldar\Contracts\Cashier\Http\Response|string  $response
+     * @param \DragonCode\Contracts\Cashier\Http\Request $request
+     * @param \DragonCode\Contracts\Cashier\Http\Response|string $response
      *
-     * @return \Helldar\Contracts\Cashier\Http\Response
+     * @return \DragonCode\Contracts\Cashier\Http\Response
      */
     protected function request(RequestResource $request, string $response): Response
     {

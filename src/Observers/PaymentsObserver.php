@@ -22,7 +22,7 @@ namespace CashierProvider\Core\Observers;
 use CashierProvider\Core\Concerns\Events;
 use CashierProvider\Core\Facades\Helpers\Access;
 use CashierProvider\Core\Services\Jobs;
-use Helldar\Support\Facades\Helpers\Ables\Arrayable;
+use DragonCode\Support\Facades\Helpers\Ables\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentsObserver extends BaseObserver
@@ -48,7 +48,7 @@ class PaymentsObserver extends BaseObserver
     }
 
     /**
-     * @param  \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model  $payment
+     * @param \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model $payment
      */
     public function deleting(Model $payment)
     {
