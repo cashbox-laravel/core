@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Casts;
 
 use CashierProvider\Core\Concerns\Config\Application;
-use core\src\Concerns\Config\Payment\Drivers;
+use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Data\Models\InfoData;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;

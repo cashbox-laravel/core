@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use core\src\Concerns\Config\Payment\Attributes;
-use core\src\Concerns\Config\Payment\Drivers;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
 use CashierProvider\Core\Services\Job;

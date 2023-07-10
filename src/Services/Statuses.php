@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Enums\StatusEnum;
 use DragonCode\Support\Concerns\Makeable;

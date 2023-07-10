@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use core\src\Data\Config\DriverData;
+use CashierProvider\Core\Data\Config\DriverData;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver

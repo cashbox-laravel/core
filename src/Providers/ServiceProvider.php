@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use core\src\Console\Commands\Refund;
-use core\src\Console\Commands\Verify;
+use CashierProvider\Core\Console\Commands\Refund;
+use CashierProvider\Core\Console\Commands\Verify;
 
 class ServiceProvider extends BaseProvider
 {

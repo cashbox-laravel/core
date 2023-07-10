@@ -17,12 +17,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use core\src\Concerns\Config\Queue;
+use CashierProvider\Core\Concerns\Config\Queue;
 use CashierProvider\Core\Concerns\Config\Refund;
 use CashierProvider\Core\Concerns\Helpers\Validatable;
 use CashierProvider\Core\Concerns\Permissions\Allowable;
 use CashierProvider\Core\Jobs\RefundJob;
-use core\src\Jobs\StartJob;
+use CashierProvider\Core\Jobs\StartJob;
 use CashierProvider\Core\Jobs\VerifyJob;
 use Illuminate\Database\Eloquent\Model;
 

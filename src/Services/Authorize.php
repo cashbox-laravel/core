@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;

@@ -17,8 +17,8 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Providers;
 
-use core\src\Concerns\Config\Payment\Attributes;
-use core\src\Concerns\Helpers\DateTime;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Helpers\DateTime;
 use CashierProvider\Core\Enums\RateLimiterEnum;
 use CashierProvider\Core\Jobs\BaseJob;
 use Illuminate\Cache\RateLimiting\Limit;

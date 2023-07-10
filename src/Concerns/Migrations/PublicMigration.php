@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Migrations;
 
-use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;

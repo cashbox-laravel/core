@@ -17,12 +17,12 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
-use core\src\Concerns\Config\Payment\Attributes;
-use core\src\Concerns\Config\Payment\Drivers;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Enums\StatusEnum;
 use CashierProvider\Core\Events\CreatedEvent;
-use core\src\Events\FailedEvent;
+use CashierProvider\Core\Events\FailedEvent;
 use CashierProvider\Core\Events\RefundedEvent;
 use CashierProvider\Core\Events\SuccessEvent;
 use CashierProvider\Core\Events\WaitRefundEvent;

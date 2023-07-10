@@ -17,9 +17,9 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Facades;
 
-use core\src\Data\Config\ConfigData;
+use CashierProvider\Core\Data\Config\ConfigData;
 use CashierProvider\Core\Data\Config\DetailsData;
-use core\src\Data\Config\DriverData;
+use CashierProvider\Core\Data\Config\DriverData;
 use CashierProvider\Core\Data\Config\Payment\PaymentData;
 use CashierProvider\Core\Data\Config\Queue\QueueData;
 use CashierProvider\Core\Data\Config\RefundData;

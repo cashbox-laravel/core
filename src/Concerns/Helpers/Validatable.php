@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Helpers;
 
-use core\src\Services\Validator;
+use CashierProvider\Core\Services\Validator;
 use Illuminate\Database\Eloquent\Model;
 
 trait Validatable

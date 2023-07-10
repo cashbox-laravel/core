@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Observers;
 
-use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Permissions\Allowable;
 use CashierProvider\Core\Services\Job;
 use DragonCode\Support\Facades\Helpers\Arr;
