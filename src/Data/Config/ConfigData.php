@@ -19,7 +19,6 @@ namespace CashierProvider\Core\Data\Config;
 
 use CashierProvider\Core\Data\Config\Payment\PaymentData;
 use CashierProvider\Core\Data\Config\Queue\QueueData;
-use CashierProvider\Core\Data\Config\DriverData;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;

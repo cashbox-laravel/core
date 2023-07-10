@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Concerns\Config\Payment;
 
 use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Data\Config\DriverData;
 use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
 use CashierProvider\Core\Facades\Config;

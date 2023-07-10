@@ -36,7 +36,7 @@ class StatusData extends Data
 
     public int|string|UnitEnum $failed;
 
-    public function fromEnum(StatusEnum $status): string|int|UnitEnum
+    public function fromEnum(StatusEnum $status): int|string|UnitEnum
     {
         return match ($status) {
             StatusEnum::new        => $this->new,
