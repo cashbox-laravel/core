@@ -124,7 +124,6 @@
                 "name": "symfony/var-dumper",
                 "url": "https://github.com/symfony/var-dumper"
             },
-
             {
                 "name": "cashier-provider/docs",
                 "url": "https://github.com/cashier-provider/docs"
