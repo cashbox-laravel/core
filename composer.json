@@ -17,8 +17,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/cashier-provider/core/issues",
-        "source": "https://github.com/cashier-provider/core"
+        "issues": "https://github.com/cashier-provider/foundation/issues",
+        "source": "https://github.com/cashier-provider/foundation"
     },
     "funding": [
         {
@@ -62,11 +62,6 @@
             "CashierProvider\\Core\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
@@ -78,12 +73,106 @@
         "sort-packages": true
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "4.x-dev"
+        },
         "laravel": {
             "providers": [
                 "CashierProvider\\Core\\Providers\\ServiceProvider",
                 "CashierProvider\\Core\\Providers\\ObserverServiceProvider",
                 "CashierProvider\\Core\\Providers\\RateLimiterServiceProvider"
             ]
-        }
+        },
+        "thanks": [
+            {
+                "name": "dragon-code/laravel-support",
+                "url": "https://github.com/TheDragonCode/laravel-support"
+            },
+            {
+                "name": "dragon-code/support",
+                "url": "https://github.com/TheDragonCode/support"
+            },
+            {
+                "name": "archtechx/enums",
+                "url": "https://github.com/archtechx/enums"
+            },
+            {
+                "name": "laravel/framework",
+                "url": "https://github.com/laravel/framework"
+            },
+            {
+                "name": "nesbot/carbon",
+                "url": "https://github.com/briannesbitt/Carbon"
+            },
+            {
+                "name": "spatie/laravel-data",
+                "url": "https://github.com/spatie/laravel-data"
+            },
+            {
+                "name": "symfony/console",
+                "url": "https://github.com/symfony/console"
+            },
+            {
+                "name": "orchestra/testbench",
+                "url": "https://github.com/orchestral/testbench"
+            },
+            {
+                "name": "pestphp/pest",
+                "url": "https://github.com/pestphp/pest"
+            },
+            {
+                "name": "symfony/var-dumper",
+                "url": "https://github.com/symfony/var-dumper"
+            },
+
+            {
+                "name": "cashier-provider/docs",
+                "url": "https://github.com/cashier-provider/docs"
+            },
+            {
+                "name": "cashier-provider/core",
+                "url": "https://github.com/cashier-provider/core"
+            },
+            {
+                "name": "cashier-provider/cash",
+                "url": "https://github.com/cashier-provider/cash"
+            },
+            {
+                "name": "cashier-provider/sber-auth",
+                "url": "https://github.com/cashier-provider/sber-auth"
+            },
+            {
+                "name": "cashier-provider/sber-online",
+                "url": "https://github.com/cashier-provider/sber-online"
+            },
+            {
+                "name": "cashier-provider/sber-qr",
+                "url": "https://github.com/cashier-provider/sber-qr"
+            },
+            {
+                "name": "cashier-provider/tinkoff-auth",
+                "url": "https://github.com/cashier-provider/tinkoff-auth"
+            },
+            {
+                "name": "cashier-provider/tinkoff-credit",
+                "url": "https://github.com/cashier-provider/tinkoff-credit"
+            },
+            {
+                "name": "cashier-provider/tinkoff-online",
+                "url": "https://github.com/cashier-provider/tinkoff-online"
+            },
+            {
+                "name": "cashier-provider/tinkoff-qr",
+                "url": "https://github.com/cashier-provider/tinkoff-qr"
+            },
+            {
+                "name": "cashier-provider/driver",
+                "url": "https://github.com/cashier-provider/driver"
+            },
+            {
+                "name": "cashier-provider/driver-auth",
+                "url": "https://github.com/cashier-provider/driver-auth"
+            }
+        ]
     }
 }
