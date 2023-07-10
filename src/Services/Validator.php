@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Casheable;
+use CashierProvider\Core\Billable;
 use CashierProvider\Core\Exceptions\Internal\IncorrectPaymentModelException;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +26,7 @@ class Validator
 {
     public static function model(Model|string $payment): Model|string
     {
-        return static::validate($payment, Casheable::class, IncorrectPaymentModelException::class);
+        return static::validate($payment, Billable::class, IncorrectPaymentModelException::class);
     }
 
     protected static function validate(mixed $haystack, string $needle, string $exception): mixed

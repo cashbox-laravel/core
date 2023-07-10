@@ -15,21 +15,20 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns;
+namespace CashierProvider\Core;
 
 use CashierProvider\Core\Models\Details;
 use CashierProvider\Core\Services\Driver;
 use CashierProvider\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-trait Casheable
+trait Billable
 {
     public function cashier(): Relation
     {
         return $this->hasOne(Details::class, 'payment_id', $this->getKeyName());
     }
 
-    // main trait
     public function cashierDriver(): Driver
     {
         return DriverManager::find($this);

@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Concerns\Casheable;
+use CashierProvider\Core\Billable;
 use CashierProvider\Core\Enums\RateLimiterEnum;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
@@ -29,7 +29,7 @@ use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * @property Model|Casheable $payment
+ * @property Model|Billable $payment
  */
 abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 {

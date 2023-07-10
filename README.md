@@ -157,12 +157,11 @@ Add the necessary trait to your Payment model:
 ```php
 namespace App\Models;
 
-use CashierProvider\Core\Concerns\Casheable;
-use Illuminate\Database\Eloquent\Model;
+use CashierProvider\Core\Billable;use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use Casheable;
+    use Billable;
 }
 ```
 
