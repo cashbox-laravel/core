@@ -1,166 +1,149 @@
 <?php
 
-/*
+/**
  * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/core
+ * @see https://github.com/cashier-provider
  */
 
 declare(strict_types=1);
 
 namespace CashierProvider\Core\Services;
 
-use CashierProvider\Core\Concerns\Relations;
-use CashierProvider\Core\Constants\Status;
-use CashierProvider\Core\Facades\Config\Payment;
-use DragonCode\Contracts\Cashier\Helpers\Statuses as Contract;
+use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Payments;
+use CashierProvider\Core\Enums\StatusEnum;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
-use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-/** @method static Statuses make(Model $model) */
-abstract class Statuses implements Contract
+/**
+ * @method static Statuses make(Model $payment)
+ */
+abstract class Statuses
 {
+    use Attributes;
     use Makeable;
-    use Relations;
+    use Payments;
 
-    public const NEW       = [];
-    public const REFUNDING = [];
-    public const REFUNDED  = [];
     public const FAILED    = [];
+    public const NEW       = [];
+    public const REFUNDED  = [];
+    public const REFUNDING = [];
     public const SUCCESS   = [];
 
-    /** @var \CashierProvider\Core\Concerns\Casheable|\Illuminate\Database\Eloquent\Model */
-    protected $model;
+    public function __construct(
+        protected Model $payment
+    ) {}
 
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
-
-    public function hasUnknown($status = null): bool
+    public function isUnknown(?StatusEnum $status = null): bool
     {
         $bank = array_merge([
             static::NEW,
             static::REFUNDING,
             static::REFUNDED,
-            static::FAILED,
             static::SUCCESS,
+            static::FAILED,
         ]);
 
-        $model = [
-            Status::NEW,
-            Status::WAIT_REFUND,
-            Status::REFUND,
-            Status::FAILED,
-            Status::SUCCESS,
-        ];
+        $model = StatusEnum::values();
 
         return ! $this->hasCashier($bank, $status)
-               && ! $this->hasModel($model, $status);
+            && ! $this->hasModel($model, $status);
     }
 
-    public function hasCreated($status = null): bool
+    public function isCreated(?StatusEnum $status = null): bool
     {
         return $this->hasCashier(static::NEW, $status)
-               || $this->hasModel([Status::NEW], $status);
+            || $this->hasModel(static::NEW, $status);
     }
 
-    public function hasFailed($status = null): bool
+    public function isFailed(?StatusEnum $status = null): bool
     {
         return $this->hasCashier(static::FAILED, $status)
-               || $this->hasModel([Status::FAILED], $status);
+            || $this->hasModel(static::FAILED, $status);
     }
 
-    public function hasRefunding($status = null): bool
+    public function isRefunding(?StatusEnum $status = null): bool
     {
         return $this->hasCashier(static::REFUNDING, $status)
-               || $this->hasModel([Status::WAIT_REFUND], $status);
+            || $this->hasModel(static::REFUNDING, $status);
     }
 
-    public function hasRefunded($status = null): bool
+    public function isRefunded(?StatusEnum $status = null): bool
     {
         return $this->hasCashier(static::REFUNDED, $status)
-               || $this->hasModel([Status::REFUND], $status);
+            || $this->hasModel(static::REFUNDED, $status);
     }
 
-    public function hasSuccess($status = null): bool
+    public function isSuccess(?StatusEnum $status = null): bool
     {
         return $this->hasCashier(static::SUCCESS, $status)
-               || $this->hasModel([Status::SUCCESS], $status);
+            || $this->hasModel(static::SUCCESS, $status);
     }
 
-    public function inProgress($status = null): bool
+    public function inProgress(?StatusEnum $status = null): bool
     {
-        return ! $this->hasSuccess($status)
-               && ! $this->hasFailed($status)
-               && ! $this->hasRefunded($status);
+        return ! $this->isSuccess($status)
+            && ! $this->isFailed($status)
+            && ! $this->isRefunded($status);
     }
 
-    protected function hasCashier(array $statuses, $status = null): bool
+    protected function hasCashier(array|string $statuses, ?StatusEnum $status): bool
     {
-        $status = ! is_null($status) ? $status : $this->cashierStatus();
+        $status ??= $this->cashierStatus();
 
-        return $this->has($statuses, $status);
+        return $this->has($status, $statuses);
     }
 
-    protected function hasModel(array $statuses, $status = null): bool
+    protected function hasModel(array|string $statuses, StatusEnum $status): bool
     {
-        $statuses = Arr::map($statuses, static function (string $status) {
-            return Payment::getStatuses()->getStatus($status);
-        });
+        $statuses = Arr::of((array) $statuses)
+            ->map(fn (mixed $value) => static::payment()->status->fromEnum($status))
+            ->toArray();
 
-        $status = ! is_null($status) ? $status : $this->modelStatus();
-
-        return $this->has($statuses, $status);
+        return $this->has($status, $statuses);
     }
 
-    protected function has(array $statuses, $status = null): bool
+    protected function has(?StatusEnum $needle, array $haystack): bool
     {
-        return ! is_null($status) && in_array($this->resolveStatus($status), $this->resolveStatus($statuses), true);
+        if (is_null($needle)) {
+            return false;
+        }
+
+        return in_array($this->resolveStatus($needle), $this->resolveStatus($haystack), true);
     }
 
-    protected function cashierStatus(): ?string
+    protected function cashierStatus(): ?StatusEnum
     {
-        $this->resolveCashier($this->model);
-
-        if ($this->model->cashier && $this->model->cashier->details) {
-            return $this->model->cashier->details->getStatus();
+        if ($status = $this->payment->cashier?->details?->getStatus()) {
+            return StatusEnum::tryFrom($status);
         }
 
         return null;
     }
 
-    protected function modelStatus()
+    protected function modelStatus(): mixed
     {
-        $field = Payment::getAttributes()->getStatus();
-
-        return $this->model->getAttribute($field);
+        return $this->payment->getAttribute(
+            static::attribute()->status
+        );
     }
 
-    /**
-     * @param  array|string  $status
-     *
-     * @return array|string
-     */
-    protected function resolveStatus($status)
+    protected function resolveStatus(mixed $status): mixed
     {
         if (is_array($status)) {
-            return array_map(function ($value) {
-                return $this->resolveStatus($value);
-            }, $status);
+            return array_map(fn (mixed $value) => $this->resolveStatus($value), $status);
         }
 
-        return Str::upper($status);
+        return is_string($status) ? Str::lower($status) : $status;
     }
 }

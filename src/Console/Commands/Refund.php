@@ -1,54 +1,39 @@
 <?php
 
-/*
+/**
  * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/core
+ * @see https://github.com/cashier-provider
  */
 
 declare(strict_types=1);
 
 namespace CashierProvider\Core\Console\Commands;
 
-use CashierProvider\Core\Services\Jobs;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
+use Symfony\Component\Console\Attribute\AsCommand;
 
-class Refund extends Base
+#[AsCommand('cashier:refund')]
+class Refund extends Command
 {
-    protected $signature = 'cashier:refund';
+    protected $signature = 'cashier:refund {--force}';
 
-    protected $description = 'Launching the command to check payments for refunds';
+    protected $description = 'Refunds all payment transactions';
 
-    public function handle()
+    protected function getStatuses(): array
     {
-        $this->payments()->chunk($this->count, function (Collection $payments) {
-            $payments->each(function (Model $payment) {
-                if ($this->allowCancelByStatus($payment)) {
-                    $this->cancel($payment);
-                }
-            });
-        });
+        return static::statuses()->toRefund();
     }
 
-    protected function cancel(Model $payment): void
+    protected function process(Model $payment): void
     {
-        Jobs::make($payment)->refund();
-    }
-
-    protected function allowCancelByStatus(Model $payment): bool
-    {
-        $statuses = $this->driver($payment)->statuses();
-
-        return $statuses->inProgress();
+        $this->job($payment)->refund();
     }
 }

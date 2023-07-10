@@ -1,26 +1,21 @@
 <?php
 
-/*
+/**
  * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/core
+ * @see https://github.com/cashier-provider
  */
 
 declare(strict_types=1);
 
-use App\Payments\BankName;
-use CashierProvider\Core\Constants\Attributes;
-use CashierProvider\Core\Constants\Queue;
-use CashierProvider\Core\Constants\Status;
+use CashierProvider\Core\Enums\StatusEnum;
 
 return [
     /*
@@ -65,14 +60,14 @@ return [
         |
         | Correspondence of Cashier attributes to Payment model.
         |
+        | type of field => column name from payment model
+        |
         */
 
-        'attributes' => [
-            Attributes::TYPE => 'type_id',
-
-            Attributes::STATUS => 'status_id',
-
-            Attributes::CREATED_AT => 'created_at',
+        'attribute' => [
+            'type'       => 'type_id',
+            'status'     => 'status_id',
+            'created_at' => 'created_at',
         ],
 
         /*
@@ -82,18 +77,16 @@ return [
         |
         | Correspondence of statuses to the payment model.
         |
+        | internal status => your status name or ID or enum class.
+        |
         */
 
-        'statuses' => [
-            Status::NEW => 0,
-
-            Status::SUCCESS => 1,
-
-            Status::FAILED => 2,
-
-            Status::REFUND => 3,
-
-            Status::WAIT_REFUND => 4,
+        'status' => [
+            StatusEnum::new()        => 'new',
+            StatusEnum::success()    => 'success',
+            StatusEnum::waitRefund() => 'wait_refund',
+            StatusEnum::refund()     => 'refund',
+            StatusEnum::failed()     => 'failed',
         ],
 
         /*
@@ -106,9 +99,9 @@ return [
         |
         */
 
-        'map' => [
-            // 'payment_type_1' => 'foo',
-            // 'payment_type_2' => 'bar',
+        'drivers' => [
+            // 'app_payment_type_1' => 'driver_name_foo',
+            // 'app_payment_type_2' => 'driver_name_bar',
         ],
     ],
 
@@ -124,6 +117,18 @@ return [
     'details' => [
         /*
         |--------------------------------------------------------------------------
+        | Connection Name
+        |--------------------------------------------------------------------------
+        |
+        | This value defines the name of the connection for accessing the
+        | database with the cashier table.
+        |
+        */
+
+        'connection' => env('DB_CONNECTION'),
+
+        /*
+        |--------------------------------------------------------------------------
         | Cashier Details table settings
         |--------------------------------------------------------------------------
         |
@@ -132,54 +137,6 @@ return [
         */
 
         'table' => 'cashier_details',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logs
-    |--------------------------------------------------------------------------
-    |
-    | This setting defines the data for connecting to the logging table.
-    |
-    */
-
-    'logs' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Enabling Logging
-        |--------------------------------------------------------------------------
-        |
-        | This parameter indicates the need to save logs of requests and
-        | responses from the bank.
-        |
-        | By default, true.
-        |
-        */
-
-        'enabled' => env('CASHIER_REQUESTS_LOGS_ENABLED', true),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Connection Name
-        |--------------------------------------------------------------------------
-        |
-        | This value defines the name of the connection for accessing the
-        | database with the logging table.
-        |
-        */
-
-        'connection' => null,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Cashier Details Logs Table
-        |--------------------------------------------------------------------------
-        |
-        | This value contains the name of the table for storing query logs.
-        |
-        */
-
-        'table' => 'cashier_logs',
     ],
 
     /*
@@ -210,6 +167,20 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | Max Attempts
+        |--------------------------------------------------------------------------
+        |
+        | This value determines the number of attempts to execute the job
+        | before logging it failed.
+        |
+        | By default, 50.
+        |
+        */
+
+        'tries' => 50,
+
+        /*
+        |--------------------------------------------------------------------------
         | Queue Names
         |--------------------------------------------------------------------------
         |
@@ -218,7 +189,7 @@ return [
         |
         */
 
-        'names' => [
+        'name' => [
             /*
             |--------------------------------------------------------------------------
             | Initialize Queue Name
@@ -230,11 +201,11 @@ return [
             |
             */
 
-            Queue::START => env('CASHIER_QUEUE'),
+            'start' => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
-            | Check Queue Name
+            | Verify Queue Name
             |--------------------------------------------------------------------------
             |
             | This value defines the queue name for payment checking tasks.
@@ -243,7 +214,7 @@ return [
             |
             */
 
-            Queue::CHECK => env('CASHIER_QUEUE'),
+            'verify' => env('CASHIER_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -256,80 +227,27 @@ return [
             |
             */
 
-            Queue::REFUND => env('CASHIER_QUEUE'),
-        ],
-
-        /*
-        |--------------------------------------------------------------------------
-        | Database Transactions
-        |--------------------------------------------------------------------------
-        |
-        | This configuration option determines if your data will only be synced
-        | with your search indexes after every open database transaction has
-        | been committed, thus preventing any discarded data from syncing.
-        |
-        | By default, true.
-        |
-        */
-
-        'after_commit' => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Max Attempts
-        |--------------------------------------------------------------------------
-        |
-        | This value determines the number of attempts to execute the job
-        | before logging it failed.
-        |
-        | By default, 100.
-        |
-        */
-
-        'tries' => 100,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Unique Lock
-        |--------------------------------------------------------------------------
-        |
-        | This value contains parameters for implementing uniqueness of queues.
-        |
-        */
-
-        'unique' => [
-            /*
-            |--------------------------------------------------------------------------
-            | Lock's Timeout
-            |--------------------------------------------------------------------------
-            |
-            | The number of seconds after which the job's unique lock will be released.
-            |
-            | By default, 60.
-            |
-            */
-
-            'seconds' => 60,
+            'refund' => env('CASHIER_QUEUE'),
         ],
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Check Requests
+    | Verify Requests
     |--------------------------------------------------------------------------
     |
     | This parameter of settings is responsible for the duration of the requests.
     |
     */
 
-    'check' => [
+    'verify' => [
         /*
         |--------------------------------------------------------------------------
         | Delay
         |--------------------------------------------------------------------------
         |
         | This setting determines the number of seconds to pause before
-        | re-checking the payment status.
+        | re-verifying the payment status.
         |
         */
 
@@ -341,7 +259,7 @@ return [
         |--------------------------------------------------------------------------
         |
         | This setting determines the number of seconds after which you need to
-        | stop trying to check the status of the payment.
+        | stop trying to verify the status of the payment.
         |
         */
 
@@ -370,7 +288,7 @@ return [
         |
         */
 
-        'enabled' => env('CASHIER_AUTO_REFUND_ENABLED', false),
+        'enabled' => (bool) env('CASHIER_AUTO_REFUND_ENABLED', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -379,6 +297,8 @@ return [
         |
         | This setting determines the period after which it is necessary to carry
         | out an automatic refund.
+        |
+        | The value is in seconds.
         |
         */
 
@@ -401,29 +321,26 @@ return [
     */
 
     'drivers' => [
-        // 'foo' => [
-        //     \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        // 'driver_name_foo' => [
+        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //     \CashierProvider\Core\Constants\Driver::DETAILS => \App\Payments\BankName::class,
-        //
-        //     \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
-        //
-        //     \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
+        //    'details' => \App\Payments\BankName::class,
         // ],
         //
-        // 'bar' => [
-        //    \CashierProvider\Core\Constants\Driver::DRIVER => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        // 'driver_name_bar' => [
+        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //    \CashierProvider\Core\Constants\Driver::DETAILS => BankName::class,
+        //    'details' => \App\Payments\BankName::class,
         //
-        //    \CashierProvider\Core\Constants\Driver::CLIENT_ID => env('CASHIER_BANK_CLIENT_ID'),
+        //    'credentials' => [
+        //        'client_id'     => env('CASHIER_BANK_CLIENT_ID'),
+        //        'client_secret' => env('CASHIER_BANK_CLIENT_SECRET'),
+        //    ],
         //
-        //    \CashierProvider\Core\Constants\Driver::CLIENT_SECRET => env('CASHIER_BANK_CLIENT_SECRET'),
-        //
-        //    \CashierProvider\Core\Constants\Driver::QUEUE => [
-        //        Queue::START  => env('CASHIER_QUEUE'),
-        //        Queue::CHECK  => env('CASHIER_QUEUE'),
-        //        Queue::REFUND => env('CASHIER_QUEUE'),
+        //    'queue' => [
+        //        'start'  => env('CASHIER_QUEUE'),
+        //        'verify' => env('CASHIER_QUEUE'),
+        //        'refund' => env('CASHIER_QUEUE'),
         //    ],
         // ],
     ],

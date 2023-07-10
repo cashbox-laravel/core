@@ -1,60 +1,51 @@
 <?php
 
-/*
+/**
  * This file is part of the "cashier-provider/core" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @author Andrey Helldar <helldar@ai-rus.com>
- *
- * @copyright 2021 Andrey Helldar
- *
+ * @author Andrey Helldar <helldar@dragon-code.pro>
+ * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/core
+ * @see https://github.com/cashier-provider
  */
 
 declare(strict_types=1);
 
 namespace CashierProvider\Core\Concerns\Migrations;
 
-use CashierProvider\Core\Facades\Config\Payment;
+use core\src\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Builder;
+use Illuminate\Support\Facades\Schema;
 
 abstract class PublicMigration extends Migration
 {
+    use Attributes;
     use InitModelHelper;
+    use Payments;
 
-    /**
-     * @throws \DragonCode\LaravelSupport\Exceptions\IncorrectModelException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
+    protected function connection(): Builder
+    {
+        return Schema::connection($this->modelConnection());
+    }
+
+    protected function modelConnection(): ?string
+    {
+        return $this->model()->connection(
+            static::payment()->model
+        );
+    }
+
     protected function table(): string
     {
-        $model = $this->getModel();
-
-        return $this->model()->table($model);
-    }
-
-    protected function attributeType(): string
-    {
-        return Payment::getAttributes()->getType();
-    }
-
-    protected function attributeStatus(): string
-    {
-        return Payment::getAttributes()->getStatus();
-    }
-
-    protected function attributeCreatedAt(): string
-    {
-        return Payment::getAttributes()->getCreatedAt();
-    }
-
-    protected function getModel(): string
-    {
-        return Payment::getModel();
+        return $this->model()->table(
+            static::payment()->model
+        );
     }
 }
