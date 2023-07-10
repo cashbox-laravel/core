@@ -125,6 +125,10 @@
                 "url": "https://github.com/symfony/var-dumper"
             },
             {
+                "name": "cashier-provider/foundation",
+                "url": "https://github.com/cashier-provider/foundation"
+            },
+            {
                 "name": "cashier-provider/docs",
                 "url": "https://github.com/cashier-provider/docs"
             },
