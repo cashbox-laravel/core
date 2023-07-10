@@ -15,6 +15,7 @@
 
 declare(strict_types=1);
 
+use CashierProvider\Core\Enums\AttributeEnum;
 use CashierProvider\Core\Enums\StatusEnum;
 
 return [
@@ -65,9 +66,9 @@ return [
         */
 
         'attribute' => [
-            'type'       => 'type_id',
-            'status'     => 'status_id',
-            'created_at' => 'created_at',
+            AttributeEnum::type()      => 'type_id',
+            AttributeEnum::status()    => 'status_id',
+            AttributeEnum::createdAt() => 'created_at',
         ],
 
         /*

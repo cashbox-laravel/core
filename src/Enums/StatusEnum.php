@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Enums;
 
-use ArchTech\Enums\Values;
+use ArchTech\Enums\InvokableCases;
 use CashierProvider\Core\Concerns\Enums\From;
 
 /**
@@ -29,7 +29,7 @@ use CashierProvider\Core\Concerns\Enums\From;
  */
 enum StatusEnum: string
 {
-    use Values;
+    use InvokableCases;
     use From;
 
     case new        = 'new';
