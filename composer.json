@@ -50,11 +50,6 @@
         "spatie/laravel-data": "^3.7",
         "symfony/console": "^6.3"
     },
-    "require-dev": {
-        "orchestra/testbench": "^8.5",
-        "pestphp/pest": "^2.8",
-        "symfony/var-dumper": "^6.3"
-    },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
