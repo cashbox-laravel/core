@@ -20,12 +20,8 @@ namespace CashierProvider\Core\Observers;
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
+use CashierProvider\Core\Concerns\Events\Notifiable;
 use CashierProvider\Core\Enums\StatusEnum;
-use CashierProvider\Core\Events\CreatedEvent;
-use CashierProvider\Core\Events\FailedEvent;
-use CashierProvider\Core\Events\RefundedEvent;
-use CashierProvider\Core\Events\SuccessEvent;
-use CashierProvider\Core\Events\WaitRefundEvent;
 use CashierProvider\Core\Models\Details;
 use CashierProvider\Core\Services\Job;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +30,7 @@ class PaymentDetailsObserver
 {
     use Attributes;
     use Drivers;
+    use Notifiable;
     use Payments;
 
     public function saving(Details $model): void
@@ -51,7 +48,8 @@ class PaymentDetailsObserver
 
         if ($model->wasChanged('status') || $this->isDoesntSameStatus($model)) {
             $this->updateStatus($model->parent, $model->status);
-            $this->event($model->parent, $model->status);
+
+            static::event($model->parent, $model->status);
         }
 
         Job::model($model->parent)->verify();
@@ -68,17 +66,6 @@ class PaymentDetailsObserver
         $field = static::attribute()->status;
 
         $payment->update([$field => $value]);
-    }
-
-    protected function event(Model $payment, StatusEnum $status): void
-    {
-        match ($status) {
-            StatusEnum::new        => event(new CreatedEvent($payment)),
-            StatusEnum::refund     => event(new RefundedEvent($payment)),
-            StatusEnum::waitRefund => event(new WaitRefundEvent($payment)),
-            StatusEnum::success    => event(new SuccessEvent($payment)),
-            StatusEnum::failed     => event(new FailedEvent($payment)),
-        };
     }
 
     protected function paymentStatus(Model $payment): mixed
