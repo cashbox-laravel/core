@@ -21,6 +21,7 @@ use ArchTech\Enums\InvokableCases;
 use CashierProvider\Core\Concerns\Enums\From;
 
 /**
+ * @method string deleted()
  * @method string failed()
  * @method string new()
  * @method string refund()
@@ -37,4 +38,5 @@ enum StatusEnum: string
     case waitRefund = 'wait_refund';
     case refund     = 'refund';
     case failed     = 'failed';
+    case deleted    = 'deleted';
 }

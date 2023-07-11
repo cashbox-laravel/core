@@ -18,26 +18,61 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
+use CashierProvider\Core\Concerns\Events\Notifiable;
+use CashierProvider\Core\Concerns\Helpers\Jobs;
 use CashierProvider\Core\Concerns\Permissions\Allowable;
-use CashierProvider\Core\Services\Job;
+use CashierProvider\Core\Enums\StatusEnum;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentObserver
 {
-    use Attributes;
     use Allowable;
+    use Attributes;
+    use Jobs;
+    use Notifiable;
 
     public function created(Model $payment): void
     {
-        Job::model($payment)->start();
+        if ($this->authorizeType()) {
+            static::job($payment)->start();
+        }
     }
 
     public function updated(Model $payment): void
     {
-        if ($this->wasChanged($payment)) {
-            Job::model($payment)->verify();
+        if (! $this->authorizeType()) {
+            return;
         }
+
+        if ($this->wasChanged($payment)) {
+            static::job($payment)->verify();
+        }
+
+        if ($this->wasChangedStatus($payment)) {
+            static::eventWithDetect($payment);
+        }
+    }
+
+    public function deleted(Model $payment): void
+    {
+        if ($this->authorizeType()) {
+            static::event($payment, StatusEnum::deleted);
+        }
+    }
+
+    public function restored(Model $payment): void
+    {
+        if ($this->authorizeType()) {
+            static::job($payment)->retry();
+        }
+    }
+
+    protected function wasChangedStatus(Model $payment): bool
+    {
+        return $payment->wasChanged(
+            static::attribute()->status
+        );
     }
 
     protected function wasChanged(Model $payment): bool

@@ -27,6 +27,11 @@ class Authorize
     use Attributes;
     use Statuses;
 
+    public static function type(Model $payment): bool
+    {
+        return static::acceptType($payment);
+    }
+
     public static function toStart(Model $payment): bool
     {
         return static::acceptType($payment)

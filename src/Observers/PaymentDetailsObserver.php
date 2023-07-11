@@ -18,19 +18,14 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Observers;
 
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
-use CashierProvider\Core\Concerns\Events\Notifiable;
 use CashierProvider\Core\Enums\StatusEnum;
 use CashierProvider\Core\Models\Details;
-use CashierProvider\Core\Services\Job;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentDetailsObserver
 {
     use Attributes;
-    use Drivers;
-    use Notifiable;
     use Payments;
 
     public function saving(Details $model): void
@@ -46,18 +41,9 @@ class PaymentDetailsObserver
             return;
         }
 
-        if ($model->wasChanged('status') || $this->isDoesntSameStatus($model)) {
+        if ($model->wasChanged('status')) {
             $this->updateStatus($model->parent, $model->status);
-
-            static::event($model->parent, $model->status);
         }
-
-        Job::model($model->parent)->verify();
-    }
-
-    protected function isDoesntSameStatus(Details $model): bool
-    {
-        return $model->status !== static::payment()->status->toEnum($this->paymentStatus($model->parent));
     }
 
     protected function updateStatus(Model $payment, StatusEnum $status): void
@@ -66,12 +52,5 @@ class PaymentDetailsObserver
         $field = static::attribute()->status;
 
         $payment->update([$field => $value]);
-    }
-
-    protected function paymentStatus(Model $payment): mixed
-    {
-        return $payment->getAttribute(
-            static::attribute()->status
-        );
     }
 }

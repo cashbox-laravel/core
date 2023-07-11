@@ -21,6 +21,11 @@ use CashierProvider\Core\Services\Authorize;
 
 trait Allowable
 {
+    protected function authorizeType(): bool
+    {
+        return Authorize::type($this->payment);
+    }
+
     protected function authorizeToStart(): bool
     {
         return Authorize::toStart($this->payment);

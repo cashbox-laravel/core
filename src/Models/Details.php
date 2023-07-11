@@ -19,11 +19,17 @@ namespace CashierProvider\Core\Models;
 
 use CashierProvider\Core\Casts\InfoCast;
 use CashierProvider\Core\Concerns\Config\Details as DetailsConcern;
+use CashierProvider\Core\Data\Models\InfoData;
 use CashierProvider\Core\Enums\StatusEnum;
 use CashierProvider\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * @property InfoData $info
+ * @property StatusEnum $status
+ * @property-read Model $parent
+ */
 class Details extends Model
 {
     use DetailsConcern;

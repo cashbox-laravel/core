@@ -17,4 +17,4 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Events;
 
-class FailedEvent extends BaseEvent { }
+class DeletedEvent extends BaseEvent { }
