@@ -26,21 +26,21 @@ It works only in conjunction with payment drivers.
 
 ## Documentation
 
-You will find full documentation on the dedicated [documentation](https://github.com/cashier-provider/docs) site.
+You will find full documentation on the dedicated [documentation](https://cashier-provider.github.io/docs) site.
 
 ## Contributing
 
 Thank you for considering contributing to the `Cashier Provider`!
-The contribution guide can be found in the [Cashier Provider documentation](https://github.com/cashier-provider/docs).
+The contribution guide can be found in the [Cashier Provider documentation](https://cashier-provider.github.io/docs).
 
 ## Code of Conduct
 
 In order to ensure that the `Cashier Provider` community is welcoming to all, please review and abide by
-the [Code of Conduct](https://github.com/cashier-provider/docs).
+the [Code of Conduct](https://cashier-provider.github.io/docs).
 
 ## Security Vulnerabilities
 
-Please review [our security policy](https://github.com/cashier-provider/docs) on how to report security vulnerabilities.
+Please review [our security policy](https://cashier-provider.github.io/docs) on how to report security vulnerabilities.
 
 ## License
 
