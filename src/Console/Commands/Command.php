@@ -21,7 +21,7 @@ use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Drivers;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Concerns\Config\Payment\Statuses;
-use CashierProvider\Core\Services\Job;
+use CashierProvider\Core\Concerns\Helpers\Jobs;
 use Closure;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Console\Command as BaseCommand;
@@ -34,9 +34,10 @@ abstract class Command extends BaseCommand
 {
     use Attributes;
     use Drivers;
+    use InitModelHelper;
+    use Jobs;
     use Payments;
     use Statuses;
-    use InitModelHelper;
 
     protected int $size = 1000;
 
@@ -75,13 +76,6 @@ abstract class Command extends BaseCommand
     protected function getTypes(): array
     {
         return static::drivers()->keys()->toArray();
-    }
-
-    protected function job(Model $payment): Job
-    {
-        return Job::model($payment)->force(
-            $this->hasForce()
-        );
     }
 
     protected function action(): string

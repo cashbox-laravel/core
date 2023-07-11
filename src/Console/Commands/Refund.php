@@ -34,6 +34,6 @@ class Refund extends Command
 
     protected function process(Model $payment): void
     {
-        $this->job($payment)->refund();
+        static::job($payment, $this->hasForce())->refund();
     }
 }

@@ -34,6 +34,6 @@ class Verify extends Command
 
     protected function process(Model $payment): void
     {
-        $this->job($payment)->verify();
+        static::job($payment, $this->hasForce())->verify();
     }
 }
