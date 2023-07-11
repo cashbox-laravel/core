@@ -25,6 +25,6 @@ class RefundData extends Data
 {
     public bool $enabled;
 
-    #[WithCast(NumberCast::class, min: 0, default: 600)]
+    #[WithCast(NumberCast::class, min: 0, max: 600)]
     public int $delay;
 }

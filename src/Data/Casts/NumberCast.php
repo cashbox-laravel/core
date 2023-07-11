@@ -22,11 +22,11 @@ class NumberCast implements Cast
 {
     public function __construct(
         protected readonly int $min = 0,
-        protected readonly int $default = 100
+        protected readonly int $max = 100
     ) {}
 
     public function cast(DataProperty $property, mixed $value, array $context): int
     {
-        return $value >= $this->min ? (int) $value : $this->default;
+        return min(max($this->min, (int) $value), $this->max);
     }
 }

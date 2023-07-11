@@ -23,9 +23,9 @@ use Spatie\LaravelData\Data;
 
 class VerifyData extends Data
 {
-    #[WithCast(NumberCast::class, min: 0, default: 60)]
+    #[WithCast(NumberCast::class, min: 0, max: 60)]
     public int $delay;
 
-    #[WithCast(NumberCast::class, min: 0, default: 30)]
+    #[WithCast(NumberCast::class, min: 0, max: 30)]
     public int $timeout;
 }

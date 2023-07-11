@@ -28,8 +28,11 @@ class QueueData extends Data
 {
     public ?string $connection;
 
-    #[WithCast(NumberCast::class, min: 1, default: 50)]
+    #[WithCast(NumberCast::class, min: 1, max: 50)]
     public int $tries;
+
+    #[WithCast(NumberCast::class, min: 1, max: 10)]
+    public int $exceptions;
 
     public QueueNameData $name;
 }

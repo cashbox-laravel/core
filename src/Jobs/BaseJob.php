@@ -41,13 +41,16 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 
     public int $tries = 10;
 
+    public int $maxExceptions = 3;
+
     abstract public function handle(): void;
 
     public function __construct(
         public Model $payment,
         public bool $force = false
     ) {
-        $this->tries = static::queue()->tries;
+        $this->tries         = static::queue()->tries;
+        $this->maxExceptions = static::queue()->exceptions;
     }
 
     public function uniqueId(): int
