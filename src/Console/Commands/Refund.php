@@ -23,7 +23,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 #[AsCommand('cashier:refund')]
 class Refund extends Command
 {
-    protected $signature = 'cashier:refund {--force}';
+    protected $signature = 'cashier:refund {paymentId?} {--force}';
 
     protected $description = 'Refunds all payment transactions';
 

@@ -63,12 +63,22 @@ abstract class Command extends BaseCommand
             ->with('cashier')
             ->where(static::attribute()->type, $this->getTypes())
             ->where(static::attribute()->status, $this->getStatuses())
+            ->when($this->getPaymentId(), fn (Builder $builder, int|string $id) => $builder
+                ->where($this->modelKey(), $id)
+            )
             ->chunkById($this->size, $callback);
     }
 
     protected function builder(): Builder
     {
         return $this->model()->query(
+            static::payment()->model
+        );
+    }
+
+    protected function modelKey(): string
+    {
+        return $this->model()->primaryKey(
             static::payment()->model
         );
     }
@@ -85,6 +95,19 @@ abstract class Command extends BaseCommand
 
     protected function hasForce(): bool
     {
-        return $this->hasOption('force') && $this->option('force');
+        if ($this->hasOption('force') && $this->option('force')) {
+            return true;
+        }
+
+        return $this->hasOption(' paymentId');
+    }
+
+    protected function getPaymentId(): int|string|null
+    {
+        if ($this->hasOption(' paymentId')) {
+            return $this->option('paymentId');
+        }
+
+        return null;
     }
 }
