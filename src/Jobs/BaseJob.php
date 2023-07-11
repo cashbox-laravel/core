@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Billable;
+use CashierProvider\Core\Concerns\Config\Queue;
 use CashierProvider\Core\Enums\RateLimiterEnum;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
@@ -36,6 +37,9 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+    use Queue;
+
+    public int $tries = 10;
 
     abstract public function handle(): void;
 
@@ -43,7 +47,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
         public Model $payment,
         public bool $force = false
     ) {
-        $this->tries = 1;
+        $this->tries = static::queue()->tries;
     }
 
     public function uniqueId(): int
