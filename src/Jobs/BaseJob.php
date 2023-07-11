@@ -42,7 +42,9 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     public function __construct(
         public Model $payment,
         public bool $force = false
-    ) {}
+    ) {
+        $this->tries = 1;
+    }
 
     public function uniqueId(): int
     {

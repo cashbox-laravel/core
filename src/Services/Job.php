@@ -21,6 +21,7 @@ use CashierProvider\Core\Concerns\Config\Queue;
 use CashierProvider\Core\Concerns\Config\Refund;
 use CashierProvider\Core\Concerns\Helpers\Validatable;
 use CashierProvider\Core\Concerns\Permissions\Allowable;
+use CashierProvider\Core\Data\Config\Queue\QueueNameData;
 use CashierProvider\Core\Jobs\RefundJob;
 use CashierProvider\Core\Jobs\StartJob;
 use CashierProvider\Core\Jobs\VerifyJob;
@@ -49,7 +50,7 @@ class Job
     public function start(): void
     {
         if ($this->authorizeToStart()) {
-            $this->dispatch(StartJob::class, static::queue()->name->start);
+            $this->dispatch(StartJob::class, $this->detectQueue()->start);
 
             if (static::autoRefund()->enabled) {
                 $this->refund(static::autoRefund()->delay);
@@ -60,14 +61,14 @@ class Job
     public function verify(): void
     {
         if ($this->authorizeToVerify()) {
-            $this->dispatch(VerifyJob::class, static::queue()->name->verify);
+            $this->dispatch(VerifyJob::class, $this->detectQueue()->verify);
         }
     }
 
     public function refund(?int $delay = null): void
     {
         if ($this->force || $this->authorizeToRefund()) {
-            $this->dispatch(RefundJob::class, static::queue()->name->refund, $delay);
+            $this->dispatch(RefundJob::class, $this->detectQueue()->refund, $delay);
         }
     }
 
@@ -91,5 +92,10 @@ class Job
             ->onQueue($queue)
             ->afterCommit()
             ->delay($delay);
+    }
+
+    protected function detectQueue(): QueueNameData
+    {
+        return static::queueName($this->payment);
     }
 }
