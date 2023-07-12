@@ -49,10 +49,8 @@ abstract class Statuses
             static::FAILED,
         ]);
 
-        $model = StatusEnum::values();
-
         return ! $this->hasCashier($bank, $status)
-            && ! $this->hasModel($model, $status);
+            && ! $this->hasModel(StatusEnum::values(), $status);
     }
 
     public function isCreated(?StatusEnum $status = null): bool
