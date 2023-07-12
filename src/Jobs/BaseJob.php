@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Queue\SerializesModels;
+use Throwable;
 
 /**
  * @property Model|Billable $payment
@@ -76,9 +77,9 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
             : $this->payment->cashier()->create($data);
     }
 
-    public function uniqueId(): int
+    public function uniqueId(): int|string
     {
-        return $this->payment->getKey();
+        return $this->payment->getKey() . $this->generateUniqueId();
     }
 
     public function middleware(): array
@@ -94,5 +95,19 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     protected function getRateLimiter(): string
     {
         return $this->force ? RateLimiterEnum::disabled() : RateLimiterEnum::enabled();
+    }
+
+    protected function generateUniqueId(): string
+    {
+        try {
+            if (! $this->force) {
+                return '';
+            }
+
+            return retry(2, fn () => '_' . random_bytes(10));
+        }
+        catch (Throwable) {
+            return '_' . (int) $this->force;
+        }
     }
 }
