@@ -21,7 +21,7 @@ use CashierProvider\Core\Data\Http\Response;
 
 class RefundJob extends BaseJob
 {
-    protected function action(): Response
+    protected function request(): Response
     {
         $this->verify();
 

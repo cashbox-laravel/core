@@ -21,7 +21,7 @@ use CashierProvider\Core\Data\Http\Response;
 
 class StartJob extends BaseJob
 {
-    protected function action(): Response
+    protected function request(): Response
     {
         return $this->driver()->start();
     }

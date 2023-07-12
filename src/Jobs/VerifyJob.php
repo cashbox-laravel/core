@@ -24,7 +24,7 @@ class VerifyJob extends BaseJob
 {
     use Allowable;
 
-    protected function action(): Response
+    protected function request(): Response
     {
         $this->start();
 
