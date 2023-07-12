@@ -30,7 +30,7 @@ abstract class Driver
         protected DriverData $data
     ) {}
 
-    public function statuses()
+    public function statuses(): Statuses
     {
         return resolve($this->statuses, [$this->payment]);
     }
