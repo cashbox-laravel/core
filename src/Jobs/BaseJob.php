@@ -57,7 +57,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        retry($this->maxExceptions, fn () => $this->store($this->action()));
+        $this->store($this->action());
     }
 
     public function uniqueId(): int
