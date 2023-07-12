@@ -15,14 +15,19 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace CashierProvider\Core\Http;
 
-use CashierProvider\Core\Data\Http\ResponseData;
-
-class StartJob extends BaseJob
+abstract class Request
 {
-    protected function request(): ResponseData
-    {
-        return $this->driver()->start();
-    }
+    public bool $asJson = true;
+
+    public bool $post = true;
+
+    abstract public function body(): array;
+
+    abstract public function headers(): array;
+
+    abstract public function options(): array;
+
+    abstract public function uri(): string;
 }

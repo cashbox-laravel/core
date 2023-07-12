@@ -15,14 +15,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace CashierProvider\Core\Data\Config;
 
-use CashierProvider\Core\Data\Http\ResponseData;
+use Spatie\LaravelData\Data;
 
-class StartJob extends BaseJob
+class LogsData extends Data
 {
-    protected function request(): ResponseData
-    {
-        return $this->driver()->start();
-    }
+    public ?string $info;
+
+    public ?string $error;
 }

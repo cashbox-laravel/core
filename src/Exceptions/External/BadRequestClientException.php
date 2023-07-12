@@ -15,14 +15,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace CashierProvider\Core\Exceptions\External;
 
-use CashierProvider\Core\Data\Http\ResponseData;
+use CashierProvider\Core\Exceptions\BaseException;
 
-class StartJob extends BaseJob
+class BadRequestClientException extends BaseException
 {
-    protected function request(): ResponseData
-    {
-        return $this->driver()->start();
-    }
+    protected int $statusCode = 400;
+
+    protected string $reason = 'Bad Request';
 }

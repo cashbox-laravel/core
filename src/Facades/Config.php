@@ -20,6 +20,7 @@ namespace CashierProvider\Core\Facades;
 use CashierProvider\Core\Data\Config\ConfigData;
 use CashierProvider\Core\Data\Config\DetailsData;
 use CashierProvider\Core\Data\Config\DriverData;
+use CashierProvider\Core\Data\Config\LogsData;
 use CashierProvider\Core\Data\Config\Payment\PaymentData;
 use CashierProvider\Core\Data\Config\Queue\QueueData;
 use CashierProvider\Core\Data\Config\RefundData;
@@ -30,6 +31,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isProduction()
  * @method static DetailsData details()
  * @method static DriverData driver(int|string $name)
+ * @method static LogsData logs()
  * @method static PaymentData payment()
  * @method static QueueData queue()
  * @method static RefundData refund()

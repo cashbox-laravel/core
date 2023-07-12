@@ -19,7 +19,7 @@ namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Billable;
 use CashierProvider\Core\Concerns\Config\Queue;
-use CashierProvider\Core\Data\Http\Response;
+use CashierProvider\Core\Data\Http\ResponseData;
 use CashierProvider\Core\Enums\RateLimiterEnum;
 use CashierProvider\Core\Exceptions\External\EmptyResponseException;
 use CashierProvider\Core\Services\Driver;
@@ -46,7 +46,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 
     public int $maxExceptions = 3;
 
-    abstract protected function request(): Response;
+    abstract protected function request(): ResponseData;
 
     public function __construct(
         public Model $payment,

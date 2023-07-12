@@ -20,7 +20,7 @@ namespace CashierProvider\Core\Data\Http;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Spatie\LaravelData\Data;
 
-abstract class Response extends Data
+abstract class ResponseData extends Data
 {
     abstract public function getExternalId(): ?string;
 

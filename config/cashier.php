@@ -142,6 +142,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Logs
+    |--------------------------------------------------------------------------
+    |
+    | This setting specifies the channel name for logging requests and
+    | responses from the bank.
+    |
+    | Specify `null` to disable logging.
+    |
+    */
+
+    'logs' => [
+        'info'  => env('CASHIER_LOGS_CHANNEL_INFO'),
+        'error' => env('CASHIER_LOGS_CHANNEL_ERROR'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Queue Connections
     |--------------------------------------------------------------------------
     |
