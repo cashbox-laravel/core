@@ -20,18 +20,13 @@ namespace CashierProvider\Core\Services;
 use CashierProvider\Core\Concerns\Config\Payment\Attributes;
 use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Enums\StatusEnum;
-use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-/**
- * @method static Statuses make(Model $payment)
- */
 abstract class Statuses
 {
     use Attributes;
-    use Makeable;
     use Payments;
 
     public const FAILED    = [];

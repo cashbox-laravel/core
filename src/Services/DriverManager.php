@@ -36,7 +36,7 @@ class DriverManager
 
     protected static function call(DriverData $data, Model $payment): Driver
     {
-        return call_user_func([$data->driver, 'make'], $data, $payment);
+        return resolve($data->driver, compact('payment', 'data'));
     }
 
     protected static function data(Model $payment): ?DriverData

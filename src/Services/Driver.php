@@ -23,12 +23,17 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver
 {
+    protected string $statuses;
+
     public function __construct(
-        protected DriverData $data,
-        protected Model $payment
+        protected Model $payment,
+        protected DriverData $data
     ) {}
 
-    public function statuses() {}
+    public function statuses()
+    {
+        return resolve($this->statuses, [$this->payment]);
+    }
 
     public function start(): Response {}
 
