@@ -35,7 +35,7 @@ trait Queue
     protected static function queueName(?Model $payment = null): QueueNameData
     {
         if ($payment) {
-            return static::driverByModel($payment)->queue ?? static::queue()->name;
+            return static::driverByModel($payment)->getQueue();
         }
 
         return static::queue()->name;

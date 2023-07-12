@@ -19,6 +19,7 @@ namespace CashierProvider\Core\Data\Config;
 
 use CashierProvider\Core\Data\Config\Drivers\CredentialsData;
 use CashierProvider\Core\Data\Config\Queue\QueueNameData;
+use CashierProvider\Core\Facades\Config;
 use Spatie\LaravelData\Data;
 
 class DriverData extends Data
@@ -30,4 +31,9 @@ class DriverData extends Data
     public ?CredentialsData $credentials;
 
     public ?QueueNameData $queue;
+
+    public function getQueue(): QueueNameData
+    {
+        return $this->queue ?? Config::queue()->name;
+    }
 }
