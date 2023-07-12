@@ -19,7 +19,9 @@ namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Billable;
 use CashierProvider\Core\Concerns\Config\Queue;
+use CashierProvider\Core\Data\Http\Response;
 use CashierProvider\Core\Enums\RateLimiterEnum;
+use CashierProvider\Core\Exceptions\External\EmptyResponseException;
 use CashierProvider\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -35,15 +37,15 @@ use Illuminate\Queue\SerializesModels;
 abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 {
     use InteractsWithQueue;
+    use Queue;
     use Queueable;
     use SerializesModels;
-    use Queue;
 
     public int $tries = 10;
 
     public int $maxExceptions = 3;
 
-    abstract public function handle(): void;
+    abstract protected function action(): Response;
 
     public function __construct(
         public Model $payment,
@@ -51,6 +53,11 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     ) {
         $this->tries         = static::queue()->tries;
         $this->maxExceptions = static::queue()->exceptions;
+    }
+
+    public function handle(): void
+    {
+        retry($this->maxExceptions, fn () => $this->store($this->action()));
     }
 
     public function uniqueId(): int
@@ -61,6 +68,29 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     public function middleware(): array
     {
         return [new RateLimitedWithRedis($this->getRateLimiter())];
+    }
+
+    protected function store(Response $response, bool $replaceInfo = false): void
+    {
+        if ($response->isEmpty()) {
+            $this->fail(new EmptyResponseException());
+        }
+
+        $data = [
+            'external_id'  => $response->getExternalId(),
+            'operation_id' => $response->getOperationId(),
+            'info'         => $response->toArray(),
+        ];
+
+        if (! $replaceInfo) {
+            $stored = $this->payment->cashier?->info?->toArray() ?? [];
+
+            $data['info'] = array_merge($stored, $data['info']);
+        }
+
+        $this->payment->cashier
+            ? $this->payment->cashier->update($data)
+            : $this->payment->cashier()->create($data);
     }
 
     protected function driver(): Driver

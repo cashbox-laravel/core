@@ -17,4 +17,24 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-class VerifyJob extends BaseJob {}
+use CashierProvider\Core\Concerns\Permissions\Allowable;
+use CashierProvider\Core\Data\Http\Response;
+
+class VerifyJob extends BaseJob
+{
+    use Allowable;
+
+    protected function action(): Response
+    {
+        $this->start();
+
+        return $this->driver()->verify();
+    }
+
+    protected function start(): void
+    {
+        if ($this->authorizeToStart()) {
+            dispatch_sync(new StartJob($this->payment, true));
+        }
+    }
+}

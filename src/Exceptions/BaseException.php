@@ -25,17 +25,21 @@ class BaseException extends Exception
 
     protected string $reason;
 
-    public function __construct(object|string $haystack, ?string $needle = null)
+    public function __construct(object|string|null $haystack = null, ?string $needle = null)
     {
         parent::__construct($this->reason($haystack, $needle), $this->statusCode);
     }
 
-    protected function reason(string $haystack, string $needle): string
+    protected function reason(object|string|null $haystack, string $needle): string
     {
-        return sprintf($this->reason, $this->haystack($haystack), $needle);
+        if ($haystack = $this->haystack($haystack)) {
+            return sprintf($this->reason, $haystack, $needle);
+        }
+
+        return $this->reason;
     }
 
-    protected function haystack(object|string $haystack): string
+    protected function haystack(object|string|null $haystack): ?string
     {
         return is_object($haystack) ? get_class($haystack) : $haystack;
     }

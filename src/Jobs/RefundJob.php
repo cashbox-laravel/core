@@ -17,4 +17,24 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-class RefundJob extends BaseJob {}
+use CashierProvider\Core\Data\Http\Response;
+
+class RefundJob extends BaseJob
+{
+    protected function action(): Response
+    {
+        $this->verify();
+
+        return $this->refund();
+    }
+
+    protected function verify(): void
+    {
+        dispatch_sync(new VerifyJob($this->payment, true));
+    }
+
+    protected function refund(): Response
+    {
+        return $this->driver()->refund();
+    }
+}

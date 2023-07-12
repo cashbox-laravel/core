@@ -15,14 +15,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace CashierProvider\Core\Exceptions\External;
 
-use CashierProvider\Core\Data\Http\Response;
+use CashierProvider\Core\Exceptions\BaseException;
 
-class StartJob extends BaseJob
+class EmptyResponseException extends BaseException
 {
-    protected function action(): Response
-    {
-        return $this->driver()->start();
-    }
+    protected int $statusCode = 400;
+
+    protected string $reason = 'Bank API returned an empty response body.';
 }

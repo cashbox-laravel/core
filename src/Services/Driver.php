@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Data\Config\DriverData;
+use CashierProvider\Core\Data\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver
@@ -28,4 +29,10 @@ abstract class Driver
     ) {}
 
     public function statuses() {}
+
+    public function start(): Response {}
+
+    public function verify(): Response {}
+
+    public function refund(): Response {}
 }

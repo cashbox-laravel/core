@@ -22,6 +22,9 @@ use CashierProvider\Core\Services\Driver;
 use CashierProvider\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * @property-read Details $cashier
+ */
 trait Billable
 {
     public function cashier(): Relation
