@@ -19,6 +19,9 @@ use CashierProvider\Core\Concerns\Config\Payment\Payments;
 use CashierProvider\Core\Enums\StatusEnum;
 use Spatie\LaravelData\Data;
 
+/**
+ * @deprecated 
+ */
 abstract class InfoData extends Data
 {
     use Payments;

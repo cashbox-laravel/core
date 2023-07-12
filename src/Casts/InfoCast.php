@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Casts;
 
 use CashierProvider\Core\Concerns\Config\Application;
-use CashierProvider\Core\Http\Response;
+use CashierProvider\Core\Http\ResponseInfo;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,7 +26,7 @@ class InfoCast implements CastsAttributes
 {
     use Application;
 
-    public function get(Model $model, string $key, mixed $value, array $attributes): Response
+    public function get(Model $model, string $key, mixed $value, array $attributes): ResponseInfo
     {
         $instance = $model->parent->cashierDriver()->info;
 

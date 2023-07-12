@@ -17,13 +17,25 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Http;
 
+use DragonCode\Support\Concerns\Makeable;
+use Illuminate\Database\Eloquent\Model;
+
 abstract class Request
 {
+    use Makeable;
+
     abstract public function body(): array;
 
     abstract public function headers(): array;
 
-    abstract public function options(): array;
+    abstract public function uri(): ?string;
 
-    abstract public function uri(): string;
+    public function __construct(
+        protected Model $payment
+    ) {}
+
+    public function options(): array
+    {
+        return [];
+    }
 }
