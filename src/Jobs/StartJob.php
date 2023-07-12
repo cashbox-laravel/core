@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Data\Http\ResponseData;
+use CashierProvider\Core\Http\Response;
 
 class StartJob extends BaseJob
 {
-    protected function request(): ResponseData
+    protected function request(): Response
     {
         return $this->driver()->start();
     }

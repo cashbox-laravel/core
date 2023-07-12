@@ -60,7 +60,7 @@ abstract class Command extends BaseCommand
     protected function payments(Closure $callback): void
     {
         $this->builder()
-            ->with('cashier')
+            ->with('cashier.parent')
             ->where(static::attribute()->type, $this->getTypes())
             ->where(static::attribute()->status, $this->getStatuses())
             ->when($this->getPaymentId(), fn (Builder $builder, int|string $id) => $builder

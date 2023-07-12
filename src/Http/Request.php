@@ -19,10 +19,6 @@ namespace CashierProvider\Core\Http;
 
 abstract class Request
 {
-    public bool $asJson = true;
-
-    public bool $post = true;
-
     abstract public function body(): array;
 
     abstract public function headers(): array;

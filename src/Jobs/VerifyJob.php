@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Jobs;
 
 use CashierProvider\Core\Concerns\Permissions\Allowable;
-use CashierProvider\Core\Data\Http\ResponseData;
+use CashierProvider\Core\Http\Response;
 
 class VerifyJob extends BaseJob
 {
     use Allowable;
 
-    protected function request(): ResponseData
+    protected function request(): Response
     {
         $this->start();
 

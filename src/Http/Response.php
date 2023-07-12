@@ -17,9 +17,21 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Http;
 
-class Response
+use DragonCode\Support\Facades\Helpers\Arr;
+use Spatie\LaravelData\Data;
+
+abstract class Response extends Data
 {
-    public function __construct(
-        protected readonly array $content
-    ) {}
+    abstract public function getExternalId(): ?string;
+
+    abstract public function getOperationId(): ?string;
+
+    abstract public function getStatus(): ?string;
+
+    public function isEmpty(): bool
+    {
+        return Arr::of($this->toArray())
+            ->filter(fn (mixed $value) => $value !== null)
+            ->isEmpty();
+    }
 }

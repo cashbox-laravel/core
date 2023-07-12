@@ -19,7 +19,6 @@ namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Concerns\Helpers\Logging;
 use CashierProvider\Core\Http\Request;
-use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http as Client;
 
@@ -38,14 +37,7 @@ class Http
             $request->headers(),
             $request->options(),
             $request->body(),
-            $request->asJson,
-            $request->post
-        )->onError(
-            fn (Response $instance) => $exception->throw(
-                (string) $instance->effectiveUri(),
-                $instance->status(),
-                $instance->json()
-            )
+            $exception
         );
 
         static::log($request, $response);
@@ -53,26 +45,20 @@ class Http
         return $response->json();
     }
 
-    protected function request(
-        string $uri,
-        array $headers,
-        array $options,
-        array $data,
-        bool $asJson,
-        bool $asPost
-    ): Response {
+    protected function request(string $uri, array $headers, array $options, array $data, Exception $exception): Response
+    {
         return Client::withHeaders($headers)
             ->retry($this->tries, $this->sleep)
             ->withOptions($options)
-            ->when(
-                $asJson,
-                fn (PendingRequest $request) => $request->asJson()->acceptJson(),
-                fn (PendingRequest $request) => $request->asMultipart()
-            )
-            ->when(
-                $asPost,
-                fn (PendingRequest $request) => $request->post($uri, $data),
-                fn (PendingRequest $request) => $request->get($uri, $data)
+            ->acceptJson()
+            ->asJson()
+            ->post($uri, $data)
+            ->onError(
+                fn (Response $instance) => $exception->throw(
+                    (string) $instance->effectiveUri(),
+                    $instance->status(),
+                    $instance->json()
+                )
             );
     }
 }

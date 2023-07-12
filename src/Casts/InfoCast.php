@@ -18,19 +18,17 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Casts;
 
 use CashierProvider\Core\Concerns\Config\Application;
-use CashierProvider\Core\Concerns\Config\Payment\Drivers;
-use CashierProvider\Core\Data\Models\InfoData;
+use CashierProvider\Core\Http\Response;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
 class InfoCast implements CastsAttributes
 {
     use Application;
-    use Drivers;
 
-    public function get(Model $model, string $key, mixed $value, array $attributes): InfoData
+    public function get(Model $model, string $key, mixed $value, array $attributes): Response
     {
-        $instance = static::driverByModel($model->parent)->details;
+        $instance = $model->parent->cashierDriver()->info;
 
         return call_user_func([$instance, 'from'], json_decode($value, true));
     }

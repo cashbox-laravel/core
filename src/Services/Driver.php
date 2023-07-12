@@ -18,16 +18,23 @@ declare(strict_types=1);
 namespace CashierProvider\Core\Services;
 
 use CashierProvider\Core\Data\Config\DriverData;
-use CashierProvider\Core\Data\Http\ResponseData;
 use CashierProvider\Core\Http\Request;
 use CashierProvider\Core\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver
 {
+    public string $info;
+
     protected string $statuses;
 
     protected string $exceptions;
+
+    abstract public function refund(): Response;
+
+    abstract public function start(): Response;
+
+    abstract public function verify(): Response;
 
     public function __construct(
         protected Model $payment,
@@ -40,19 +47,11 @@ abstract class Driver
         return resolve($this->statuses, [$this->payment]);
     }
 
-    public function start(): ResponseData {}
-
-    public function verify(): ResponseData {}
-
-    public function refund(): ResponseData {}
-
-    protected function request(Request $request, string $response): Response
+    protected function request(Request $request): Response
     {
-        $exceptions = $this->resolveException();
+        $content = $this->http->send($request, $this->resolveException());
 
-        $content = $this->http->send($request, $exceptions);
-
-        return new $response($content);
+        return call_user_func([$this->info, 'from'], $content);
     }
 
     protected function resolveException(): Exception

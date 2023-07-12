@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Jobs;
 
-use CashierProvider\Core\Data\Http\ResponseData;
+use CashierProvider\Core\Http\Response;
 
 class RefundJob extends BaseJob
 {
-    protected function request(): ResponseData
+    protected function request(): Response
     {
         $this->verify();
 
@@ -33,7 +33,7 @@ class RefundJob extends BaseJob
         dispatch_sync(new VerifyJob($this->payment, true));
     }
 
-    protected function refund(): ResponseData
+    protected function refund(): Response
     {
         return $this->driver()->refund();
     }

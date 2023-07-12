@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace CashierProvider\Core\Models;
 
+use CashierProvider\Core\Billable;
 use CashierProvider\Core\Casts\InfoCast;
 use CashierProvider\Core\Concerns\Config\Details as DetailsConcern;
 use CashierProvider\Core\Data\Models\InfoData;
@@ -28,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 /**
  * @property InfoData $info
  * @property StatusEnum $status
- * @property-read Model $parent
+ * @property-read Model|Billable $parent
  */
 class Details extends Model
 {
