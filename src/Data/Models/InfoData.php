@@ -20,7 +20,7 @@ use CashierProvider\Core\Enums\StatusEnum;
 use Spatie\LaravelData\Data;
 
 /**
- * @deprecated 
+ * @deprecated
  */
 abstract class InfoData extends Data
 {

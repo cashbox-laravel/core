@@ -23,7 +23,7 @@ use CashierProvider\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
- * @property-read Details $cashier
+ * @property Details $cashier
  */
 trait Billable
 {

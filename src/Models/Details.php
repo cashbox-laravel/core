@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 /**
  * @property InfoData $info
  * @property StatusEnum $status
- * @property-read Model|Billable $parent
+ * @property Model|Billable $parent
  */
 class Details extends Model
 {
