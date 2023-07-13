@@ -1,6 +1,6 @@
-# Cashbox Core
+# Core
 
-![cashbox](https://preview.dragon-code.pro/cashbox/core.svg?brand=laravel)
+![Core](https://preview.dragon-code.pro/cashbox/core.svg?brand=laravel&preposition=none)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
@@ -13,7 +13,8 @@
 
 ## About Cashbox
 
-`Cashier` provides an expressive and user-friendly interface for managing billing and payment verification services.
+`Cashbox for Laravel` provides an expressive and user-friendly interface for managing billing and payment verification
+services.
 We believe that development should be an enjoyable, creative experience to be truly rewarding.
 `Cashbox` tries to ease development by simplifying the tasks of adding payment systems to a web application.
 
@@ -21,8 +22,7 @@ The project contains some ready-made solutions of payment systems, but you can o
 
 ## About Core
 
-This project contains the basic functionality of working with payment systems.
-It works only in conjunction with payment drivers.
+Cashbox provides an expressive, fluent interface to manage billing services.
 
 ## Documentation
 
@@ -37,7 +37,7 @@ We also have Telegram channels where we post announcements:
 ## Contributing
 
 Thank you for considering contributing to the `Cashbox`!
-The contribution guide can be found in the [Cashbox documentation](https://cashbox-laravel.github.io/docs).
+The contribution guide can be found in the [documentation](https://cashbox-laravel.github.io/docs).
 
 ## Code of Conduct
 
@@ -50,8 +50,9 @@ Please review [our security policy](https://cashbox-laravel.github.io/docs) on h
 
 ## License
 
-The Cashbox is open-source software that works in conjunction with
+The `Cashbox` is open-source software that works in conjunction with
 the [Laravel framework](https://laravel.com/), distributed under the MIT license.
+
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/cashbox/core.svg?style=flat-square
 

@@ -84,6 +84,7 @@
                 "Cashbox\\Core\\Providers\\RateLimiterServiceProvider"
             ]
         },
+        "title": "Core",
         "thanks": [
             {
                 "name": "dragon-code/laravel-support",
