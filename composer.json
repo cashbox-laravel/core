@@ -17,8 +17,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/cashbox/foundation/issues",
-        "source": "https://github.com/cashbox/foundation"
+        "issues": "https://github.com/cashbox-laravel/foundation/issues",
+        "source": "https://github.com/cashbox-laravel/foundation"
     },
     "funding": [
         {
@@ -127,55 +127,55 @@
             },
             {
                 "name": "cashbox/foundation",
-                "url": "https://github.com/cashbox/foundation"
+                "url": "https://github.com/cashbox-laravel/foundation"
             },
             {
                 "name": "cashbox/docs",
-                "url": "https://github.com/cashbox/docs"
+                "url": "https://github.com/cashbox-laravel/docs"
             },
             {
                 "name": "cashbox/core",
-                "url": "https://github.com/cashbox/core"
+                "url": "https://github.com/cashbox-laravel/core"
             },
             {
                 "name": "cashbox/cash",
-                "url": "https://github.com/cashbox/cash"
+                "url": "https://github.com/cashbox-laravel/cash"
             },
             {
                 "name": "cashbox/sber-auth",
-                "url": "https://github.com/cashbox/sber-auth"
+                "url": "https://github.com/cashbox-laravel/sber-auth"
             },
             {
                 "name": "cashbox/sber-online",
-                "url": "https://github.com/cashbox/sber-online"
+                "url": "https://github.com/cashbox-laravel/sber-online"
             },
             {
                 "name": "cashbox/sber-qr",
-                "url": "https://github.com/cashbox/sber-qr"
+                "url": "https://github.com/cashbox-laravel/sber-qr"
             },
             {
                 "name": "cashbox/tinkoff-auth",
-                "url": "https://github.com/cashbox/tinkoff-auth"
+                "url": "https://github.com/cashbox-laravel/tinkoff-auth"
             },
             {
                 "name": "cashbox/tinkoff-credit",
-                "url": "https://github.com/cashbox/tinkoff-credit"
+                "url": "https://github.com/cashbox-laravel/tinkoff-credit"
             },
             {
                 "name": "cashbox/tinkoff-online",
-                "url": "https://github.com/cashbox/tinkoff-online"
+                "url": "https://github.com/cashbox-laravel/tinkoff-online"
             },
             {
                 "name": "cashbox/tinkoff-qr",
-                "url": "https://github.com/cashbox/tinkoff-qr"
+                "url": "https://github.com/cashbox-laravel/tinkoff-qr"
             },
             {
                 "name": "cashbox/driver",
-                "url": "https://github.com/cashbox/driver"
+                "url": "https://github.com/cashbox-laravel/driver"
             },
             {
                 "name": "cashbox/driver-auth",
-                "url": "https://github.com/cashbox/driver-auth"
+                "url": "https://github.com/cashbox-laravel/driver-auth"
             }
         ]
     }
