@@ -1,6 +1,6 @@
 {
     "name": "cashbox/core",
-    "description": "Cashier provides an expressive, fluent interface to manage billing services.",
+    "description": "Cashbox provides an expressive, fluent interface to manage billing services.",
     "license": "MIT",
     "type": "library",
     "keywords": [
