@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config;
+namespace Cashbox\Core\Data\Config;
 
-use CashierProvider\Core\Data\Casts\NumberCast;
+use Cashbox\Core\Data\Casts\NumberCast;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 

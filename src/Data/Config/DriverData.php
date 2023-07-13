@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config;
+namespace Cashbox\Core\Data\Config;
 
-use CashierProvider\Core\Data\Config\Drivers\CredentialsData;
-use CashierProvider\Core\Data\Config\Queue\QueueNameData;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Data\Config\Drivers\CredentialsData;
+use Cashbox\Core\Data\Config\Queue\QueueNameData;
+use Cashbox\Core\Facades\Config;
 use Spatie\LaravelData\Data;
 
 class DriverData extends Data

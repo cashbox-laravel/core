@@ -15,12 +15,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Providers;
+namespace Cashbox\Core\Providers;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Helpers\DateTime;
-use CashierProvider\Core\Enums\RateLimiterEnum;
-use CashierProvider\Core\Jobs\BaseJob;
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Helpers\DateTime;
+use Cashbox\Core\Enums\RateLimiterEnum;
+use Cashbox\Core\Jobs\BaseJob;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\RateLimiter;

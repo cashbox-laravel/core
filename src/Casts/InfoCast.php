@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Casts;
+namespace Cashbox\Core\Casts;
 
-use CashierProvider\Core\Concerns\Config\Application;
-use CashierProvider\Core\Http\ResponseInfo;
+use Cashbox\Core\Concerns\Config\Application;
+use Cashbox\Core\Http\ResponseInfo;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 

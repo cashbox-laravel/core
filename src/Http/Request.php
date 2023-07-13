@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Http;
+namespace Cashbox\Core\Http;
 
 use DragonCode\Support\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;

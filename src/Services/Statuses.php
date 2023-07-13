@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Config\Payment\Payments;
-use CashierProvider\Core\Enums\StatusEnum;
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Enums\StatusEnum;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;

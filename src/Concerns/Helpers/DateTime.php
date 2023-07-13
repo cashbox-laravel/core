@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Helpers;
+namespace Cashbox\Core\Concerns\Helpers;
 
 use Carbon\Carbon;
 use DateTimeInterface;

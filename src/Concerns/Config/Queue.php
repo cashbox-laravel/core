@@ -15,12 +15,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config;
+namespace Cashbox\Core\Concerns\Config;
 
-use CashierProvider\Core\Concerns\Config\Payment\Drivers;
-use CashierProvider\Core\Data\Config\Queue\QueueData;
-use CashierProvider\Core\Data\Config\Queue\QueueNameData;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Concerns\Config\Payment\Drivers;
+use Cashbox\Core\Data\Config\Queue\QueueData;
+use Cashbox\Core\Data\Config\Queue\QueueNameData;
+use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 trait Queue

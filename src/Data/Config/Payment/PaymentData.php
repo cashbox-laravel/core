@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Payment;
+namespace Cashbox\Core\Data\Config\Payment;
 
-use CashierProvider\Core\Data\Casts\PaymentModelCast;
+use Cashbox\Core\Data\Casts\PaymentModelCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;

@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace Cashbox\Core\Jobs;
 
-use CashierProvider\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\ResponseInfo;
 
 class RefundJob extends BaseJob
 {

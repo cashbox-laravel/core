@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Enums;
+namespace Cashbox\Core\Enums;
 
 use ArchTech\Enums\InvokableCases;
 use ArchTech\Enums\Values;
-use CashierProvider\Core\Concerns\Enums\From;
+use Cashbox\Core\Concerns\Enums\From;
 
 /**
  * @method string deleted()

@@ -13,7 +13,7 @@
  * @see https://github.com/cashbox-laravel/foundation
  */
 
-namespace CashierProvider\Core\Data\Casts;
+namespace Cashbox\Core\Data\Casts;
 
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;

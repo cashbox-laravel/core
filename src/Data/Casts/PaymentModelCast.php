@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Casts;
+namespace Cashbox\Core\Data\Casts;
 
-use CashierProvider\Core\Services\Validator;
+use Cashbox\Core\Services\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;

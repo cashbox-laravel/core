@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core;
+namespace Cashbox\Core;
 
-use CashierProvider\Core\Models\Details;
-use CashierProvider\Core\Services\Driver;
-use CashierProvider\Core\Services\DriverManager;
+use Cashbox\Core\Models\Details;
+use Cashbox\Core\Services\Driver;
+use Cashbox\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**

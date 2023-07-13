@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config\Payment;
+namespace Cashbox\Core\Concerns\Config\Payment;
 
-use CashierProvider\Core\Data\Config\Payment\StatusData;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Data\Config\Payment\StatusData;
+use Cashbox\Core\Facades\Config;
 
 trait Statuses
 {

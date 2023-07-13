@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Data\Config\DriverData;
-use CashierProvider\Core\Http\ResponseInfo;
+use Cashbox\Core\Data\Config\DriverData;
+use Cashbox\Core\Http\ResponseInfo;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver

@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Permissions;
+namespace Cashbox\Core\Concerns\Permissions;
 
-use CashierProvider\Core\Services\Authorize;
+use Cashbox\Core\Services\Authorize;
 
 trait Allowable
 {

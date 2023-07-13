@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Providers;
+namespace Cashbox\Core\Providers;
 
-use CashierProvider\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 use function class_exists;

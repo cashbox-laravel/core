@@ -15,16 +15,16 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Facades;
+namespace Cashbox\Core\Facades;
 
-use CashierProvider\Core\Data\Config\ConfigData;
-use CashierProvider\Core\Data\Config\DetailsData;
-use CashierProvider\Core\Data\Config\DriverData;
-use CashierProvider\Core\Data\Config\LogsData;
-use CashierProvider\Core\Data\Config\Payment\PaymentData;
-use CashierProvider\Core\Data\Config\Queue\QueueData;
-use CashierProvider\Core\Data\Config\RefundData;
-use CashierProvider\Core\Data\Config\VerifyData;
+use Cashbox\Core\Data\Config\ConfigData;
+use Cashbox\Core\Data\Config\DetailsData;
+use Cashbox\Core\Data\Config\DriverData;
+use Cashbox\Core\Data\Config\LogsData;
+use Cashbox\Core\Data\Config\Payment\PaymentData;
+use Cashbox\Core\Data\Config\Queue\QueueData;
+use Cashbox\Core\Data\Config\RefundData;
+use Cashbox\Core\Data\Config\VerifyData;
 use Illuminate\Support\Facades\Facade;
 
 /**

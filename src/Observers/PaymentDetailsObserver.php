@@ -15,12 +15,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Observers;
+namespace Cashbox\Core\Observers;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Config\Payment\Payments;
-use CashierProvider\Core\Enums\StatusEnum;
-use CashierProvider\Core\Models\Details;
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Enums\StatusEnum;
+use Cashbox\Core\Models\Details;
 use Illuminate\Database\Eloquent\Model;
 
 class PaymentDetailsObserver

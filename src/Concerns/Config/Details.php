@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config;
+namespace Cashbox\Core\Concerns\Config;
 
-use CashierProvider\Core\Data\Config\DetailsData;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Data\Config\DetailsData;
+use Cashbox\Core\Facades\Config;
 
 trait Details
 {

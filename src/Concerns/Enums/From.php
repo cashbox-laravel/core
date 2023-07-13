@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Enums;
+namespace Cashbox\Core\Concerns\Enums;
 
 use OutOfBoundsException;
 

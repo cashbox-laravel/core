@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config;
+namespace Cashbox\Core\Data\Config;
 
 use Spatie\LaravelData\Data;
 

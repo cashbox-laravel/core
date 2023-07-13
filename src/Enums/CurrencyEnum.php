@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Enums;
+namespace Cashbox\Core\Enums;
 
 use ArchTech\Enums\Options;
-use CashierProvider\Core\Concerns\Enums\From;
+use Cashbox\Core\Concerns\Enums\From;
 
 /** @see ISO-4217 */
 enum CurrencyEnum: int

@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Enums;
+namespace Cashbox\Core\Enums;
 
 use ArchTech\Enums\InvokableCases;
 

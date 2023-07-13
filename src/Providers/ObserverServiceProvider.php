@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Providers;
+namespace Cashbox\Core\Providers;
 
-use CashierProvider\Core\Models\Details;
-use CashierProvider\Core\Observers\PaymentDetailsObserver;
-use CashierProvider\Core\Observers\PaymentObserver;
+use Cashbox\Core\Models\Details;
+use Cashbox\Core\Observers\PaymentDetailsObserver;
+use Cashbox\Core\Observers\PaymentObserver;
 
 class ObserverServiceProvider extends BaseProvider
 {

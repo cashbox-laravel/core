@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\Internal;
+namespace Cashbox\Core\Exceptions\Internal;
 
-use CashierProvider\Core\Exceptions\BaseException;
+use Cashbox\Core\Exceptions\BaseException;
 
 class UnknownDriverConfigException extends BaseException
 {

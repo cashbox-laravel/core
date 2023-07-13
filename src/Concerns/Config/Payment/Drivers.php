@@ -15,12 +15,12 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config\Payment;
+namespace Cashbox\Core\Concerns\Config\Payment;
 
-use CashierProvider\Core\Concerns\Transformers\EnumsTransformer;
-use CashierProvider\Core\Data\Config\DriverData;
-use CashierProvider\Core\Exceptions\Internal\UnknownDriverConfigException;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Concerns\Transformers\EnumsTransformer;
+use Cashbox\Core\Data\Config\DriverData;
+use Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException;
+use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

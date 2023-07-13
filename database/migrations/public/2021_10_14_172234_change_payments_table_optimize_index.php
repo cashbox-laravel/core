@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Concerns\Migrations\PublicMigration;
+use Cashbox\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 
 new class extends PublicMigration {

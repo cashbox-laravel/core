@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions;
+namespace Cashbox\Core\Exceptions;
 
 use Exception;
 

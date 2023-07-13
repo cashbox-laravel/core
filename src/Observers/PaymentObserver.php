@@ -15,13 +15,13 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Observers;
+namespace Cashbox\Core\Observers;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Events\Notifiable;
-use CashierProvider\Core\Concerns\Helpers\Jobs;
-use CashierProvider\Core\Concerns\Permissions\Allowable;
-use CashierProvider\Core\Enums\StatusEnum;
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Events\Notifiable;
+use Cashbox\Core\Concerns\Helpers\Jobs;
+use Cashbox\Core\Concerns\Permissions\Allowable;
+use Cashbox\Core\Enums\StatusEnum;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 

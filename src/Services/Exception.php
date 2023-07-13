@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Exceptions\External\BadRequestClientException;
+use Cashbox\Core\Exceptions\External\BadRequestClientException;
 
 abstract class Exception
 {

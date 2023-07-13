@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Data\Config\Queue;
+namespace Cashbox\Core\Data\Config\Queue;
 
-use CashierProvider\Core\Data\Casts\FromEnumCast;
+use Cashbox\Core\Data\Casts\FromEnumCast;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 

@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Migrations;
+namespace Cashbox\Core\Concerns\Migrations;
 
-use CashierProvider\Core\Concerns\Config\Details;
-use CashierProvider\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Concerns\Config\Details;
+use Cashbox\Core\Concerns\Config\Payment\Payments;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Builder;

@@ -13,10 +13,10 @@
  * @see https://github.com/cashbox-laravel/foundation
  */
 
-namespace CashierProvider\Core\Data\Models;
+namespace Cashbox\Core\Data\Models;
 
-use CashierProvider\Core\Concerns\Config\Payment\Payments;
-use CashierProvider\Core\Enums\StatusEnum;
+use Cashbox\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Enums\StatusEnum;
 use Spatie\LaravelData\Data;
 
 /**

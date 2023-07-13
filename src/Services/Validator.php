@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Billable;
-use CashierProvider\Core\Exceptions\Internal\IncorrectPaymentModelException;
+use Cashbox\Core\Billable;
+use Cashbox\Core\Exceptions\Internal\IncorrectPaymentModelException;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 

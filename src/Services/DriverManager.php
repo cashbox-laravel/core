@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Concerns\Config\Payment\Drivers;
-use CashierProvider\Core\Concerns\Helpers\Validatable;
-use CashierProvider\Core\Data\Config\DriverData;
+use Cashbox\Core\Concerns\Config\Payment\Drivers;
+use Cashbox\Core\Concerns\Helpers\Validatable;
+use Cashbox\Core\Data\Config\DriverData;
 use Illuminate\Database\Eloquent\Model;
 
 class DriverManager

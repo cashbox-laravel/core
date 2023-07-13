@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Exceptions\External;
+namespace Cashbox\Core\Exceptions\External;
 
-use CashierProvider\Core\Exceptions\BaseException;
+use Cashbox\Core\Exceptions\BaseException;
 
 class EmptyResponseException extends BaseException
 {

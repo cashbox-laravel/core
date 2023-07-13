@@ -15,14 +15,14 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace Cashbox\Core\Jobs;
 
-use CashierProvider\Core\Billable;
-use CashierProvider\Core\Concerns\Config\Queue;
-use CashierProvider\Core\Enums\RateLimiterEnum;
-use CashierProvider\Core\Exceptions\External\EmptyResponseException;
-use CashierProvider\Core\Http\ResponseInfo;
-use CashierProvider\Core\Services\Driver;
+use Cashbox\Core\Billable;
+use Cashbox\Core\Concerns\Config\Queue;
+use Cashbox\Core\Enums\RateLimiterEnum;
+use Cashbox\Core\Exceptions\External\EmptyResponseException;
+use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;

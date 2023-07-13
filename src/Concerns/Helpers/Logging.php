@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Helpers;
+namespace Cashbox\Core\Concerns\Helpers;
 
-use CashierProvider\Core\Facades\Config;
-use CashierProvider\Core\Http\Request;
+use Cashbox\Core\Facades\Config;
+use Cashbox\Core\Http\Request;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Log;
 use Psr\Log\LoggerInterface;

@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Jobs;
+namespace Cashbox\Core\Jobs;
 
-use CashierProvider\Core\Concerns\Permissions\Allowable;
-use CashierProvider\Core\Http\ResponseInfo;
+use Cashbox\Core\Concerns\Permissions\Allowable;
+use Cashbox\Core\Http\ResponseInfo;
 
 class VerifyJob extends BaseJob
 {

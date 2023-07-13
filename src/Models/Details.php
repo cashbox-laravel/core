@@ -15,14 +15,14 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Models;
+namespace Cashbox\Core\Models;
 
-use CashierProvider\Core\Billable;
-use CashierProvider\Core\Casts\InfoCast;
-use CashierProvider\Core\Concerns\Config\Details as DetailsConcern;
-use CashierProvider\Core\Data\Models\InfoData;
-use CashierProvider\Core\Enums\StatusEnum;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Billable;
+use Cashbox\Core\Casts\InfoCast;
+use Cashbox\Core\Concerns\Config\Details as DetailsConcern;
+use Cashbox\Core\Data\Models\InfoData;
+use Cashbox\Core\Enums\StatusEnum;
+use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 

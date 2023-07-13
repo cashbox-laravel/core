@@ -15,16 +15,16 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Concerns\Config\Queue;
-use CashierProvider\Core\Concerns\Config\Refund;
-use CashierProvider\Core\Concerns\Helpers\Validatable;
-use CashierProvider\Core\Concerns\Permissions\Allowable;
-use CashierProvider\Core\Data\Config\Queue\QueueNameData;
-use CashierProvider\Core\Jobs\RefundJob;
-use CashierProvider\Core\Jobs\StartJob;
-use CashierProvider\Core\Jobs\VerifyJob;
+use Cashbox\Core\Concerns\Config\Queue;
+use Cashbox\Core\Concerns\Config\Refund;
+use Cashbox\Core\Concerns\Helpers\Validatable;
+use Cashbox\Core\Concerns\Permissions\Allowable;
+use Cashbox\Core\Data\Config\Queue\QueueNameData;
+use Cashbox\Core\Jobs\RefundJob;
+use Cashbox\Core\Jobs\StartJob;
+use Cashbox\Core\Jobs\VerifyJob;
 use Illuminate\Database\Eloquent\Model;
 
 class Job

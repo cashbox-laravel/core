@@ -15,8 +15,8 @@
 
 declare(strict_types=1);
 
-use CashierProvider\Core\Enums\AttributeEnum;
-use CashierProvider\Core\Enums\StatusEnum;
+use Cashbox\Core\Enums\AttributeEnum;
+use Cashbox\Core\Enums\StatusEnum;
 
 return [
     /*
@@ -355,13 +355,13 @@ return [
 
     'drivers' => [
         // 'driver_name_foo' => [
-        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        //    'driver' => \Cashbox\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,
         // ],
         //
         // 'driver_name_bar' => [
-        //    'driver' => \CashierProvider\CoreDriver\BankName\PaymentType\Driver::class,
+        //    'driver' => \Cashbox\CoreDriver\BankName\PaymentType\Driver::class,
         //
         //    'details' => \App\Payments\BankName::class,
         //

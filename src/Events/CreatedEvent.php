@@ -15,6 +15,6 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Events;
+namespace Cashbox\Core\Events;
 
 class CreatedEvent extends BaseEvent {}

@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Transformers;
+namespace Cashbox\Core\Concerns\Transformers;
 
 use UnitEnum;
 

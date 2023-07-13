@@ -60,7 +60,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "CashierProvider\\Core\\": "src/"
+            "Cashbox\\Core\\": "src/"
         }
     },
     "config": {
@@ -79,9 +79,9 @@
         },
         "laravel": {
             "providers": [
-                "CashierProvider\\Core\\Providers\\ServiceProvider",
-                "CashierProvider\\Core\\Providers\\ObserverServiceProvider",
-                "CashierProvider\\Core\\Providers\\RateLimiterServiceProvider"
+                "Cashbox\\Core\\Providers\\ServiceProvider",
+                "Cashbox\\Core\\Providers\\ObserverServiceProvider",
+                "Cashbox\\Core\\Providers\\RateLimiterServiceProvider"
             ]
         },
         "thanks": [

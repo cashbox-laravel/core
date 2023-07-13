@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Services;
+namespace Cashbox\Core\Services;
 
-use CashierProvider\Core\Concerns\Config\Payment\Attributes;
-use CashierProvider\Core\Concerns\Config\Payment\Statuses;
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Config\Payment\Statuses;
+use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Authorize

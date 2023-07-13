@@ -15,9 +15,9 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Concerns\Config;
+namespace Cashbox\Core\Concerns\Config;
 
-use CashierProvider\Core\Facades\Config;
+use Cashbox\Core\Facades\Config;
 
 trait Application
 {

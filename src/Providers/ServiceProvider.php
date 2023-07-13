@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 
-namespace CashierProvider\Core\Providers;
+namespace Cashbox\Core\Providers;
 
-use CashierProvider\Core\Console\Commands\Refund;
-use CashierProvider\Core\Console\Commands\Verify;
+use Cashbox\Core\Console\Commands\Refund;
+use Cashbox\Core\Console\Commands\Verify;
 
 class ServiceProvider extends BaseProvider
 {
