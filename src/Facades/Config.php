@@ -25,6 +25,7 @@ use Cashbox\Core\Data\Config\Payment\PaymentData;
 use Cashbox\Core\Data\Config\Queue\QueueData;
 use Cashbox\Core\Data\Config\RefundData;
 use Cashbox\Core\Data\Config\VerifyData;
+use Cashbox\Core\Exceptions\Internal\ConfigCannotBeEmptyException;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -41,6 +42,10 @@ class Config extends Facade
 {
     protected static function getFacadeAccessor(): ConfigData
     {
-        return ConfigData::from(config('cashier', []));
+        if ($config = config('cashbox')) {
+            return ConfigData::from($config);
+        }
+
+        throw new ConfigCannotBeEmptyException();
     }
 }

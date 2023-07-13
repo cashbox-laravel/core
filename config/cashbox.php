@@ -21,17 +21,17 @@ use Cashbox\Core\Enums\StatusEnum;
 return [
     /*
     |--------------------------------------------------------------------------
-    | Cashier Environment
+    | CASHBOX Environment
     |--------------------------------------------------------------------------
     |
-    | This value determines the "environment" your cashier instance is
+    | This value determines the "environment" your CASHBOX instance is
     | currently running in. This may determine how you prefer to configure
     | various services the application utilizes. Set this in your ".env"
     | file.
     |
     */
 
-    'env' => env('CASHIER_ENV', env('APP_ENV', 'production')),
+    'env' => env('CASHBOX_ENV', env('APP_ENV', 'production')),
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
         | Payment Model Attributes
         |--------------------------------------------------------------------------
         |
-        | Correspondence of Cashier attributes to Payment model.
+        | Correspondence of CASHBOX attributes to Payment model.
         |
         | type of field => column name from payment model
         |
@@ -108,10 +108,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cashier Details
+    | CASHBOX Details
     |--------------------------------------------------------------------------
     |
-    | This parameter contains settings for the cashier table.
+    | This parameter contains settings for the CASHBOX table.
     |
     */
 
@@ -122,7 +122,7 @@ return [
         |--------------------------------------------------------------------------
         |
         | This value defines the name of the connection for accessing the
-        | database with the cashier table.
+        | database with the CASHBOX table.
         |
         */
 
@@ -130,14 +130,14 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Cashier Details table settings
+        | CASHBOX Details table settings
         |--------------------------------------------------------------------------
         |
-        | Table name for the Cashier Details.
+        | Table name for the CASHBOX Details.
         |
         */
 
-        'table' => 'cashier_details',
+        'table' => 'CASHBOX_details',
     ],
 
     /*
@@ -153,8 +153,8 @@ return [
     */
 
     'logs' => [
-        'info'  => env('CASHIER_LOGS_CHANNEL_INFO'),
-        'error' => env('CASHIER_LOGS_CHANNEL_ERROR'),
+        'info'  => env('CASHBOX_LOGS_CHANNEL_INFO'),
+        'error' => env('CASHBOX_LOGS_CHANNEL_ERROR'),
     ],
 
     /*
@@ -234,7 +234,7 @@ return [
             |
             */
 
-            'start' => env('CASHIER_QUEUE'),
+            'start' => env('CASHBOX_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -247,7 +247,7 @@ return [
             |
             */
 
-            'verify' => env('CASHIER_QUEUE'),
+            'verify' => env('CASHBOX_QUEUE'),
 
             /*
             |--------------------------------------------------------------------------
@@ -260,7 +260,7 @@ return [
             |
             */
 
-            'refund' => env('CASHIER_QUEUE'),
+            'refund' => env('CASHBOX_QUEUE'),
         ],
     ],
 
@@ -321,7 +321,7 @@ return [
         |
         */
 
-        'enabled' => (bool) env('CASHIER_AUTO_REFUND_ENABLED', false),
+        'enabled' => (bool) env('CASHBOX_AUTO_REFUND_ENABLED', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -335,7 +335,7 @@ return [
         |
         */
 
-        'delay' => env('CASHIER_AUTO_REFUND_DELAY', 600),
+        'delay' => env('CASHBOX_AUTO_REFUND_DELAY', 600),
     ],
 
     /*
@@ -366,14 +366,14 @@ return [
         //    'details' => \App\Payments\BankName::class,
         //
         //    'credentials' => [
-        //        'client_id'     => env('CASHIER_BANK_CLIENT_ID'),
-        //        'client_secret' => env('CASHIER_BANK_CLIENT_SECRET'),
+        //        'client_id'     => env('CASHBOX_BANK_CLIENT_ID'),
+        //        'client_secret' => env('CASHBOX_BANK_CLIENT_SECRET'),
         //    ],
         //
         //    'queue' => [
-        //        'start'  => env('CASHIER_QUEUE'),
-        //        'verify' => env('CASHIER_QUEUE'),
-        //        'refund' => env('CASHIER_QUEUE'),
+        //        'start'  => env('CASHBOX_QUEUE'),
+        //        'verify' => env('CASHBOX_QUEUE'),
+        //        'refund' => env('CASHBOX_QUEUE'),
         //    ],
         // ],
     ],

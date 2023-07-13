@@ -45,7 +45,7 @@ class ServiceProvider extends BaseProvider
     protected function bootPublishes(): void
     {
         $this->publishes([
-            __DIR__ . '/../../config/cashier.php' => $this->app->configPath('cashier.php'),
+            __DIR__ . '/../../config/cashbox.php' => $this->app->configPath('cashbox.php'),
         ], 'config');
 
         $this->publishes([
@@ -68,6 +68,6 @@ class ServiceProvider extends BaseProvider
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/cashier.php', 'cashier');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/cashbox.php', 'cashbox');
     }
 }
