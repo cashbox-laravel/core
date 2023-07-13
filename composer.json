@@ -1,5 +1,5 @@
 {
-    "name": "cashier-provider/core",
+    "name": "cashbox/core",
     "description": "Cashier provides an expressive, fluent interface to manage billing services.",
     "license": "MIT",
     "type": "library",
@@ -17,8 +17,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/cashier-provider/foundation/issues",
-        "source": "https://github.com/cashier-provider/foundation"
+        "issues": "https://github.com/cashbox/foundation/issues",
+        "source": "https://github.com/cashbox/foundation"
     },
     "funding": [
         {
@@ -126,56 +126,56 @@
                 "url": "https://github.com/symfony/var-dumper"
             },
             {
-                "name": "cashier-provider/foundation",
-                "url": "https://github.com/cashier-provider/foundation"
+                "name": "cashbox/foundation",
+                "url": "https://github.com/cashbox/foundation"
             },
             {
-                "name": "cashier-provider/docs",
-                "url": "https://github.com/cashier-provider/docs"
+                "name": "cashbox/docs",
+                "url": "https://github.com/cashbox/docs"
             },
             {
-                "name": "cashier-provider/core",
-                "url": "https://github.com/cashier-provider/core"
+                "name": "cashbox/core",
+                "url": "https://github.com/cashbox/core"
             },
             {
-                "name": "cashier-provider/cash",
-                "url": "https://github.com/cashier-provider/cash"
+                "name": "cashbox/cash",
+                "url": "https://github.com/cashbox/cash"
             },
             {
-                "name": "cashier-provider/sber-auth",
-                "url": "https://github.com/cashier-provider/sber-auth"
+                "name": "cashbox/sber-auth",
+                "url": "https://github.com/cashbox/sber-auth"
             },
             {
-                "name": "cashier-provider/sber-online",
-                "url": "https://github.com/cashier-provider/sber-online"
+                "name": "cashbox/sber-online",
+                "url": "https://github.com/cashbox/sber-online"
             },
             {
-                "name": "cashier-provider/sber-qr",
-                "url": "https://github.com/cashier-provider/sber-qr"
+                "name": "cashbox/sber-qr",
+                "url": "https://github.com/cashbox/sber-qr"
             },
             {
-                "name": "cashier-provider/tinkoff-auth",
-                "url": "https://github.com/cashier-provider/tinkoff-auth"
+                "name": "cashbox/tinkoff-auth",
+                "url": "https://github.com/cashbox/tinkoff-auth"
             },
             {
-                "name": "cashier-provider/tinkoff-credit",
-                "url": "https://github.com/cashier-provider/tinkoff-credit"
+                "name": "cashbox/tinkoff-credit",
+                "url": "https://github.com/cashbox/tinkoff-credit"
             },
             {
-                "name": "cashier-provider/tinkoff-online",
-                "url": "https://github.com/cashier-provider/tinkoff-online"
+                "name": "cashbox/tinkoff-online",
+                "url": "https://github.com/cashbox/tinkoff-online"
             },
             {
-                "name": "cashier-provider/tinkoff-qr",
-                "url": "https://github.com/cashier-provider/tinkoff-qr"
+                "name": "cashbox/tinkoff-qr",
+                "url": "https://github.com/cashbox/tinkoff-qr"
             },
             {
-                "name": "cashier-provider/driver",
-                "url": "https://github.com/cashier-provider/driver"
+                "name": "cashbox/driver",
+                "url": "https://github.com/cashbox/driver"
             },
             {
-                "name": "cashier-provider/driver-auth",
-                "url": "https://github.com/cashier-provider/driver-auth"
+                "name": "cashbox/driver-auth",
+                "url": "https://github.com/cashbox/driver-auth"
             }
         ]
     }

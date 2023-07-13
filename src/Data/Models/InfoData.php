@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the "cashier-provider/foundation" project.
+ * This file is part of the "cashbox/foundation" project.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,7 +10,7 @@
  * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashier-provider/foundation
+ * @see https://github.com/cashbox/foundation
  */
 
 namespace CashierProvider\Core\Data\Models;

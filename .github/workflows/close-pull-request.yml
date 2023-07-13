@@ -11,4 +11,4 @@ permissions:
 
 jobs:
     PR:
-        uses: cashier-provider/.github/.github/workflows/close-pull-request.yml@main
+        uses: cashbox/.github/.github/workflows/close-pull-request.yml@main
