@@ -51,8 +51,8 @@
         "illuminate/database": "*",
         "illuminate/queue": "*",
         "illuminate/support": "^10.14",
-        "psr/log": "^3.0",
         "nesbot/carbon": "^2.68.1",
+        "psr/log": "^3.0",
         "spatie/laravel-data": "^3.7",
         "symfony/console": "^6.3"
     },
@@ -84,63 +84,30 @@
                 "Cashbox\\Core\\Providers\\RateLimiterServiceProvider"
             ]
         },
-        "title": "Core",
         "thanks": [
-            {
-                "name": "dragon-code/laravel-support",
-                "url": "https://github.com/TheDragonCode/laravel-support"
-            },
-            {
-                "name": "dragon-code/support",
-                "url": "https://github.com/TheDragonCode/support"
-            },
             {
                 "name": "archtechx/enums",
                 "url": "https://github.com/archtechx/enums"
             },
             {
-                "name": "laravel/framework",
-                "url": "https://github.com/laravel/framework"
-            },
-            {
-                "name": "nesbot/carbon",
-                "url": "https://github.com/briannesbitt/Carbon"
-            },
-            {
-                "name": "spatie/laravel-data",
-                "url": "https://github.com/spatie/laravel-data"
-            },
-            {
-                "name": "symfony/console",
-                "url": "https://github.com/symfony/console"
-            },
-            {
-                "name": "orchestra/testbench",
-                "url": "https://github.com/orchestral/testbench"
-            },
-            {
-                "name": "pestphp/pest",
-                "url": "https://github.com/pestphp/pest"
-            },
-            {
-                "name": "symfony/var-dumper",
-                "url": "https://github.com/symfony/var-dumper"
-            },
-            {
-                "name": "cashbox/foundation",
-                "url": "https://github.com/cashbox-laravel/foundation"
-            },
-            {
-                "name": "cashbox/docs",
-                "url": "https://github.com/cashbox-laravel/docs"
+                "name": "cashbox/cash",
+                "url": "https://github.com/cashbox-laravel/cash"
             },
             {
                 "name": "cashbox/core",
                 "url": "https://github.com/cashbox-laravel/core"
             },
             {
-                "name": "cashbox/cash",
-                "url": "https://github.com/cashbox-laravel/cash"
+                "name": "cashbox/docs",
+                "url": "https://github.com/cashbox-laravel/docs"
+            },
+            {
+                "name": "cashbox/driver",
+                "url": "https://github.com/cashbox-laravel/driver"
+            },
+            {
+                "name": "cashbox/driver-auth",
+                "url": "https://github.com/cashbox-laravel/driver-auth"
             },
             {
                 "name": "cashbox/sber-auth",
@@ -171,13 +138,42 @@
                 "url": "https://github.com/cashbox-laravel/tinkoff-qr"
             },
             {
-                "name": "cashbox/driver",
-                "url": "https://github.com/cashbox-laravel/driver"
+                "name": "dragon-code/laravel-support",
+                "url": "https://github.com/TheDragonCode/laravel-support"
             },
             {
-                "name": "cashbox/driver-auth",
-                "url": "https://github.com/cashbox-laravel/driver-auth"
+                "name": "dragon-code/support",
+                "url": "https://github.com/TheDragonCode/support"
+            },
+            {
+                "name": "laravel/framework",
+                "url": "https://github.com/laravel/framework"
+            },
+            {
+                "name": "nesbot/carbon",
+                "url": "https://github.com/briannesbitt/Carbon"
+            },
+            {
+                "name": "orchestra/testbench",
+                "url": "https://github.com/orchestral/testbench"
+            },
+            {
+                "name": "pestphp/pest",
+                "url": "https://github.com/pestphp/pest"
+            },
+            {
+                "name": "spatie/laravel-data",
+                "url": "https://github.com/spatie/laravel-data"
+            },
+            {
+                "name": "symfony/console",
+                "url": "https://github.com/symfony/console"
+            },
+            {
+                "name": "symfony/var-dumper",
+                "url": "https://github.com/symfony/var-dumper"
             }
-        ]
+        ],
+        "title": "Core"
     }
 }
