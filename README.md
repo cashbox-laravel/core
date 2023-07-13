@@ -65,3 +65,4 @@ the [Laravel framework](https://laravel.com/), distributed under the MIT license
 [link_license]:         LICENSE
 
 [link_packagist]:       https://packagist.org/packages/cashbox/core
+
