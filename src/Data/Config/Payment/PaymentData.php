@@ -19,7 +19,6 @@ namespace Cashbox\Core\Data\Config\Payment;
 
 use Cashbox\Core\Data\Casts\PaymentModelCast;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
@@ -32,6 +31,6 @@ class PaymentData extends Data
 
     public StatusData $status;
 
-    /** @var \Illuminate\Support\Collection<string,array> */
-    public Collection $drivers;
+    /** @var array<string, string> */
+    public array $drivers;
 }

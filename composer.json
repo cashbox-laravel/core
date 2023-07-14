@@ -81,6 +81,7 @@
         "laravel": {
             "providers": [
                 "Cashbox\\Core\\Providers\\ServiceProvider",
+                "Cashbox\\Core\\Providers\\BindingServiceProvider",
                 "Cashbox\\Core\\Providers\\ObserverServiceProvider",
                 "Cashbox\\Core\\Providers\\RateLimiterServiceProvider"
             ]

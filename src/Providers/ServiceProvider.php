@@ -24,10 +24,6 @@ class ServiceProvider extends BaseProvider
 {
     public function boot(): void
     {
-        if ($this->disabled()) {
-            return;
-        }
-
         $this->bootMigrations();
         $this->bootPublishes();
         $this->bootCommands();
@@ -35,10 +31,6 @@ class ServiceProvider extends BaseProvider
 
     public function register(): void
     {
-        if ($this->disabled()) {
-            return;
-        }
-
         $this->registerConfig();
     }
 

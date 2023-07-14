@@ -22,14 +22,13 @@ use Cashbox\Core\Data\Config\DriverData;
 use Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException;
 use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 trait Drivers
 {
     use Attributes;
     use EnumsTransformer;
 
-    protected static function drivers(): Collection
+    protected static function drivers(): array
     {
         return Config::payment()->drivers;
     }
