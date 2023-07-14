@@ -49,37 +49,37 @@ abstract class Statuses
             static::FAILED,
         ]);
 
-        return ! $this->hasCashier($bank, $status)
+        return ! $this->hasCashbox($bank, $status)
             && ! $this->hasModel(StatusEnum::values(), $status);
     }
 
     public function isCreated(?StatusEnum $status = null): bool
     {
-        return $this->hasCashier(static::NEW, $status)
+        return $this->hasCashbox(static::NEW, $status)
             || $this->hasModel(static::NEW, $status);
     }
 
     public function isFailed(?StatusEnum $status = null): bool
     {
-        return $this->hasCashier(static::FAILED, $status)
+        return $this->hasCashbox(static::FAILED, $status)
             || $this->hasModel(static::FAILED, $status);
     }
 
     public function isRefunding(?StatusEnum $status = null): bool
     {
-        return $this->hasCashier(static::REFUNDING, $status)
+        return $this->hasCashbox(static::REFUNDING, $status)
             || $this->hasModel(static::REFUNDING, $status);
     }
 
     public function isRefunded(?StatusEnum $status = null): bool
     {
-        return $this->hasCashier(static::REFUNDED, $status)
+        return $this->hasCashbox(static::REFUNDED, $status)
             || $this->hasModel(static::REFUNDED, $status);
     }
 
     public function isSuccess(?StatusEnum $status = null): bool
     {
-        return $this->hasCashier(static::SUCCESS, $status)
+        return $this->hasCashbox(static::SUCCESS, $status)
             || $this->hasModel(static::SUCCESS, $status);
     }
 
@@ -90,9 +90,9 @@ abstract class Statuses
             && ! $this->isRefunded($status);
     }
 
-    protected function hasCashier(array|string $statuses, ?StatusEnum $status): bool
+    protected function hasCashbox(array|string $statuses, ?StatusEnum $status): bool
     {
-        $status ??= $this->cashierStatus();
+        $status ??= $this->cashboxStatus();
 
         return $this->has($status, $statuses);
     }
@@ -115,9 +115,9 @@ abstract class Statuses
         return in_array($this->resolveStatus($needle), $this->resolveStatus($haystack), true);
     }
 
-    protected function cashierStatus(): ?StatusEnum
+    protected function cashboxStatus(): ?StatusEnum
     {
-        if ($status = $this->payment->cashier?->details?->getStatus()) {
+        if ($status = $this->payment->cashbox?->details?->getStatus()) {
             return StatusEnum::tryFrom($status);
         }
 

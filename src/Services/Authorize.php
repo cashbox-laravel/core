@@ -65,7 +65,7 @@ class Authorize
 
     protected static function hasDetails(Model $payment): bool
     {
-        return ! empty($payment->cashier);
+        return ! empty($payment->cashbox);
     }
 
     protected static function doesntHaveDetails(Model $payment): bool

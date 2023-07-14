@@ -23,16 +23,16 @@ use Cashbox\Core\Services\DriverManager;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
- * @property Details $cashier
+ * @property Details $cashbox
  */
 trait Billable
 {
-    public function cashier(): Relation
+    public function cashbox(): Relation
     {
         return $this->hasOne(Details::class, 'payment_id', $this->getKeyName());
     }
 
-    public function cashierDriver(): Driver
+    public function cashboxDriver(): Driver
     {
         return DriverManager::find($this);
     }

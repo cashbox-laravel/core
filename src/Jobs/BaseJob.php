@@ -72,9 +72,9 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
             'info'         => $response,
         ];
 
-        $this->payment->cashier
-            ? $this->payment->cashier->update($data)
-            : $this->payment->cashier()->create($data);
+        $this->payment->cashbox
+            ? $this->payment->cashbox->update($data)
+            : $this->payment->cashbox()->create($data);
     }
 
     public function uniqueId(): int|string
@@ -89,7 +89,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 
     protected function driver(): Driver
     {
-        return $this->payment->cashierDriver();
+        return $this->payment->cashboxDriver();
     }
 
     protected function getRateLimiter(): string

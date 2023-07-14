@@ -21,10 +21,10 @@ use Cashbox\Core\Enums\StatusEnum;
 return [
     /*
     |--------------------------------------------------------------------------
-    | CASHBOX Environment
+    | Cashbox Environment
     |--------------------------------------------------------------------------
     |
-    | This value determines the "environment" your CASHBOX instance is
+    | This value determines the "environment" your Cashbox instance is
     | currently running in. This may determine how you prefer to configure
     | various services the application utilizes. Set this in your ".env"
     | file.
@@ -59,7 +59,7 @@ return [
         | Payment Model Attributes
         |--------------------------------------------------------------------------
         |
-        | Correspondence of CASHBOX attributes to Payment model.
+        | Correspondence of Cashbox attributes to Payment model.
         |
         | type of field => column name from payment model
         |
@@ -108,10 +108,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | CASHBOX Details
+    | Cashbox Details
     |--------------------------------------------------------------------------
     |
-    | This parameter contains settings for the CASHBOX table.
+    | This parameter contains settings for the Cashbox table.
     |
     */
 
@@ -122,7 +122,7 @@ return [
         |--------------------------------------------------------------------------
         |
         | This value defines the name of the connection for accessing the
-        | database with the CASHBOX table.
+        | database with the Cashbox table.
         |
         */
 
@@ -130,14 +130,14 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | CASHBOX Details table settings
+        | Cashbox Details table settings
         |--------------------------------------------------------------------------
         |
-        | Table name for the CASHBOX Details.
+        | Table name for the Cashbox Details.
         |
         */
 
-        'table' => 'CASHBOX_details',
+        'table' => 'cashbox_details',
     ],
 
     /*

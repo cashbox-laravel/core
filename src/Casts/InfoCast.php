@@ -28,7 +28,7 @@ class InfoCast implements CastsAttributes
 
     public function get(Model $model, string $key, mixed $value, array $attributes): ResponseInfo
     {
-        $instance = $model->parent->cashierDriver()->info;
+        $instance = $model->parent->cashboxDriver()->info;
 
         return call_user_func([$instance, 'from'], json_decode($value, true));
     }
