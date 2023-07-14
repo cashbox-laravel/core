@@ -22,6 +22,7 @@ use Cashbox\Core\Data\Config\Queue\QueueData;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\DataCollection;
 
 class ConfigData extends Data
 {
@@ -42,7 +43,7 @@ class ConfigData extends Data
     public RefundData $refund;
 
     #[DataCollectionOf(DriverData::class)]
-    public array $drivers;
+    public DataCollection $drivers;
 
     public function payment(): PaymentData
     {
