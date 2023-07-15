@@ -30,17 +30,13 @@ class PaymentDetailsObserver
 
     public function saving(Details $model): void
     {
-        if ($model->isDirty('info') && $model->status !== null) {
-            $model->status = $this->statusToEnum($model->info->status);
+        if ($model->isDirty('info') && $status = $model->info->status) {
+            $model->status = $model->parent->cashboxDriver()->statuses()->detect($status);
         }
     }
 
     public function saved(Details $model): void
     {
-        if ($model->isClean()) {
-            return;
-        }
-
         if ($model->wasChanged('status')) {
             $this->updateStatus($model->parent, $model->status);
         }
@@ -54,7 +50,7 @@ class PaymentDetailsObserver
         $payment->update([$field => $value]);
     }
 
-    protected function statusToEnum(mixed $status): StatusEnum
+    protected function statusToEnum(mixed $status): ?StatusEnum
     {
         return static::payment()->status->toEnum($status);
     }

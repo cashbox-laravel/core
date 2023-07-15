@@ -28,6 +28,5 @@ class AttributeData extends Data
 
     public string $status;
 
-    #[MapInputName('created_at')]
     public string $createdAt;
 }

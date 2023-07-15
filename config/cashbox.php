@@ -101,8 +101,8 @@ return [
         */
 
         'drivers' => [
-            // 'app_payment_type_1' => 'driver_name_foo',
-            // 'app_payment_type_2' => 'driver_name_bar',
+            // 'driver_name_foo' => 'app_payment_type_1',
+            // 'driver_name_bar' => 'app_payment_type_2',
         ],
     ],
 

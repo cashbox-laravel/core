@@ -40,29 +40,32 @@ class Http
             $request->uri(),
             $request->headers(),
             $request->options(),
-            $request->body(),
-            $exception
+            $request->body()
         );
 
         static::log($request, $response);
 
+        $this->throwIf($response, $exception);
+
         return $response->json();
     }
 
-    protected function request(string $uri, array $headers, array $options, array $data, Exception $exception): Response
+    protected function request(string $uri, array $headers, array $options, array $data): Response
     {
-        return Client::withHeaders($headers)
-            ->retry($this->tries, $this->sleep)
+        return Client::retry($this->tries, $this->sleep)
+            ->withHeaders($headers)
             ->withOptions($options)
             ->acceptJson()
             ->asJson()
-            ->post($uri, $data)
-            ->onError(
-                fn (Response $instance) => $exception->throw(
-                    (string) $instance->effectiveUri(),
-                    $instance->status(),
-                    $instance->json()
-                )
-            );
+            ->post($uri, $data);
+    }
+
+    protected function throwIf(Response $response, Exception $exception): void
+    {
+        $exception->throw(
+            (string) $response->effectiveUri(),
+            $response->status(),
+            $response->json()
+        );
     }
 }

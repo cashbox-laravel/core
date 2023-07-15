@@ -27,6 +27,6 @@ class NumberCast implements Cast
 
     public function cast(DataProperty $property, mixed $value, array $context): int
     {
-        return min(max($this->min, (int) $value), $this->max);
+        return min(max($this->min, intval($value)), $this->max);
     }
 }

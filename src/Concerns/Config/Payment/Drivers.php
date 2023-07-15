@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Concerns\Config\Payment;
 
-use Cashbox\Core\Concerns\Transformers\EnumsTransformer;
 use Cashbox\Core\Data\Config\DriverData;
 use Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException;
 use Cashbox\Core\Facades\Config;
@@ -25,14 +24,6 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Drivers
 {
-    use Attributes;
-    use EnumsTransformer;
-
-    protected static function drivers(): array
-    {
-        return Config::payment()->drivers;
-    }
-
     protected static function driver(int|string $name, Model $payment): DriverData
     {
         if ($driver = Config::driver($name)) {
@@ -42,12 +33,15 @@ trait Drivers
         throw new UnknownDriverConfigException($name, $payment->getKey());
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @throws \Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException
+     *
+     * @return \Cashbox\Core\Data\Config\DriverData
+     */
     protected static function driverByModel(Model $payment): DriverData
     {
-        $name = $payment->getAttribute(
-            static::attribute()->type
-        );
-
-        return static::driver(static::transformFromEnum($name), $payment);
+        return static::driver($payment->cashboxAttributeType(), $payment);
     }
 }

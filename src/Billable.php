@@ -17,9 +17,12 @@ declare(strict_types=1);
 
 namespace Cashbox\Core;
 
+use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Repositories\Registry;
 use Cashbox\Core\Models\Details;
 use Cashbox\Core\Services\Driver;
 use Cashbox\Core\Services\DriverManager;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
@@ -27,6 +30,11 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  */
 trait Billable
 {
+    use Attributes;
+    use Registry;
+
+    protected ?Driver $cashboxDriver = null;
+
     public function cashbox(): Relation
     {
         return $this->hasOne(Details::class, 'payment_id', $this->getKeyName());
@@ -34,6 +42,31 @@ trait Billable
 
     public function cashboxDriver(): Driver
     {
-        return DriverManager::find($this);
+        if ($this->cashboxDriver) {
+            return $this->cashboxDriver;
+        }
+
+        return $this->cashboxDriver = DriverManager::find($this);
+    }
+
+    public function cashboxAttributeType(): mixed
+    {
+        return $this->getAttribute(
+            static::attribute()->type
+        );
+    }
+
+    public function cashboxAttributeStatus(): mixed
+    {
+        return $this->getAttribute(
+            static::attribute()->status
+        );
+    }
+
+    public function cashboxAttributeCreatedAt(): DateTimeInterface
+    {
+        return $this->getAttribute(
+            static::attribute()->createdAt
+        );
     }
 }

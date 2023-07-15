@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 use Throwable;
 
 /**
@@ -104,7 +105,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
                 return '';
             }
 
-            return retry(2, fn () => '_' . random_bytes(10));
+            return retry(2, fn () => Str::random());
         }
         catch (Throwable) {
             return '_' . (int) $this->force;

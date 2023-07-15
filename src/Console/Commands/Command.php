@@ -85,7 +85,9 @@ abstract class Command extends BaseCommand
 
     protected function getTypes(): array
     {
-        return static::drivers()->keys()->toArray();
+        return array_values(
+            static::payment()->drivers
+        );
     }
 
     protected function action(): string

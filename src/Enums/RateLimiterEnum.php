@@ -27,6 +27,6 @@ enum RateLimiterEnum: string
 {
     use InvokableCases;
 
-    case disabled = 'cashier_disabled';
-    case enabled  = 'cashier_enabled';
+    case disabled = 'cashbox_disabled';
+    case enabled  = 'cashbox_enabled';
 }

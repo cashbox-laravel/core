@@ -33,6 +33,7 @@ class PaymentObserver
 
     public function creating(Model $payment): void
     {
+        // Collision elimination when creating a model using the default value from the database.
         $payment->status = static::payment()->status->new;
     }
 

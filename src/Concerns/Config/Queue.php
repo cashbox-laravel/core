@@ -32,6 +32,11 @@ trait Queue
         return Config::queue();
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable|null  $payment
+     *
+     * @return \Cashbox\Core\Data\Config\Queue\QueueNameData
+     */
     protected static function queueName(?Model $payment = null): QueueNameData
     {
         if ($payment) {

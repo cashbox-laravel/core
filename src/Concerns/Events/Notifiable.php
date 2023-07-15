@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Concerns\Events;
 
-use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Cashbox\Core\Enums\StatusEnum;
 use Cashbox\Core\Events\CreatedEvent;
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Notifiable
 {
-    use Attributes;
     use Payments;
 
     protected static function event(Model $payment, StatusEnum $status): void
@@ -48,10 +46,15 @@ trait Notifiable
         static::event($payment, static::detectEvent($payment));
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return \Cashbox\Core\Enums\StatusEnum
+     */
     protected static function detectEvent(Model $payment): StatusEnum
     {
-        $status = $payment->getAttribute(static::attribute()->status);
-
-        return static::payment()->status->toEnum($status);
+        return static::payment()->status->toEnum(
+            $payment->cashboxAttributeStatus()
+        );
     }
 }

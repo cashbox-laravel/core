@@ -54,17 +54,11 @@ trait Logging
     protected static function header(Request $request, Response $response): string
     {
         return sprintf(
-            '%d %s, %s %s',
+            '%d %s, POST %s',
             $response->status(),
             static::status($response),
-            static::method($request),
             $request->uri()
         );
-    }
-
-    protected static function method(Request $request): string
-    {
-        return $request->post ? 'POST' : 'GET';
     }
 
     protected static function status(Response $response): string

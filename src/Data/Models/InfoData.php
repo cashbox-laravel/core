@@ -7,15 +7,15 @@ namespace Cashbox\Core\Data\Models;
 use Cashbox\Core\Concerns\Config\Application;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
+#[MapInputName(SnakeCaseMapper::class)]
 class InfoData extends Data
 {
     use Application;
 
-    #[MapInputName('external_id')]
     public ?string $externalId;
 
-    #[MapInputName('operation_id')]
     public ?string $operationId;
 
     public ?string $status;

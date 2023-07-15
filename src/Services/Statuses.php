@@ -17,16 +17,17 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Services;
 
-use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Cashbox\Core\Enums\StatusEnum;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * @property Model|\Cashbox\Core\Billable $payment
+ */
 abstract class Statuses
 {
-    use Attributes;
     use Payments;
 
     public const FAILED    = [];
@@ -90,9 +91,21 @@ abstract class Statuses
             && ! $this->isRefunded($status);
     }
 
-    protected function hasCashbox(array|string $statuses, ?StatusEnum $status): bool
+    public function detect(string $status): ?StatusEnum
     {
-        $status ??= $this->cashboxStatus();
+        return match (true) {
+            Str::contains($status, static::NEW)       => StatusEnum::new,
+            Str::contains($status, static::SUCCESS)   => StatusEnum::success,
+            Str::contains($status, static::REFUNDING) => StatusEnum::waitRefund,
+            Str::contains($status, static::REFUNDED)  => StatusEnum::refund,
+            Str::contains($status, static::FAILED)    => StatusEnum::failed,
+            default                                   => null
+        };
+    }
+
+    protected function hasCashbox(array $statuses, ?StatusEnum $status): bool
+    {
+        $status ??= $this->payment->cashbox?->status;
 
         return $this->has($status, $statuses);
     }
@@ -112,31 +125,11 @@ abstract class Statuses
             return false;
         }
 
-        return in_array($this->resolveStatus($needle), $this->resolveStatus($haystack), true);
+        return in_array($needle, $this->resolveStatuses($haystack), true);
     }
 
-    protected function cashboxStatus(): ?StatusEnum
+    protected function resolveStatuses(mixed $statuses): array
     {
-        if ($status = $this->payment->cashbox?->details?->getStatus()) {
-            return StatusEnum::tryFrom($status);
-        }
-
-        return null;
-    }
-
-    protected function modelStatus(): mixed
-    {
-        return $this->payment->getAttribute(
-            static::attribute()->status
-        );
-    }
-
-    protected function resolveStatus(mixed $status): mixed
-    {
-        if (is_array($status)) {
-            return array_map(fn (mixed $value) => $this->resolveStatus($value), $status);
-        }
-
-        return is_string($status) ? Str::lower($status) : $status;
+        return array_map(fn (string $status) => $this->detect($status), $statuses);
     }
 }
