@@ -19,12 +19,14 @@ namespace Cashbox\Core\Services;
 
 use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Statuses;
+use Cashbox\Core\Concerns\Transformers\EnumsTransformer;
 use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
 class Authorize
 {
     use Attributes;
+    use EnumsTransformer;
     use Statuses;
 
     public static function type(Model $payment): bool
@@ -80,9 +82,11 @@ class Authorize
         );
     }
 
-    protected static function paymentType(Model $payment): mixed
+    protected static function paymentType(Model $payment): int|string
     {
-        return $payment->getAttribute(static::attribute()->type);
+        return static::transformFromEnum(
+            $payment->getAttribute(static::attribute()->type)
+        );
     }
 
     protected static function paymentStatus(Model $payment): mixed

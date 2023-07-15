@@ -23,6 +23,10 @@ trait EnumsTransformer
 {
     protected static function transformFromEnum(int|string|BackedEnum $item): int|string
     {
-        return $item instanceof BackedEnum ? ($item->value ?? $item->name) : $item;
+        if ($item instanceof BackedEnum) {
+            return $item->value ?? $item->name;
+        }
+
+        return $item;
     }
 }

@@ -31,6 +31,11 @@ class PaymentObserver
     use Jobs;
     use Notifiable;
 
+    public function creating(Model $payment): void
+    {
+        $payment->status = static::payment()->status->new;
+    }
+
     public function created(Model $payment): void
     {
         if ($this->authorizeType($payment)) {
