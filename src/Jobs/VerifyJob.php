@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace Cashbox\Core\Jobs;
 
 use Cashbox\Core\Concerns\Permissions\Allowable;
-use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\Response;
 
 class VerifyJob extends BaseJob
 {
     use Allowable;
 
-    protected function request(): ResponseInfo
+    protected function request(): Response
     {
         $this->start();
 

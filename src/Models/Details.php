@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace Cashbox\Core\Models;
 
 use Cashbox\Core\Billable;
-use Cashbox\Core\Casts\InfoCast;
 use Cashbox\Core\Concerns\Config\Details as DetailsConcern;
 use Cashbox\Core\Data\Models\InfoData;
 use Cashbox\Core\Enums\StatusEnum;
@@ -44,7 +43,7 @@ class Details extends Model
     ];
 
     protected $casts = [
-        'info'   => InfoCast::class,
+        'info'   => InfoData::class,
         'status' => StatusEnum::class,
     ];
 

@@ -18,15 +18,18 @@ declare(strict_types=1);
 namespace Cashbox\Core\Http;
 
 use DragonCode\Support\Facades\Helpers\Arr;
+use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Attributes\MapOutputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-abstract class ResponseInfo extends Data
+#[MapInputName(SnakeCaseMapper::class)]
+#[MapOutputName(SnakeCaseMapper::class)]
+abstract class Response extends Data
 {
     abstract public function getExternalId(): ?string;
 
     abstract public function getOperationId(): ?string;
-
-    abstract public function getStatus(): ?string;
 
     public function isEmpty(): bool
     {

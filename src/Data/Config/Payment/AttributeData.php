@@ -28,6 +28,10 @@ class AttributeData extends Data
 
     public string $status;
 
+    public string $sum;
+
+    public string $currency;
+
     #[MapInputName('created_at')]
     public string $createdAt;
 }

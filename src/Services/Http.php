@@ -32,6 +32,10 @@ class Http
 
     public function send(Request $request, Exception $exception): array
     {
+        if ($request->uri() === null) {
+            return $request->body();
+        }
+
         $response = $this->request(
             $request->uri(),
             $request->headers(),

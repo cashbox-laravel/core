@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace Cashbox\Core\Services;
 
 use Cashbox\Core\Billable;
-use Cashbox\Core\Exceptions\Internal\IncorrectPaymentModelException;
+use Cashbox\Core\Exceptions\Internal\IncorrectModelException;
 use DragonCode\Support\Facades\Instances\Instance;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,10 +26,10 @@ class Validator
 {
     public static function model(Model|string $payment): Model|string
     {
-        return static::validate($payment, Billable::class, IncorrectPaymentModelException::class);
+        return static::validate($payment, Billable::class, IncorrectModelException::class);
     }
 
-    protected static function validate(mixed $haystack, string $needle, string $exception): mixed
+    public static function validate(mixed $haystack, string $needle, string $exception): mixed
     {
         if (! Instance::of($haystack, $needle)) {
             throw new $exception($haystack, $needle);

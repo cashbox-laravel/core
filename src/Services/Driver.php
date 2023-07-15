@@ -18,7 +18,8 @@ declare(strict_types=1);
 namespace Cashbox\Core\Services;
 
 use Cashbox\Core\Data\Config\DriverData;
-use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\Response;
+use Cashbox\Core\Resources\Resource;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Driver
@@ -27,13 +28,13 @@ abstract class Driver
 
     protected string $exception;
 
-    protected string $info;
+    protected string $response;
 
-    abstract public function refund(): ResponseInfo;
+    abstract public function refund(): Response;
 
-    abstract public function start(): ResponseInfo;
+    abstract public function start(): Response;
 
-    abstract public function verify(): ResponseInfo;
+    abstract public function verify(): Response;
 
     public function __construct(
         protected Model $payment,
@@ -46,13 +47,20 @@ abstract class Driver
         return resolve($this->statuses, [$this->payment]);
     }
 
-    protected function request(string $request): ResponseInfo
+    protected function request(string $request): Response
     {
-        $client = $this->resolve($request, 'make', $this->payment);
+        $data = $this->resolve($request, 'make', $this->resource());
 
-        $content = $this->http->send($client, $this->resolveException());
+        $content = $this->http->send($data, $this->resolveException());
 
-        return $this->resolve($this->info, 'from', $content);
+        return $this->resolve($this->response, 'from', $content);
+    }
+
+    protected function resource(): Resource
+    {
+        $resource = $this->data->resource;
+
+        return new $resource($this->payment);
     }
 
     protected function resolveException(): Exception

@@ -17,12 +17,12 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Concerns\Transformers;
 
-use UnitEnum;
+use BackedEnum;
 
 trait EnumsTransformer
 {
-    protected static function transformFromEnum(int|string|UnitEnum $item): int|string
+    protected static function transformFromEnum(int|string|BackedEnum $item): int|string
     {
-        return $item instanceof UnitEnum ? ($item->value ?? $item->name) : $item;
+        return $item instanceof BackedEnum ? ($item->value ?? $item->name) : $item;
     }
 }

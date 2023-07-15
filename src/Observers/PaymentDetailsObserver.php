@@ -31,7 +31,7 @@ class PaymentDetailsObserver
     public function saving(Details $model): void
     {
         if ($model->isDirty('info') && $model->status !== null) {
-            $model->status = $model->info->statusToEnum();
+            $model->status = $this->statusToEnum($model->info->status);
         }
     }
 
@@ -52,5 +52,10 @@ class PaymentDetailsObserver
         $field = static::attribute()->status;
 
         $payment->update([$field => $value]);
+    }
+
+    protected function statusToEnum(mixed $status): StatusEnum
+    {
+        return static::payment()->status->toEnum($status);
     }
 }

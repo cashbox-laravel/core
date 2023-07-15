@@ -19,7 +19,7 @@ namespace Cashbox\Core\Exceptions\Internal;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class IncorrectPaymentModelException extends BaseException
+class IncorrectModelException extends BaseException
 {
     protected string $reason = 'The "%s" class must implement "%s".';
 }

@@ -1,35 +1,34 @@
 <?php
 
-/**
- * This file is part of the "cashbox/foundation" project.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Andrey Helldar <helldar@dragon-code.pro>
- * @copyright 2023 Andrey Helldar
- * @license MIT
- *
- * @see https://github.com/cashbox-laravel/foundation
- */
+declare(strict_types=1);
 
 namespace Cashbox\Core\Data\Models;
 
-use Cashbox\Core\Concerns\Config\Payment\Payments;
-use Cashbox\Core\Enums\StatusEnum;
+use Cashbox\Core\Concerns\Config\Application;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 
-/**
- * @deprecated
- */
-abstract class InfoData extends Data
+class InfoData extends Data
 {
-    use Payments;
+    use Application;
 
-    public int|string|null $status;
+    #[MapInputName('external_id')]
+    public ?string $externalId;
 
-    public function statusToEnum(): StatusEnum
+    #[MapInputName('operation_id')]
+    public ?string $operationId;
+
+    public ?string $status;
+
+    public function toJson($options = 0): string
     {
-        return static::payment()->status->toEnum($this->status);
+        return parent::toJson($this->flags());
+    }
+
+    protected function flags(): int
+    {
+        return static::isProduction()
+            ? JSON_UNESCAPED_SLASHES ^ JSON_UNESCAPED_UNICODE ^ JSON_NUMERIC_CHECK
+            : JSON_UNESCAPED_SLASHES ^ JSON_UNESCAPED_UNICODE ^ JSON_NUMERIC_CHECK ^ JSON_PRETTY_PRINT;
     }
 }

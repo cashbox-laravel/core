@@ -21,7 +21,6 @@ use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Events\Notifiable;
 use Cashbox\Core\Concerns\Helpers\Jobs;
 use Cashbox\Core\Concerns\Permissions\Allowable;
-use Cashbox\Core\Enums\StatusEnum;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
 
@@ -51,13 +50,6 @@ class PaymentObserver
 
         if ($this->wasChangedStatus($payment)) {
             static::eventWithDetect($payment);
-        }
-    }
-
-    public function deleted(Model $payment): void
-    {
-        if ($this->authorizeType()) {
-            static::event($payment, StatusEnum::deleted);
         }
     }
 

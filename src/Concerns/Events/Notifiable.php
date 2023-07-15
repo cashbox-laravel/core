@@ -21,7 +21,6 @@ use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Cashbox\Core\Enums\StatusEnum;
 use Cashbox\Core\Events\CreatedEvent;
-use Cashbox\Core\Events\DeletedEvent;
 use Cashbox\Core\Events\FailedEvent;
 use Cashbox\Core\Events\RefundedEvent;
 use Cashbox\Core\Events\SuccessEvent;
@@ -41,7 +40,6 @@ trait Notifiable
             StatusEnum::waitRefund => event(new WaitRefundEvent($payment)),
             StatusEnum::success    => event(new SuccessEvent($payment)),
             StatusEnum::failed     => event(new FailedEvent($payment)),
-            StatusEnum::deleted    => event(new DeletedEvent($payment)),
         };
     }
 

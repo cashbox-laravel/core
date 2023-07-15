@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Jobs;
 
-use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\Response;
 
 class RefundJob extends BaseJob
 {
-    protected function request(): ResponseInfo
+    protected function request(): Response
     {
         $this->verify();
 
@@ -33,7 +33,7 @@ class RefundJob extends BaseJob
         dispatch_sync(new VerifyJob($this->payment, true));
     }
 
-    protected function refund(): ResponseInfo
+    protected function refund(): Response
     {
         return $this->driver()->refund();
     }

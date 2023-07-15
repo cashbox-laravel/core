@@ -21,7 +21,9 @@ use ArchTech\Enums\InvokableCases;
 
 /**
  * @method static string createdAt()
+ * @method static string currency()
  * @method static string status()
+ * @method static string sum()
  * @method static string type()
  */
 enum AttributeEnum: string
@@ -29,6 +31,8 @@ enum AttributeEnum: string
     use InvokableCases;
 
     case createdAt = 'created_at';
+    case currency  = 'currency';
     case status    = 'status';
+    case sum       = 'sum';
     case type      = 'type';
 }

@@ -68,6 +68,8 @@ return [
         'attribute' => [
             AttributeEnum::type()      => 'type_id',
             AttributeEnum::status()    => 'status_id',
+            AttributeEnum::sum()       => 'sum',
+            AttributeEnum::currency()  => 'currency',
             AttributeEnum::createdAt() => 'created_at',
         ],
 
@@ -357,13 +359,13 @@ return [
         // 'driver_name_foo' => [
         //    'driver' => \Cashbox\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //    'details' => \App\Payments\BankName::class,
+        //    'resource' => \App\Payments\BankName::class,
         // ],
         //
         // 'driver_name_bar' => [
         //    'driver' => \Cashbox\CoreDriver\BankName\PaymentType\Driver::class,
         //
-        //    'details' => \App\Payments\BankName::class,
+        //    'resource' => \App\Payments\BankName::class,
         //
         //    'credentials' => [
         //        'client_id'     => env('CASHBOX_BANK_CLIENT_ID'),

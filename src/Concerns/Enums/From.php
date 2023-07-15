@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Concerns\Enums;
 
+use BackedEnum;
+use Illuminate\Support\Str;
 use OutOfBoundsException;
 
 trait From
@@ -30,14 +32,44 @@ trait From
         throw new OutOfBoundsException($value);
     }
 
-    public static function tryFrom(int|string $value): ?static
+    public static function tryFrom(int|string|BackedEnum $value): ?static
     {
+        if ($value instanceof static) {
+            return $value;
+        }
+
+        $name  = static::resolveName($value);
+        $value = static::resolveValue($value);
+
         foreach (static::cases() as $case) {
-            if ($case->name === $case || $case->value === $case) {
+            if (static::prepareName($case->name) === static::prepareName($name) || $case->value === $value) {
                 return $case;
             }
         }
 
         return null;
+    }
+
+    protected static function prepareName(int|string $name): string
+    {
+        return Str::lower((string) $name);
+    }
+
+    protected function resolveName(int|string|BackedEnum $item): string
+    {
+        if ($item instanceof BackedEnum) {
+            return $item->name;
+        }
+
+        return (string) $item;
+    }
+
+    protected function resolveValue(int|string|BackedEnum $item): string
+    {
+        if ($item instanceof BackedEnum) {
+            return $item->value;
+        }
+
+        return (string) $item;
     }
 }

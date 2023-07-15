@@ -21,7 +21,7 @@ use Cashbox\Core\Billable;
 use Cashbox\Core\Concerns\Config\Queue;
 use Cashbox\Core\Enums\RateLimiterEnum;
 use Cashbox\Core\Exceptions\External\EmptyResponseException;
-use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\Response;
 use Cashbox\Core\Services\Driver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -46,7 +46,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 
     public int $maxExceptions = 3;
 
-    abstract protected function request(): ResponseInfo;
+    abstract protected function request(): Response;
 
     public function __construct(
         public Model $payment,

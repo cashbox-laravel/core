@@ -17,14 +17,16 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Data\Config\Payment;
 
-use Cashbox\Core\Data\Casts\PaymentModelCast;
+use Cashbox\Core\Billable;
+use Cashbox\Core\Data\Casts\Instances\InstanceOfCast;
+use Cashbox\Core\Exceptions\Internal\IncorrectModelException;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Data;
 
 class PaymentData extends Data
 {
-    #[WithCast(PaymentModelCast::class)]
+    #[WithCast(InstanceOfCast::class, needle: Billable::class, exception: IncorrectModelException::class)]
     public Model|string $model;
 
     public AttributeData $attribute;

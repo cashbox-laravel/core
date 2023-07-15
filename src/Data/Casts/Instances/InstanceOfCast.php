@@ -15,17 +15,21 @@
 
 declare(strict_types=1);
 
-namespace Cashbox\Core\Data\Casts;
+namespace Cashbox\Core\Data\Casts\Instances;
 
 use Cashbox\Core\Services\Validator;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Casts\Cast;
 use Spatie\LaravelData\Support\DataProperty;
 
-class PaymentModelCast implements Cast
+class InstanceOfCast implements Cast
 {
-    public function cast(DataProperty $property, mixed $value, array $context): Model|string
+    public function __construct(
+        protected readonly string $needle,
+        protected readonly string $exception
+    ) {}
+
+    public function cast(DataProperty $property, mixed $value, array $context): string
     {
-        return Validator::model($value);
+        return Validator::validate($value, $this->needle, $this->exception);
     }
 }

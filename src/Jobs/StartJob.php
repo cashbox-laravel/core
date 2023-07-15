@@ -17,11 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Jobs;
 
-use Cashbox\Core\Http\ResponseInfo;
+use Cashbox\Core\Http\Response;
 
 class StartJob extends BaseJob
 {
-    protected function request(): ResponseInfo
+    protected function request(): Response
     {
         return $this->driver()->start();
     }
