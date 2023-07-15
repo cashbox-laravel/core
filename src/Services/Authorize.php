@@ -75,7 +75,9 @@ class Authorize
 
     protected static function paymentTypes(): array
     {
-        return Config::payment()->drivers->keys()->toArray();
+        return array_keys(
+            Config::payment()->drivers
+        );
     }
 
     protected static function paymentType(Model $payment): mixed

@@ -33,14 +33,14 @@ class PaymentObserver
 
     public function created(Model $payment): void
     {
-        if ($this->authorizeType()) {
+        if ($this->authorizeType($payment)) {
             static::job($payment)->start();
         }
     }
 
     public function updated(Model $payment): void
     {
-        if (! $this->authorizeType()) {
+        if (! $this->authorizeType($payment)) {
             return;
         }
 
@@ -55,7 +55,7 @@ class PaymentObserver
 
     public function restored(Model $payment): void
     {
-        if ($this->authorizeType()) {
+        if ($this->authorizeType($payment)) {
             static::job($payment)->retry();
         }
     }

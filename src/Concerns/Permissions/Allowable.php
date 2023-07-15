@@ -18,26 +18,35 @@ declare(strict_types=1);
 namespace Cashbox\Core\Concerns\Permissions;
 
 use Cashbox\Core\Services\Authorize;
+use Illuminate\Database\Eloquent\Model;
 
 trait Allowable
 {
-    protected function authorizeType(): bool
+    protected function authorizeType(?Model $payment = null): bool
     {
-        return Authorize::type($this->payment);
+        return Authorize::type(
+            $payment ?? $this->payment
+        );
     }
 
-    protected function authorizeToStart(): bool
+    protected function authorizeToStart(?Model $payment = null): bool
     {
-        return Authorize::toStart($this->payment);
+        return Authorize::toStart(
+            $payment ?? $this->payment
+        );
     }
 
-    protected function authorizeToVerify(): bool
+    protected function authorizeToVerify(?Model $payment = null): bool
     {
-        return Authorize::toVerify($this->payment);
+        return Authorize::toVerify(
+            $payment ?? $this->payment
+        );
     }
 
-    protected function authorizeToRefund(): bool
+    protected function authorizeToRefund(?Model $payment = null): bool
     {
-        return Authorize::toRefund($this->payment);
+        return Authorize::toRefund(
+            $payment ?? $this->payment
+        );
     }
 }
