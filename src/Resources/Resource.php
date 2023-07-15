@@ -14,6 +14,10 @@ abstract class Resource
 
     protected CurrencyEnum $currency = CurrencyEnum::USD;
 
+    abstract public function currency(): CurrencyEnum;
+
+    abstract public function sum(): int;
+
     public function __construct(
         protected Model $payment
     ) {}
@@ -28,21 +32,5 @@ abstract class Resource
         return $this->payment->getAttribute(
             static::attribute()->status
         );
-    }
-
-    public function sum(): int
-    {
-        return $this->payment->getAttribute(
-            static::attribute()->sum
-        );
-    }
-
-    public function currency(): CurrencyEnum
-    {
-        $value = $this->payment->getAttribute(
-            static::attribute()->currency
-        );
-
-        return CurrencyEnum::tryFrom($value) ?? $this->currency;
     }
 }

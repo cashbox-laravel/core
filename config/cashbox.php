@@ -68,8 +68,6 @@ return [
         'attribute' => [
             AttributeEnum::type()      => 'type_id',
             AttributeEnum::status()    => 'status_id',
-            AttributeEnum::sum()       => 'sum',
-            AttributeEnum::currency()  => 'currency',
             AttributeEnum::createdAt() => 'created_at',
         ],
 
