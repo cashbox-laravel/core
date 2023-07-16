@@ -99,13 +99,13 @@ abstract class Command extends BaseCommand
             return true;
         }
 
-        return $this->hasOption(' paymentId');
+        return $this->hasArgument('payment');
     }
 
     protected function getPaymentId(): int|string|null
     {
-        if ($this->hasOption(' paymentId')) {
-            return $this->option('paymentId');
+        if ($this->hasArgument('payment')) {
+            return $this->argument('payment');
         }
 
         return null;

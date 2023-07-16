@@ -23,7 +23,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 #[AsCommand('cashbox:verify')]
 class Verify extends Command
 {
-    protected $signature = 'cashbox:verify {paymentId?} {--force}';
+    protected $signature = 'cashbox:verify {payment?} {--force}';
 
     protected $description = 'Verifies the status of a bank transaction';
 
