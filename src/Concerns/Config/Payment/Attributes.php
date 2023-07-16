@@ -22,7 +22,7 @@ use Cashbox\Core\Facades\Config;
 
 trait Attributes
 {
-    protected static function attribute(): AttributeData
+    protected static function attributeConfig(): AttributeData
     {
         return Config::payment()->attribute;
     }

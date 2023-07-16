@@ -113,7 +113,7 @@ abstract class Statuses
     protected function hasModel(array|string $statuses, StatusEnum $status): bool
     {
         $statuses = Arr::of((array) $statuses)
-            ->map(fn (mixed $value) => static::payment()->status->fromEnum($status))
+            ->map(fn (mixed $value) => static::paymentConfig()->status->fromEnum($status))
             ->toArray();
 
         return $this->has($status, $statuses);

@@ -57,21 +57,21 @@ trait Billable
     public function cashboxAttributeType(): mixed
     {
         return $this->getAttribute(
-            static::attribute()->type
+            static::attributeConfig()->type
         );
     }
 
     public function cashboxAttributeStatus(): mixed
     {
         return $this->getAttribute(
-            static::attribute()->status
+            static::attributeConfig()->status
         );
     }
 
     public function cashboxAttributeCreatedAt(): DateTimeInterface
     {
         return $this->getAttribute(
-            static::attribute()->createdAt
+            static::attributeConfig()->createdAt
         );
     }
 }

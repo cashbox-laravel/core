@@ -30,7 +30,7 @@ return new class extends PrivateMigration {
     protected function createColumn(string $name, string $after): void
     {
         $this->connection()->table($this->table(), function (Blueprint $table) use ($name, $after) {
-            $table->foreignIdFor(static::payment()->model, $name)
+            $table->foreignIdFor(static::paymentConfig()->model, $name)
                 ->after($after)
                 ->constrained($this->primaryTable(), $this->primaryKey())
                 ->cascadeOnDelete();
@@ -46,8 +46,8 @@ return new class extends PrivateMigration {
 
     protected function moveData(string $from, string $to): void
     {
-        DB::connection(self::details()->connection)
-            ->table(self::details()->table)
+        DB::connection(self::detailsConfig()->connection)
+            ->table(self::detailsConfig()->table)
             ->update([$to => DB::raw($from)]);
     }
 };

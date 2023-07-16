@@ -22,7 +22,7 @@ use Cashbox\Core\Facades\Config;
 
 trait Statuses
 {
-    protected static function statuses(): StatusData
+    protected static function statusConfig(): StatusData
     {
         return Config::payment()->status;
     }

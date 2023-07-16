@@ -52,8 +52,8 @@ class Job
         if ($this->authorizeToStart()) {
             $this->dispatch(StartJob::class, $this->detectQueue()->start);
 
-            if (static::autoRefund()->enabled) {
-                $this->refund(static::autoRefund()->delay);
+            if (static::autoRefundConfig()->enabled) {
+                $this->refund(static::autoRefundConfig()->delay);
             }
         }
     }

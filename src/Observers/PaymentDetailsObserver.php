@@ -54,8 +54,8 @@ class PaymentDetailsObserver
      */
     protected function updateStatus(Model $payment, StatusEnum $status): void
     {
-        $value   = static::payment()->status->fromEnum($status);
-        $field   = static::attribute()->status;
+        $value   = static::paymentConfig()->status->fromEnum($status);
+        $field   = static::attributeConfig()->status;
         $current = $payment->cashboxAttributeStatus();
 
         if ($current !== $value) {

@@ -22,7 +22,7 @@ use Cashbox\Core\Facades\Config;
 
 trait Details
 {
-    protected static function details(): DetailsData
+    protected static function detailsConfig(): DetailsData
     {
         return Config::details();
     }

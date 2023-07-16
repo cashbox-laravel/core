@@ -59,8 +59,8 @@ abstract class Command extends BaseCommand
     {
         $this->builder()
             ->with('cashbox.parent')
-            ->where(static::attribute()->type, $this->getTypes())
-            ->where(static::attribute()->status, $this->getStatuses())
+            ->where(static::attributeConfig()->type, $this->getTypes())
+            ->where(static::attributeConfig()->status, $this->getStatuses())
             ->when($this->getPaymentId(), fn (Builder $builder, int|string $id) => $builder
                 ->where($this->modelKey(), $id)
             )
@@ -70,21 +70,21 @@ abstract class Command extends BaseCommand
     protected function builder(): Builder
     {
         return $this->model()->query(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 
     protected function modelKey(): string
     {
         return $this->model()->primaryKey(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 
     protected function getTypes(): array
     {
         return array_values(
-            static::payment()->drivers
+            static::paymentConfig()->drivers
         );
     }
 

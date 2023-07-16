@@ -51,7 +51,7 @@ trait Notifiable
      */
     protected static function detectEvent(Model $payment): StatusEnum
     {
-        return static::payment()->status->toEnum(
+        return static::paymentConfig()->status->toEnum(
             $payment->cashboxAttributeStatus()
         );
     }

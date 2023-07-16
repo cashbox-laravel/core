@@ -32,7 +32,7 @@ class PaymentObserver
     public function creating(Model $payment): void
     {
         // Collision elimination when creating a model using the default value from the database.
-        $payment->status = static::payment()->status->new;
+        $payment->status = static::paymentConfig()->status->new;
     }
 
     /**
@@ -76,7 +76,7 @@ class PaymentObserver
     protected function wasChangedStatus(Model $payment): bool
     {
         return $payment->wasChanged(
-            static::attribute()->status
+            static::attributeConfig()->status
         );
     }
 
@@ -90,8 +90,8 @@ class PaymentObserver
     protected function exceptFields(Model $payment): array
     {
         return Arr::of($payment->getChanges())->except([
-            static::attribute()->status,
-            static::attribute()->createdAt,
+            static::attributeConfig()->status,
+            static::attributeConfig()->createdAt,
         ])->keys()->toArray();
     }
 }

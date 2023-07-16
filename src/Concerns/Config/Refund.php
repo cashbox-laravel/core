@@ -22,7 +22,7 @@ use Cashbox\Core\Facades\Config;
 
 trait Refund
 {
-    public static function autoRefund(): RefundData
+    public static function autoRefundConfig(): RefundData
     {
         return Config::refund();
     }

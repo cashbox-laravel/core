@@ -22,7 +22,7 @@ use Cashbox\Core\Facades\Config;
 
 trait Payments
 {
-    protected static function payment(): PaymentData
+    protected static function paymentConfig(): PaymentData
     {
         return Config::payment();
     }

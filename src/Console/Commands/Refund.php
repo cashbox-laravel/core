@@ -29,7 +29,7 @@ class Refund extends Command
 
     protected function getStatuses(): array
     {
-        return static::statuses()->toRefund();
+        return static::statusConfig()->toRefund();
     }
 
     /**

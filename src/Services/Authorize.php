@@ -34,20 +34,20 @@ class Authorize
     public static function toStart(Model $payment): bool
     {
         return static::acceptType($payment)
-            && static::acceptStatus($payment, static::statuses()->new)
+            && static::acceptStatus($payment, static::statusConfig()->new)
             && static::doesntHaveDetails($payment);
     }
 
     public static function toVerify(Model $payment): bool
     {
         return static::acceptType($payment)
-            && static::acceptStatus($payment, static::statuses()->inProgress());
+            && static::acceptStatus($payment, static::statusConfig()->inProgress());
     }
 
     public static function toRefund(Model $payment): bool
     {
         return static::acceptType($payment)
-            && static::acceptStatus($payment, static::statuses()->toRefund());
+            && static::acceptStatus($payment, static::statusConfig()->toRefund());
     }
 
     /**

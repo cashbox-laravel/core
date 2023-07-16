@@ -29,9 +29,9 @@ return new class extends PublicMigration {
     protected function fields(): array
     {
         return [
-            self::attribute()->type,
-            self::attribute()->status,
-            self::attribute()->createdAt,
+            self::attributeConfig()->type,
+            self::attributeConfig()->status,
+            self::attributeConfig()->createdAt,
         ];
     }
 };

@@ -29,7 +29,7 @@ class Verify extends Command
 
     protected function getStatuses(): array
     {
-        return static::statuses()->inProgress();
+        return static::statusConfig()->inProgress();
     }
 
     /**

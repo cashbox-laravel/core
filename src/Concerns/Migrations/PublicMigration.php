@@ -38,14 +38,14 @@ abstract class PublicMigration extends Migration
     protected function modelConnection(): ?string
     {
         return $this->model()->connection(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 
     protected function table(): string
     {
         return $this->model()->table(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 }

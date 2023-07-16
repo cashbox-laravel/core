@@ -55,8 +55,8 @@ class Details extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->setConnection(static::details()->connection);
-        $this->setTable(static::details()->table);
+        $this->setConnection(static::detailsConfig()->connection);
+        $this->setTable(static::detailsConfig()->table);
 
         parent::__construct($attributes);
     }

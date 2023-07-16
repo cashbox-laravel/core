@@ -32,32 +32,32 @@ abstract class PrivateMigration extends Migration
 
     protected function connection(): Builder
     {
-        return Schema::connection(static::details()->connection);
+        return Schema::connection(static::detailsConfig()->connection);
     }
 
     protected function table(): string
     {
-        return static::details()->table;
+        return static::detailsConfig()->table;
     }
 
     protected function primaryTable(): string
     {
         return $this->model()->table(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 
     protected function primaryType(): string
     {
         return $this->model()->primaryKeyType(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 
     protected function primaryKey(): string
     {
         return $this->model()->primaryKey(
-            static::payment()->model
+            static::paymentConfig()->model
         );
     }
 }

@@ -35,7 +35,7 @@ class ObserverServiceProvider extends BaseProvider
 
     protected function bootPayment(): void
     {
-        $model = static::payment()->model;
+        $model = static::paymentConfig()->model;
 
         $model::observe(PaymentObserver::class);
     }

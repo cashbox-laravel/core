@@ -30,17 +30,17 @@ return new class extends PublicMigration {
     protected function oldFields(): array
     {
         return [
-            self::attribute()->type,
-            self::attribute()->status,
-            self::attribute()->createdAt,
+            self::attributeConfig()->type,
+            self::attributeConfig()->status,
+            self::attributeConfig()->createdAt,
         ];
     }
 
     protected function newFields(): array
     {
         return [
-            self::attribute()->type,
-            self::attribute()->status,
+            self::attributeConfig()->type,
+            self::attributeConfig()->status,
         ];
     }
 };
