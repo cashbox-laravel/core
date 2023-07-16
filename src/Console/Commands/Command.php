@@ -59,11 +59,12 @@ abstract class Command extends BaseCommand
     {
         $this->builder()
             ->with('cashbox.parent')
-            ->where(static::attributeConfig()->type, $this->getTypes())
-            ->where(static::attributeConfig()->status, $this->getStatuses())
+            ->whereIn(static::attributeConfig()->type, $this->getTypes())
+            ->whereIn(static::attributeConfig()->status, $this->getStatuses())
             ->when($this->getPaymentId(), fn (Builder $builder, int|string $id) => $builder
                 ->where($this->modelKey(), $id)
             )
+            ->when(! empty($this->condition()), fn (Builder $builder) => $this->condition()($builder))
             ->chunkById($this->size, $callback);
     }
 
@@ -72,6 +73,11 @@ abstract class Command extends BaseCommand
         return $this->model()->query(
             static::paymentConfig()->model
         );
+    }
+
+    protected function condition(): ?Closure
+    {
+        return null;
     }
 
     protected function modelKey(): string
@@ -95,17 +101,17 @@ abstract class Command extends BaseCommand
 
     protected function hasForce(): bool
     {
-        if ($this->hasOption('force') && $this->option('force')) {
+        if ($this->option('force')) {
             return true;
         }
 
-        return $this->hasArgument('payment');
+        return ! empty($this->argument('payment'));
     }
 
     protected function getPaymentId(): int|string|null
     {
-        if ($this->hasArgument('payment')) {
-            return $this->argument('payment');
+        if ($id = $this->argument('payment')) {
+            return $id;
         }
 
         return null;
