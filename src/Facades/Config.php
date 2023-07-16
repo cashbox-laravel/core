@@ -24,7 +24,6 @@ use Cashbox\Core\Data\Config\LogsData;
 use Cashbox\Core\Data\Config\Payment\PaymentData;
 use Cashbox\Core\Data\Config\Queue\QueueData;
 use Cashbox\Core\Data\Config\RefundData;
-use Cashbox\Core\Data\Config\VerifyData;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -35,7 +34,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static PaymentData payment()
  * @method static QueueData queue()
  * @method static RefundData refund()
- * @method static VerifyData verify()
  */
 class Config extends Facade
 {

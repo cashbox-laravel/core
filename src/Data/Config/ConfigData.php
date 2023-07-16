@@ -37,8 +37,6 @@ class ConfigData extends Data
 
     public QueueData $queue;
 
-    public VerifyData $verify;
-
     #[MapInputName('auto_refund')]
     public RefundData $refund;
 
@@ -63,11 +61,6 @@ class ConfigData extends Data
     public function queue(): QueueData
     {
         return $this->queue;
-    }
-
-    public function verify(): VerifyData
-    {
-        return $this->verify;
     }
 
     public function refund(): RefundData
