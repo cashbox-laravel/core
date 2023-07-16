@@ -19,7 +19,7 @@ use Cashbox\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 
-new class extends PrivateMigration {
+return new class extends PrivateMigration {
     public function up(): void
     {
         $this->createColumn('payment_id', 'item_id');

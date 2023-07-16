@@ -19,7 +19,7 @@ use Cashbox\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-new class extends PrivateMigration {
+return new class extends PrivateMigration {
     public function up(): void
     {
         $this->dropSchema();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Cashbox\Core\Concerns\Migrations\PrivateMigration;
 
-new class extends PrivateMigration {
+return new class extends PrivateMigration {
     public function up(): void
     {
         if ($this->doesntSame() && $this->exists()) {

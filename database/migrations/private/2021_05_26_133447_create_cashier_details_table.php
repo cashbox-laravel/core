@@ -18,7 +18,7 @@ declare(strict_types=1);
 use Cashbox\Core\Concerns\Migrations\PrivateMigration;
 use Illuminate\Database\Schema\Blueprint;
 
-new class extends PrivateMigration {
+return new class extends PrivateMigration {
     public function up(): void
     {
         $this->connection()->create($this->table(), function (Blueprint $table) {

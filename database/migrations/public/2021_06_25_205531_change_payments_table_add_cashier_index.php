@@ -18,7 +18,7 @@ declare(strict_types=1);
 use Cashbox\Core\Concerns\Migrations\PublicMigration;
 use Illuminate\Database\Schema\Blueprint;
 
-new class extends PublicMigration {
+return new class extends PublicMigration {
     public function up(): void
     {
         $this->connection()->table($this->table(), function (Blueprint $table) {
