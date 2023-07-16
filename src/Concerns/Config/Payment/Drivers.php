@@ -42,6 +42,12 @@ trait Drivers
      */
     protected static function driverByModel(Model $payment): DriverData
     {
-        return static::driver($payment->cashboxAttributeType(), $payment);
+        $type = $payment->cashboxAttributeType();
+
+        if ($name = array_search($type, Config::payment()->drivers)) {
+            return static::driver($name, $payment);
+        }
+
+        throw new UnknownDriverConfigException($name, $payment->getKey());
     }
 }
