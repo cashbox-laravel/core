@@ -36,6 +36,10 @@ class ServiceProvider extends BaseProvider
 
     protected function bootPublishes(): void
     {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
         $this->publishes([
             __DIR__ . '/../../config/cashbox.php' => $this->app->configPath('cashbox.php'),
         ], 'config');
