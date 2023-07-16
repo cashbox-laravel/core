@@ -29,7 +29,7 @@ abstract class Request
     abstract public function uri(): ?string;
 
     public function __construct(
-        protected Resource $resource
+        public readonly Resource $resource
     ) {}
 
     public function headers(): array

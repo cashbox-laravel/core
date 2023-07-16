@@ -20,6 +20,8 @@ class InfoData extends Data
 
     public ?string $status;
 
+    public ?array $extra;
+
     public function toJson($options = 0): string
     {
         return parent::toJson($this->flags());

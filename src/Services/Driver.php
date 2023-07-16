@@ -41,9 +41,8 @@ abstract class Driver
 
     public function __construct(
         protected Model $payment,
-        protected readonly DriverData $data,
-        protected readonly Http $http = new Http(
-        )
+        public readonly DriverData $config,
+        protected readonly Http $http = new Http()
     ) {}
 
     public function statuses(): Statuses
@@ -62,7 +61,7 @@ abstract class Driver
 
     protected function resource(): Resource
     {
-        $resource = $this->data->resource;
+        $resource = $this->config->resource;
 
         return new $resource($this->payment);
     }

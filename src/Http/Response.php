@@ -20,6 +20,7 @@ namespace Cashbox\Core\Http;
 use Cashbox\Core\Data\Models\InfoData;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Wrapping\WrapExecutionType;
 
 abstract class Response extends Data
 {
@@ -34,8 +35,26 @@ abstract class Response extends Data
 
     public function isEmpty(): bool
     {
-        return Arr::of($this->toArray())
-            ->filter(fn (mixed $value) => $value !== null)
-            ->isEmpty();
+        return empty($this->filter($this->toArray()));
+    }
+
+    public function transform(
+        bool $transformValues = true,
+        WrapExecutionType $wrapExecutionType = WrapExecutionType::Disabled,
+        bool $mapPropertyNames = true,
+    ): array {
+        return $this->filter(
+            parent::transform($transformValues, $wrapExecutionType, $mapPropertyNames)
+        );
+    }
+
+    protected function getExtra(): ?array
+    {
+        return null;
+    }
+
+    protected function filter(array $items): array
+    {
+        return Arr::filter($items, fn (mixed $value) => $value !== null);
     }
 }

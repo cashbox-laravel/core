@@ -19,7 +19,7 @@ abstract class Resource
     abstract public function sum(): int;
 
     public function __construct(
-        protected Model $payment
+        public Model $payment
     ) {}
 
     public function paymentId(): string
