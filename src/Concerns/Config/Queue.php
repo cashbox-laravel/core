@@ -27,7 +27,7 @@ trait Queue
 {
     use Drivers;
 
-    protected static function queue(): QueueData
+    protected static function queueConfig(): QueueData
     {
         return Config::queue();
     }
@@ -43,6 +43,6 @@ trait Queue
             return static::driverByModel($payment)->getQueue();
         }
 
-        return static::queue()->name;
+        return static::queueConfig()->name;
     }
 }

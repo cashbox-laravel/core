@@ -88,7 +88,7 @@ class Job
     protected function dispatch(string $job, ?string $queue, ?int $delay = null): void
     {
         dispatch(new $job($this->payment, $this->force))
-            ->onConnection(static::queue()->connection)
+            ->onConnection(static::queueConfig()->connection)
             ->onQueue($queue)
             ->afterCommit()
             ->delay($delay);
