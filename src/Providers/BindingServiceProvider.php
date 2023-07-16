@@ -9,7 +9,7 @@ use Cashbox\Core\Exceptions\Internal\ConfigCannotBeEmptyException;
 
 class BindingServiceProvider extends BaseProvider
 {
-    public function register(): void
+    public function boot(): void
     {
         if ($this->disabled()) {
             return;
