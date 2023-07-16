@@ -67,6 +67,6 @@ class Details extends Model
 
         $key = $this->model()->primaryKey($payment);
 
-        return $this->belongsTo($payment, $key, 'payment_id');
+        return $this->belongsTo($payment, 'payment_id', $key);
     }
 }

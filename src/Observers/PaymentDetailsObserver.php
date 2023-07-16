@@ -19,6 +19,7 @@ namespace Cashbox\Core\Observers;
 
 use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Payments;
+use Cashbox\Core\Concerns\Events\Notifiable;
 use Cashbox\Core\Enums\StatusEnum;
 use Cashbox\Core\Models\Details;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,15 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentDetailsObserver
 {
     use Attributes;
+    use Notifiable;
     use Payments;
+
+    public function created(Details $model): void
+    {
+        if ($model->status === StatusEnum::new) {
+            static::event($model->parent, StatusEnum::new);
+        }
+    }
 
     public function saving(Details $model): void
     {
@@ -37,21 +46,23 @@ class PaymentDetailsObserver
 
     public function saved(Details $model): void
     {
-        if ($model->wasChanged('status')) {
-            $this->updateStatus($model->parent, $model->status);
-        }
+        $this->updateStatus($model->parent, $model->status);
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     * @param  \Cashbox\Core\Enums\StatusEnum  $status
+     *
+     * @return void
+     */
     protected function updateStatus(Model $payment, StatusEnum $status): void
     {
-        $value = static::payment()->status->fromEnum($status);
-        $field = static::attribute()->status;
+        $value   = static::payment()->status->fromEnum($status);
+        $field   = static::attribute()->status;
+        $current = $payment->cashboxAttributeStatus();
 
-        $payment->update([$field => $value]);
-    }
-
-    protected function statusToEnum(mixed $status): ?StatusEnum
-    {
-        return static::payment()->status->toEnum($status);
+        if ($current !== $value) {
+            $payment->update([$field => $value]);
+        }
     }
 }

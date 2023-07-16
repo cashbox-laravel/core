@@ -25,4 +25,10 @@ class StartJob extends BaseJob
     {
         return $this->driver()->start();
     }
+
+    protected function finish(): void
+    {
+        $this->payment->refresh();
+        $this->payment->cashboxJob(true)->verify();
+    }
 }

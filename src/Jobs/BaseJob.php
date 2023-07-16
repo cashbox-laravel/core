@@ -67,15 +67,8 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
             return;
         }
 
-        $data = [
-            'external_id'  => $response->getExternalId(),
-            'operation_id' => $response->getOperationId(),
-            'info'         => $response,
-        ];
-
-        $this->payment->cashbox
-            ? $this->payment->cashbox->update($data)
-            : $this->payment->cashbox()->create($data);
+        $this->updateParent($this->prepareData($response));
+        $this->finish();
     }
 
     public function uniqueId(): int|string
@@ -87,6 +80,24 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
     {
         return [new RateLimitedWithRedis($this->getRateLimiter())];
     }
+
+    protected function prepareData(Response $response): array
+    {
+        return [
+            'external_id'  => $response->getExternalId(),
+            'operation_id' => $response->getOperationId(),
+            'info'         => $response->getInfo(),
+        ];
+    }
+
+    protected function updateParent(array $data): void
+    {
+        $this->payment->cashbox
+            ? $this->payment->cashbox->update($data)
+            : $this->payment->cashbox()->create($data);
+    }
+
+    protected function finish(): void {}
 
     protected function driver(): Driver
     {

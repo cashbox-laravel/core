@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace Cashbox\Core;
 
 use Cashbox\Core\Concerns\Config\Payment\Attributes;
+use Cashbox\Core\Concerns\Helpers\Jobs;
 use Cashbox\Core\Concerns\Repositories\Registry;
 use Cashbox\Core\Models\Details;
 use Cashbox\Core\Services\Driver;
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 trait Billable
 {
     use Attributes;
+    use Jobs;
     use Registry;
 
     protected ?Driver $cashboxDriver = null;
@@ -47,6 +49,11 @@ trait Billable
         }
 
         return $this->cashboxDriver = DriverManager::find($this);
+    }
+
+    public function cashboxJob(bool $force = false): Services\Job
+    {
+        return static::job($this, $force);
     }
 
     public function cashboxAttributeType(): mixed

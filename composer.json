@@ -23,20 +23,20 @@
     },
     "funding": [
         {
-            "type": "github",
-            "url": "https://github.com/sponsors/TheDragonCode"
-        },
-        {
-            "type": "open_collective",
-            "url": "https://opencollective.com/dragon-code"
-        },
-        {
             "type": "boosty",
             "url": "https://boosty.to/dragon-code"
         },
         {
             "type": "yoomoney",
             "url": "https://yoomoney.ru/to/410012608840929"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/TheDragonCode"
+        },
+        {
+            "type": "open_collective",
+            "url": "https://opencollective.com/dragon-code"
         }
     ],
     "require": {
@@ -45,7 +45,7 @@
         "archtechx/enums": "^0.3.2",
         "doctrine/dbal": "^3.6",
         "dragon-code/laravel-support": "^3.6",
-        "dragon-code/support": "^6.11.2", 
+        "dragon-code/support": "^6.11.2",
         "guzzlehttp/guzzle": "^7.7",
         "illuminate/bus": "^10.15",
         "illuminate/console": "^10.15",

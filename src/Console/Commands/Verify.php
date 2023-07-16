@@ -32,8 +32,13 @@ class Verify extends Command
         return static::statuses()->inProgress();
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return void
+     */
     protected function process(Model $payment): void
     {
-        static::job($payment, $this->hasForce())->verify();
+        $payment->cashboxJob($this->hasForce())->verify();
     }
 }

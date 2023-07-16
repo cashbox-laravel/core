@@ -21,7 +21,6 @@ use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Config\Payment\Drivers;
 use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Cashbox\Core\Concerns\Config\Payment\Statuses;
-use Cashbox\Core\Concerns\Helpers\Jobs;
 use Closure;
 use DragonCode\LaravelSupport\Traits\InitModelHelper;
 use Illuminate\Console\Command as BaseCommand;
@@ -35,7 +34,6 @@ abstract class Command extends BaseCommand
     use Attributes;
     use Drivers;
     use InitModelHelper;
-    use Jobs;
     use Payments;
     use Statuses;
 

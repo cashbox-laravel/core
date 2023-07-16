@@ -32,8 +32,13 @@ class Refund extends Command
         return static::statuses()->toRefund();
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return void
+     */
     protected function process(Model $payment): void
     {
-        static::job($payment, $this->hasForce())->refund();
+        $payment->cashboxJob($this->hasForce())->refund();
     }
 }

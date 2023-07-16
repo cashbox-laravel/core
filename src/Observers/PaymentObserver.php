@@ -19,7 +19,6 @@ namespace Cashbox\Core\Observers;
 
 use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Events\Notifiable;
-use Cashbox\Core\Concerns\Helpers\Jobs;
 use Cashbox\Core\Concerns\Permissions\Allowable;
 use DragonCode\Support\Facades\Helpers\Arr;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +27,6 @@ class PaymentObserver
 {
     use Allowable;
     use Attributes;
-    use Jobs;
     use Notifiable;
 
     public function creating(Model $payment): void
@@ -37,13 +35,23 @@ class PaymentObserver
         $payment->status = static::payment()->status->new;
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return void
+     */
     public function created(Model $payment): void
     {
         if ($this->authorizeType($payment)) {
-            static::job($payment)->start();
+            $payment->cashboxJob()->start();
         }
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return void
+     */
     public function updated(Model $payment): void
     {
         if (! $this->authorizeType($payment)) {
@@ -51,7 +59,7 @@ class PaymentObserver
         }
 
         if ($this->wasChanged($payment)) {
-            static::job($payment)->verify();
+            $payment->cashboxJob()->verify();
         }
 
         if ($this->wasChangedStatus($payment)) {
@@ -59,10 +67,15 @@ class PaymentObserver
         }
     }
 
+    /**
+     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
+     *
+     * @return void
+     */
     public function restored(Model $payment): void
     {
         if ($this->authorizeType($payment)) {
-            static::job($payment)->retry();
+            $payment->cashboxJob(true)->retry();
         }
     }
 
