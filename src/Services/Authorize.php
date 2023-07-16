@@ -41,15 +41,13 @@ class Authorize
     public static function toVerify(Model $payment): bool
     {
         return static::acceptType($payment)
-            && static::acceptStatus($payment, static::statuses()->inProgress())
-            && static::hasDetails($payment);
+            && static::acceptStatus($payment, static::statuses()->inProgress());
     }
 
     public static function toRefund(Model $payment): bool
     {
         return static::acceptType($payment)
-            && static::acceptStatus($payment, static::statuses()->toRefund())
-            && static::hasDetails($payment);
+            && static::acceptStatus($payment, static::statuses()->toRefund());
     }
 
     /**
