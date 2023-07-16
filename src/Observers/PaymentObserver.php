@@ -37,8 +37,6 @@ class PaymentObserver
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return void
      */
     public function created(Model $payment): void
     {
@@ -49,8 +47,6 @@ class PaymentObserver
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return void
      */
     public function updated(Model $payment): void
     {
@@ -69,8 +65,6 @@ class PaymentObserver
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return void
      */
     public function restored(Model $payment): void
     {

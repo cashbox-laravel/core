@@ -37,8 +37,6 @@ trait Drivers
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
      *
      * @throws \Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException
-     *
-     * @return \Cashbox\Core\Data\Config\DriverData
      */
     protected static function driverByModel(Model $payment): DriverData
     {

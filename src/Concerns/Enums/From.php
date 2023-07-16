@@ -32,7 +32,7 @@ trait From
         throw new OutOfBoundsException($value);
     }
 
-    public static function tryFrom(int|string|BackedEnum $value): ?static
+    public static function tryFrom(BackedEnum|int|string $value): ?static
     {
         if ($value instanceof static) {
             return $value;
@@ -55,7 +55,7 @@ trait From
         return Str::lower((string) $name);
     }
 
-    protected function resolveName(int|string|BackedEnum $item): string
+    protected function resolveName(BackedEnum|int|string $item): string
     {
         if ($item instanceof BackedEnum) {
             return $item->name;
@@ -64,7 +64,7 @@ trait From
         return (string) $item;
     }
 
-    protected function resolveValue(int|string|BackedEnum $item): string
+    protected function resolveValue(BackedEnum|int|string $item): string
     {
         if ($item instanceof BackedEnum) {
             return $item->value;

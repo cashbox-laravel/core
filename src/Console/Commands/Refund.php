@@ -34,8 +34,6 @@ class Refund extends Command
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return void
      */
     protected function process(Model $payment): void
     {

@@ -48,8 +48,6 @@ trait Notifiable
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return \Cashbox\Core\Enums\StatusEnum
      */
     protected static function detectEvent(Model $payment): StatusEnum
     {

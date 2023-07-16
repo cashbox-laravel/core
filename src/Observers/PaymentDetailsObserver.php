@@ -51,9 +51,6 @@ class PaymentDetailsObserver
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     * @param  \Cashbox\Core\Enums\StatusEnum  $status
-     *
-     * @return void
      */
     protected function updateStatus(Model $payment, StatusEnum $status): void
     {

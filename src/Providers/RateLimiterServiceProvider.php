@@ -58,8 +58,6 @@ class RateLimiterServiceProvider extends BaseProvider
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return bool
      */
     protected function isToday(Model $payment): bool
     {

@@ -42,7 +42,8 @@ abstract class Driver
     public function __construct(
         protected Model $payment,
         protected readonly DriverData $data,
-        protected readonly Http $http = new Http()
+        protected readonly Http $http = new Http(
+        )
     ) {}
 
     public function statuses(): Statuses

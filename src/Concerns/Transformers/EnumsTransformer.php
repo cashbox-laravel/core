@@ -21,7 +21,7 @@ use BackedEnum;
 
 trait EnumsTransformer
 {
-    protected static function transformFromEnum(int|string|BackedEnum $item): int|string
+    protected static function transformFromEnum(BackedEnum|int|string $item): int|string
     {
         if ($item instanceof BackedEnum) {
             return $item->value ?? $item->name;

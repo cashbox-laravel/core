@@ -54,8 +54,6 @@ class Authorize
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return bool
      */
     protected static function acceptType(Model $payment): bool
     {
@@ -64,9 +62,6 @@ class Authorize
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     * @param  mixed  $statuses
-     *
-     * @return bool
      */
     protected static function acceptStatus(Model $payment, mixed $statuses): bool
     {
@@ -75,8 +70,6 @@ class Authorize
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     *
-     * @return bool
      */
     protected static function hasDetails(Model $payment): bool
     {
