@@ -28,6 +28,13 @@ abstract class BaseProvider extends BaseServiceProvider
 
     protected function disabled(): bool
     {
-        return ! class_exists(static::payment()->model);
+        $class = $this->model();
+
+        return empty($class) || ! class_exists($class);
+    }
+
+    protected function model(): ?string
+    {
+        return config('cashbox.payment.model');
     }
 }

@@ -6,12 +6,15 @@ namespace Cashbox\Core\Providers;
 
 use Cashbox\Core\Data\Config\ConfigData;
 use Cashbox\Core\Exceptions\Internal\ConfigCannotBeEmptyException;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
-class BindingServiceProvider extends BaseServiceProvider
+class BindingServiceProvider extends BaseProvider
 {
     public function register(): void
     {
+        if ($this->disabled()) {
+            return;
+        }
+
         $this->bindConfig();
     }
 
