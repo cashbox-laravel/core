@@ -20,10 +20,10 @@ namespace Cashbox\Core\Console\Commands;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand('cashier:refund')]
+#[AsCommand('cashbox:refund')]
 class Refund extends Command
 {
-    protected $signature = 'cashier:refund {paymentId?} {--force}';
+    protected $signature = 'cashbox:refund {paymentId?} {--force}';
 
     protected $description = 'Refunds all payment transactions';
 
