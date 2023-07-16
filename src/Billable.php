@@ -19,7 +19,6 @@ namespace Cashbox\Core;
 
 use Cashbox\Core\Concerns\Config\Payment\Attributes;
 use Cashbox\Core\Concerns\Helpers\Jobs;
-use Cashbox\Core\Concerns\Repositories\Registry;
 use Cashbox\Core\Models\Details;
 use Cashbox\Core\Services\Driver;
 use Cashbox\Core\Services\DriverManager;
@@ -33,7 +32,6 @@ trait Billable
 {
     use Attributes;
     use Jobs;
-    use Registry;
 
     protected ?Driver $cashboxDriver = null;
 
