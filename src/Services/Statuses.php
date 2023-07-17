@@ -94,12 +94,12 @@ abstract class Statuses
     public function detect(string $status): ?StatusEnum
     {
         return match (true) {
-            Str::contains($status, static::NEW)       => StatusEnum::new,
-            Str::contains($status, static::SUCCESS)   => StatusEnum::success,
-            Str::contains($status, static::REFUNDING) => StatusEnum::waitRefund,
-            Str::contains($status, static::REFUNDED)  => StatusEnum::refund,
-            Str::contains($status, static::FAILED)    => StatusEnum::failed,
-            default                                   => null
+            $this->contains($status, static::NEW)       => StatusEnum::new,
+            $this->contains($status, static::SUCCESS)   => StatusEnum::success,
+            $this->contains($status, static::REFUNDING) => StatusEnum::waitRefund,
+            $this->contains($status, static::REFUNDED)  => StatusEnum::refund,
+            $this->contains($status, static::FAILED)    => StatusEnum::failed,
+            default                                     => null
         };
     }
 
@@ -131,5 +131,10 @@ abstract class Statuses
     protected function resolveStatuses(mixed $statuses): array
     {
         return array_map(fn (string $status) => $this->detect($status), $statuses);
+    }
+
+    protected function contains(string $haystack, array $needles): bool
+    {
+        return Str::contains($haystack, $needles, true);
     }
 }
