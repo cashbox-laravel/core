@@ -57,7 +57,7 @@ trait Logging
             '%d %s, POST %s',
             $response->status(),
             static::status($response),
-            $request->uri()
+            $request->url()
         );
     }
 
