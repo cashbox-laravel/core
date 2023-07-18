@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace Cashbox\Core\Services;
 
 use Cashbox\Core\Concerns\Helpers\Logging;
+use Cashbox\Core\Enums\HttpMethodEnum;
 use Cashbox\Core\Http\Request;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http as Client;
@@ -37,6 +38,7 @@ class Http
         }
 
         $response = $this->request(
+            $request->method(),
             $request->url(),
             $request->headers(),
             $request->options(),
@@ -50,18 +52,27 @@ class Http
         return $response->json();
     }
 
-    protected function request(string $uri, array $headers, array $options, array $data): Response
-    {
+    protected function request(
+        HttpMethodEnum $method,
+        string $url,
+        array $headers,
+        array $options,
+        array $data
+    ): Response {
         return Client::retry($this->tries, $this->sleep)
             ->withHeaders($headers)
             ->withOptions($options)
             ->acceptJson()
             ->asJson()
-            ->post($uri, $data);
+            ->send($method->value, $url, $data);
     }
 
     protected function throwIf(Response $response, Exception $exception): void
     {
+        if ($response->successful()) {
+            return;
+        }
+
         $exception->throw(
             (string) $response->effectiveUri(),
             $response->status(),

@@ -50,20 +50,20 @@ abstract class Driver
         return $this->resolve($this->statuses, $this->payment);
     }
 
-    protected function request(string $request): Response
+    protected function request(string $request, ?string $response = null): Response
     {
         $data = $this->call($request, 'make', $this->resource());
 
         $content = $this->http->send($data, $this->resolveException());
 
-        return $this->call($this->response, 'from', $content);
+        return $this->call($response ?? $this->response, 'from', $content);
     }
 
     protected function resource(): Resource
     {
         $resource = $this->config->resource;
 
-        return new $resource($this->payment);
+        return new $resource($this->payment, $this->config);
     }
 
     protected function resolveException(): Exception

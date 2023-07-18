@@ -27,4 +27,6 @@ class CredentialsData extends Data
     public string $clientId;
 
     public string $clientSecret;
+
+    public array $extra = [];
 }

@@ -19,10 +19,12 @@ namespace Cashbox\Core\Jobs;
 
 use Cashbox\Core\Billable;
 use Cashbox\Core\Concerns\Config\Queue;
+use Cashbox\Core\Data\Models\InfoData;
 use Cashbox\Core\Enums\RateLimiterEnum;
 use Cashbox\Core\Exceptions\External\EmptyResponseException;
 use Cashbox\Core\Http\Response;
 use Cashbox\Core\Services\Driver;
+use Cashbox\Core\Support\Arr;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -86,14 +88,26 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
         return [
             'external_id'  => $response->getExternalId(),
             'operation_id' => $response->getOperationId(),
-            'info'         => $response->getInfo(),
+            'info'         => $this->mergeInfo($response->getInfo()),
         ];
+    }
+
+    protected function mergeInfo(InfoData $data): InfoData
+    {
+        $stored = $this->payment->cashbox()->first()?->info?->extra ?? [];
+
+        return InfoData::from([
+            'externalId'  => $data->externalId,
+            'operationId' => $data->operationId,
+            'status'      => $data->status,
+            'extra'       => Arr::merge($stored, $data->extra),
+        ]);
     }
 
     protected function updateParent(array $data): void
     {
-        $this->payment->cashbox
-            ? $this->payment->cashbox->update($data)
+        $this->payment->cashbox()->exists()
+            ? $this->payment->cashbox()->update($data)
             : $this->payment->cashbox()->create($data);
     }
 
