@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class Resource
 {
-    protected CurrencyEnum $currency = CurrencyEnum::USD;
-
     abstract public function currency(): CurrencyEnum;
 
     abstract public function sum(): int;
