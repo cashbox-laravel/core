@@ -48,9 +48,9 @@ abstract class Response extends Data
         );
     }
 
-    protected function getExtra(): ?array
+    protected function getExtra(): array
     {
-        return null;
+        return [];
     }
 
     protected function filter(array $items): array

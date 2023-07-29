@@ -23,7 +23,7 @@ class InfoData extends Data implements Stringable
 
     public ?string $status;
 
-    public ?array $extra;
+    public array $extra = [];
 
     public function toJson($options = 0): string
     {
