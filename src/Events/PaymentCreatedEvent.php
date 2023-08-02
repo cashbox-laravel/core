@@ -17,4 +17,4 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Events;
 
-class PaymentCreatedEvent extends BaseEvent { }
+class PaymentCreatedEvent extends BaseEvent {}
