@@ -32,9 +32,7 @@ class PaymentDetailsObserver
 
     public function created(Details $model): void
     {
-        if ($model->status === StatusEnum::new) {
-            static::event($model->parent, StatusEnum::new);
-        }
+        static::event($model->parent, $model->status);
     }
 
     public function saving(Details $model): void
@@ -54,12 +52,9 @@ class PaymentDetailsObserver
      */
     protected function updateStatus(Model $payment, StatusEnum $status): void
     {
-        $value   = static::paymentConfig()->status->fromEnum($status);
-        $field   = static::attributeConfig()->status;
-        $current = $payment->cashboxAttributeStatus();
+        $value = static::paymentConfig()->status->fromEnum($status);
+        $field = static::attributeConfig()->status;
 
-        if ($current !== $value) {
-            $payment->update([$field => $value]);
-        }
+        $payment->update([$field => $value]);
     }
 }

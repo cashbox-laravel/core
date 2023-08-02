@@ -69,7 +69,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
             return;
         }
 
-        $this->updateParent($this->prepareData($response));
+        $this->update($this->prepareData($response));
         $this->finish();
     }
 
@@ -104,11 +104,16 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
         ]);
     }
 
-    protected function updateParent(array $data): void
+    protected function update(array $data): void
     {
-        $this->payment->cashbox()->exists()
-            ? $this->payment->cashbox()->update($data)
-            : $this->payment->cashbox()->create($data);
+        if ($this->payment->cashbox()->exists()) {
+            $this->payment->refresh();
+            $this->payment->cashbox->update($data);
+
+            return;
+        }
+
+        $this->payment->cashbox()->create($data);
     }
 
     protected function finish(): void {}

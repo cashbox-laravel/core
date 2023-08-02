@@ -21,6 +21,7 @@ use Cashbox\Core\Concerns\Config\Application;
 use Cashbox\Core\Enums\HttpMethodEnum;
 use Cashbox\Core\Resources\Resource;
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Http\Url;
 
 abstract class Request
 {
@@ -50,7 +51,7 @@ abstract class Request
         $host = static::isProduction() ? $this->productionHost : ($this->devHost ?? $this->productionHost);
         $uri  = static::isProduction() ? $this->productionUri : ($this->devUri ?? $this->productionUri);
 
-        return rtrim($host, '/') . '/' . ltrim($uri, '/');
+        return Url::parse($host)->withPath($uri)->toUrl();
     }
 
     public function headers(): array

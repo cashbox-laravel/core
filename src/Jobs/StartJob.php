@@ -29,6 +29,6 @@ class StartJob extends BaseJob
     protected function finish(): void
     {
         $this->payment->refresh();
-        $this->payment->cashboxJob(true)->verify();
+        $this->payment->cashboxJob()->verify();
     }
 }
