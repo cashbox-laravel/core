@@ -87,68 +87,10 @@
                 "Cashbox\\Core\\Providers\\RateLimiterServiceProvider"
             ]
         },
-        "thanks": [
-            {
-                "name": "archtechx/enums",
-                "url": "https://github.com/archtechx/enums"
-            },
-            {
-                "name": "dragon-code/laravel-support",
-                "url": "https://github.com/TheDragonCode/laravel-support"
-            },
-            {
-                "name": "dragon-code/support",
-                "url": "https://github.com/TheDragonCode/support"
-            },
-            {
-                "name": "guzzlehttp/guzzle",
-                "url": "https://github.com/guzzle/guzzle"
-            },
-            {
-                "name": "illuminate/bus",
-                "url": "https://github.com/illuminate/bus"
-            },
-            {
-                "name": "illuminate/console",
-                "url": "https://github.com/illuminate/console"
-            },
-            {
-                "name": "illuminate/contracts",
-                "url": "https://github.com/illuminate/contracts"
-            },
-            {
-                "name": "illuminate/database",
-                "url": "https://github.com/illuminate/database"
-            },
-            {
-                "name": "illuminate/queue",
-                "url": "https://github.com/illuminate/queue"
-            },
-            {
-                "name": "illuminate/support",
-                "url": "https://github.com/illuminate/support"
-            },
-            {
-                "name": "laravel/framework",
-                "url": "https://github.com/laravel/framework"
-            },
-            {
-                "name": "nesbot/carbon",
-                "url": "https://github.com/briannesbitt/Carbon"
-            },
-            {
-                "name": "psr/log",
-                "url": "https://github.com/php-fig/log"
-            },
-            {
-                "name": "spatie/laravel-data",
-                "url": "https://github.com/spatie/laravel-data"
-            },
-            {
-                "name": "symfony/console",
-                "url": "https://github.com/symfony/console"
-            }
-        ],
+        "thanks": {
+            "name": "cashbox/docs",
+            "url": "https://github.com/cashbox-laravel/foundation"
+        },
         "title": "Core"
     }
 }
