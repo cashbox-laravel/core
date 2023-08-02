@@ -26,7 +26,7 @@ Cashbox provides an expressive, fluent interface to manage billing services.
 
 ## Documentation
 
-You will find full documentation on the dedicated [documentation](https://cashbox-laravel.github.io/docs) site.
+You will find full documentation on the dedicated [documentation](https://cashbox.city) site.
 
 We also have Telegram channels where we post announcements:
 
@@ -38,16 +38,16 @@ You can also select the news channels you need from the [Telegram folder](https:
 ## Contributing
 
 Thank you for considering contributing to the `Cashbox`!
-The contribution guide can be found in the [documentation](https://cashbox-laravel.github.io/docs).
+The contribution guide can be found in the [documentation](https://cashbox.city).
 
 ## Code of Conduct
 
 In order to ensure that the `Cashbox` community is welcoming to all, please review and abide by
-the [Code of Conduct](https://cashbox-laravel.github.io/docs).
+the [Code of Conduct](https://cashbox.city).
 
 ## Security Vulnerabilities
 
-Please review [our security policy](https://cashbox-laravel.github.io/docs) on how to report security vulnerabilities.
+Please review [our security policy](https://cashbox.city) on how to report security vulnerabilities.
 
 ## License
 
@@ -66,4 +66,3 @@ the [Laravel framework](https://laravel.com/), distributed under the MIT license
 [link_license]:         LICENSE
 
 [link_packagist]:       https://packagist.org/packages/cashbox/core
-
