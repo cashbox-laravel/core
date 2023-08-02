@@ -19,11 +19,11 @@ namespace Cashbox\Core\Concerns\Events;
 
 use Cashbox\Core\Concerns\Config\Payment\Payments;
 use Cashbox\Core\Enums\StatusEnum;
-use Cashbox\Core\Events\CreatedEvent;
-use Cashbox\Core\Events\FailedEvent;
-use Cashbox\Core\Events\RefundedEvent;
-use Cashbox\Core\Events\SuccessEvent;
-use Cashbox\Core\Events\WaitRefundEvent;
+use Cashbox\Core\Events\PaymentCreatedEvent;
+use Cashbox\Core\Events\PaymentFailedEvent;
+use Cashbox\Core\Events\PaymentRefundedEvent;
+use Cashbox\Core\Events\PaymentSuccessEvent;
+use Cashbox\Core\Events\PaymentWaitRefundEvent;
 use Illuminate\Database\Eloquent\Model;
 
 trait Notifiable
@@ -33,11 +33,11 @@ trait Notifiable
     protected static function event(Model $payment, StatusEnum $status): void
     {
         match ($status) {
-            StatusEnum::new        => event(new CreatedEvent($payment)),
-            StatusEnum::refund     => event(new RefundedEvent($payment)),
-            StatusEnum::waitRefund => event(new WaitRefundEvent($payment)),
-            StatusEnum::success    => event(new SuccessEvent($payment)),
-            StatusEnum::failed     => event(new FailedEvent($payment)),
+            StatusEnum::new        => event(new PaymentCreatedEvent($payment)),
+            StatusEnum::refund     => event(new PaymentRefundedEvent($payment)),
+            StatusEnum::waitRefund => event(new PaymentWaitRefundEvent($payment)),
+            StatusEnum::success    => event(new PaymentSuccessEvent($payment)),
+            StatusEnum::failed     => event(new PaymentFailedEvent($payment)),
         };
     }
 

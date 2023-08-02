@@ -17,4 +17,4 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Events;
 
-class FailedEvent extends BaseEvent {}
+class PaymentWaitRefundEvent extends BaseEvent { }
