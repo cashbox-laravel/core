@@ -46,7 +46,8 @@ abstract class Request
     abstract public function body(): array;
 
     public function __construct(
-        public readonly Resource $resource
+        public readonly Resource $resource,
+        public readonly ?string $externalId = null
     ) {}
 
     public function url(): ?string

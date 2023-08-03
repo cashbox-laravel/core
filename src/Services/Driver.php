@@ -50,9 +50,9 @@ abstract class Driver
         return $this->resolve($this->statuses, $this->payment);
     }
 
-    protected function request(string $request, ?string $response = null): Response
+    protected function request(string $request, ?string $response = null, ?string $externalId = null): Response
     {
-        $data = $this->call($request, 'make', $this->resource());
+        $data = $this->call($request, 'make', $this->resource(), $externalId);
 
         $content = $this->http->send($data, $this->resolveException());
 
