@@ -25,7 +25,8 @@ abstract class Sign
     public function __construct(
         protected readonly Request $request,
         protected readonly DriverData $config,
-        protected readonly bool $secure = true
+        protected readonly bool $secure = true,
+        protected readonly array $extra = []
     ) {}
 
     public function headers(): array
