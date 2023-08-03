@@ -10,13 +10,17 @@ abstract class Sign
 {
     public function __construct(
         protected readonly Request $request,
-        protected readonly bool $hash = true,
-        protected readonly array $extra = []
+        protected readonly bool $secure = true
     ) {}
 
     public function headers(): array
     {
         return $this->request->headers();
+    }
+
+    public function options(): array
+    {
+        return $this->request->options();
     }
 
     public function body(): array

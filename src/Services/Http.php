@@ -38,11 +38,11 @@ class Http
         }
 
         $response = $this->request(
-            $request->method(),
-            $request->url(),
-            $request->headers(),
-            $request->options(),
-            $request->body()
+            method : $request->method(),
+            url    : $request->url(),
+            headers: $request->sign()?->headers() ?? $request->headers(),
+            options: $request->sign()?->options() ?? $request->options(),
+            data   : $request->sign()?->body() ?? $request->body()
         );
 
         static::log($request, $response);

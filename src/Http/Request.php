@@ -20,6 +20,7 @@ namespace Cashbox\Core\Http;
 use Cashbox\Core\Concerns\Config\Application;
 use Cashbox\Core\Enums\HttpMethodEnum;
 use Cashbox\Core\Resources\Resource;
+use Cashbox\Core\Services\Sign;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Http\Url;
 
@@ -38,7 +39,9 @@ abstract class Request
 
     protected ?string $devUri = null;
 
-    protected bool $hash = true;
+    protected bool $secure = true;
+
+    protected Sign|string|null $auth = null;
 
     abstract public function body(): array;
 
@@ -67,5 +70,14 @@ abstract class Request
     public function method(): HttpMethodEnum
     {
         return $this->method;
+    }
+
+    public function sign(): ?Sign
+    {
+        if (! is_string($this->auth)) {
+            return $this->auth;
+        }
+
+        return $this->auth = new $this->auth($this, $this->secure);
     }
 }

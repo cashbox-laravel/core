@@ -6,9 +6,9 @@ namespace Cashbox\Core\Exceptions\External;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class RefundDeclinedException extends BaseException
+class PaymentDeclinedException extends BaseException
 {
     protected int $statusCode = 403;
 
-    protected string $reason = 'Refund declined';
+    protected string $reason = 'Payment declined';
 }
