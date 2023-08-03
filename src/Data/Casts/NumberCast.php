@@ -10,7 +10,7 @@
  * @copyright 2023 Andrey Helldar
  * @license MIT
  *
- * @see https://github.com/cashbox-laravel/foundation
+ * @see https://cashbox.city
  */
 
 namespace Cashbox\Core\Data\Casts;

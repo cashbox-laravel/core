@@ -9,7 +9,7 @@
   ~ @copyright 2023 Andrey Helldar
   ~ @license MIT
   ~
-  ~ @see https://github.com/cashbox-laravel/foundation
+  ~ @see https://cashbox.city
   -->
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
