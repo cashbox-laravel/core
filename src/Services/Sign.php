@@ -17,12 +17,14 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Services;
 
+use Cashbox\Core\Data\Config\DriverData;
 use Cashbox\Core\Http\Request;
 
 abstract class Sign
 {
     public function __construct(
         protected readonly Request $request,
+        protected readonly DriverData $config,
         protected readonly bool $secure = true
     ) {}
 

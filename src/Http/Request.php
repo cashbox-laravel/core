@@ -78,6 +78,6 @@ abstract class Request
             return $this->auth;
         }
 
-        return $this->auth = new $this->auth($this, $this->secure);
+        return $this->auth = new $this->auth($this, $this->resource->config, $this->secure);
     }
 }
