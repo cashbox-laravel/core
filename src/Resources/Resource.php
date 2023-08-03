@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace Cashbox\Core\Resources;
 
 use Cashbox\Core\Data\Config\DriverData;
-use Cashbox\Core\Enums\CurrencyEnum;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class Resource
 {
-    abstract public function currency(): CurrencyEnum;
+    abstract public function currency(): int;
 
     abstract public function sum(): int;
 
