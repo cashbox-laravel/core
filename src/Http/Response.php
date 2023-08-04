@@ -24,9 +24,20 @@ use Spatie\LaravelData\Support\Wrapping\WrapExecutionType;
 
 abstract class Response extends Data
 {
-    abstract public function getInfo(): InfoData;
+    public function getInfo(): InfoData
+    {
+        return InfoData::from([
+            'externalId'  => $this->getExternalId(),
+            'operationId' => $this->getOperationId(),
+            'status'      => $this->getStatus(),
+            'extra'       => $this->getExtra(),
+        ]);
+    }
 
-    abstract public function getOperationId(): ?string;
+    public function getOperationId(): ?string
+    {
+        return null;
+    }
 
     public function getExternalId(): ?string
     {

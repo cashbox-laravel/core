@@ -20,7 +20,7 @@ namespace Cashbox\Core\Services;
 use Cashbox\Core\Data\Config\DriverData;
 use Cashbox\Core\Http\Request;
 
-abstract class Sign
+abstract class Auth
 {
     public function __construct(
         protected readonly Request $request,
