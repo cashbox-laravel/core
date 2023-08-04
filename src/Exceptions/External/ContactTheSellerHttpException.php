@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class BuyerNotFoundClientException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class ContactTheSellerHttpException extends BaseException
+{
+    protected int $statusCode = 428;
+
+    protected string $reason = 'Contact The Seller';
+}

@@ -21,7 +21,7 @@ use Cashbox\Core\Billable;
 use Cashbox\Core\Concerns\Config\Queue;
 use Cashbox\Core\Data\Models\InfoData;
 use Cashbox\Core\Enums\RateLimiterEnum;
-use Cashbox\Core\Exceptions\External\EmptyResponseException;
+use Cashbox\Core\Exceptions\External\EmptyResponseHttpException;
 use Cashbox\Core\Http\Response;
 use Cashbox\Core\Services\Driver;
 use Cashbox\Core\Support\Arr;
@@ -64,7 +64,7 @@ abstract class BaseJob implements ShouldBeUnique, ShouldQueue
         $response = $this->request();
 
         if ($response->isEmpty()) {
-            $this->fail(new EmptyResponseException());
+            $this->fail(new EmptyResponseHttpException());
 
             return;
         }

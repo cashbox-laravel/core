@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class TryAgainLaterClientException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class BuyerNotFoundHttpException extends BaseException
+{
+    protected int $statusCode = 404;
+
+    protected string $reason = 'Buyer Not Found';
+}

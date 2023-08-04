@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class InvalidCardException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class InsufficientFundsCardHttpException extends BaseException
+{
+    protected int $statusCode = 402;
+
+    protected string $reason = 'Insufficient Funds Card';
+}

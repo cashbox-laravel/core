@@ -19,9 +19,9 @@ namespace Cashbox\Core\Exceptions\External;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class BadRequestClientException extends BaseException
+class TransactionNotFoundHttpException extends BaseException
 {
-    protected int $statusCode = 400;
+    protected int $statusCode = 404;
 
-    protected string $reason = 'Bad Request';
+    protected string $reason = 'Transaction Not Found';
 }

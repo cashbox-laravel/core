@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class PaymentTypeNotAvailableException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class IncorrectSumHttpException extends BaseException
+{
+    protected int $statusCode = 406;
+
+    protected string $reason = 'Incorrect Sum';
+}

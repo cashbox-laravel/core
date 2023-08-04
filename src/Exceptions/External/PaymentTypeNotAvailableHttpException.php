@@ -19,9 +19,9 @@ namespace Cashbox\Core\Exceptions\External;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class EmptyResponseException extends BaseException
+class PaymentTypeNotAvailableHttpException extends BaseException
 {
-    protected int $statusCode = 400;
+    protected int $statusCode = 404;
 
-    protected string $reason = 'Bank API returned an empty response body.';
+    protected string $reason = 'Payment Type Not Available';
 }

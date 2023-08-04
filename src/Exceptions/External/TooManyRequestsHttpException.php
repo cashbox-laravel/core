@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class BankInternalErrorException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class TooManyRequestsHttpException extends BaseException
+{
+    protected int $statusCode = 429;
+
+    protected string $reason = 'Too Many Requests';
+}

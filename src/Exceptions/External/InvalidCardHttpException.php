@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class PaymentCompletedException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class InvalidCardHttpException extends BaseException
+{
+    protected int $statusCode = 406;
+
+    protected string $reason = 'Invalid Card';
+}

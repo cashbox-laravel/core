@@ -19,9 +19,9 @@ namespace Cashbox\Core\Exceptions\External;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class PaymentDeclinedException extends BaseException
+class MethodNotFoundHttpException extends BaseException
 {
-    protected int $statusCode = 403;
+    protected int $statusCode = 405;
 
-    protected string $reason = 'Payment declined';
+    protected string $reason = 'Method Not Found';
 }

@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class InsufficientFundsCardException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class BadRequestHttpException extends BaseException
+{
+    protected int $statusCode = 400;
+
+    protected string $reason = 'Bad Request';
+}

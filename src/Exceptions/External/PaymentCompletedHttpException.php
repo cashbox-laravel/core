@@ -17,4 +17,11 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions\External;
 
-class IncorrectSumException {}
+use Cashbox\Core\Exceptions\BaseException;
+
+class PaymentCompletedHttpException extends BaseException
+{
+    protected int $statusCode = 409;
+
+    protected string $reason = 'Payment Completed';
+}

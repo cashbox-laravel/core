@@ -19,9 +19,9 @@ namespace Cashbox\Core\Exceptions\External;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class TransactionNotFoundException extends BaseException
+class EmptyResponseHttpException extends BaseException
 {
-    protected int $statusCode = 404;
+    protected int $statusCode = 411;
 
-    protected string $reason = 'Not Found';
+    protected string $reason = 'Bank API returned an empty response body.';
 }

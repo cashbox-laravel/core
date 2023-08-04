@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Services;
 
-use Cashbox\Core\Exceptions\External\BadRequestClientException;
+use Cashbox\Core\Exceptions\External\BadRequestHttpException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 
@@ -40,7 +40,7 @@ abstract class Exception
 
     protected array $reasonKeys = ['Message', 'Data'];
 
-    protected string $default = BadRequestClientException::class;
+    protected string $default = BadRequestHttpException::class;
 
     public function throwIf(Response $response): void
     {
