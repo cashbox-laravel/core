@@ -42,8 +42,7 @@ abstract class Driver
     public function __construct(
         protected Model $payment,
         public readonly DriverData $config,
-        protected readonly Http $http = new Http(
-        )
+        protected readonly Http $http = new Http()
     ) {}
 
     public function statuses(): Statuses
@@ -51,11 +50,15 @@ abstract class Driver
         return $this->resolve($this->statuses, $this->payment);
     }
 
-    protected function request(string $request, ?string $response = null, ?string $externalId = null): Response
+    protected function request(string $request, ?string $response = null, ?Response $prev = null): Response
     {
-        $data = $this->call($request, 'make', $this->resource(), $externalId);
+        $data = $this->call($request, 'make', $this->resource(), $prev);
 
         $content = $this->http->send($data, $this->resolveException());
+
+        if ($prev !== null) {
+            $content = array_merge($prev->toArray(), $content);
+        }
 
         return $this->call($response ?? $this->response, 'from', $content);
     }
