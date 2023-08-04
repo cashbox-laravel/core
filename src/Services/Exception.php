@@ -18,16 +18,36 @@ declare(strict_types=1);
 namespace Cashbox\Core\Services;
 
 use Cashbox\Core\Exceptions\External\BadRequestClientException;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Arr;
 
 abstract class Exception
 {
     protected array $codes = [];
+
+    /**
+     * Can be:
+     *   ['Success'] // also as ['Success' => false]
+     *   ['Success' => false]
+     *   ['Success' => 0]
+     *   ['Status' => 'error']
+     *
+     * @var array
+     */
+    protected array $failedKey = [];
 
     protected array $codeKeys = ['StatusCode', 'Code'];
 
     protected array $reasonKeys = ['Message', 'Data'];
 
     protected string $default = BadRequestClientException::class;
+
+    public function throwIf(Response $response): void
+    {
+        if ($response->failed() || $this->hasFailed($response->json())) {
+            $this->throw((string) $response->effectiveUri(), $response->status(), $response->json());
+        }
+    }
 
     public function throw(string $uri, int $statusCode, array $content): void
     {
@@ -36,6 +56,20 @@ abstract class Exception
         $reason    = $this->getReason($content);
 
         throw new $exception($uri, $reason);
+    }
+
+    protected function hasFailed(array $data): bool
+    {
+        foreach ($this->failedKey as $k => $v) {
+            $key   = is_numeric($k) ? $v : $k;
+            $value = is_numeric($k) ? false : $v;
+
+            if (Arr::get($data, $key) == $value) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function getCode(int $statusCode, array $content): int

@@ -42,12 +42,12 @@ class Http
             url    : $request->url(),
             headers: $request->sign()?->headers() ?? $request->headers(),
             options: $request->sign()?->options() ?? $request->options(),
-            data   : $request->sign()?->body()    ?? $request->body()
+            data   : $request->sign()?->body() ?? $request->body()
         );
 
         static::log($request, $response);
 
-        $this->throwIf($response, $exception);
+        $exception->throwIf($response);
 
         return $response->json();
     }
@@ -65,18 +65,5 @@ class Http
             ->acceptJson()
             ->asJson()
             ->send($method->value, $url, $data);
-    }
-
-    protected function throwIf(Response $response, Exception $exception): void
-    {
-        if ($response->successful()) {
-            return;
-        }
-
-        $exception->throw(
-            (string) $response->effectiveUri(),
-            $response->status(),
-            $response->json()
-        );
     }
 }
