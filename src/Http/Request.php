@@ -39,8 +39,6 @@ abstract class Request
 
     protected ?string $devUri = null;
 
-    protected bool $secure = true;
-
     protected Auth|string|null $auth = null;
 
     abstract public function body(): array;
@@ -79,7 +77,7 @@ abstract class Request
             return $this->auth;
         }
 
-        return $this->auth = new $this->auth($this, $this->resource->config, $this->secure, $this->authExtra());
+        return $this->auth = new $this->auth($this, $this->resource->config, $this->authExtra());
     }
 
     protected function authExtra(): array
