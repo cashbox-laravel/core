@@ -54,7 +54,7 @@ abstract class Driver
     {
         $data = $this->call($request, 'make', $this->resource(), $prev);
 
-        $content = $this->http->send($data, $this->resolveException());
+        $content = $this->http->send($data, $this->exception());
 
         if ($prev !== null) {
             $content = array_merge($prev->toArray(), $content);
@@ -70,7 +70,7 @@ abstract class Driver
         return new $resource($this->payment, $this->config);
     }
 
-    protected function resolveException(): Exception
+    protected function exception(): Exception
     {
         return resolve($this->exception);
     }
