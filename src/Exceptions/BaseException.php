@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Exceptions;
 
+use BackedEnum;
 use Exception;
 
 class BaseException extends Exception
@@ -25,12 +26,12 @@ class BaseException extends Exception
 
     protected string $reason;
 
-    public function __construct(object|string|null $haystack = null, ?string $needle = null)
+    public function __construct(object|string|null $haystack = null, int|string|null $needle = null)
     {
         parent::__construct($this->reason($haystack, $needle), $this->statusCode);
     }
 
-    protected function reason(object|string|null $haystack, ?string $needle): string
+    protected function reason(object|string|null $haystack, int|string|null $needle): string
     {
         if ($haystack = $this->haystack($haystack)) {
             return sprintf($this->reason, $haystack, $needle);
@@ -41,6 +42,10 @@ class BaseException extends Exception
 
     protected function haystack(object|string|null $haystack): ?string
     {
+        if ($haystack instanceof BackedEnum) {
+            return $haystack->value ?? $haystack->name;
+        }
+
         return is_object($haystack) ? get_class($haystack) : $haystack;
     }
 }

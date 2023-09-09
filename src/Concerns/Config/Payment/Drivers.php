@@ -46,6 +46,6 @@ trait Drivers
             return static::driver($name, $payment);
         }
 
-        throw new UnknownDriverConfigException($name, $payment->getKey());
+        throw new UnknownDriverConfigException($type, $payment->getKey());
     }
 }
