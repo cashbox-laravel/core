@@ -18,23 +18,8 @@ declare(strict_types=1);
 namespace Cashbox\Core\Facades;
 
 use Cashbox\Core\Data\Config\ConfigData;
-use Cashbox\Core\Data\Config\DetailsData;
-use Cashbox\Core\Data\Config\DriverData;
-use Cashbox\Core\Data\Config\LogsData;
-use Cashbox\Core\Data\Config\Payment\PaymentData;
-use Cashbox\Core\Data\Config\Queue\QueueData;
-use Cashbox\Core\Data\Config\RefundData;
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @method static bool isProduction()
- * @method static DetailsData details()
- * @method static DriverData driver(int|string $name)
- * @method static LogsData logs()
- * @method static PaymentData payment()
- * @method static QueueData queue()
- * @method static RefundData refund()
- */
 class Config extends Facade
 {
     protected static function getFacadeAccessor(): string
