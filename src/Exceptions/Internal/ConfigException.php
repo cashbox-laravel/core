@@ -19,7 +19,7 @@ namespace Cashbox\Core\Exceptions\Internal;
 
 use Cashbox\Core\Exceptions\BaseException;
 
-class UnknownDriverConfigException extends BaseException
+class ConfigException extends BaseException
 {
     protected string $reason = 'Driver configuration "%s" for payment ID %s not found.';
 }

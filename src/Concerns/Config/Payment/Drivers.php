@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace Cashbox\Core\Concerns\Config\Payment;
 
 use Cashbox\Core\Data\Config\DriverData;
-use Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException;
+use Cashbox\Core\Exceptions\Internal\ConfigException;
 use Cashbox\Core\Facades\Config;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,13 +30,13 @@ trait Drivers
             return $driver;
         }
 
-        throw new UnknownDriverConfigException($name, $payment->getKey());
+        throw new ConfigException($name, $payment->getKey());
     }
 
     /**
      * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
      *
-     * @throws \Cashbox\Core\Exceptions\Internal\UnknownDriverConfigException
+     * @throws \Cashbox\Core\Exceptions\Internal\ConfigException
      */
     protected static function driverByModel(Model $payment): DriverData
     {
@@ -46,6 +46,6 @@ trait Drivers
             return static::driver($name, $payment);
         }
 
-        throw new UnknownDriverConfigException($type, $payment->getKey());
+        throw new ConfigException($type, $payment->getKey());
     }
 }
