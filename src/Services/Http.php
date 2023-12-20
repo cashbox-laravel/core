@@ -42,7 +42,7 @@ class Http
             url    : $request->url(),
             headers: $request->sign()?->headers() ?? $request->headers(),
             options: $request->sign()?->options() ?? $request->options(),
-            data   : $request->sign()?->body() ?? $request->body()
+            data   : $request->sign()?->body()    ?? $request->body()
         );
 
         static::log($request, $response);

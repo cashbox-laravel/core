@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace Cashbox\Core\Data\Config\Payment;
 
+use BackedEnum;
 use Cashbox\Core\Enums\StatusEnum;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
@@ -25,35 +26,35 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 #[MapName(SnakeCaseMapper::class)]
 class StatusData extends Data
 {
-    public mixed $new;
+    public BackedEnum|int|string $new;
 
-    public mixed $success;
+    public BackedEnum|int|string $success;
 
-    public mixed $refund;
+    public BackedEnum|int|string $refund;
 
-    public mixed $waitRefund;
+    public BackedEnum|int|string $waitRefund;
 
-    public mixed $failed;
+    public BackedEnum|int|string $failed;
 
-    public function fromEnum(StatusEnum $status): mixed
+    public function fromEnum(StatusEnum $status): BackedEnum|int|string
     {
         return match ($status) {
-            StatusEnum::new        => $this->new,
-            StatusEnum::success    => $this->success,
-            StatusEnum::refund     => $this->refund,
-            StatusEnum::waitRefund => $this->waitRefund,
-            StatusEnum::failed     => $this->failed,
+            StatusEnum::New        => $this->new,
+            StatusEnum::Success    => $this->success,
+            StatusEnum::Refund     => $this->refund,
+            StatusEnum::WaitRefund => $this->waitRefund,
+            StatusEnum::Failed     => $this->failed,
         };
     }
 
     public function toEnum(mixed $status): ?StatusEnum
     {
         return match ($status) {
-            $this->new        => StatusEnum::new,
-            $this->success    => StatusEnum::success,
-            $this->refund     => StatusEnum::refund,
-            $this->waitRefund => StatusEnum::waitRefund,
-            $this->failed     => StatusEnum::failed,
+            $this->new        => StatusEnum::New,
+            $this->success    => StatusEnum::Success,
+            $this->refund     => StatusEnum::Refund,
+            $this->waitRefund => StatusEnum::WaitRefund,
+            $this->failed     => StatusEnum::Failed,
             default           => null
         };
     }

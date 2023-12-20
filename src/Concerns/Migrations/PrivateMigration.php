@@ -32,7 +32,9 @@ abstract class PrivateMigration extends Migration
 
     protected function connection(): Builder
     {
-        return Schema::connection(static::detailsConfig()->connection);
+        return Schema::connection(
+            static::detailsConfig()->connection
+        );
     }
 
     protected function table(): string

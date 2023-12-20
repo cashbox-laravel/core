@@ -34,8 +34,8 @@ class BindingServiceProvider extends BaseProvider
     protected function bindConfig(): void
     {
         $this->app->singleton(ConfigData::class, function () {
-            if ($config = config('cashbox')) {
-                return ConfigData::from($config);
+            if (! file_exists(config_path('cashbox.php'))) {
+                return ConfigData::from(config('cashbox'));
             }
 
             throw new ConfigCannotBeEmptyException();

@@ -42,11 +42,11 @@ class ServiceProvider extends BaseProvider
 
         $this->publishes([
             __DIR__ . '/../../config/cashbox.php' => $this->app->configPath('cashbox.php'),
-        ], 'config');
+        ], ['config', 'cashbox']);
 
         $this->publishes([
             __DIR__ . '/../../database/migrations/public' => $this->app->databasePath('migrations'),
-        ], 'migrations');
+        ], ['migrations', 'cashbox']);
     }
 
     protected function bootMigrations(): void

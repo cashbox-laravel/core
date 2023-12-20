@@ -31,8 +31,6 @@ abstract class Exception
      *   ['Success' => false]
      *   ['Success' => 0]
      *   ['Status' => 'error']
-     *
-     * @var array
      */
     protected array $failedKey = [];
 
@@ -64,7 +62,7 @@ abstract class Exception
             $key   = is_numeric($k) ? $v : $k;
             $value = is_numeric($k) ? false : $v;
 
-            if (Arr::get($data, $key) == $value) {
+            if ($value == Arr::get($data, $key)) {
                 return true;
             }
         }

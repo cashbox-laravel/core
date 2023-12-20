@@ -20,15 +20,15 @@ namespace Cashbox\Core\Enums;
 use ArchTech\Enums\InvokableCases;
 
 /**
- * @method static string createdAt()
- * @method static string status()
- * @method static string type()
+ * @method static string CreatedAt()
+ * @method static string Status()
+ * @method static string Type()
  */
 enum AttributeEnum: string
 {
     use InvokableCases;
 
-    case createdAt = 'created_at';
-    case status    = 'status';
-    case type      = 'type';
+    case CreatedAt = 'created_at';
+    case Status    = 'status';
+    case Type      = 'type';
 }

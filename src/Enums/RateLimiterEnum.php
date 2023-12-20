@@ -20,13 +20,13 @@ namespace Cashbox\Core\Enums;
 use ArchTech\Enums\InvokableCases;
 
 /**
- * @method static string disabled()
- * @method static string enabled()
+ * @method static string Disabled()
+ * @method static string Enabled()
  */
 enum RateLimiterEnum: string
 {
     use InvokableCases;
 
-    case disabled = 'cashbox_disabled';
-    case enabled  = 'cashbox_enabled';
+    case Disabled = 'cashbox_disabled';
+    case Enabled  = 'cashbox_enabled';
 }

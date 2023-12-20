@@ -19,6 +19,6 @@ namespace Cashbox\Core\Enums;
 
 enum HttpMethodEnum: string
 {
-    case post = 'POST';
-    case get  = 'GET';
+    case Post = 'POST';
+    case Get  = 'GET';
 }

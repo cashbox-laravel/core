@@ -42,11 +42,7 @@ trait Billable
 
     public function cashboxDriver(): Driver
     {
-        if ($this->cashboxDriver) {
-            return $this->cashboxDriver;
-        }
-
-        return $this->cashboxDriver = DriverManager::find($this);
+        return $this->cashboxDriver ??= DriverManager::find($this);
     }
 
     public function cashboxJob(bool $force = false): Services\Job

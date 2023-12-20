@@ -18,9 +18,12 @@ declare(strict_types=1);
 namespace Cashbox\Core\Events;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Events\Dispatchable;
 
 abstract class BaseEvent
 {
+    use Dispatchable;
+
     public function __construct(
         public Model $payment
     ) {}

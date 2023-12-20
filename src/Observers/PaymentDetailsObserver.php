@@ -47,14 +47,12 @@ class PaymentDetailsObserver
         $this->updateStatus($model->parent, $model->status);
     }
 
-    /**
-     * @param  \Illuminate\Database\Eloquent\Model|\Cashbox\Core\Billable  $payment
-     */
     protected function updateStatus(Model $payment, StatusEnum $status): void
     {
         $value = static::paymentConfig()->status->fromEnum($status);
         $field = static::attributeConfig()->status;
 
-        $payment->update([$field => $value]);
+        $payment->setAttribute($field, $value);
+        $payment->save();
     }
 }

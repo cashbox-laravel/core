@@ -33,11 +33,11 @@ trait Notifiable
     protected static function event(Model $payment, StatusEnum $status): void
     {
         match ($status) {
-            StatusEnum::new        => event(new PaymentCreatedEvent($payment)),
-            StatusEnum::refund     => event(new PaymentRefundedEvent($payment)),
-            StatusEnum::waitRefund => event(new PaymentWaitRefundEvent($payment)),
-            StatusEnum::success    => event(new PaymentSuccessEvent($payment)),
-            StatusEnum::failed     => event(new PaymentFailedEvent($payment)),
+            StatusEnum::New        => PaymentCreatedEvent::dispatch($payment),
+            StatusEnum::Refund     => PaymentRefundedEvent::dispatch($payment),
+            StatusEnum::WaitRefund => PaymentWaitRefundEvent::dispatch($payment),
+            StatusEnum::Success    => PaymentSuccessEvent::dispatch($payment),
+            StatusEnum::Failed     => PaymentFailedEvent::dispatch($payment),
         };
     }
 

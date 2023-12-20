@@ -29,6 +29,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimitedWithRedis;
 use Illuminate\Queue\SerializesModels;
@@ -40,6 +41,7 @@ use Throwable;
  */
 abstract class BaseJob implements ShouldBeUnique, ShouldQueue
 {
+    use Dispatchable;
     use InteractsWithQueue;
     use Queue;
     use Queueable;

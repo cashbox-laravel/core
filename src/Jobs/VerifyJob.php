@@ -34,7 +34,7 @@ class VerifyJob extends BaseJob
     protected function start(): void
     {
         if ($this->authorizeToStart()) {
-            dispatch_sync(new StartJob($this->payment, true));
+            StartJob::dispatchSync($this->payment, true);
         }
     }
 }

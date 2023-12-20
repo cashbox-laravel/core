@@ -32,7 +32,9 @@ abstract class PublicMigration extends Migration
 
     protected function connection(): Builder
     {
-        return Schema::connection($this->modelConnection());
+        return Schema::connection(
+            $this->modelConnection()
+        );
     }
 
     protected function modelConnection(): ?string

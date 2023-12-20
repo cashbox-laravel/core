@@ -22,11 +22,11 @@ use ArchTech\Enums\Values;
 use Cashbox\Core\Concerns\Enums\From;
 
 /**
- * @method string failed()
- * @method string new()
- * @method string refund()
- * @method string success()
- * @method string waitRefund()
+ * @method string Failed()
+ * @method string New()
+ * @method string Refund()
+ * @method string Success()
+ * @method string WaitRefund()
  */
 enum StatusEnum: string
 {
@@ -34,9 +34,9 @@ enum StatusEnum: string
     use InvokableCases;
     use Values;
 
-    case failed     = 'failed';
-    case new        = 'new';
-    case refund     = 'refund';
-    case success    = 'success';
-    case waitRefund = 'wait_refund';
+    case Failed     = 'failed';
+    case New        = 'new';
+    case Refund     = 'refund';
+    case Success    = 'success';
+    case WaitRefund = 'wait_refund';
 }

@@ -94,11 +94,11 @@ abstract class Statuses
     public function detect(string $status): ?StatusEnum
     {
         return match (true) {
-            $this->contains($status, static::NEW)       => StatusEnum::new,
-            $this->contains($status, static::SUCCESS)   => StatusEnum::success,
-            $this->contains($status, static::REFUNDING) => StatusEnum::waitRefund,
-            $this->contains($status, static::REFUNDED)  => StatusEnum::refund,
-            $this->contains($status, static::FAILED)    => StatusEnum::failed,
+            $this->contains($status, static::NEW)       => StatusEnum::New,
+            $this->contains($status, static::SUCCESS)   => StatusEnum::Success,
+            $this->contains($status, static::REFUNDING) => StatusEnum::WaitRefund,
+            $this->contains($status, static::REFUNDED)  => StatusEnum::Refund,
+            $this->contains($status, static::FAILED)    => StatusEnum::Failed,
             default                                     => null
         };
     }

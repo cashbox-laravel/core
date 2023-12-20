@@ -29,7 +29,7 @@ abstract class Request
     use Application;
     use Makeable;
 
-    protected HttpMethodEnum $method = HttpMethodEnum::post;
+    protected HttpMethodEnum $method = HttpMethodEnum::Post;
 
     protected string $productionHost;
 

@@ -96,7 +96,7 @@ abstract class Command extends BaseCommand
 
     protected function action(): string
     {
-        return Str::of(static::class)->classBasename()->append('ing')->toString();
+        return Str::of(static::class)->classBasename()->singular()->append('ing')->toString();
     }
 
     protected function hasForce(): bool
